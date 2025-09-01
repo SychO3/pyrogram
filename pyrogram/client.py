@@ -625,12 +625,12 @@ class Client(Methods):
         return signed_up
 
     async def authorize_qr(self, except_ids: List[int] = []) -> "User":
-        from qrcode import QRCode
+        import qrcode
 
         qr_login = QRLogin(self, except_ids)
         await qr_login.recreate()
 
-        qr = QRCode(version=1)
+        qr = qrcode.QRCode(version=1)
 
         while True:
             try:
