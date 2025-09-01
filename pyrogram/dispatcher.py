@@ -29,7 +29,7 @@ from pyrogram.handlers import (
     ChosenInlineResultHandler, ChatMemberUpdatedHandler, ChatJoinRequestHandler, StoryHandler,
     ShippingQueryHandler, MessageReactionHandler, MessageReactionCountHandler, ChatBoostHandler,
     PurchasedPaidMediaHandler, BusinessConnectionHandler, BusinessMessageHandler,
-    EditedBusinessMessageHandler, DeletedBusinessMessagesHandler
+    EditedBusinessMessageHandler, DeletedBusinessMessagesHandler,ConversationHandler
 )
 from pyrogram.raw.types import (
     UpdateNewMessage, UpdateNewChannelMessage, UpdateNewScheduledMessage,
@@ -78,6 +78,9 @@ class Dispatcher:
 
         self.updates_queue = asyncio.Queue()
         self.groups = OrderedDict()
+
+        self.conversation_handler = ConversationHandler()
+        self.groups[0] = [self.conversation_handler]
 
         async def message_parser(update, users, chats):
             connection_id = getattr(update, "connection_id", None)
@@ -275,6 +278,35 @@ class Dispatcher:
                 await self.client.recover_gaps()
 
     async def stop(self, clear_handlers: bool = True):
+        # Immediately cancel all waiters and listeners to unblock pending waits
+        try:
+            # Cancel conversation waiters
+            waiters = getattr(self.conversation_handler, "waiters", {}) or {}
+            for chat_id, waiter in list(waiters.items()):
+                future = waiter.get("future")
+                if future and not future.done():
+                    try:
+                        future.cancel()
+                    except Exception:
+                        pass
+            waiters.clear()
+
+            # Cancel listeners
+            listeners_map = getattr(self.client, "listeners", {}) or {}
+            for _lt, lst in list(listeners_map.items()):
+                for listener in list(lst):
+                    try:
+                        self.client.remove_listener(listener)
+                        if getattr(listener, "future", None) and not listener.future.done():
+                            try:
+                                listener.future.set_exception(asyncio.CancelledError())
+                            except Exception:
+                                pass
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
         if callable(self.client.stop_handler):
             try:
                 await self.client.stop_handler(self.client)
@@ -378,6 +410,9 @@ class Dispatcher:
                                         self.client,
                                         *args
                                     )
+                            except asyncio.CancelledError:
+                                # Swallow task cancellations during shutdown/interrupt
+                                pass
                             except pyrogram.StopPropagation:
                                 raise
                             except pyrogram.ContinuePropagation:

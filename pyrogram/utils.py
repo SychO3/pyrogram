@@ -27,6 +27,7 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from getpass import getpass
 from io import BytesIO
+from types import SimpleNamespace
 from typing import Dict, List, Optional, Union
 
 import pyrogram
@@ -667,3 +668,11 @@ def jsonvalue_to_obj(obj: "raw.base.JsonValue"):
         return {o.key: jsonvalue_to_obj(o.value) for o in obj.value}
 
     raise TypeError(f"Unsupported type: {type(obj)}")
+
+PyromodConfig = SimpleNamespace(
+    timeout_handler=None,
+    stopped_handler=None,
+    throw_exceptions=True,
+    unallowed_click_alert=True,
+    unallowed_click_alert_text="You're not expected to click this button.",
+)

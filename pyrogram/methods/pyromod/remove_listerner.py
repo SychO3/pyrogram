@@ -16,44 +16,23 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .account import Account
-from .advanced import Advanced
-from .auth import Auth
-from .business import Business
-from .bots import Bots
-from .chats import Chats
-from .contacts import Contacts
-from .decorators import Decorators
-from .invite_links import InviteLinks
-from .messages import Messages
-from .password import Password
-from .payments import Payments
-from .phone import Phone
-from .premium import Premium
-from .users import Users
-from .stories import Stories
-from .utilities import Utilities
-from .pyromod import Pyromod
+import pyrogram
+from pyrogram.types import Listener
 
+class RemoveListener:
+    def remove_listener(
+        self: "pyrogram.Client",
+        listener: Listener
+    ):
+        """Removes a listener from the :meth:`~pyrogram.Client.listeners` dictionary.
 
-class Methods(
-    Account,
-    Advanced,
-    Auth,
-    Business,
-    Bots,
-    Contacts,
-    Password,
-    Payments,
-    Phone,
-    Premium,
-    Chats,
-    Users,
-    Stories,
-    Messages,
-    Decorators,
-    Utilities,
-    InviteLinks,
-    Pyromod
-):
-    pass
+        .. include:: /_includes/usable-by/users-bots.rst
+
+        Parameters:
+            listener (:obj:`~pyrogram.types.Listener`):
+                The listener to remove.
+        """
+        try:
+            self.listeners[listener.listener_type].remove(listener)
+        except ValueError:
+            pass

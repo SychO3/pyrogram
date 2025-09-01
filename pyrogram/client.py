@@ -424,6 +424,8 @@ class Client(Methods):
 
         self.__config: "raw.types.Config" = None
 
+        self.listeners = {listener_type: [] for listener_type in pyrogram.enums.ListenerTypes}
+
     def __enter__(self):
         return self.start()
 
