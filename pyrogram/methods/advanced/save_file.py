@@ -190,7 +190,7 @@ class SaveFile:
                     await queue.put(rpc)
 
                     if is_missing_part:
-                        return
+                        return None
 
                     if not is_big and not is_missing_part:
                         md5_sum.update(chunk)
@@ -198,16 +198,19 @@ class SaveFile:
                     file_part += 1
 
                     if progress:
-                        func = functools.partial(
-                            progress,
-                            min(file_part * part_size, file_size),
-                            file_size,
-                            *progress_args
-                        )
-
                         if inspect.iscoroutinefunction(progress):
-                            await func()
+                            await progress(
+                                min(file_part * part_size, file_size),
+                                file_size,
+                                *progress_args
+                            )
                         else:
+                            func = functools.partial(
+                                progress,
+                                min(file_part * part_size, file_size),
+                                file_size,
+                                *progress_args
+                            )
                             await self.loop.run_in_executor(self.executor, func)
             except StopTransmission:
                 raise
