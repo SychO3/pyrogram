@@ -34,7 +34,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
-dependencies = ["pyaes<=1.6.1", "pysocks<=1.7.1"]
+dependencies = ["pyaes", "pysocks"]
 license = "LGPL-3.0-or-later"
 license-files = ["COPYING", "COPYING.lesser"]
 keywords = [
@@ -57,25 +57,25 @@ Community = "https://t.me/kurigram_chat"
 
 [project.optional-dependencies]
 dev = [
-    "keyring<=25.1.0",
-    "hatch<=1.7.0",
-    "pytest<=7.4.3",
-    "pytest-asyncio<=0.21.1",
-    "pytest-cov<=4.1.0",
-    "twine<=4.0.2",
+    "keyring",
+    "hatch",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "twine",
 ]
 
 docs = [
-    "Sphinx<=8.2.3",
-    "furo<=2025.7.19",
-    "sphinx-autobuild<=2024.10.3",
-    "sphinx-copybutton<=0.5.2",
-    "pygments<=2.19.2",
+    "Sphinx",
+    "furo",
+    "sphinx-autobuild",
+    "sphinx-copybutton",
+    "pygments",
 ]
 
 fast = [
-    "tgcrypto<=1.2.5",
-    "uvloop<=0.21.0; sys_platform == 'darwin' or sys_platform == 'linux'",
+    "tgcrypto",
+    "uvloop",
 ]
 
 [tool.hatch.version]
