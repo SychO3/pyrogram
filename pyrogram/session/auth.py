@@ -35,7 +35,7 @@ log = logging.getLogger(__name__)
 
 
 class Auth:
-    MAX_RETRIES = 5
+    MAX_RETRIES = -1
 
     def __init__(
         self,
@@ -87,7 +87,7 @@ class Auth:
         retries_left = self.MAX_RETRIES
 
         # The server may close the connection at any time, causing the auth key creation to fail.
-        # If that happens, just try again up to MAX_RETRIES times.
+        # If that happens, keep trying. If MAX_RETRIES <= 0, retry indefinitely.
         while True:
             self.connection = self.connection_factory(
                 dc_id=self.dc_id,
@@ -288,14 +288,20 @@ class Auth:
 
                 log.info("Done auth key exchange: %s", set_client_dh_params_answer.__class__.__name__)
             except ConnectionError as e:
-                log.info("Unable to connect due to network issues.")
-                raise e
-            except Exception as e:
-                log.info("Retrying due to %s: %s", type(e).__name__, e)
-
+                log.info("Unable to connect due to network issues. Retrying...")
+                # Treat like transient network error: retry according to MAX_RETRIES
                 if retries_left:
                     retries_left -= 1
                 else:
+                    raise e
+                await asyncio.sleep(1)
+                continue
+            except Exception as e:
+                log.info("Retrying due to %s: %s", type(e).__name__, e)
+
+                if retries_left > 0:
+                    retries_left -= 1
+                elif retries_left == 0:
                     raise e
 
                 await asyncio.sleep(1)
