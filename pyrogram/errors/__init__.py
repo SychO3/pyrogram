@@ -18,6 +18,7 @@
 
 from .exceptions import *
 from .rpc_error import UnknownError
+from .pyromod import *
 
 
 class BadMsgNotification(Exception):
