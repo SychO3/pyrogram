@@ -9,7 +9,7 @@ RM := rm -rf
 venv:
 	python3 -m venv $(VENV)
 	$(PYTHON) -m pip install -U pip wheel setuptools
-	$(PYTHON) -m pip install -U -e .[docs]
+	$(PYTHON) -m pip install -U -e ".[dev,docs,fast]"
 	@echo "Created venv with $$($(PYTHON) --version)"
 
 clean-venv:
