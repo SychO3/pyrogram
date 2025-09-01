@@ -34,7 +34,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
-dependencies = ["pyaes", "pysocks"]
+dependencies = ["pyaes", "pysocks", "aiosqlite"]
 license = "LGPL-3.0-or-later"
 license-files = ["COPYING", "COPYING.lesser"]
 keywords = [
