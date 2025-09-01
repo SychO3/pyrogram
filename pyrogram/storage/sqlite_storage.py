@@ -348,9 +348,9 @@ class SQLiteStorage(Storage):
                 return await cursor.fetchall()
         else:
             if isinstance(value, int):
-                return await self.conn.execute("DELETE FROM update_state WHERE id = ?", (value,))
+                await self.conn.execute("DELETE FROM update_state WHERE id = ?", (value,))
             else:
-                return await self.conn.execute(
+                await self.conn.execute(
                     "REPLACE INTO update_state (id, pts, qts, date, seq) VALUES (?, ?, ?, ?, ?)",
                     value,
                 )
