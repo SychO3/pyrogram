@@ -215,7 +215,7 @@ class Session:
         except (AuthKeyDuplicated, Unauthorized) as e:
             await self.stop()
             raise e
-        except (OSError, RPCError) as e:
+        except (OSError, RPCError, ConnectionError) as e:
             log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
             self.client.loop.create_task(self.restart())
             return

@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 
 class Connection:
-    MAX_CONNECTION_ATTEMPTS = 3
+    MAX_CONNECTION_ATTEMPTS = -1
 
     def __init__(
         self,
@@ -78,7 +78,10 @@ class Connection:
                     self.server_address = "149.154.175.117"
 
     async def connect(self) -> None:
-        for i in range(Connection.MAX_CONNECTION_ATTEMPTS):
+        attempts = Connection.MAX_CONNECTION_ATTEMPTS
+        attempt_index = 0
+
+        while True:
             self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers, loop=self.loop)
 
             try:
@@ -94,10 +97,12 @@ class Connection:
                          self.dc_id,
                          " (media)" if self.media else "",
                          "6" if self.ipv6 else "4")
-                break
-        else:
-            log.warning("Connection failed! Trying again...")
-            raise ConnectionError
+                return
+
+            attempt_index += 1
+            if attempts > 0 and attempt_index >= attempts:
+                log.warning("Connection failed! Trying again...")
+                raise ConnectionError
 
     async def close(self) -> None:
         await self.protocol.close()
