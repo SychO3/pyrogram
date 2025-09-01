@@ -20,6 +20,7 @@ import asyncio
 import bisect
 import logging
 import os
+import inspect
 from enum import Enum, auto
 from hashlib import sha1
 from io import BytesIO
@@ -228,7 +229,13 @@ class Session:
 
         if callable(self.client.connect_handler):
             try:
-                await self.client.connect_handler(self.client, self)
+                handler = self.client.connect_handler
+                if inspect.iscoroutinefunction(handler):
+                    await handler(self.client, self)
+                else:
+                    result = handler(self.client, self)
+                    if inspect.isawaitable(result):
+                        await result
             except Exception as e:
                 log.exception(e)
 
@@ -264,7 +271,13 @@ class Session:
 
         if callable(self.client.disconnect_handler):
             try:
-                await self.client.disconnect_handler(self.client, self)
+                handler = self.client.disconnect_handler
+                if inspect.iscoroutinefunction(handler):
+                    await handler(self.client, self)
+                else:
+                    result = handler(self.client, self)
+                    if inspect.isawaitable(result):
+                        await result
             except Exception as e:
                 log.exception(e)
 
@@ -454,7 +467,7 @@ class Session:
 
                 if self.is_started.is_set():
                     if packet:
-                        error = f"Server sent transport error - {error_code} - ({error_msg})."
+                        error = f"Server sent transport error."
                     else:
                         error = "Server sent a null packet."
 
