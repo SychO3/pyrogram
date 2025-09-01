@@ -112,6 +112,7 @@ class ForwardMediaGroup:
                 drop_media_captions=hide_captions,
                 noforwards=protect_content,
                 allow_paid_floodskip=allow_paid_broadcast,
+                top_msg_id=message_thread_id,
                 reply_to=await utils.get_reply_to(
                     client=self,
                     reply_parameters=reply_parameters,
