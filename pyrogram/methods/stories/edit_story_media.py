@@ -21,7 +21,7 @@ from typing import Union, BinaryIO, Callable
 
 import pyrogram
 from pyrogram import raw, types, utils, StopTransmission
-from pyrogram.errors import FilePartMissing
+from pyrogram.errors import FilePartXMissing
 
 class EditStoryMedia:
     async def edit_story_media(
@@ -155,7 +155,7 @@ class EditStoryMedia:
                             media=media,
                         )
                     )
-                except FilePartMissing as e:
+                except FilePartXMissing as e:
                     await self.save_file(media, file_id=file.id, file_part=e.value)
                 else:
                     for i in r.updates:

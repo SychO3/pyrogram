@@ -21,7 +21,7 @@ import logging
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
-from pyrogram.errors import UserMigrate
+from pyrogram.errors import UserMigrateX
 from pyrogram.raw.base import dc_option
 from pyrogram.session import Session, Auth
 
@@ -57,7 +57,7 @@ class SignInBot:
                         bot_auth_token=bot_token
                     )
                 )
-            except UserMigrate as e:
+            except UserMigrateX as e:
                 dc_option = await self.get_dc_option(e.value, ipv6=self.ipv6)
                 await self.session.stop()
 
