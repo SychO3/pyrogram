@@ -19,6 +19,10 @@ some of the required arguments.
 
     app.run()
 
+.. contents:: Contents
+    :backlinks: none
+    :local:
+
 -----
 
 .. currentmodule:: pyrogram.types
