@@ -22,7 +22,7 @@ from typing import List
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
-from pyrogram.errors import PhoneMigrate, NetworkMigrate
+from pyrogram.errors import PhoneMigrateX, NetworkMigrateX
 from pyrogram.raw.base import dc_option
 from pyrogram.session import Session, Auth
 
@@ -102,7 +102,7 @@ class SendCode:
                         )
                     )
                 )
-            except (PhoneMigrate, NetworkMigrate) as e:
+            except (PhoneMigrateX, NetworkMigrateX) as e:
                 dc_option = await self.get_dc_option(e.value, ipv6=self.ipv6)
                 await self.session.stop()
 

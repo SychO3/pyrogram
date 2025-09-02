@@ -24,7 +24,7 @@ from typing import BinaryIO, Callable, List, Optional, Union
 
 import pyrogram
 from pyrogram import StopTransmission, enums, raw, types, utils
-from pyrogram.errors import FilePartMissing
+from pyrogram.errors import FilePartXMissing
 from pyrogram.file_id import FileType
 
 log = logging.getLogger(__name__)
@@ -304,7 +304,7 @@ class SendVoice:
                         ),
                         business_connection_id=business_connection_id
                     )
-                except FilePartMissing as e:
+                except FilePartXMissing as e:
                     await self.save_file(voice, file_id=file.id, file_part=e.value)
                 else:
                     messages = await utils.parse_messages(client=self, messages=r)

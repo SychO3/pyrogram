@@ -42,13 +42,14 @@ from pyrogram.errors import (
     BadRequest,
     CDNFileHashMismatch,
     ChannelPrivate,
-    FloodPremiumWait,
-    FloodWait,
+    FloodPremiumWaitX,
+    FloodWaitX,
     PersistentTimestampInvalid,
     PersistentTimestampOutdated,
     SessionPasswordNeeded,
     Unauthorized,
-    VolumeLocNotFound,
+    FileTokenInvalid,
+    RequestTokenInvalid,
 )
 from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
@@ -1070,7 +1071,7 @@ class Client(Methods):
             if isinstance(e, asyncio.CancelledError):
                 raise e
 
-            if isinstance(e, (FloodWait, FloodPremiumWait)):
+            if isinstance(e, (FloodWaitX, FloodPremiumWaitX)):
                 raise e
 
             return None
@@ -1270,7 +1271,7 @@ class Client(Methods):
                                             request_token=r2.request_token
                                         )
                                     )
-                                except VolumeLocNotFound:
+                                except (FileTokenInvalid, RequestTokenInvalid):
                                     break
                                 else:
                                     continue
@@ -1328,7 +1329,7 @@ class Client(Methods):
                         await cdn_session.stop()
             except pyrogram.StopTransmission:
                 raise
-            except (FloodWait, FloodPremiumWait):
+            except (FloodWaitX, FloodPremiumWaitX):
                 raise
             except Exception as e:
                 log.exception(e)

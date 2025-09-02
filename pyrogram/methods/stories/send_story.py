@@ -21,7 +21,7 @@ from typing import BinaryIO, Callable, List, Union
 
 import pyrogram
 from pyrogram import StopTransmission, enums, raw, types, utils
-from pyrogram.errors import FilePartMissing
+from pyrogram.errors import FilePartXMissing
 
 
 class SendStory:
@@ -260,7 +260,7 @@ class SendStory:
                             period=period,
                         )
                     )
-                except FilePartMissing as e:
+                except FilePartXMissing as e:
                     await self.save_file(media, file_id=file.id, file_part=e.value)
                 else:
                     for i in r.updates:
