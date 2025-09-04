@@ -19,6 +19,7 @@
 import os
 import re
 import shutil
+import keyword
 from functools import partial
 from pathlib import Path
 from typing import NamedTuple, List, Tuple
@@ -81,6 +82,22 @@ def snake(s: str):
 
 def camel(s: str):
     return "".join([i[0].upper() + i[1:] for i in s.split("_")])
+
+
+def sanitize_arg_name(name: str) -> str:
+    """Sanitize TL arg names to valid & safe Python identifiers.
+
+    - Rename reserved 'self' to 'is_self'
+    - Append underscore for Python keywords (e.g., 'from' -> 'from_')
+    - If somehow not a valid identifier, append underscore
+    """
+    if name == "self":
+        return "is_self"
+
+    if keyword.iskeyword(name) or not name.isidentifier():
+        return f"{name}_"
+
+    return name
 
 
 # noinspection PyShadowingBuiltins, PyShadowingNames
@@ -248,12 +265,7 @@ def start(format: bool = False):
             # Pingu!
             has_flags = not not FLAGS_RE_3.findall(line)
 
-            args = ARGS_RE.findall(line)
-
-            # Fix arg name being "self" (reserved python keyword)
-            for i, item in enumerate(args):
-                if item[0] == "self":
-                    args[i] = ("is_self", item[1])
+            args = [(sanitize_arg_name(n), t) for (n, t) in ARGS_RE.findall(line)]
 
             combinator = Combinator(
                 section=section,
