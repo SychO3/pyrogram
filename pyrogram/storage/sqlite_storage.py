@@ -114,12 +114,6 @@ CREATE TABLE update_state
 );
 """
 
-TEST = {
-    1: "149.154.175.10",
-    2: "149.154.167.40",
-    3: "149.154.175.117"
-}
-
 PROD = {
     1: "149.154.175.53",
     2: "149.154.167.51",
@@ -210,18 +204,13 @@ class SQLiteStorage(Storage):
             version += 1
 
         if version == 6:
-            if await self.test_mode():
-                address = TEST[await self.dc_id()]
-                port = 80
-            else:
-                address = PROD[await self.dc_id()]
-                port = 443
+            address = PROD[await self.dc_id()]
 
             await self.conn.execute("ALTER TABLE sessions ADD server_address TEXT;")
             await self.conn.execute("ALTER TABLE sessions ADD port INTEGER;")
 
             await self.conn.execute("UPDATE sessions SET server_address = ?;", (address,))
-            await self.conn.execute("UPDATE sessions SET port = ?;", (port,))
+            await self.conn.execute("UPDATE sessions SET port = 443;")
             await self.conn.commit()
 
             version += 1
@@ -281,14 +270,8 @@ class SQLiteStorage(Storage):
                 )
 
                 await self.dc_id(dc_id)
-
-                if test_mode:
-                    await self.server_address(TEST[dc_id])
-                    await self.port(80)
-                else:
-                    await self.server_address(PROD[dc_id])
-                    await self.port(443)
-
+                await self.server_address(PROD[dc_id])
+                await self.port(443)
                 await self.api_id(api_id)
                 await self.test_mode(test_mode)
                 await self.auth_key(auth_key)
@@ -348,9 +331,9 @@ class SQLiteStorage(Storage):
                 return await cursor.fetchall()
         else:
             if isinstance(value, int):
-                await self.conn.execute("DELETE FROM update_state WHERE id = ?", (value,))
+                return await self.conn.execute("DELETE FROM update_state WHERE id = ?", (value,))
             else:
-                await self.conn.execute(
+                return await self.conn.execute(
                     "REPLACE INTO update_state (id, pts, qts, date, seq) VALUES (?, ?, ?, ?, ?)",
                     value,
                 )
