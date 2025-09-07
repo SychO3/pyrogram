@@ -669,6 +669,14 @@ def jsonvalue_to_obj(obj: "raw.base.JsonValue"):
 
     raise TypeError(f"Unsupported type: {type(obj)}")
 
+
+def from_nano(nano: int) -> float:
+    return nano / 1e9
+
+
+def to_nano(amount: float) -> int:
+    return int(amount * 1e9)
+
 PyromodConfig = SimpleNamespace(
     timeout_handler=None,
     stopped_handler=None,
