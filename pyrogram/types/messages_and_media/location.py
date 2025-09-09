@@ -33,11 +33,26 @@ class Location(Object):
         latitude (``float``):
             Latitude as defined by sender.
 
-        accuracy_radius (``int``, *optional*):
-            The estimated horizontal accuracy of the location, in meters as defined by the sender.
+        horizontal_accuracy (``float``, *optional*):
+            The radius of uncertainty for the location, measured in meters; 0-1500.
+
+        live_period (``int``, *optional*):
+            Time relative to the message sending date, during which the location can be updated; in seconds.
+            For active live locations only.
+
+        heading (``int``, *optional*):
+            The direction in which user is moving, in degrees; 1-360.
+            For active live locations only.
+
+        proximity_alert_radius (``int``, *optional*):
+            The maximum distance for proximity alerts about approaching another chat member, in meters.
+            For sent live locations only.
 
         address (``str``, *optional*):
-            Textual description of the address (mandatory).
+            Address of the location. For business locations only.
+
+        stopped (``bool``, *optional*):
+            True if the live location has been stopped. For live locations only.
     """
 
     def __init__(
@@ -46,23 +61,31 @@ class Location(Object):
         client: "pyrogram.Client" = None,
         longitude: float,
         latitude: float,
-        accuracy_radius: int = None,
-        address: str = None
+        horizontal_accuracy: float = None,
+        live_period: int = None,
+        heading: int = None,
+        proximity_alert_radius: int = None,
+        address: str = None,
+        stopped: bool = None
     ):
         super().__init__(client)
 
         self.longitude = longitude
         self.latitude = latitude
-        self.accuracy_radius = accuracy_radius
+        self.horizontal_accuracy = horizontal_accuracy
+        self.live_period = live_period
+        self.heading = heading
+        self.proximity_alert_radius = proximity_alert_radius
         self.address = address
+        self.stopped = stopped
 
     @staticmethod
-    def _parse(client, geo_point: Union["raw.types.GeoPoint", "raw.types.BusinessLocation"]) -> "Location":
+    def _parse(client, geo_point: Union["raw.types.GeoPoint", "raw.types.BusinessLocation", "raw.types.InputGeoPoint", "raw.types.InputMediaGeoLive"]) -> "Location":
         if isinstance(geo_point, raw.types.GeoPoint):
             return Location(
                 longitude=geo_point.long,
                 latitude=geo_point.lat,
-                accuracy_radius=getattr(geo_point, "accuracy_radius", None),
+                horizontal_accuracy=getattr(geo_point, "accuracy_radius", None),
                 client=client
             )
 
@@ -70,7 +93,27 @@ class Location(Object):
             return Location(
                 longitude=getattr(geo_point.geo_point, "long", None),
                 latitude=getattr(geo_point.geo_point, "lat", None),
-                accuracy_radius=getattr(geo_point.geo_point, "accuracy_radius", None),
+                horizontal_accuracy=getattr(geo_point.geo_point, "accuracy_radius", None),
                 address=geo_point.address,
+                client=client
+            )
+
+        if isinstance(geo_point, raw.types.InputGeoPoint):
+            return Location(
+                longitude=geo_point.long,
+                latitude=geo_point.lat,
+                horizontal_accuracy=getattr(geo_point, "accuracy_radius", None),
+                client=client
+            )
+
+        if isinstance(geo_point, raw.types.InputMediaGeoLive):
+            return Location(
+                longitude=getattr(geo_point.geo_point, "long", None),
+                latitude=getattr(geo_point.geo_point, "lat", None),
+                horizontal_accuracy=getattr(geo_point.geo_point, "accuracy_radius", None),
+                heading=getattr(geo_point, "heading", None),
+                live_period=getattr(geo_point, "period", None),
+                proximity_alert_radius=getattr(geo_point, "proximity_notification_radius", None),
+                stopped=getattr(geo_point, "stopped", None),
                 client=client
             )

@@ -38,13 +38,15 @@ class InlineQuery(Object, Update):
             Sender.
 
         query (``str``):
-            Text of the query (up to 512 characters).
+            Text of the query (up to 256 characters).
 
         offset (``str``):
             Offset of the results to be returned, can be controlled by the bot.
 
         chat_type (:obj:`~pyrogram.enums.ChatType`, *optional*):
-            Type of the chat, from which the inline query was sent.
+            Type of the chat from which the inline query was sent.
+            Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”.
+            The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
 
         location (:obj:`~pyrogram.types.Location`. *optional*):
             Sender location, only for bots that request user location.
@@ -62,7 +64,7 @@ class InlineQuery(Object, Update):
         from_user: "types.User",
         query: str,
         offset: str,
-        chat_type: "enums.ChatType",
+        chat_type: "enums.ChatType" = None,
         location: "types.Location" = None,
         matches: List[Match] = None
     ):
