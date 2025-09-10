@@ -46,13 +46,13 @@ class InlineQueryResultArticle(InlineQueryResult):
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             Inline keyboard attached to the message.
 
-        thumb_url (``str``, *optional*):
+        thumbnail_url (``str``, *optional*):
             Url of the thumbnail for the result.
 
-        thumb_width (``int``, *optional*):
+        thumbnail_width (``int``, *optional*):
             Thumbnail width.
 
-        thumb_height (``int``, *optional*):
+        thumbnail_height (``int``, *optional*):
             Thumbnail height
     """
 
@@ -64,18 +64,18 @@ class InlineQueryResultArticle(InlineQueryResult):
         url: str = None,
         description: str = None,
         reply_markup: "types.InlineKeyboardMarkup" = None,
-        thumb_url: str = None,
-        thumb_width: int = 0,
-        thumb_height: int = 0
+        thumbnail_url: str = None,
+        thumbnail_width: int = 0,
+        thumbnail_height: int = 0
     ):
         super().__init__("article", id, input_message_content, reply_markup)
 
         self.title = title
         self.url = url
         self.description = description
-        self.thumb_url = thumb_url
-        self.thumb_width = thumb_width
-        self.thumb_height = thumb_height
+        self.thumbnail_url = thumbnail_url
+        self.thumbnail_width = thumbnail_width
+        self.thumbnail_height = thumbnail_height
 
     async def write(self, client: "pyrogram.Client"):
         return raw.types.InputBotInlineResult(
@@ -86,14 +86,14 @@ class InlineQueryResultArticle(InlineQueryResult):
             description=self.description,
             url=self.url,
             thumb=raw.types.InputWebDocument(
-                url=self.thumb_url,
+                url=self.thumbnail_url,
                 size=0,
                 mime_type="image/jpeg",
                 attributes=[
                     raw.types.DocumentAttributeImageSize(
-                        w=self.thumb_width,
-                        h=self.thumb_height
+                        w=self.thumbnail_width,
+                        h=self.thumbnail_height
                     )
                 ]
-            ) if self.thumb_url else None
+            ) if self.thumbnail_url else None
         )

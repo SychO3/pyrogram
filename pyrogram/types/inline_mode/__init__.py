@@ -19,10 +19,8 @@
 from .chosen_inline_result import ChosenInlineResult
 from .inline_query import InlineQuery
 from .inline_query_result import InlineQueryResult
-from .inline_query_result_animation import InlineQueryResultAnimation
 from .inline_query_result_article import InlineQueryResultArticle
 from .inline_query_result_audio import InlineQueryResultAudio
-from .inline_query_result_cached_animation import InlineQueryResultCachedAnimation
 from .inline_query_result_cached_document import InlineQueryResultCachedDocument
 from .inline_query_result_cached_photo import InlineQueryResultCachedPhoto
 from .inline_query_result_cached_sticker import InlineQueryResultCachedSticker
@@ -39,9 +37,9 @@ from .inline_query_result_cached_audio import InlineQueryResultCachedAudio
 
 __all__ = [
     "InlineQuery", "InlineQueryResult", "InlineQueryResultArticle", "InlineQueryResultPhoto",
-    "InlineQueryResultAnimation", "InlineQueryResultAudio", "InlineQueryResultVideo", "ChosenInlineResult",
+    "InlineQueryResultAudio", "InlineQueryResultVideo", "ChosenInlineResult",
     "InlineQueryResultContact", "InlineQueryResultDocument", "InlineQueryResultVoice", "InlineQueryResultLocation",
-    "InlineQueryResultVenue", "InlineQueryResultCachedPhoto", "InlineQueryResultCachedAnimation",
+    "InlineQueryResultVenue", "InlineQueryResultCachedPhoto",
     "InlineQueryResultCachedSticker", "InlineQueryResultCachedDocument", "InlineQueryResultCachedVideo",
     "InlineQueryResultCachedVoice", "InlineQueryResultCachedAudio"
 ]

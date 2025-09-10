@@ -22,13 +22,35 @@ import pyrogram
 from pyrogram import types
 from ..object import Object
 
+# InlineQueryResultCachedAudio
+# InlineQueryResultCachedDocument
+# InlineQueryResultCachedGif
+# InlineQueryResultCachedMpeg4Gif
+# InlineQueryResultCachedPhoto
+# InlineQueryResultCachedSticker
+# InlineQueryResultCachedVideo
+# InlineQueryResultCachedVoice
+# InlineQueryResultArticle
+# InlineQueryResultAudio
+# InlineQueryResultContact
+# InlineQueryResultGame
+# InlineQueryResultDocument
+# InlineQueryResultGif
+# InlineQueryResultLocation
+# InlineQueryResultMpeg4Gif
+# InlineQueryResultPhoto
+# InlineQueryResultVenue
+# InlineQueryResultVideo
+# InlineQueryResultVoice
+
 
 class InlineQueryResult(Object):
     """One result of an inline query.
 
     - :obj:`~pyrogram.types.InlineQueryResultCachedAudio`
     - :obj:`~pyrogram.types.InlineQueryResultCachedDocument`
-    - :obj:`~pyrogram.types.InlineQueryResultCachedAnimation`
+    - :obj:`~pyrogram.types.InlineQueryResultCachedGif`
+    - :obj:`~pyrogram.types.InlineQueryResultCachedMpeg4Gif`
     - :obj:`~pyrogram.types.InlineQueryResultCachedPhoto`
     - :obj:`~pyrogram.types.InlineQueryResultCachedSticker`
     - :obj:`~pyrogram.types.InlineQueryResultCachedVideo`
@@ -36,13 +58,19 @@ class InlineQueryResult(Object):
     - :obj:`~pyrogram.types.InlineQueryResultArticle`
     - :obj:`~pyrogram.types.InlineQueryResultAudio`
     - :obj:`~pyrogram.types.InlineQueryResultContact`
+    - :obj:`~pyrogram.types.InlineQueryResultGame`
     - :obj:`~pyrogram.types.InlineQueryResultDocument`
-    - :obj:`~pyrogram.types.InlineQueryResultAnimation`
+    - :obj:`~pyrogram.types.InlineQueryResultGif`
     - :obj:`~pyrogram.types.InlineQueryResultLocation`
+    - :obj:`~pyrogram.types.InlineQueryResultMpeg4Gif`
     - :obj:`~pyrogram.types.InlineQueryResultPhoto`
     - :obj:`~pyrogram.types.InlineQueryResultVenue`
     - :obj:`~pyrogram.types.InlineQueryResultVideo`
     - :obj:`~pyrogram.types.InlineQueryResultVoice`
+
+    .. note::
+
+    All URLs passed in inline query results will be available to end users and therefore must be assumed to be public.
     """
 
     def __init__(
