@@ -548,14 +548,14 @@ class User(Object, Update):
         self.raw = raw
 
     @property
-    def full_name(self) -> str:
+    def full_name(self) -> str | None:
         return " ".join(filter(None, [self.first_name, self.last_name])) or None
 
     @property
     def mention(self):
         return Link(
             f"tg://user?id={self.id}",
-            self.first_name or "Deleted Account",
+            self.full_name or "Deleted Account",
             self._client.parse_mode
         )
 
