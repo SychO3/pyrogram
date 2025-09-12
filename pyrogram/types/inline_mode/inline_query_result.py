@@ -22,27 +22,6 @@ import pyrogram
 from pyrogram import types
 from ..object import Object
 
-# InlineQueryResultCachedAudio
-# InlineQueryResultCachedDocument
-# InlineQueryResultCachedGif
-# InlineQueryResultCachedMpeg4Gif
-# InlineQueryResultCachedPhoto
-# InlineQueryResultCachedSticker
-# InlineQueryResultCachedVideo
-# InlineQueryResultCachedVoice
-# InlineQueryResultArticle
-# InlineQueryResultAudio
-# InlineQueryResultContact
-# InlineQueryResultGame
-# InlineQueryResultDocument
-# InlineQueryResultGif
-# InlineQueryResultLocation
-# InlineQueryResultMpeg4Gif
-# InlineQueryResultPhoto
-# InlineQueryResultVenue
-# InlineQueryResultVideo
-# InlineQueryResultVoice
-
 
 class InlineQueryResult(Object):
     """One result of an inline query.
