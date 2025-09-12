@@ -25,10 +25,10 @@ from ...file_id import FileId
 
 
 class InlineQueryResultCachedPhoto(InlineQueryResult):
-    """A link to a photo stored on the Telegram servers.
-
-    By default, this photo will be sent by the user with an optional caption. Alternatively, you can use
-    *input_message_content* to send a message with the specified content instead of the photo.
+    """Represents a link to a photo stored on the Telegram servers. 
+    
+    By default, this photo will be sent by the user with an optional caption. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the photo.
 
     Parameters:
         photo_file_id (``str``):

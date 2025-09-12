@@ -22,10 +22,10 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultVenue(InlineQueryResult):
-    """A venue.
-
-    By default, the venue will be sent by the user. Alternatively, you can use *input_message_content* to send a message
-    with the specified content instead of the venue.
+    """Represents a venue. 
+    
+    By default, the venue will be sent by the user. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the venue.
 
     Parameters:
         title (``str``):
@@ -49,18 +49,19 @@ class InlineQueryResultVenue(InlineQueryResult):
 
         foursquare_type (``str``, *optional*):
             Foursquare type of the venue, if known.
+            (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
 
         google_place_id (``str``, *optional*):
             Google Places identifier of the venue.
 
         google_place_type (``str``, *optional*):
-            Google Places type of the venue.
+            Google Places type of the venue. (See `supported types <https://developers.google.com/places/web-service/supported_types>`_.)
 
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             Inline keyboard attached to the message.
 
         input_message_content (:obj:`~pyrogram.types.InputMessageContent`):
-            Content of the message to be sent instead of the file.
+            Content of the message to be sent instead of the venue.
 
         thumb_url (``str``, *optional*):
             Url of the thumbnail for the result.

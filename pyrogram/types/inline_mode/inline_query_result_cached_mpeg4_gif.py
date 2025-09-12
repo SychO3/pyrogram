@@ -25,15 +25,14 @@ from ...file_id import FileId
 
 
 class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
-    """A link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers.
-
-    By default, this animated MPEG-4 file will be sent by the user with an optional caption.
-    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
-    animation.
+    """Represents a link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers. 
+    
+    By default, this animated MPEG-4 file will be sent by the user with an optional caption. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the animation.
 
     Parameters:
         mpeg4_file_id (``str``):
-            A valid file identifier for the MP4 file.
+            A valid file identifier for the MPEG4 file.
 
         id (``str``, *optional*):
             Unique identifier for this result, 1-64 bytes.
@@ -43,7 +42,7 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
             Title for the result.
 
         caption (``str``, *optional*):
-            Caption of the MPEG-4 file to be sent, 0-1024 characters.
+            Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing.
 
         parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
             By default, texts are parsed using both Markdown and HTML styles.
@@ -51,6 +50,10 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
 
         caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
             List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
+
+        show_caption_above_media (``bool``, *optional*):
+            If true, the caption will be shown above the media; otherwise, it will be shown below the media.
+            Defaults to False.
 
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             An InlineKeyboardMarkup object.
@@ -67,16 +70,18 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
         caption: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
+        show_caption_above_media: bool = False,
         reply_markup: "types.InlineKeyboardMarkup" = None,
         input_message_content: "types.InputMessageContent" = None
     ):
-        super().__init__("mpeg4_gif", id, input_message_content, reply_markup)
+        super().__init__("gif", id, input_message_content, reply_markup)
 
         self.mpeg4_file_id = mpeg4_file_id
         self.title = title
         self.caption = caption
         self.parse_mode = parse_mode
         self.caption_entities = caption_entities
+        self.show_caption_above_media = show_caption_above_media
         self.reply_markup = reply_markup
         self.input_message_content = input_message_content
 
@@ -102,7 +107,8 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
                 else raw.types.InputBotInlineMessageMediaAuto(
                     reply_markup=await self.reply_markup.write(client) if self.reply_markup else None,
                     message=message,
-                    entities=entities
+                    entities=entities,
+                    invert_media=self.show_caption_above_media or None
                 )
             )
         )

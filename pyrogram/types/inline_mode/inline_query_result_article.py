@@ -24,7 +24,7 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultArticle(InlineQueryResult):
-    """Link to an article or web page.
+    """Represents a link to an article or web page.
 
     Parameters:
         title (``str``):

@@ -22,10 +22,10 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultLocation(InlineQueryResult):
-    """A location on a map.
-
-    By default, the location will be sent by the user. Alternatively, you can use *input_message_content* to send a
-    message with the specified content instead of the location.
+    """Represents a location on a map. 
+    
+    By default, the location will be sent by the user. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the location.
 
     Parameters:
         title (``str``):
@@ -45,15 +45,15 @@ class InlineQueryResultLocation(InlineQueryResult):
             The radius of uncertainty for the location, measured in meters; 0-1500.
 
         live_period (``int``, *optional*):
-            Period in seconds for which the location can be updated, should be between 60 and 86400.
+            Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
 
         heading (``int``, *optional*):
-            For live locations, a direction in which the user is moving, in degrees.
+            For live locations, a direction in which the user is moving, in degrees. 
             Must be between 1 and 360 if specified.
 
         proximity_alert_radius (``int``, *optional*):
-            For live locations, a maximum distance for proximity alerts about approaching another chat member,
-            in meters. Must be between 1 and 100000 if specified.
+            For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. 
+            Must be between 1 and 100000 if specified.
 
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             Inline keyboard attached to the message.

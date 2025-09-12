@@ -25,11 +25,10 @@ from ...file_id import FileId
 
 
 class InlineQueryResultCachedGif(InlineQueryResult):
-    """A link to an animated GIF file stored on the Telegram servers.
-
-    By default, this animated GIF file will be sent by the user with an optional caption.
-    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
-    animation.
+    """Represents a link to an animated GIF file stored on the Telegram servers. 
+    
+    By default, this animated GIF file will be sent by the user with an optional caption. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with specified content instead of the animation.
 
     Parameters:
         gif_file_id (``str``):

@@ -25,10 +25,10 @@ from ...file_id import FileId
 
 
 class InlineQueryResultCachedAudio(InlineQueryResult):
-    """A link to an MP3 audio file stored on the Telegram servers
-
-    By default, this audio file will be sent by the user. Alternatively, you can use *input_message_content* to send a
-    message with the specified content instead of the audio.
+    """Represents a link to an MP3 audio file stored on the Telegram servers. 
+    
+    By default, this audio file will be sent by the user. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the audio.
 
     Parameters:
         audio_file_id (``str``):

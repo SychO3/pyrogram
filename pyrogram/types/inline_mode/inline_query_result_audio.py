@@ -24,12 +24,11 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultAudio(InlineQueryResult):
-    """Link to an audio file.
+    """Represents a link to an MP3 audio file. 
     
-    By default, this audio file will be sent by the user with optional caption.
-    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
-    audio.
-    
+    By default, this audio file will be sent by the user. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the audio.
+
     Parameters:
         audio_url (``str``):
             A valid URL for the audio file.

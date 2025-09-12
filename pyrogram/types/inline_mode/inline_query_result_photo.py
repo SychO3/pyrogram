@@ -24,11 +24,10 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultPhoto(InlineQueryResult):
-    """Link to a photo.
-
-    By default, this photo will be sent by the user with optional caption.
-    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
-    photo.
+    """Represents a link to a photo. 
+    
+    By default, this photo will be sent by the user with optional caption. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the photo.
 
     Parameters:
         photo_url (``str``):
@@ -65,6 +64,10 @@ class InlineQueryResultPhoto(InlineQueryResult):
         caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
             List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
 
+        show_caption_above_media (``bool``, *optional*):
+            If true, the caption will be shown above the media; otherwise, it will be shown below the media.
+            Defaults to False.
+
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             An InlineKeyboardMarkup object.
 
@@ -84,6 +87,7 @@ class InlineQueryResultPhoto(InlineQueryResult):
         caption: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
+        show_caption_above_media: bool = False,
         reply_markup: "types.InlineKeyboardMarkup" = None,
         input_message_content: "types.InputMessageContent" = None
     ):
@@ -98,6 +102,7 @@ class InlineQueryResultPhoto(InlineQueryResult):
         self.caption = caption
         self.parse_mode = parse_mode
         self.caption_entities = caption_entities
+        self.show_caption_above_media = show_caption_above_media
         self.reply_markup = reply_markup
         self.input_message_content = input_message_content
 
@@ -141,7 +146,8 @@ class InlineQueryResultPhoto(InlineQueryResult):
                 else raw.types.InputBotInlineMessageMediaAuto(
                     reply_markup=await self.reply_markup.write(client) if self.reply_markup else None,
                     message=message,
-                    entities=entities
+                    entities=entities,
+                    invert_media=self.show_caption_above_media
                 )
             )
         )

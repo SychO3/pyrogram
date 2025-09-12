@@ -22,11 +22,10 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultContact(InlineQueryResult):
-    """Contact with a phone number
+    """Represents a contact with a phone number. 
     
-    By default, this contact will be sent by the user.
-    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
-    contact.
+    By default, this contact will be sent by the user. 
+    Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
     
     Parameters:
         phone_number (``str``):
@@ -39,7 +38,7 @@ class InlineQueryResultContact(InlineQueryResult):
             Contact's last name.
 
         vcard (``str``, *optional*):
-            Additional data about the contact in the form of a `vCard <https://en.wikipedia.org/wiki/VCard>`_.
+            Additional data about the contact in the form of a `vCard <https://en.wikipedia.org/wiki/VCard>`_,0-2048 bytes.
 
         id (``str``, *optional*):
             Unique identifier for this result, 1-64 bytes.
@@ -83,6 +82,9 @@ class InlineQueryResultContact(InlineQueryResult):
         self.thumb_url = thumb_url
         self.thumb_width = thumb_width
         self.thumb_height = thumb_height
+
+        if self.vcard is not None and len(self.vcard.encode("utf-8")) > 2048:
+            raise ValueError("Parameter 'vcard' must be a UTF-8 string not exceeding 2048 bytes.")
 
     async def write(self, client: "pyrogram.Client"):
         return raw.types.InputBotInlineResult(

@@ -24,12 +24,11 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultVoice(InlineQueryResult):
-    """Link to a voice recording in an .OGG container encoded with OPUS.
+    """Represents a link to a voice recording in an .OGG container encoded with OPUS. 
     
-    By default, this voice recording will be sent by the user.
-    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
-    voice message.
-    
+    By default, this voice recording will be sent by the user. 
+    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the the voice message.
+
     Parameters:
         voice_url (``str``):
             A valid URL for the voice recording.

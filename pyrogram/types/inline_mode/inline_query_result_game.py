@@ -22,7 +22,7 @@ from .inline_query_result import InlineQueryResult
 
 
 class InlineQueryResultGame(InlineQueryResult):
-    """A Game.
+    """Represents a Game.
 
     Parameters:
         game_short_name (``str``):
