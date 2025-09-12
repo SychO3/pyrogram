@@ -22,7 +22,8 @@ from typing import Callable, Union, List, Pattern, Optional
 
 import pyrogram
 from pyrogram import enums
-from pyrogram.types import Message, CallbackQuery, InlineQuery, PreCheckoutQuery, InlineKeyboardMarkup, ReplyKeyboardMarkup, Update
+from pyrogram.types import Message, CallbackQuery, InlineQuery, PreCheckoutQuery, InlineKeyboardMarkup, \
+    ReplyKeyboardMarkup, Update, ChosenInlineResult
 
 
 class Filter:
@@ -1009,6 +1010,7 @@ def regex(pattern: Union[str, Pattern], flags: int = 0):
     - :obj:`~pyrogram.types.CallbackQuery`: The filter will match ``data``.
     - :obj:`~pyrogram.types.InlineQuery`: The filter will match ``query``.
     - :obj:`~pyrogram.types.PreCheckoutQuery`: The filter will match ``payload``.
+    - :obj:`~pyrogram.types.ChosenInlineResult`: The filter will match ``query``.
 
     When a pattern matches, all the `Match Objects <https://docs.python.org/3/library/re.html#match-objects>`_ are
     stored in the ``matches`` field of the update object itself.
@@ -1026,7 +1028,7 @@ def regex(pattern: Union[str, Pattern], flags: int = 0):
             value = update.text or update.caption
         elif isinstance(update, CallbackQuery):
             value = update.data
-        elif isinstance(update, InlineQuery):
+        elif isinstance(update, (ChosenInlineResult, InlineQuery)):
             value = update.query
         elif isinstance(update, PreCheckoutQuery):
             value = update.invoice_payload
