@@ -21,6 +21,7 @@ from typing import Union
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
+from pyrogram import utils
 
 
 class SetGameScore:
@@ -31,10 +32,10 @@ class SetGameScore:
         force: bool = None,
         disable_edit_message: bool = None,
         chat_id: Union[int, str] = None,
-        message_id: int = None
+        message_id: int = None,
+        inline_message_id: str = None,
     ) -> Union["types.Message", bool]:
-        # inline_message_id: str = None):  TODO Add inline_message_id
-        """Set the score of the specified user in a game.
+        """Use this method to set the score of the specified user in a game message.
 
         .. include:: /_includes/usable-by/bots.rst
 
@@ -50,9 +51,11 @@ class SetGameScore:
             force (``bool``, *optional*):
                 Pass True, if the high score is allowed to decrease.
                 This can be useful when fixing mistakes or banning cheaters.
+                Default is False.
 
             disable_edit_message (``bool``, *optional*):
                 Pass True, if the game message should not be automatically edited to include the current scoreboard.
+                Default is False.
 
             chat_id (``int`` | ``str``, *optional*):
                 Unique identifier (int) or username (str) of the target chat.
@@ -63,6 +66,10 @@ class SetGameScore:
             message_id (``int``, *optional*):
                 Identifier of the sent message.
                 Required if inline_message_id is not specified.
+
+            inline_message_id (``str``, *optional*):
+                Identifier of the inline message
+                Required if chat_id and message_id are not specified.
 
         Returns:
             :obj:`~pyrogram.types.Message` | ``bool``: On success, if the message was sent by the bot, the edited
@@ -77,16 +84,44 @@ class SetGameScore:
                 # Force set new score
                 await app.set_game_score(user_id, 25, force=True)
         """
-        r = await self.invoke(
-            raw.functions.messages.SetGameScore(
-                peer=await self.resolve_peer(chat_id),
-                score=score,
-                id=message_id,
-                user_id=await self.resolve_peer(user_id),
-                force=force or None,
-                edit_message=not disable_edit_message or None
+
+        _user_peer = await self.resolve_peer(user_id)
+        if isinstance(_user_peer, raw.types.InputPeerSelf):
+            _input_user = raw.types.InputUserSelf()
+        elif isinstance(_user_peer, raw.types.InputPeerUser):
+            _input_user = raw.types.InputUser(user_id=_user_peer.user_id, access_hash=_user_peer.access_hash)
+        elif isinstance(_user_peer, raw.types.InputPeerUserFromMessage):
+            _input_user = raw.types.InputUserFromMessage(peer=_user_peer.peer, msg_id=_user_peer.msg_id, user_id=_user_peer.user_id)
+        else:
+            _input_user = None
+
+        if _input_user is None:
+            raise ValueError("user_id must be an integer, a username or a phone number of a user")
+
+        if inline_message_id:
+            inline_id = utils.unpack_inline_message_id(inline_message_id)
+
+            r = await self.invoke(
+                raw.functions.messages.SetInlineGameScore(
+                    id=inline_id,
+                    user_id=_input_user,
+                    score=score,
+                    force=force or None,
+                    edit_message=not disable_edit_message or None,
+                )
             )
-        )
+            return bool(r)
+        else:
+            r = await self.invoke(
+                raw.functions.messages.SetGameScore(
+                    peer=await self.resolve_peer(chat_id),
+                    score=score,
+                    id=message_id,
+                    user_id=_input_user,
+                    force=force or None,
+                    edit_message=not disable_edit_message or None
+                )
+            )
 
         for i in r.updates:
             if isinstance(i, (raw.types.UpdateEditMessage,

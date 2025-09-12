@@ -31,19 +31,13 @@ class SendGame:
         game_short_name: str,
         disable_notification: bool = None,
         message_thread_id: int = None,
-        effect_id: int = None,
+        business_connection_id: str = None,
         reply_parameters: "types.ReplyParameters" = None,
         protect_content: bool = None,
         allow_paid_broadcast: bool = None,
-        reply_markup: Union[
-            "types.InlineKeyboardMarkup",
-            "types.ReplyKeyboardMarkup",
-            "types.ReplyKeyboardRemove",
-            "types.ForceReply",
-        ] = None,
+        message_effect_id: str = None,
+        reply_markup: "types.InlineKeyboardMarkup" = None,
 
-        reply_to_message_id: int = None,
-        reply_to_chat_id: Union[int, str] = None,
     ) -> "types.Message":
         """Send a game.
 
@@ -54,33 +48,35 @@ class SendGame:
                 Unique identifier (int) or username (str) of the target chat.
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
+                Games can't be sent to channel direct messages chats and channel chats.
 
             game_short_name (``str``):
-                Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather.
+                Short name of the game, serves as the unique identifier for the game. Set up your games via @Botfather.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
                 Users will receive a notification with no sound.
 
             message_thread_id (``int``, *optional*):
-                Unique identifier of a message thread to which the message belongs.
-                For supergroups only.
-
-            effect_id (``int``, *optional*):
-                Unique identifier of the message effect.
-                For private chats only.
+                Unique identifier for the target message thread (topic) of the forum; 
+                for forum supergroups only.
+            
+            message_effect_id (``str``, *optional*):
+                Unique identifier of the message effect to be added to the message; 
+                for private chats only.
+            
+            business_connection_id (``str``, *optional*):
+                Unique identifier of the business connection on behalf of which the message will be sent.
 
             reply_parameters (:obj:`~pyrogram.types.ReplyParameters`, *optional*):
-                Describes reply parameters for the message that is being sent.
+                Description of the message to reply to.
 
             protect_content (``bool``, *optional*):
                 Protects the contents of the sent message from forwarding and saving.
 
             allow_paid_broadcast (``bool``, *optional*):
-                If True, you will be allowed to send up to 1000 messages per second.
-                Ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message.
-                The relevant Stars will be withdrawn from the bot's balance.
-                For bots only.
+                Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message.
+                The relevant Stars will be withdrawn from the bot's balance
 
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
                 An object for an inline keyboard. If empty, one ‘Play game_title’ button will be shown automatically.
@@ -94,45 +90,38 @@ class SendGame:
 
                 await app.send_game(chat_id, "gamename")
         """
-        if reply_to_message_id is not None or reply_to_chat_id is not None:
-            if reply_to_message_id is not None:
-                log.warning(
-                    "`reply_to_message_id` is deprecated and will be removed in future updates. Use `reply_parameters` instead."
-                )
 
-            if reply_to_chat_id is not None:
-                log.warning(
-                    "`reply_to_chat_id` is deprecated and will be removed in future updates. Use `reply_parameters` instead."
-                )
-
-            reply_parameters = types.ReplyParameters(
-                chat_id=reply_to_chat_id,
-                message_id=reply_to_message_id
-            )
-
-        r = await self.invoke(
-            raw.functions.messages.SendMedia(
-                peer=await self.resolve_peer(chat_id),
-                media=raw.types.InputMediaGame(
-                    id=raw.types.InputGameShortName(
-                        bot_id=raw.types.InputUserSelf(),
-                        short_name=game_short_name
-                    ),
+        request = raw.functions.messages.SendMedia(
+            peer=await self.resolve_peer(chat_id),
+            media=raw.types.InputMediaGame(
+                id=raw.types.InputGameShortName(
+                    bot_id=raw.types.InputUserSelf(),
+                    short_name=game_short_name
                 ),
-                message="",
-                silent=disable_notification or None,
-                reply_to=await utils.get_reply_to(
-                    self,
-                    reply_parameters,
-                    message_thread_id
-                ),
-                random_id=self.rnd_id(),
-                noforwards=protect_content,
-                allow_paid_floodskip=allow_paid_broadcast,
-                reply_markup=await reply_markup.write(self) if reply_markup else None,
-                effect=effect_id
-            )
+            ),
+            message="",
+            silent=disable_notification or None,
+            reply_to=await utils.get_reply_to(
+                self,
+                reply_parameters,
+                message_thread_id
+            ),
+            random_id=self.rnd_id(),
+            noforwards=protect_content,
+            allow_paid_floodskip=allow_paid_broadcast,
+            reply_markup=await reply_markup.write(self) if reply_markup else None,
+            effect=message_effect_id,
         )
+
+        if business_connection_id:
+            r = await self.invoke(
+                raw.functions.InvokeWithBusinessConnection(
+                    connection_id=business_connection_id,
+                    query=request,
+                )
+            )
+        else:
+            r = await self.invoke(request)
 
         messages = await utils.parse_messages(client=self, messages=r)
 

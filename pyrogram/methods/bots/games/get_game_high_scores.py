@@ -21,6 +21,7 @@ from typing import Union, List
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
+from pyrogram import utils
 
 
 class GetGameHighScores:
@@ -28,9 +29,18 @@ class GetGameHighScores:
         self: "pyrogram.Client",
         user_id: Union[int, str],
         chat_id: Union[int, str],
-        message_id: int = None
+        message_id: int = None,
+        inline_message_id: str = None,
     ) -> List["types.GameHighScore"]:
-        """Get data for high score tables.
+        """Use this method to get data for high score tables.
+        Will return the score of the specified user and several of their neighbors in a game.
+
+        .. note::
+            This method will currently return scores for the target user,
+            plus two of their closest neighbors on each side.
+            Will also return the top three users if the user and their neighbors are not among them.
+            Please note that this behavior is subject to change.
+
 
         .. include:: /_includes/usable-by/bots.rst
 
@@ -50,6 +60,10 @@ class GetGameHighScores:
                 Identifier of the sent message.
                 Required if inline_message_id is not specified.
 
+            inline_message_id (``str``, *optional*):
+                Identifier of the inline message
+                Required if chat_id and message_id are not specified.
+
         Returns:
             List of :obj:`~pyrogram.types.GameHighScore`: On success.
 
@@ -59,14 +73,36 @@ class GetGameHighScores:
                 scores = await app.get_game_high_scores(user_id, chat_id, message_id)
                 print(scores)
         """
-        # TODO: inline_message_id
+        # Convert user identifier to InputUser (not InputPeer), as required by raw layer
+        _user_peer = await self.resolve_peer(user_id)
+        if isinstance(_user_peer, raw.types.InputPeerSelf):
+            _input_user = raw.types.InputUserSelf()
+        elif isinstance(_user_peer, raw.types.InputPeerUser):
+            _input_user = raw.types.InputUser(user_id=_user_peer.user_id, access_hash=_user_peer.access_hash)
+        elif isinstance(_user_peer, raw.types.InputPeerUserFromMessage):
+            _input_user = raw.types.InputUserFromMessage(peer=_user_peer.peer, msg_id=_user_peer.msg_id, user_id=_user_peer.user_id)
+        else:
+            _input_user = None
 
-        r = await self.invoke(
-            raw.functions.messages.GetGameHighScores(
-                peer=await self.resolve_peer(chat_id),
-                id=message_id,
-                user_id=await self.resolve_peer(user_id)
+        if _input_user is None:
+            raise ValueError("user_id must be an integer, a username or a phone number of a user")
+
+        if inline_message_id:
+            inline_id = utils.unpack_inline_message_id(inline_message_id)
+
+            r = await self.invoke(
+                raw.functions.messages.GetInlineGameHighScores(
+                    id=inline_id,
+                    user_id=_input_user
+                )
             )
-        )
+        else:
+            r = await self.invoke(
+                raw.functions.messages.GetGameHighScores(
+                    peer=await self.resolve_peer(chat_id),
+                    id=message_id,
+                    user_id=_input_user
+                )
+            )
 
         return types.List(types.GameHighScore._parse(self, score, r.users) for score in r.scores)
