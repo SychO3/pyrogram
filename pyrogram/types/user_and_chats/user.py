@@ -625,7 +625,9 @@ class User(Object, Update):
             inline_query_placeholder=user.bot_inline_placeholder,
             can_be_edited=user.bot_can_edit,
             can_be_added_to_attachment_menu=user.bot_attach_menu,
-            can_join_groups=user.bot_nochats,
+            # In raw API, bot_nochats=True means the bot CANNOT be added to groups
+            # Public field `can_join_groups` should be True if it CAN be added to groups
+            can_join_groups=not user.bot_nochats,
             can_read_all_group_messages=user.bot_chat_history,
             can_connect_to_business=user.bot_business,
             has_main_web_app=user.bot_has_main_app,
@@ -675,8 +677,9 @@ class User(Object, Update):
             parsed_user.theme_emoji = user.theme_emoticon
 
         parsed_user.private_forward_name = user.private_forward_name
-        parsed_user.bot_group_admin_rights = types.ChatPrivileges._parse(user.bot_group_admin_rights)
-        parsed_user.bot_broadcast_admin_rights = types.ChatPrivileges._parse(user.bot_broadcast_admin_rights)
+        # Map raw bot_* admin rights to public fields
+        parsed_user.chat_admin_rights = types.ChatPrivileges._parse(user.bot_group_admin_rights)
+        parsed_user.channel_admin_rights = types.ChatPrivileges._parse(user.bot_broadcast_admin_rights)
         parsed_user.chat_background = types.ChatBackground._parse(client, user.wallpaper)
 
         if user.stories:
