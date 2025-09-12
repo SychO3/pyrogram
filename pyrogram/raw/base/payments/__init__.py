@@ -45,4 +45,3 @@ from .star_gift_withdrawal_url import StarGiftWithdrawalUrl
 from .resale_star_gifts import ResaleStarGifts
 from .star_gift_collections import StarGiftCollections
 from .unique_star_gift_value_info import UniqueStarGiftValueInfo
-from .check_can_send_gift_result import CheckCanSendGiftResult

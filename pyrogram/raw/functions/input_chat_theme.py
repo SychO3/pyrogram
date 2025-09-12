@@ -30,32 +30,35 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ChatTheme(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatTheme`.
+class InputChatTheme(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``C3DFFC04``
+        - ID: ``C93DE95C``
 
     Parameters:
         emoticon: ``str``
+
+    Returns:
+        :obj:`InputChatTheme <pyrogram.raw.base.InputChatTheme>`
     """
 
     __slots__: List[str] = ["emoticon"]
 
-    ID = 0xc3dffc04
-    QUALNAME = "types.ChatTheme"
+    ID = 0xc93de95c
+    QUALNAME = "functions.InputChatTheme"
 
     def __init__(self, *, emoticon: str) -> None:
         self.emoticon = emoticon  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ChatTheme":
+    def read(b: BytesIO, *args: Any) -> "InputChatTheme":
         # No flags
         
         emoticon = String.read(b)
         
-        return ChatTheme(emoticon=emoticon)
+        return InputChatTheme(emoticon=emoticon)
 
     def write(self, *args) -> bytes:
         b = BytesIO()

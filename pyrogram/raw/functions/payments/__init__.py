@@ -78,4 +78,7 @@ from .reorder_star_gift_collections import ReorderStarGiftCollections
 from .delete_star_gift_collection import DeleteStarGiftCollection
 from .get_star_gift_collections import GetStarGiftCollections
 from .get_unique_star_gift_value_info import GetUniqueStarGiftValueInfo
+from .unique_star_gift import UniqueStarGift
+from .check_can_send_gift_result_ok import CheckCanSendGiftResultOk
+from .check_can_send_gift_result_fail import CheckCanSendGiftResultFail
 from .check_can_send_gift import CheckCanSendGift

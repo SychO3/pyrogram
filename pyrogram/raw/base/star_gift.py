@@ -37,4 +37,13 @@ StarGift.__doc__ = """
 
             - :obj:`StarGift <pyrogram.raw.types.StarGift>`
             - :obj:`StarGiftUnique <pyrogram.raw.types.StarGiftUnique>`
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`StarGift <pyrogram.raw.functions.StarGift>`
+            - :obj:`StarGiftUnique <pyrogram.raw.functions.StarGiftUnique>`
 """

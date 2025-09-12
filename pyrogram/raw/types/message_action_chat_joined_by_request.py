@@ -38,6 +38,15 @@ class MessageActionChatJoinedByRequest(TLObject):  # type: ignore
         - ID: ``EBBCA3CB``
 
     **No parameters required.**
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = []

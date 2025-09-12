@@ -35,30 +35,29 @@ class WebPagePreview(TLObject):  # type: ignore
 
     Details:
         - Layer: ``214``
-        - ID: ``8C9A88AC``
+        - ID: ``B53E8B21``
 
     Parameters:
         media: :obj:`MessageMedia <pyrogram.raw.base.MessageMedia>`
-        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
         users: List of :obj:`User <pyrogram.raw.base.User>`
 
     See Also:
-        This object can be returned by 1 method:
+        This object can be returned by 2 methods:
 
         .. hlist::
             :columns: 2
 
             - :obj:`messages.GetWebPagePreview <pyrogram.raw.functions.messages.GetWebPagePreview>`
+            - :obj:`messages.WebPagePreview <pyrogram.raw.functions.messages.WebPagePreview>`
     """
 
-    __slots__: List[str] = ["media", "chats", "users"]
+    __slots__: List[str] = ["media", "users"]
 
-    ID = 0x8c9a88ac
+    ID = 0xb53e8b21
     QUALNAME = "types.messages.WebPagePreview"
 
-    def __init__(self, *, media: "raw.base.MessageMedia", chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
+    def __init__(self, *, media: "raw.base.MessageMedia", users: List["raw.base.User"]) -> None:
         self.media = media  # MessageMedia
-        self.chats = chats  # Vector<Chat>
         self.users = users  # Vector<User>
 
     @staticmethod
@@ -67,11 +66,9 @@ class WebPagePreview(TLObject):  # type: ignore
         
         media = TLObject.read(b)
         
-        chats = TLObject.read(b)
-        
         users = TLObject.read(b)
         
-        return WebPagePreview(media=media, chats=chats, users=users)
+        return WebPagePreview(media=media, users=users)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -80,8 +77,6 @@ class WebPagePreview(TLObject):  # type: ignore
         # No flags
         
         b.write(self.media.write())
-        
-        b.write(Vector(self.chats))
         
         b.write(Vector(self.users))
         

@@ -50,6 +50,14 @@ class InputStorePaymentStarsGiveaway(TLObject):  # type: ignore
         additional_peers (optional): List of :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         countries_iso2 (optional): List of ``str``
         prize_description (optional): ``str``
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
     """
 
     __slots__: List[str] = ["stars", "boost_peer", "random_id", "until_date", "currency", "amount", "users", "only_new_subscribers", "winners_are_visible", "additional_peers", "countries_iso2", "prize_description"]

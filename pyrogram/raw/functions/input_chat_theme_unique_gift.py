@@ -30,42 +30,42 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class CheckCanSendGiftResultOk(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.CheckCanSendGiftResult`.
+class InputChatThemeUniqueGift(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``374FA7AD``
+        - ID: ``87E5DFE4``
 
-    **No parameters required.**
+    Parameters:
+        slug: ``str``
 
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`payments.CheckCanSendGift <pyrogram.raw.functions.payments.CheckCanSendGift>`
+    Returns:
+        :obj:`InputChatTheme <pyrogram.raw.base.InputChatTheme>`
     """
 
-    __slots__: List[str] = []
+    __slots__: List[str] = ["slug"]
 
-    ID = 0x374fa7ad
-    QUALNAME = "types.payments.CheckCanSendGiftResultOk"
+    ID = 0x87e5dfe4
+    QUALNAME = "functions.InputChatThemeUniqueGift"
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, *, slug: str) -> None:
+        self.slug = slug  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "CheckCanSendGiftResultOk":
+    def read(b: BytesIO, *args: Any) -> "InputChatThemeUniqueGift":
         # No flags
         
-        return CheckCanSendGiftResultOk()
+        slug = String.read(b)
+        
+        return InputChatThemeUniqueGift(slug=slug)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
+        
+        b.write(String(self.slug))
         
         return b.getvalue()

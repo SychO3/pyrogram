@@ -30,34 +30,42 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ProfileTabGifts(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
+class ChatTheme(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``4D4BD46A``
+        - ID: ``C3DFFC04``
 
-    **No parameters required.**
+    Parameters:
+        emoticon: ``str``
+
+    Returns:
+        :obj:`ChatTheme <pyrogram.raw.base.ChatTheme>`
     """
 
-    __slots__: List[str] = []
+    __slots__: List[str] = ["emoticon"]
 
-    ID = 0x4d4bd46a
-    QUALNAME = "types.ProfileTabGifts"
+    ID = 0xc3dffc04
+    QUALNAME = "functions.ChatTheme"
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, *, emoticon: str) -> None:
+        self.emoticon = emoticon  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabGifts":
+    def read(b: BytesIO, *args: Any) -> "ChatTheme":
         # No flags
         
-        return ProfileTabGifts()
+        emoticon = String.read(b)
+        
+        return ChatTheme(emoticon=emoticon)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
+        
+        b.write(String(self.emoticon))
         
         return b.getvalue()

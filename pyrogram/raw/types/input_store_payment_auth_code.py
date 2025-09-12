@@ -43,6 +43,14 @@ class InputStorePaymentAuthCode(TLObject):  # type: ignore
         currency: ``str``
         amount: ``int`` ``64-bit``
         restore (optional): ``bool``
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
     """
 
     __slots__: List[str] = ["phone_number", "phone_code_hash", "currency", "amount", "restore"]

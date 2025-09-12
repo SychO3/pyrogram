@@ -44,6 +44,15 @@ class MessageActionGiftStars(TLObject):  # type: ignore
         crypto_currency (optional): ``str``
         crypto_amount (optional): ``int`` ``64-bit``
         transaction_id (optional): ``str``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["currency", "amount", "stars", "crypto_currency", "crypto_amount", "transaction_id"]

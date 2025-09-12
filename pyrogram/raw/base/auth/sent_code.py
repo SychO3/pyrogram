@@ -40,7 +40,7 @@ SentCode.__doc__ = """
             - :obj:`auth.SentCodeSuccess <pyrogram.raw.types.auth.SentCodeSuccess>`
 
     See Also:
-        This object can be returned by 6 methods:
+        This object can be returned by 7 methods:
 
         .. hlist::
             :columns: 2
@@ -51,4 +51,5 @@ SentCode.__doc__ = """
             - :obj:`account.SendChangePhoneCode <pyrogram.raw.functions.account.SendChangePhoneCode>`
             - :obj:`account.SendConfirmPhoneCode <pyrogram.raw.functions.account.SendConfirmPhoneCode>`
             - :obj:`account.SendVerifyPhoneCode <pyrogram.raw.functions.account.SendVerifyPhoneCode>`
+            - :obj:`auth.SentCodePaymentRequired <pyrogram.raw.functions.auth.SentCodePaymentRequired>`
 """

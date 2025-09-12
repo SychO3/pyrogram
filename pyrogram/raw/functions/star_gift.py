@@ -31,11 +31,11 @@ from typing import List, Optional, Any
 
 
 class StarGift(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGift`.
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``BCFF5B``
+        - ID: ``80AC53C3``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -58,23 +58,18 @@ class StarGift(TLObject):  # type: ignore
         released_by (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
         per_user_total (optional): ``int`` ``32-bit``
         per_user_remains (optional): ``int`` ``32-bit``
+        locked_until_date (optional): ``int`` ``32-bit``
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`StarGift <pyrogram.raw.functions.StarGift>`
-            - :obj:`StarGiftUnique <pyrogram.raw.functions.StarGiftUnique>`
+    Returns:
+        :obj:`StarGift <pyrogram.raw.base.StarGift>`
     """
 
-    __slots__: List[str] = ["id", "sticker", "stars", "convert_stars", "limited", "sold_out", "birthday", "require_premium", "limited_per_user", "availability_remains", "availability_total", "availability_resale", "first_sale_date", "last_sale_date", "upgrade_stars", "resell_min_stars", "title", "released_by", "per_user_total", "per_user_remains"]
+    __slots__: List[str] = ["id", "sticker", "stars", "convert_stars", "limited", "sold_out", "birthday", "require_premium", "limited_per_user", "availability_remains", "availability_total", "availability_resale", "first_sale_date", "last_sale_date", "upgrade_stars", "resell_min_stars", "title", "released_by", "per_user_total", "per_user_remains", "locked_until_date"]
 
-    ID = 0xbcff5b
-    QUALNAME = "types.StarGift"
+    ID = 0x80ac53c3
+    QUALNAME = "functions.StarGift"
 
-    def __init__(self, *, id: int, sticker: "raw.base.Document", stars: int, convert_stars: int, limited: Optional[bool] = None, sold_out: Optional[bool] = None, birthday: Optional[bool] = None, require_premium: Optional[bool] = None, limited_per_user: Optional[bool] = None, availability_remains: Optional[int] = None, availability_total: Optional[int] = None, availability_resale: Optional[int] = None, first_sale_date: Optional[int] = None, last_sale_date: Optional[int] = None, upgrade_stars: Optional[int] = None, resell_min_stars: Optional[int] = None, title: Optional[str] = None, released_by: "raw.base.Peer" = None, per_user_total: Optional[int] = None, per_user_remains: Optional[int] = None) -> None:
+    def __init__(self, *, id: int, sticker: "raw.base.Document", stars: int, convert_stars: int, limited: Optional[bool] = None, sold_out: Optional[bool] = None, birthday: Optional[bool] = None, require_premium: Optional[bool] = None, limited_per_user: Optional[bool] = None, availability_remains: Optional[int] = None, availability_total: Optional[int] = None, availability_resale: Optional[int] = None, first_sale_date: Optional[int] = None, last_sale_date: Optional[int] = None, upgrade_stars: Optional[int] = None, resell_min_stars: Optional[int] = None, title: Optional[str] = None, released_by: "raw.base.Peer" = None, per_user_total: Optional[int] = None, per_user_remains: Optional[int] = None, locked_until_date: Optional[int] = None) -> None:
         self.id = id  # long
         self.sticker = sticker  # Document
         self.stars = stars  # long
@@ -95,6 +90,7 @@ class StarGift(TLObject):  # type: ignore
         self.released_by = released_by  # flags.6?Peer
         self.per_user_total = per_user_total  # flags.8?int
         self.per_user_remains = per_user_remains  # flags.8?int
+        self.locked_until_date = locked_until_date  # flags.9?int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGift":
@@ -126,7 +122,8 @@ class StarGift(TLObject):  # type: ignore
         
         per_user_total = Int.read(b) if flags & (1 << 8) else None
         per_user_remains = Int.read(b) if flags & (1 << 8) else None
-        return StarGift(id=id, sticker=sticker, stars=stars, convert_stars=convert_stars, limited=limited, sold_out=sold_out, birthday=birthday, require_premium=require_premium, limited_per_user=limited_per_user, availability_remains=availability_remains, availability_total=availability_total, availability_resale=availability_resale, first_sale_date=first_sale_date, last_sale_date=last_sale_date, upgrade_stars=upgrade_stars, resell_min_stars=resell_min_stars, title=title, released_by=released_by, per_user_total=per_user_total, per_user_remains=per_user_remains)
+        locked_until_date = Int.read(b) if flags & (1 << 9) else None
+        return StarGift(id=id, sticker=sticker, stars=stars, convert_stars=convert_stars, limited=limited, sold_out=sold_out, birthday=birthday, require_premium=require_premium, limited_per_user=limited_per_user, availability_remains=availability_remains, availability_total=availability_total, availability_resale=availability_resale, first_sale_date=first_sale_date, last_sale_date=last_sale_date, upgrade_stars=upgrade_stars, resell_min_stars=resell_min_stars, title=title, released_by=released_by, per_user_total=per_user_total, per_user_remains=per_user_remains, locked_until_date=locked_until_date)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -149,6 +146,7 @@ class StarGift(TLObject):  # type: ignore
         flags |= (1 << 6) if self.released_by is not None else 0
         flags |= (1 << 8) if self.per_user_total is not None else 0
         flags |= (1 << 8) if self.per_user_remains is not None else 0
+        flags |= (1 << 9) if self.locked_until_date is not None else 0
         b.write(Int(flags))
         
         b.write(Long(self.id))
@@ -191,5 +189,8 @@ class StarGift(TLObject):  # type: ignore
         
         if self.per_user_remains is not None:
             b.write(Int(self.per_user_remains))
+        
+        if self.locked_until_date is not None:
+            b.write(Int(self.locked_until_date))
         
         return b.getvalue()

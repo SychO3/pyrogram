@@ -44,7 +44,7 @@ Updates.__doc__ = """
             - :obj:`UpdatesTooLong <pyrogram.raw.types.UpdatesTooLong>`
 
     See Also:
-        This object can be returned by 119 methods:
+        This object can be returned by 120 methods:
 
         .. hlist::
             :columns: 2
@@ -168,4 +168,5 @@ Updates.__doc__ = """
             - :obj:`stories.ActivateStealthMode <pyrogram.raw.functions.stories.ActivateStealthMode>`
             - :obj:`stories.SendReaction <pyrogram.raw.functions.stories.SendReaction>`
             - :obj:`stories.GetAllReadPeerStories <pyrogram.raw.functions.stories.GetAllReadPeerStories>`
+            - :obj:`messages.SetChatTheme <pyrogram.raw.functions.messages.SetChatTheme>`
 """

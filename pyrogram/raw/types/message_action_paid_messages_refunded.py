@@ -40,6 +40,15 @@ class MessageActionPaidMessagesRefunded(TLObject):  # type: ignore
     Parameters:
         count: ``int`` ``32-bit``
         stars: ``int`` ``64-bit``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["count", "stars"]

@@ -137,6 +137,10 @@ from .set_reactions_notify_settings import SetReactionsNotifySettings
 from .get_collectible_emoji_statuses import GetCollectibleEmojiStatuses
 from .get_paid_messages_revenue import GetPaidMessagesRevenue
 from .toggle_no_paid_messages_exception import ToggleNoPaidMessagesException
+from .chat_themes_not_modified import ChatThemesNotModified
+from .chat_themes import ChatThemes
+from .saved_music_ids_not_modified import SavedMusicIdsNotModified
+from .saved_music_ids import SavedMusicIds
 from .set_main_profile_tab import SetMainProfileTab
 from .save_music import SaveMusic
 from .get_saved_music_ids import GetSavedMusicIds

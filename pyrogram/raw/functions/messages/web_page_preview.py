@@ -30,32 +30,43 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputChatTheme(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatTheme`.
+class WebPagePreview(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``C93DE95C``
+        - ID: ``8C9A88AC``
 
     Parameters:
-        emoticon: ``str``
+        media: :obj:`MessageMedia <pyrogram.raw.base.MessageMedia>`
+        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
+        users: List of :obj:`User <pyrogram.raw.base.User>`
+
+    Returns:
+        :obj:`messages.WebPagePreview <pyrogram.raw.base.messages.WebPagePreview>`
     """
 
-    __slots__: List[str] = ["emoticon"]
+    __slots__: List[str] = ["media", "chats", "users"]
 
-    ID = 0xc93de95c
-    QUALNAME = "types.InputChatTheme"
+    ID = 0x8c9a88ac
+    QUALNAME = "functions.messages.WebPagePreview"
 
-    def __init__(self, *, emoticon: str) -> None:
-        self.emoticon = emoticon  # string
+    def __init__(self, *, media: "raw.base.MessageMedia", chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
+        self.media = media  # MessageMedia
+        self.chats = chats  # Vector<Chat>
+        self.users = users  # Vector<User>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputChatTheme":
+    def read(b: BytesIO, *args: Any) -> "WebPagePreview":
         # No flags
         
-        emoticon = String.read(b)
+        media = TLObject.read(b)
         
-        return InputChatTheme(emoticon=emoticon)
+        chats = TLObject.read(b)
+        
+        users = TLObject.read(b)
+        
+        return WebPagePreview(media=media, chats=chats, users=users)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -63,6 +74,10 @@ class InputChatTheme(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(String(self.emoticon))
+        b.write(self.media.write())
+        
+        b.write(Vector(self.chats))
+        
+        b.write(Vector(self.users))
         
         return b.getvalue()

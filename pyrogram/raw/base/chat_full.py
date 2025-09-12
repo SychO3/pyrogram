@@ -37,4 +37,12 @@ ChatFull.__doc__ = """
 
             - :obj:`ChannelFull <pyrogram.raw.types.ChannelFull>`
             - :obj:`ChatFull <pyrogram.raw.types.ChatFull>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`ChannelFull <pyrogram.raw.functions.ChannelFull>`
 """

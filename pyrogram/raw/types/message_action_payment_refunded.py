@@ -43,6 +43,15 @@ class MessageActionPaymentRefunded(TLObject):  # type: ignore
         total_amount: ``int`` ``64-bit``
         charge: :obj:`PaymentCharge <pyrogram.raw.base.PaymentCharge>`
         payload (optional): ``bytes``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["peer", "currency", "total_amount", "charge", "payload"]

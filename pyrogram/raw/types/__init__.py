@@ -975,8 +975,6 @@ from .bot_command_scope_chat_admins import BotCommandScopeChatAdmins
 from .bot_command_scope_peer import BotCommandScopePeer
 from .bot_command_scope_peer_admins import BotCommandScopePeerAdmins
 from .bot_command_scope_peer_user import BotCommandScopePeerUser
-from .chat_theme import ChatTheme
-from .chat_theme_unique_gift import ChatThemeUniqueGift
 from .sponsored_message import SponsoredMessage
 from .search_results_calendar_period import SearchResultsCalendarPeriod
 from .search_result_position import SearchResultPosition
@@ -1219,15 +1217,4 @@ from .stars_rating import StarsRating
 from .star_gift_collection import StarGiftCollection
 from .story_album import StoryAlbum
 from .search_posts_flood import SearchPostsFlood
-from .profile_tab_posts import ProfileTabPosts
-from .profile_tab_gifts import ProfileTabGifts
-from .profile_tab_media import ProfileTabMedia
-from .profile_tab_files import ProfileTabFiles
-from .profile_tab_music import ProfileTabMusic
-from .profile_tab_voice import ProfileTabVoice
-from .profile_tab_links import ProfileTabLinks
-from .profile_tab_gifs import ProfileTabGifs
-from .input_chat_theme_empty import InputChatThemeEmpty
-from .input_chat_theme import InputChatTheme
-from .input_chat_theme_unique_gift import InputChatThemeUniqueGift
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

@@ -38,10 +38,11 @@ WebPagePreview.__doc__ = """
             - :obj:`messages.WebPagePreview <pyrogram.raw.types.messages.WebPagePreview>`
 
     See Also:
-        This object can be returned by 1 method:
+        This object can be returned by 2 methods:
 
         .. hlist::
             :columns: 2
 
             - :obj:`messages.GetWebPagePreview <pyrogram.raw.functions.messages.GetWebPagePreview>`
+            - :obj:`messages.WebPagePreview <pyrogram.raw.functions.messages.WebPagePreview>`
 """

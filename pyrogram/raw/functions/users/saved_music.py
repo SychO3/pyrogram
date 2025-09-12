@@ -30,40 +30,39 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedMusicIds(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.SavedMusicIds`.
+class SavedMusic(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``998D6636``
+        - ID: ``34A2F297``
 
     Parameters:
-        ids: List of ``int`` ``64-bit``
+        count: ``int`` ``32-bit``
+        documents: List of :obj:`Document <pyrogram.raw.base.Document>`
 
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`account.GetSavedMusicIds <pyrogram.raw.functions.account.GetSavedMusicIds>`
+    Returns:
+        :obj:`users.SavedMusic <pyrogram.raw.base.users.SavedMusic>`
     """
 
-    __slots__: List[str] = ["ids"]
+    __slots__: List[str] = ["count", "documents"]
 
-    ID = 0x998d6636
-    QUALNAME = "types.account.SavedMusicIds"
+    ID = 0x34a2f297
+    QUALNAME = "functions.users.SavedMusic"
 
-    def __init__(self, *, ids: List[int]) -> None:
-        self.ids = ids  # Vector<long>
+    def __init__(self, *, count: int, documents: List["raw.base.Document"]) -> None:
+        self.count = count  # int
+        self.documents = documents  # Vector<Document>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SavedMusicIds":
+    def read(b: BytesIO, *args: Any) -> "SavedMusic":
         # No flags
         
-        ids = TLObject.read(b, Long)
+        count = Int.read(b)
         
-        return SavedMusicIds(ids=ids)
+        documents = TLObject.read(b)
+        
+        return SavedMusic(count=count, documents=documents)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -71,6 +70,8 @@ class SavedMusicIds(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(Vector(self.ids, Long))
+        b.write(Int(self.count))
+        
+        b.write(Vector(self.documents))
         
         return b.getvalue()

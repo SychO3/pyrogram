@@ -39,6 +39,15 @@ class MessageActionTodoAppendTasks(TLObject):  # type: ignore
 
     Parameters:
         list: List of :obj:`TodoItem <pyrogram.raw.base.TodoItem>`
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["list"]

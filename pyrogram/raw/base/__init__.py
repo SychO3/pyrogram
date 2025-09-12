@@ -256,7 +256,6 @@ from .chat_admin_with_invites import ChatAdminWithInvites
 from .group_call_participant_video_source_group import GroupCallParticipantVideoSourceGroup
 from .group_call_participant_video import GroupCallParticipantVideo
 from .bot_command_scope import BotCommandScope
-from .chat_theme import ChatTheme
 from .sponsored_message import SponsoredMessage
 from .search_results_calendar_period import SearchResultsCalendarPeriod
 from .search_results_position import SearchResultsPosition
@@ -399,6 +398,4 @@ from .stars_rating import StarsRating
 from .star_gift_collection import StarGiftCollection
 from .story_album import StoryAlbum
 from .search_posts_flood import SearchPostsFlood
-from .profile_tab import ProfileTab
-from .input_chat_theme import InputChatTheme
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

@@ -41,6 +41,15 @@ class MessageActionGiveawayResults(TLObject):  # type: ignore
         winners_count: ``int`` ``32-bit``
         unclaimed_count: ``int`` ``32-bit``
         stars (optional): ``bool``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["winners_count", "unclaimed_count", "stars"]

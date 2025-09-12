@@ -31,7 +31,7 @@ from typing import List, Optional, Any
 
 
 class SavedStarGift(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SavedStarGift`.
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
@@ -45,6 +45,7 @@ class SavedStarGift(TLObject):  # type: ignore
         refunded (optional): ``bool``
         can_upgrade (optional): ``bool``
         pinned_to_top (optional): ``bool``
+        upgrade_separate (optional): ``bool``
         from_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
         msg_id (optional): ``int`` ``32-bit``
@@ -58,21 +59,16 @@ class SavedStarGift(TLObject):  # type: ignore
         collection_id (optional): List of ``int`` ``32-bit``
         prepaid_upgrade_hash (optional): ``str``
 
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`SavedStarGift <pyrogram.raw.functions.SavedStarGift>`
+    Returns:
+        :obj:`SavedStarGift <pyrogram.raw.base.SavedStarGift>`
     """
 
-    __slots__: List[str] = ["date", "gift", "name_hidden", "unsaved", "refunded", "can_upgrade", "pinned_to_top", "from_id", "message", "msg_id", "saved_id", "convert_stars", "upgrade_stars", "can_export_at", "transfer_stars", "can_transfer_at", "can_resell_at", "collection_id", "prepaid_upgrade_hash"]
+    __slots__: List[str] = ["date", "gift", "name_hidden", "unsaved", "refunded", "can_upgrade", "pinned_to_top", "upgrade_separate", "from_id", "message", "msg_id", "saved_id", "convert_stars", "upgrade_stars", "can_export_at", "transfer_stars", "can_transfer_at", "can_resell_at", "collection_id", "prepaid_upgrade_hash"]
 
     ID = 0x19a9b572
-    QUALNAME = "types.SavedStarGift"
+    QUALNAME = "functions.SavedStarGift"
 
-    def __init__(self, *, date: int, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, unsaved: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, pinned_to_top: Optional[bool] = None, from_id: "raw.base.Peer" = None, message: "raw.base.TextWithEntities" = None, msg_id: Optional[int] = None, saved_id: Optional[int] = None, convert_stars: Optional[int] = None, upgrade_stars: Optional[int] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, collection_id: Optional[List[int]] = None, prepaid_upgrade_hash: Optional[str] = None) -> None:
+    def __init__(self, *, date: int, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, unsaved: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, pinned_to_top: Optional[bool] = None, upgrade_separate: Optional[bool] = None, from_id: "raw.base.Peer" = None, message: "raw.base.TextWithEntities" = None, msg_id: Optional[int] = None, saved_id: Optional[int] = None, convert_stars: Optional[int] = None, upgrade_stars: Optional[int] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, collection_id: Optional[List[int]] = None, prepaid_upgrade_hash: Optional[str] = None) -> None:
         self.date = date  # int
         self.gift = gift  # StarGift
         self.name_hidden = name_hidden  # flags.0?true
@@ -80,6 +76,7 @@ class SavedStarGift(TLObject):  # type: ignore
         self.refunded = refunded  # flags.9?true
         self.can_upgrade = can_upgrade  # flags.10?true
         self.pinned_to_top = pinned_to_top  # flags.12?true
+        self.upgrade_separate = upgrade_separate  # flags.17?true
         self.from_id = from_id  # flags.1?Peer
         self.message = message  # flags.2?TextWithEntities
         self.msg_id = msg_id  # flags.3?int
@@ -103,6 +100,7 @@ class SavedStarGift(TLObject):  # type: ignore
         refunded = True if flags & (1 << 9) else False
         can_upgrade = True if flags & (1 << 10) else False
         pinned_to_top = True if flags & (1 << 12) else False
+        upgrade_separate = True if flags & (1 << 17) else False
         from_id = TLObject.read(b) if flags & (1 << 1) else None
         
         date = Int.read(b)
@@ -122,7 +120,7 @@ class SavedStarGift(TLObject):  # type: ignore
         collection_id = TLObject.read(b, Int) if flags & (1 << 15) else []
         
         prepaid_upgrade_hash = String.read(b) if flags & (1 << 16) else None
-        return SavedStarGift(date=date, gift=gift, name_hidden=name_hidden, unsaved=unsaved, refunded=refunded, can_upgrade=can_upgrade, pinned_to_top=pinned_to_top, from_id=from_id, message=message, msg_id=msg_id, saved_id=saved_id, convert_stars=convert_stars, upgrade_stars=upgrade_stars, can_export_at=can_export_at, transfer_stars=transfer_stars, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, collection_id=collection_id, prepaid_upgrade_hash=prepaid_upgrade_hash)
+        return SavedStarGift(date=date, gift=gift, name_hidden=name_hidden, unsaved=unsaved, refunded=refunded, can_upgrade=can_upgrade, pinned_to_top=pinned_to_top, upgrade_separate=upgrade_separate, from_id=from_id, message=message, msg_id=msg_id, saved_id=saved_id, convert_stars=convert_stars, upgrade_stars=upgrade_stars, can_export_at=can_export_at, transfer_stars=transfer_stars, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, collection_id=collection_id, prepaid_upgrade_hash=prepaid_upgrade_hash)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -134,6 +132,7 @@ class SavedStarGift(TLObject):  # type: ignore
         flags |= (1 << 9) if self.refunded else 0
         flags |= (1 << 10) if self.can_upgrade else 0
         flags |= (1 << 12) if self.pinned_to_top else 0
+        flags |= (1 << 17) if self.upgrade_separate else 0
         flags |= (1 << 1) if self.from_id is not None else 0
         flags |= (1 << 2) if self.message is not None else 0
         flags |= (1 << 3) if self.msg_id is not None else 0

@@ -40,6 +40,15 @@ class MessageActionSecureValuesSentMe(TLObject):  # type: ignore
     Parameters:
         values: List of :obj:`SecureValue <pyrogram.raw.base.SecureValue>`
         credentials: :obj:`SecureCredentialsEncrypted <pyrogram.raw.base.SecureCredentialsEncrypted>`
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["values", "credentials"]

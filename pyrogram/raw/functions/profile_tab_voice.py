@@ -16,33 +16,51 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from io import BytesIO
+
+from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
+from pyrogram.raw.core import TLObject
+from pyrogram import raw
+from typing import List, Optional, Any
+
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
 
-# We need to dynamically set `__doc__` due to `sphinx`
-CheckCanSendGiftResult = Union[raw.types.payments.CheckCanSendGiftResultFail, raw.types.payments.CheckCanSendGiftResultOk]
-CheckCanSendGiftResult.__doc__ = """
-    This base type has 2 constructors available.
+class ProfileTabVoice(TLObject):  # type: ignore
+    """Telegram API method.
 
-    Constructors:
-        .. hlist::
-            :columns: 2
+    Details:
+        - Layer: ``214``
+        - ID: ``E477092E``
 
-            - :obj:`payments.CheckCanSendGiftResultFail <pyrogram.raw.types.payments.CheckCanSendGiftResultFail>`
-            - :obj:`payments.CheckCanSendGiftResultOk <pyrogram.raw.types.payments.CheckCanSendGiftResultOk>`
+    **No parameters required.**
 
-    See Also:
-        This object can be returned by 1 method:
+    Returns:
+        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
+    """
 
-        .. hlist::
-            :columns: 2
+    __slots__: List[str] = []
 
-            - :obj:`payments.CheckCanSendGift <pyrogram.raw.functions.payments.CheckCanSendGift>`
-"""
+    ID = 0xe477092e
+    QUALNAME = "functions.ProfileTabVoice"
+
+    def __init__(self) -> None:
+        pass
+
+    @staticmethod
+    def read(b: BytesIO, *args: Any) -> "ProfileTabVoice":
+        # No flags
+        
+        return ProfileTabVoice()
+
+    def write(self, *args) -> bytes:
+        b = BytesIO()
+        b.write(Int(self.ID, False))
+
+        # No flags
+        
+        return b.getvalue()

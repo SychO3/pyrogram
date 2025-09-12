@@ -16,26 +16,51 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from io import BytesIO
+
+from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
+from pyrogram.raw.core import TLObject
+from pyrogram import raw
+from typing import List, Optional, Any
+
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
 
-# We need to dynamically set `__doc__` due to `sphinx`
-InputChatTheme = Union[raw.types.InputChatTheme, raw.types.InputChatThemeEmpty, raw.types.InputChatThemeUniqueGift]
-InputChatTheme.__doc__ = """
-    This base type has 3 constructors available.
+class ProfileTabGifts(TLObject):  # type: ignore
+    """Telegram API method.
 
-    Constructors:
-        .. hlist::
-            :columns: 2
+    Details:
+        - Layer: ``214``
+        - ID: ``4D4BD46A``
 
-            - :obj:`InputChatTheme <pyrogram.raw.types.InputChatTheme>`
-            - :obj:`InputChatThemeEmpty <pyrogram.raw.types.InputChatThemeEmpty>`
-            - :obj:`InputChatThemeUniqueGift <pyrogram.raw.types.InputChatThemeUniqueGift>`
-"""
+    **No parameters required.**
+
+    Returns:
+        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
+    """
+
+    __slots__: List[str] = []
+
+    ID = 0x4d4bd46a
+    QUALNAME = "functions.ProfileTabGifts"
+
+    def __init__(self) -> None:
+        pass
+
+    @staticmethod
+    def read(b: BytesIO, *args: Any) -> "ProfileTabGifts":
+        # No flags
+        
+        return ProfileTabGifts()
+
+    def write(self, *args) -> bytes:
+        b = BytesIO()
+        b.write(Int(self.ID, False))
+
+        # No flags
+        
+        return b.getvalue()

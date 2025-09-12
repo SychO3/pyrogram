@@ -39,6 +39,15 @@ class MessageActionSecureValuesSent(TLObject):  # type: ignore
 
     Parameters:
         types: List of :obj:`SecureValueType <pyrogram.raw.base.SecureValueType>`
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["types"]

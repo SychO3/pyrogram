@@ -30,59 +30,64 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputStorePaymentGiftPremium(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStorePaymentPurpose`.
+class InputStorePaymentStarsTopup(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``616F7FE8``
+        - ID: ``F9A2A6CB``
 
     Parameters:
-        user_id: :obj:`InputUser <pyrogram.raw.base.InputUser>`
+        stars: ``int`` ``64-bit``
         currency: ``str``
         amount: ``int`` ``64-bit``
+        spend_purpose_peer (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
 
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
+    Returns:
+        :obj:`InputStorePaymentPurpose <pyrogram.raw.base.InputStorePaymentPurpose>`
     """
 
-    __slots__: List[str] = ["user_id", "currency", "amount"]
+    __slots__: List[str] = ["stars", "currency", "amount", "spend_purpose_peer"]
 
-    ID = 0x616f7fe8
-    QUALNAME = "types.InputStorePaymentGiftPremium"
+    ID = 0xf9a2a6cb
+    QUALNAME = "functions.InputStorePaymentStarsTopup"
 
-    def __init__(self, *, user_id: "raw.base.InputUser", currency: str, amount: int) -> None:
-        self.user_id = user_id  # InputUser
+    def __init__(self, *, stars: int, currency: str, amount: int, spend_purpose_peer: "raw.base.InputPeer" = None) -> None:
+        self.stars = stars  # long
         self.currency = currency  # string
         self.amount = amount  # long
+        self.spend_purpose_peer = spend_purpose_peer  # flags.0?InputPeer
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputStorePaymentGiftPremium":
-        # No flags
+    def read(b: BytesIO, *args: Any) -> "InputStorePaymentStarsTopup":
         
-        user_id = TLObject.read(b)
+        flags = Int.read(b)
+        
+        stars = Long.read(b)
         
         currency = String.read(b)
         
         amount = Long.read(b)
         
-        return InputStorePaymentGiftPremium(user_id=user_id, currency=currency, amount=amount)
+        spend_purpose_peer = TLObject.read(b) if flags & (1 << 0) else None
+        
+        return InputStorePaymentStarsTopup(stars=stars, currency=currency, amount=amount, spend_purpose_peer=spend_purpose_peer)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.spend_purpose_peer is not None else 0
+        b.write(Int(flags))
         
-        b.write(self.user_id.write())
+        b.write(Long(self.stars))
         
         b.write(String(self.currency))
         
         b.write(Long(self.amount))
+        
+        if self.spend_purpose_peer is not None:
+            b.write(self.spend_purpose_peer.write())
         
         return b.getvalue()

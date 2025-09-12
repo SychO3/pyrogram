@@ -30,37 +30,32 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedMusicIdsNotModified(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.SavedMusicIds`.
+class InputChatThemeEmpty(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``4FC81D6E``
+        - ID: ``83268483``
 
     **No parameters required.**
 
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`account.GetSavedMusicIds <pyrogram.raw.functions.account.GetSavedMusicIds>`
+    Returns:
+        :obj:`InputChatTheme <pyrogram.raw.base.InputChatTheme>`
     """
 
     __slots__: List[str] = []
 
-    ID = 0x4fc81d6e
-    QUALNAME = "types.account.SavedMusicIdsNotModified"
+    ID = 0x83268483
+    QUALNAME = "functions.InputChatThemeEmpty"
 
     def __init__(self) -> None:
         pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SavedMusicIdsNotModified":
+    def read(b: BytesIO, *args: Any) -> "InputChatThemeEmpty":
         # No flags
         
-        return SavedMusicIdsNotModified()
+        return InputChatThemeEmpty()
 
     def write(self, *args) -> bytes:
         b = BytesIO()

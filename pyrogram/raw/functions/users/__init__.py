@@ -26,5 +26,7 @@ from .get_users import GetUsers
 from .get_full_user import GetFullUser
 from .set_secure_value_errors import SetSecureValueErrors
 from .get_requirements_to_contact import GetRequirementsToContact
+from .saved_music_not_modified import SavedMusicNotModified
+from .saved_music import SavedMusic
 from .get_saved_music import GetSavedMusic
 from .get_saved_music_by_id import GetSavedMusicByID

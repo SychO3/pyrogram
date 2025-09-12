@@ -35,27 +35,36 @@ class MessageActionSetChatTheme(TLObject):  # type: ignore
 
     Details:
         - Layer: ``214``
-        - ID: ``B91BBD3A``
+        - ID: ``AA786345``
 
     Parameters:
-        theme: :obj:`ChatTheme <pyrogram.raw.base.ChatTheme>`
+        emoticon: ``str``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
-    __slots__: List[str] = ["theme"]
+    __slots__: List[str] = ["emoticon"]
 
-    ID = 0xb91bbd3a
+    ID = 0xaa786345
     QUALNAME = "types.MessageActionSetChatTheme"
 
-    def __init__(self, *, theme: "raw.base.ChatTheme") -> None:
-        self.theme = theme  # ChatTheme
+    def __init__(self, *, emoticon: str) -> None:
+        self.emoticon = emoticon  # string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "MessageActionSetChatTheme":
         # No flags
         
-        theme = TLObject.read(b)
+        emoticon = String.read(b)
         
-        return MessageActionSetChatTheme(theme=theme)
+        return MessageActionSetChatTheme(emoticon=emoticon)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -63,6 +72,6 @@ class MessageActionSetChatTheme(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(self.theme.write())
+        b.write(String(self.emoticon))
         
         return b.getvalue()

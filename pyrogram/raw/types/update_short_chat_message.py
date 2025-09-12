@@ -56,7 +56,7 @@ class UpdateShortChatMessage(TLObject):  # type: ignore
         ttl_period (optional): ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 119 methods:
+        This object can be returned by 120 methods:
 
         .. hlist::
             :columns: 2
@@ -180,6 +180,7 @@ class UpdateShortChatMessage(TLObject):  # type: ignore
             - :obj:`stories.ActivateStealthMode <pyrogram.raw.functions.stories.ActivateStealthMode>`
             - :obj:`stories.SendReaction <pyrogram.raw.functions.stories.SendReaction>`
             - :obj:`stories.GetAllReadPeerStories <pyrogram.raw.functions.stories.GetAllReadPeerStories>`
+            - :obj:`messages.SetChatTheme <pyrogram.raw.functions.messages.SetChatTheme>`
     """
 
     __slots__: List[str] = ["id", "from_id", "chat_id", "message", "pts", "pts_count", "date", "out", "mentioned", "media_unread", "silent", "fwd_from", "via_bot_id", "reply_to", "entities", "ttl_period"]

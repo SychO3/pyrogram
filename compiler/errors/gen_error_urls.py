@@ -3,7 +3,7 @@ import requests
 from typing import List, Tuple
 
 def generate_urls(
-    targets: str | list[str] = "data/web/corefork.telegram.org/file",
+    targets: str | list[str] = ["data/web/corefork.telegram.org/file","data/web/core.telegram.org/file"],
     repo: str = "MarshalX/telegram-crawler",
     branch: str = "data",
     token: str | None = None,

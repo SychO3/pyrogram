@@ -58,6 +58,14 @@ class ChatFull(TLObject):  # type: ignore
         recent_requesters (optional): List of ``int`` ``64-bit``
         available_reactions (optional): :obj:`ChatReactions <pyrogram.raw.base.ChatReactions>`
         reactions_limit (optional): ``int`` ``32-bit``
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`ChannelFull <pyrogram.raw.functions.ChannelFull>`
     """
 
     __slots__: List[str] = ["id", "about", "participants", "notify_settings", "can_set_username", "has_scheduled", "translations_disabled", "chat_photo", "exported_invite", "bot_info", "pinned_msg_id", "folder_id", "call", "ttl_period", "groupcall_default_join_as", "theme_emoticon", "requests_pending", "recent_requesters", "available_reactions", "reactions_limit"]

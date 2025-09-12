@@ -30,41 +30,35 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedMusicNotModified(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.users.SavedMusic`.
+class MessageActionSetChatTheme(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``E3878AA4``
+        - ID: ``B91BBD3A``
 
     Parameters:
-        count: ``int`` ``32-bit``
+        theme: :obj:`ChatTheme <pyrogram.raw.base.ChatTheme>`
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`users.GetSavedMusic <pyrogram.raw.functions.users.GetSavedMusic>`
-            - :obj:`users.GetSavedMusicByID <pyrogram.raw.functions.users.GetSavedMusicByID>`
+    Returns:
+        :obj:`MessageAction <pyrogram.raw.base.MessageAction>`
     """
 
-    __slots__: List[str] = ["count"]
+    __slots__: List[str] = ["theme"]
 
-    ID = 0xe3878aa4
-    QUALNAME = "types.users.SavedMusicNotModified"
+    ID = 0xb91bbd3a
+    QUALNAME = "functions.MessageActionSetChatTheme"
 
-    def __init__(self, *, count: int) -> None:
-        self.count = count  # int
+    def __init__(self, *, theme: "raw.base.ChatTheme") -> None:
+        self.theme = theme  # ChatTheme
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SavedMusicNotModified":
+    def read(b: BytesIO, *args: Any) -> "MessageActionSetChatTheme":
         # No flags
         
-        count = Int.read(b)
+        theme = TLObject.read(b)
         
-        return SavedMusicNotModified(count=count)
+        return MessageActionSetChatTheme(theme=theme)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -72,6 +66,6 @@ class SavedMusicNotModified(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(Int(self.count))
+        b.write(self.theme.write())
         
         return b.getvalue()

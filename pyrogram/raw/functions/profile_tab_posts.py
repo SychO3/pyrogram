@@ -30,37 +30,32 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ChatThemesNotModified(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.ChatThemes`.
+class ProfileTabPosts(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``E011E1C4``
+        - ID: ``B98CD696``
 
     **No parameters required.**
 
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`account.GetUniqueGiftChatThemes <pyrogram.raw.functions.account.GetUniqueGiftChatThemes>`
+    Returns:
+        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
     """
 
     __slots__: List[str] = []
 
-    ID = 0xe011e1c4
-    QUALNAME = "types.account.ChatThemesNotModified"
+    ID = 0xb98cd696
+    QUALNAME = "functions.ProfileTabPosts"
 
     def __init__(self) -> None:
         pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ChatThemesNotModified":
+    def read(b: BytesIO, *args: Any) -> "ProfileTabPosts":
         # No flags
         
-        return ChatThemesNotModified()
+        return ProfileTabPosts()
 
     def write(self, *args) -> bytes:
         b = BytesIO()

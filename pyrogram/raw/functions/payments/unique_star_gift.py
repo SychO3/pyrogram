@@ -30,34 +30,54 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ProfileTabGifs(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
+class UniqueStarGift(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``A2C0F695``
+        - ID: ``416C56E8``
 
-    **No parameters required.**
+    Parameters:
+        gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
+        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
+        users: List of :obj:`User <pyrogram.raw.base.User>`
+
+    Returns:
+        :obj:`payments.UniqueStarGift <pyrogram.raw.base.payments.UniqueStarGift>`
     """
 
-    __slots__: List[str] = []
+    __slots__: List[str] = ["gift", "chats", "users"]
 
-    ID = 0xa2c0f695
-    QUALNAME = "types.ProfileTabGifs"
+    ID = 0x416c56e8
+    QUALNAME = "functions.payments.UniqueStarGift"
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, *, gift: "raw.base.StarGift", chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
+        self.gift = gift  # StarGift
+        self.chats = chats  # Vector<Chat>
+        self.users = users  # Vector<User>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabGifs":
+    def read(b: BytesIO, *args: Any) -> "UniqueStarGift":
         # No flags
         
-        return ProfileTabGifs()
+        gift = TLObject.read(b)
+        
+        chats = TLObject.read(b)
+        
+        users = TLObject.read(b)
+        
+        return UniqueStarGift(gift=gift, chats=chats, users=users)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
+        
+        b.write(self.gift.write())
+        
+        b.write(Vector(self.chats))
+        
+        b.write(Vector(self.users))
         
         return b.getvalue()

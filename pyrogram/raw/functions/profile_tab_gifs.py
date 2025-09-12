@@ -30,29 +30,32 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ProfileTabLinks(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
+class ProfileTabGifs(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``D3656499``
+        - ID: ``A2C0F695``
 
     **No parameters required.**
+
+    Returns:
+        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
     """
 
     __slots__: List[str] = []
 
-    ID = 0xd3656499
-    QUALNAME = "types.ProfileTabLinks"
+    ID = 0xa2c0f695
+    QUALNAME = "functions.ProfileTabGifs"
 
     def __init__(self) -> None:
         pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabLinks":
+    def read(b: BytesIO, *args: Any) -> "ProfileTabGifs":
         # No flags
         
-        return ProfileTabLinks()
+        return ProfileTabGifs()
 
     def write(self, *args) -> bytes:
         b = BytesIO()

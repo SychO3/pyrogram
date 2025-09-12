@@ -16,33 +16,51 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from io import BytesIO
+
+from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
+from pyrogram.raw.core import TLObject
+from pyrogram import raw
+from typing import List, Optional, Any
+
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SavedMusicIds = Union[raw.types.account.SavedMusicIds, raw.types.account.SavedMusicIdsNotModified]
-SavedMusicIds.__doc__ = """
-    This base type has 2 constructors available.
+class ChatThemesNotModified(TLObject):  # type: ignore
+    """Telegram API method.
 
-    Constructors:
-        .. hlist::
-            :columns: 2
+    Details:
+        - Layer: ``214``
+        - ID: ``E011E1C4``
 
-            - :obj:`account.SavedMusicIds <pyrogram.raw.types.account.SavedMusicIds>`
-            - :obj:`account.SavedMusicIdsNotModified <pyrogram.raw.types.account.SavedMusicIdsNotModified>`
+    **No parameters required.**
 
-    See Also:
-        This object can be returned by 1 method:
+    Returns:
+        :obj:`account.ChatThemes <pyrogram.raw.base.account.ChatThemes>`
+    """
 
-        .. hlist::
-            :columns: 2
+    __slots__: List[str] = []
 
-            - :obj:`account.GetSavedMusicIds <pyrogram.raw.functions.account.GetSavedMusicIds>`
-"""
+    ID = 0xe011e1c4
+    QUALNAME = "functions.account.ChatThemesNotModified"
+
+    def __init__(self) -> None:
+        pass
+
+    @staticmethod
+    def read(b: BytesIO, *args: Any) -> "ChatThemesNotModified":
+        # No flags
+        
+        return ChatThemesNotModified()
+
+    def write(self, *args) -> bytes:
+        b = BytesIO()
+        b.write(Int(self.ID, False))
+
+        # No flags
+        
+        return b.getvalue()

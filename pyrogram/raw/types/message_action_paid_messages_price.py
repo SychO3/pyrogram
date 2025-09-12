@@ -40,6 +40,15 @@ class MessageActionPaidMessagesPrice(TLObject):  # type: ignore
     Parameters:
         stars: ``int`` ``64-bit``
         broadcast_messages_allowed (optional): ``bool``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
+            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["stars", "broadcast_messages_allowed"]

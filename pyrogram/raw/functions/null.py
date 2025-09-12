@@ -30,39 +30,37 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputChatThemeUniqueGift(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatTheme`.
+class Null(TLObject):  # type: ignore
+    """Telegram API method.
 
     Details:
         - Layer: ``214``
-        - ID: ``87E5DFE4``
+        - ID: ``56730BCC``
 
-    Parameters:
-        slug: ``str``
+    **No parameters required.**
+
+    Returns:
+        :obj:`Null <pyrogram.raw.base.Null>`
     """
 
-    __slots__: List[str] = ["slug"]
+    __slots__: List[str] = []
 
-    ID = 0x87e5dfe4
-    QUALNAME = "types.InputChatThemeUniqueGift"
+    ID = 0x56730bcc
+    QUALNAME = "functions.Null"
 
-    def __init__(self, *, slug: str) -> None:
-        self.slug = slug  # string
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputChatThemeUniqueGift":
+    def read(b: BytesIO, *args: Any) -> "Null":
         # No flags
         
-        slug = String.read(b)
-        
-        return InputChatThemeUniqueGift(slug=slug)
+        return Null()
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
-        
-        b.write(String(self.slug))
         
         return b.getvalue()
