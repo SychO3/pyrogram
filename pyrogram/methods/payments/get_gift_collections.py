@@ -15,49 +15,39 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
-
-import logging
-from typing import Optional, Union
+from typing import List, Union
 
 import pyrogram
-from pyrogram import raw
-
-log = logging.getLogger(__name__)
+from pyrogram import raw, types
 
 
-class GetChatGiftsCount:
-    async def get_chat_gifts_count(
+class GetGiftCollections:
+    async def get_gift_collections(
         self: "pyrogram.Client",
-        chat_id: Union[int, str]
-    ) -> int:
-        """Get the total count of owned gifts of specified chat.
+        owner_id: Union[int, str]
+    ) -> List["types.GiftCollection"]:
+        """Returns collections of gifts owned by the given user or chat.
 
         .. include:: /_includes/usable-by/users.rst
 
         Parameters:
-            chat_id (``int`` | ``str``):
+            owner_id (``int`` | ``str``):
                 Unique identifier (int) or username (str) of the target chat.
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
-                For a contact that exists in your Telegram address book you can use his phone number (str).
 
         Returns:
-            ``int``: On success, the star gifts count is returned.
-
-        Example:
-            .. code-block:: python
-
-                await app.get_chat_gifts_count(chat_id)
+            List of :obj:`~pyrogram.types.GiftCollection`: On success, a list of collections is returned.
         """
-        peer = await self.resolve_peer(chat_id)
-
         r = await self.invoke(
-            raw.functions.payments.GetSavedStarGifts(
-                peer=peer,
-                offset="",
-                limit=1
+            raw.functions.payments.GetStarGiftCollections(
+                peer=await self.resolve_peer(owner_id),
+                hash=0
             )
         )
 
-        return r.count
-
-    get_received_gifts_count = get_chat_gifts_count
+        return types.List(
+            [
+                await types.GiftCollection._parse(self, collection)
+                for collection in r.collections
+            ]
+        )

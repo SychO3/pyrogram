@@ -420,6 +420,9 @@ class Message(Object, Update):
         gift (:obj:`~pyrogram.types.Gift`, *optional*):
             Service message: star gift information.
 
+        is_prepaid_upgrade (``bool``, *optional*):
+            True, if the messages is about prepaid upgrade of the gift by another user.
+
         suggest_profile_photo (:obj:`~pyrogram.types.Photo`, *optional*):
             Service message: suggested profile photo.
 
@@ -652,6 +655,7 @@ class Message(Object, Update):
         gifted_stars: Optional["types.GiftedStars"] = None,
         gifted_ton: Optional["types.GiftedTon"] = None,
         gift: Optional["types.Gift"] = None,
+        is_prepaid_upgrade: Optional[bool] = None,
         suggest_profile_photo: Optional["types.Photo"] = None,
         users_shared: Optional["types.UsersShared"] = None,
         chat_shared: Optional["types.ChatShared"] = None,
@@ -809,6 +813,7 @@ class Message(Object, Update):
         self.gifted_stars = gifted_stars
         self.gifted_ton = gifted_ton
         self.gift = gift
+        self.is_prepaid_upgrade = is_prepaid_upgrade
         self.suggest_profile_photo = suggest_profile_photo
         self.users_shared = users_shared
         self.chat_shared = chat_shared
@@ -921,6 +926,7 @@ class Message(Object, Update):
         chat_set_background = None
         set_message_auto_delete_time = None
         gift = None
+        is_prepaid_upgrade = None
         suggest_profile_photo = None
         forum_topic_created = None
         forum_topic_edited = None
@@ -1123,6 +1129,7 @@ class Message(Object, Update):
             set_message_auto_delete_time = action.period
         elif isinstance(action, (raw.types.MessageActionStarGift, raw.types.MessageActionStarGiftUnique)):
             service_type = enums.MessageServiceType.GIFT
+            is_prepaid_upgrade=action.prepaid_upgrade
             gift = await types.Gift._parse_action(client, message, users, chats)
         elif isinstance(action, raw.types.MessageActionSuggestProfilePhoto):
             service_type = enums.MessageServiceType.SUGGEST_PROFILE_PHOTO
@@ -1218,6 +1225,7 @@ class Message(Object, Update):
             chat_set_background=chat_set_background,
             set_message_auto_delete_time=set_message_auto_delete_time,
             gift=gift,
+            is_prepaid_upgrade=is_prepaid_upgrade,
             suggest_profile_photo=suggest_profile_photo,
             forum_topic_created=forum_topic_created,
             forum_topic_edited=forum_topic_edited,
@@ -3498,7 +3506,7 @@ class Message(Object, Update):
             view_once (``bool``, *optional*):
                 Self-Destruct Timer.
                 If True, the photo will self-destruct after it was viewed.
-            
+
             protect_content (``bool``, *optional*):
                 Protects the contents of the sent message from forwarding and saving.
 

@@ -32,6 +32,9 @@ class Gift(Object):
         id (``int``):
             Unique star gift identifier.
 
+        regular_gift_id (``int``, *optional*):
+            Unique identifier of the regular gift from which the gift was upgraded.
+
         sticker (:obj:`~pyrogram.types.Sticker`, *optional*):
             Information about the star gift sticker.
 
@@ -126,6 +129,15 @@ class Gift(Object):
         resale_parameters (:obj:`~pyrogram.types.GiftResaleParameters`, *optional*):
             Resale parameters of the gift.
 
+        value_currency (``str``, *optional*):
+            ISO 4217 currency code of the currency in which value of the gift is represented.
+
+        value_amount (``int``, *optional*):
+            Estimated value of the gift; in the smallest units of the currency.
+
+        prepaid_upgrade_hash (``str``, *optional*):
+            Hash of the upgrade message.
+
         can_upgrade (``bool``, *optional*):
             True, if the gift can be upgraded.
 
@@ -185,6 +197,7 @@ class Gift(Object):
         *,
         client: "pyrogram.Client" = None,
         id: int,
+        regular_gift_id: Optional[int] = None,
         sticker: "types.Sticker" = None,
         caption: Optional[str] = None,
         caption_entities: List["types.MessageEntity"] = None,
@@ -215,6 +228,9 @@ class Gift(Object):
         overall_limits: Optional["types.GiftPurchaseLimit"] = None,
         publisher_chat: Optional["types.Chat"] = None,
         resale_parameters: Optional["types.GiftResaleParameters"] = None,
+        value_currency: Optional[str] = None,
+        value_amount: Optional[int] = None,
+        prepaid_upgrade_hash: Optional[str] = None,
         can_upgrade: Optional[bool] = None,
         can_export_at: Optional[datetime] = None,
         can_transfer_at: Optional[datetime] = None,
@@ -235,6 +251,7 @@ class Gift(Object):
         super().__init__(client)
 
         self.id = id
+        self.regular_gift_id = regular_gift_id
         self.sticker = sticker
         self.caption = caption
         self.caption_entities = caption_entities
@@ -265,6 +282,9 @@ class Gift(Object):
         self.overall_limits = overall_limits
         self.publisher_chat = publisher_chat
         self.resale_parameters = resale_parameters
+        self.value_currency = value_currency
+        self.value_amount = value_amount
+        self.prepaid_upgrade_hash = prepaid_upgrade_hash
         self.can_upgrade = can_upgrade
         self.can_export_at = can_export_at
         self.can_transfer_at = can_transfer_at
@@ -341,6 +361,7 @@ class Gift(Object):
 
         return Gift(
             id=star_gift.id,
+            regular_gift_id=star_gift.gift_id,
             name=star_gift.slug,
             title=star_gift.title,
             collectible_id=star_gift.num,
@@ -357,6 +378,8 @@ class Gift(Object):
             gift_address=star_gift.gift_address,
             resale_parameters=types.GiftResaleParameters._parse(star_gift.resell_amount, star_gift.resale_ton_only),
             publisher_chat=types.Chat._parse_chat(client, chats.get(utils.get_raw_peer_id(star_gift.released_by))),
+            value_currency=star_gift.value_currency,
+            value_amount=star_gift.value_amount,
             is_upgraded=True,
             raw=star_gift,
             client=client
@@ -392,6 +415,7 @@ class Gift(Object):
         parsed_gift.from_user = types.User._parse(client, users.get(utils.get_raw_peer_id(saved_gift.from_id)))
         parsed_gift.caption = caption
         parsed_gift.caption_entities = caption_entities
+        parsed_gift.prepaid_upgrade_hash = saved_gift.prepaid_upgrade_hash
         parsed_gift.message_id = saved_gift.msg_id or saved_gift.saved_id
         parsed_gift.can_export_at = utils.timestamp_to_datetime(saved_gift.can_export_at)
         parsed_gift.convert_price = parsed_gift.convert_price or saved_gift.convert_stars
@@ -429,6 +453,7 @@ class Gift(Object):
             parsed_gift.convert_price = action.convert_stars
             parsed_gift.upgrade_price = action.upgrade_stars
             parsed_gift.upgrade_message_id = action.upgrade_msg_id
+            parsed_gift.prepaid_upgrade_hash = action.prepaid_upgrade_hash
         elif isinstance(action, raw.types.MessageActionStarGiftUnique):
             parsed_gift = await Gift._parse_unique(client, action.gift, users, chats)
 
