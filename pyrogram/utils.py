@@ -351,10 +351,10 @@ def get_peer_type(peer_id: int) -> str:
         if -MAX_CHAT_ID <= peer_id:
             return "chat"
 
-        if ZERO_CHANNEL_ID - MAX_CHANNEL_ID <= peer_id and peer_id != ZERO_CHANNEL_ID:
+        if ZERO_CHANNEL_ID - MAX_CHANNEL_ID <= peer_id != ZERO_CHANNEL_ID:
             return "channel"
 
-        if ZERO_SECRET_CHAT_ID + (-1 << 31) <= peer_id and peer_id != ZERO_SECRET_CHAT_ID:
+        if ZERO_SECRET_CHAT_ID + (-1 << 31) <= peer_id != ZERO_SECRET_CHAT_ID:
             return "secret_chat"
 
         if ZERO_CHANNEL_ID - MAX_MONOFORUM_CHANNEL_ID <= peer_id:
