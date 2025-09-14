@@ -172,6 +172,9 @@ class User(Object, Update):
         inline_query_placeholder (``str``, *optional*):
             Placeholder for inline queries (displayed on the application input field).
 
+        supports_inline_queries (``bool``, *optional*):
+            True, if the bot supports inline queries. Returned only in get_me.
+
         can_be_edited (``bool``, *optional*):
             True, if the current user can edit this bot's profile picture.
 
@@ -409,6 +412,7 @@ class User(Object, Update):
         active_users_count: Optional[int] = None,
         inline_need_location: Optional[bool] = None,
         inline_query_placeholder: Optional[str] = None,
+        supports_inline_queries: Optional[bool] = None,
         can_be_edited: Optional[bool] = None,
         can_be_added_to_attachment_menu: Optional[bool] = None,
         can_join_groups: Optional[bool] = None,
@@ -496,6 +500,7 @@ class User(Object, Update):
         self.active_users_count = active_users_count
         self.inline_need_location = inline_need_location
         self.inline_query_placeholder = inline_query_placeholder
+        self.supports_inline_queries = supports_inline_queries
         self.can_be_edited = can_be_edited
         self.can_be_added_to_attachment_menu = can_be_added_to_attachment_menu
         self.can_join_groups = can_join_groups
@@ -623,6 +628,7 @@ class User(Object, Update):
             active_users_count=user.bot_active_users,
             inline_need_location=user.bot_inline_geo,
             inline_query_placeholder=user.bot_inline_placeholder,
+            supports_inline_queries=(user.bot_inline_placeholder is not None),
             can_be_edited=user.bot_can_edit,
             can_be_added_to_attachment_menu=user.bot_attach_menu,
             # In raw API, bot_nochats=True means the bot CANNOT be added to groups
