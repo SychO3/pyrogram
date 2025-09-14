@@ -100,8 +100,8 @@ class Message(Object, Update):
             Information about the original message for forwarded messages.
 
         message_thread_id (``int``, *optional*):
-            Unique identifier of a message thread to which the message belongs.
-            For forums only.
+            Unique identifier of a message thread to which the message belongs;
+            for supergroups only.
 
         direct_messages_topic_id (``int``, *optional*):
             Unique identifier of a topic in a channel direct messages chat administered by the current user.
