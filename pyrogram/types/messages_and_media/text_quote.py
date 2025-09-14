@@ -26,11 +26,11 @@ from ..object import Object
 
 
 class TextQuote(Object):
-    """Describes manually or automatically chosen quote from another message.
+    """This object contains information about the quoted part of a message that is replied to by the given message.
 
     Parameters:
         text (``str``):
-            Text of the quoted part of a message that is replied to by the given message.
+            Text of the quoted part of a message that is replied to by the given message
 
         entities (List of :obj:`~pyrogram.types.MessageEntity`, *optional*):
             Special entities that appear in the quote.
@@ -63,21 +63,30 @@ class TextQuote(Object):
         client: "pyrogram.Client",
         users: Dict[int, "raw.types.User"],
         reply_to: "raw.types.MessageReplyHeader"
-    ) -> "TextQuote":
+    ) -> Optional["TextQuote"]:
         if isinstance(reply_to, raw.types.MessageReplyHeader):
+            quote_text = getattr(reply_to, "quote_text", None)
+            quote_entities_raw = getattr(reply_to, "quote_entities", [])
+            quote_offset = getattr(reply_to, "quote_offset", 0)
+            quote_flag = getattr(reply_to, "quote", False)
+
             entities = types.List(
                 filter(
                     lambda x: x is not None,
                     [
                         types.MessageEntity._parse(client, entity, users)
-                        for entity in getattr(reply_to, "quote_entities", [])
+                        for entity in quote_entities_raw
                     ]
                 )
             )
 
+            # If there is no quote information at all, return None
+            if not quote_flag and not quote_text and not entities:
+                return None
+
             return TextQuote(
-                text=Str(reply_to.quote_text).init(entities) or None,
+                text=Str(quote_text).init(entities) if quote_text is not None else None,
                 entities=entities or None,
-                position=reply_to.quote_offset or 0,
-                is_manual=reply_to.quote
+                position=quote_offset or 0,
+                is_manual=quote_flag
             )
