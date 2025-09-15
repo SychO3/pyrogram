@@ -75,6 +75,9 @@ from .message_reactions import MessageReactions
 from .my_boost import MyBoost
 from .paid_media_info import PaidMediaInfo
 from .paid_media_preview import PaidMediaPreview
+from .paid_media import PaidMedia
+from .paid_media_video import PaidMediaVideo
+from .paid_media_photo import PaidMediaPhoto
 from .paid_messages_price_changed import PaidMessagesPriceChanged
 from .paid_messages_refunded import PaidMessagesRefunded
 from .paid_reactor import PaidReactor
@@ -187,6 +190,9 @@ __all__ = [
     "MyBoost",
     "PaidMediaInfo",
     "PaidMediaPreview",
+    "PaidMedia",
+    "PaidMediaVideo",
+    "PaidMediaPhoto",
     "PaidMessagesPriceChanged",
     "PaidMessagesRefunded",
     "PaidReactor",
