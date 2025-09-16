@@ -530,6 +530,19 @@ class Session:
                 log.warning(
                     "%s: %s", BadMsgNotification.__name__, BadMsgNotification(result.error_code)
                 )
+                # Error codes 16/17 indicate msg_id too low/high, typically due to time drift
+                # after network interruptions or resumed connections.
+                if result.error_code in (16, 17):
+                    try:
+                        # Reset time sync flag to allow fresh synchronization
+                        if getattr(self.client, "_is_server_time_synced", None) is True:
+                            self.client._is_server_time_synced = False
+                        # Proactively restart the session to resync server time and session state
+                        await self.restart()
+                    except Exception as e:
+                        log.info("Restarting session failed due to - %s - %s", e.__class__.__name__, e)
+                    # Raise a typed error so invoke() can retry gracefully
+                    raise BadMsgNotification(result.error_code)
 
             if isinstance(result, raw.types.BadServerSalt):
                 self.salt = result.new_server_salt
@@ -576,7 +589,7 @@ class Session:
                 )
 
                 await asyncio.sleep(amount)
-            except (OSError, InternalServerError, ServiceUnavailable) as e:
+            except (OSError, InternalServerError, ServiceUnavailable, BadMsgNotification, TimeoutError) as e:
                 log.warning(
                     '[%s] Retrying "%s" due to: %s', attempt, query_name, str(e) or repr(e)
                 )
