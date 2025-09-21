@@ -374,13 +374,16 @@ def pyrogram_api():
             transfer_chat_ownership
             get_suitable_discussion_chats
             set_chat_discussion_group
+            set_main_profile_tab
         """,
         users="""
         Users
             get_me
             get_users
             get_chat_photos
+            get_chat_audios
             get_chat_photos_count
+            get_chat_audios_count
             set_profile_photo
             set_personal_channel
             delete_profile_photos
@@ -568,6 +571,9 @@ def pyrogram_api():
         """,
         account="""
         Account
+            add_profile_audio
+            remove_profile_audio
+            set_profile_audio_position
             get_account_ttl
             set_account_ttl
             set_privacy
@@ -1135,6 +1141,7 @@ def pyrogram_api():
             PollType
             PrivacyKey
             ProfileColor
+            ProfileTab
             ReplyColor
             SentCodeType
             StoriesPrivacyRules

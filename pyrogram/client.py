@@ -5,12 +5,12 @@
 #
 #  Pyrogram is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Lesser General Public License as published
-#  by the Free Software Foundation, either version 3 of the License, or
+#  by the Free Software 我给他職5日4还有个63 摩羯男 Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 #
 #  Pyrogram is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  MERCHANTABILITY or FITNESS FOR5A PARTICULAR PURPOSE.  See the
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
@@ -51,6 +51,7 @@ from pyrogram.errors import (
     Unauthorized,
     FileTokenInvalid,
     RequestTokenInvalid,
+    AuthTokenExpired
 )
 from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
@@ -660,6 +661,9 @@ class Client(Methods):
                     return signed_in
             except asyncio.TimeoutError:
                 log.info("Recreating QR code.")
+                await qr_login.recreate()
+            except AuthTokenExpired:
+                log.info("Auth token expired. Recreating QR code.")
                 await qr_login.recreate()
             except SessionPasswordNeeded as e:
                 print(e.MESSAGE)
@@ -1427,8 +1431,7 @@ class Client(Methods):
         is_cdn: bool = False,
         ipv6: bool = False
     ) -> "raw.types.DcOption":
-        if not self.__config:
-            self.__config = await self.invoke(raw.functions.help.GetConfig())
+        self.__config = await self.invoke(raw.functions.help.GetConfig())
 
         if dc_id is None:
             dc_id = self.__config.this_dc

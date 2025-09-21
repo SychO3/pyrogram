@@ -951,7 +951,7 @@ class Message(Object, Update):
                 service_type = enums.MessageServiceType.WRITE_ACCESS_ALLOWED
                 write_access_allowed = types.WriteAccessAllowed._parse(action)
         elif isinstance(action, raw.types.MessageActionBoostApply):
-            service_type = enums.MessageServiceType.BOOST_APPLY
+            service_type = enums.MessageServiceType.CHAT_BOOST
             chat_boost = action.boosts
         elif isinstance(action, raw.types.MessageActionChannelCreate):
             service_type = enums.MessageServiceType.CHANNEL_CHAT_CREATED
@@ -976,7 +976,7 @@ class Message(Object, Update):
             service_type = enums.MessageServiceType.DELETE_CHAT_PHOTO
             delete_chat_photo = True
         elif isinstance(action, raw.types.MessageActionChatDeleteUser):
-            service_type = enums.MessageServiceType.LEFT_CHAT_MEMBERS
+            service_type = enums.MessageServiceType.LEFT_CHAT_MEMBER
             left_chat_member = types.User._parse(client, users[action.user_id])
         elif isinstance(action, raw.types.MessageActionChatEditPhoto):
             service_type = enums.MessageServiceType.NEW_CHAT_PHOTO
@@ -1001,7 +1001,7 @@ class Message(Object, Update):
         elif isinstance(action, raw.types.MessageActionCustomAction):
             service_type = enums.MessageServiceType.CUSTOM_ACTION
             text = action.message
-        #TODO: elif isinstance(action, raw.types.MessageActionEmpty):
+        # TODO: elif isinstance(action, raw.types.MessageActionEmpty):
         elif isinstance(action, raw.types.MessageActionGeoProximityReached):
             service_type = enums.MessageServiceType.PROXIMITY_ALERT_TRIGGERED
             proximity_alert_triggered = types.ProximityAlertTriggered._parse(client, action, users, chats)
@@ -1125,7 +1125,7 @@ class Message(Object, Update):
             service_type = enums.MessageServiceType.CHAT_SET_BACKGROUND
             chat_set_background = types.ChatBackground._parse(client, action.wallpaper, action.same, action.for_both)
         elif isinstance(action, raw.types.MessageActionSetMessagesTTL):
-            service_type = enums.MessageServiceType.CHAT_TTL_CHANGED
+            service_type = enums.MessageServiceType.SET_MESSAGE_AUTO_DELETE_TIME
             set_message_auto_delete_time = action.period
         elif isinstance(action, (raw.types.MessageActionStarGift, raw.types.MessageActionStarGiftUnique)):
             service_type = enums.MessageServiceType.GIFT

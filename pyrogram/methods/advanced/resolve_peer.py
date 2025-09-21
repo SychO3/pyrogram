@@ -116,10 +116,7 @@ class ResolvePeer:
                         )
                     )
 
-                    try:
-                        return await self.storage.get_peer_by_id(utils.get_peer_id(r.peer))
-                    except KeyError:
-                        return await self.storage.get_peer_by_phone_number(phone)
+                    return await self.storage.get_peer_by_id(utils.get_peer_id(r.peer))
             else:
                 username = None
                 channel_id = None
@@ -136,23 +133,20 @@ class ResolvePeer:
 
                 if channel_id:
                     try:
-                        return await self.storage.get_peer_by_id(peer_id)
+                        return await self.storage.get_peer_by_id(channel_id)
                     except KeyError as e:
                         raise PeerIdInvalid from e
                 elif username:
                     try:
-                        return await self.storage.get_peer_by_username(peer_id)
+                        return await self.storage.get_peer_by_username(username)
                     except KeyError:
                         r = await self.invoke(
                             raw.functions.contacts.ResolveUsername(
-                                username=peer_id
+                                username=username
                             )
                         )
 
-                        try:
-                            return await self.storage.get_peer_by_id(utils.get_peer_id(r.peer))
-                        except KeyError:
-                            return await self.storage.get_peer_by_username(peer_id)
+                        return await self.storage.get_peer_by_id(utils.get_peer_id(r.peer))
                 else:
                     raise PeerIdInvalid
         else:

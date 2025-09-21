@@ -105,17 +105,18 @@ class SendCode:
             except (PhoneMigrateX, NetworkMigrateX) as e:
                 dc_option = await self.get_dc_option(e.value, ipv6=self.ipv6)
                 await self.session.stop()
-                self.session = None
+
+                self.session = await self.get_session(
+                    dc_id=e.value,
+                    server_address=dc_option.ip_address,
+                    port=dc_option.port,
+                    export_authorization=False,
+                    temporary=True
+                )
 
                 await self.storage.dc_id(e.value)
                 await self.storage.server_address(dc_option.ip_address)
                 await self.storage.port(dc_option.port)
-
-                self.session = await self.get_session(
-                     server_address=await self.storage.server_address(),
-                     port=await self.storage.port(),
-                     export_authorization=False,
-                     temporary=True
-                )
+                await self.storage.auth_key(self.session.auth_key)
             else:
                 return types.SentCode._parse(r)

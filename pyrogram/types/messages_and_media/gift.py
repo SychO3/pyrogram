@@ -184,6 +184,16 @@ class Gift(Object):
         is_pinned (``bool``, *optional*):
             True, if the gift is pinned.
 
+        is_upgrade_separate (``bool``, *optional*):
+            True, if the upgrade was bought after the gift was sent.
+            In this case, prepaid upgrade cost must not be added to the gift cost.
+
+        is_theme_available (``bool``, *optional*):
+            True, if the gift can be used to set a theme in a chat.
+
+        used_theme_chat_id (``int``, *optional*):
+            Identifier of the chat for which the gift is used to set a theme.
+
         raw (:obj:`~pyrogram.raw.base.StarGift`, *optional*):
             The raw object as received from the server.
 
@@ -246,6 +256,9 @@ class Gift(Object):
         is_for_birthday: Optional[bool] = None,
         is_premium: Optional[bool] = None,
         is_pinned: Optional[bool] = None,
+        is_upgrade_separate: Optional[bool] = None,
+        is_theme_available: Optional[bool] = None,
+        used_theme_chat_id: Optional[int] = None,
         raw: Optional["raw.base.StarGift"] = None
     ):
         super().__init__(client)
@@ -300,6 +313,9 @@ class Gift(Object):
         self.is_for_birthday = is_for_birthday
         self.is_premium = is_premium
         self.is_pinned = is_pinned
+        self.is_upgrade_separate = is_upgrade_separate
+        self.is_theme_available = is_theme_available
+        self.used_theme_chat_id = used_theme_chat_id
         self.raw = raw
 
     @staticmethod
@@ -372,6 +388,8 @@ class Gift(Object):
             total_upgraded_count=star_gift.availability_total,
             max_upgraded_count=star_gift.availability_issued,
             is_premium=star_gift.require_premium,
+            is_theme_available=star_gift.theme_available,
+            used_theme_chat_id=utils.get_peer_id(star_gift.theme_peer) if star_gift.theme_peer else None,
             owner=types.Chat._parse_chat(client, users.get(owner_id) or chats.get(owner_id)),
             owner_name=star_gift.owner_name,
             owner_address=star_gift.owner_address,
@@ -411,6 +429,7 @@ class Gift(Object):
         parsed_gift.is_saved = not saved_gift.unsaved
         parsed_gift.is_refunded = saved_gift.refunded
         parsed_gift.is_pinned = saved_gift.pinned_to_top
+        parsed_gift.is_upgrade_separate = saved_gift.upgrade_separate
         parsed_gift.can_upgrade = saved_gift.can_upgrade
         parsed_gift.from_user = types.User._parse(client, users.get(utils.get_raw_peer_id(saved_gift.from_id)))
         parsed_gift.caption = caption
@@ -447,6 +466,7 @@ class Gift(Object):
             parsed_gift.is_converted = action.converted
             parsed_gift.is_upgraded = action.upgraded
             parsed_gift.is_refunded = action.refunded
+            parsed_gift.is_upgrade_separate = action.upgrade_separate
             parsed_gift.can_upgrade = action.can_upgrade
             parsed_gift.caption = caption
             parsed_gift.caption_entities = caption_entities
