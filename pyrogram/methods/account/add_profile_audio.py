@@ -21,7 +21,7 @@ from typing import BinaryIO, Callable, Optional, Union
 
 import pyrogram
 from pyrogram import StopTransmission, raw, utils
-from pyrogram.errors import FilePartMissing
+from pyrogram.errors import FilePartXMissing
 from pyrogram.file_id import FileType
 
 
@@ -143,7 +143,7 @@ class AddProfileAudio:
             while True:
                 try:
                     r = await self.invoke(raw.functions.account.SaveMusic(id=media))
-                except FilePartMissing as e:
+                except FilePartXMissing as e:
                     await self.save_file(audio, file_id=file.id, file_part=e.value)
                 else:
                     return r
