@@ -48,15 +48,6 @@ class MessageActionGiftCode(TLObject):  # type: ignore
         crypto_currency (optional): ``str``
         crypto_amount (optional): ``int`` ``64-bit``
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["months", "slug", "via_giveaway", "unclaimed", "boost_peer", "currency", "amount", "crypto_currency", "crypto_amount", "message"]

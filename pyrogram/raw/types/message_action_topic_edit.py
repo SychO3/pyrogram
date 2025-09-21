@@ -42,15 +42,6 @@ class MessageActionTopicEdit(TLObject):  # type: ignore
         icon_emoji_id (optional): ``int`` ``64-bit``
         closed (optional): ``bool``
         hidden (optional): ``bool``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["title", "icon_emoji_id", "closed", "hidden"]

@@ -36,12 +36,4 @@ SavedStarGift.__doc__ = """
             :columns: 2
 
             - :obj:`SavedStarGift <pyrogram.raw.types.SavedStarGift>`
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`SavedStarGift <pyrogram.raw.functions.SavedStarGift>`
 """

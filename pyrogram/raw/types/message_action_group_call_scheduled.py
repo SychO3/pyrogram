@@ -40,15 +40,6 @@ class MessageActionGroupCallScheduled(TLObject):  # type: ignore
     Parameters:
         call: :obj:`InputGroupCall <pyrogram.raw.base.InputGroupCall>`
         schedule_date: ``int`` ``32-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["call", "schedule_date"]

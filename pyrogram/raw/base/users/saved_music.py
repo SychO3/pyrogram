@@ -16,51 +16,34 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from io import BytesIO
-
-from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
-from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
-
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
+from typing import Union
+from pyrogram import raw
+from pyrogram.raw.core import TLObject
 
-class ProfileTabMedia(TLObject):  # type: ignore
-    """Telegram API method.
+# We need to dynamically set `__doc__` due to `sphinx`
+SavedMusic = Union[raw.types.users.SavedMusic, raw.types.users.SavedMusicNotModified]
+SavedMusic.__doc__ = """
+    This base type has 2 constructors available.
 
-    Details:
-        - Layer: ``214``
-        - ID: ``72C64955``
+    Constructors:
+        .. hlist::
+            :columns: 2
 
-    **No parameters required.**
+            - :obj:`users.SavedMusic <pyrogram.raw.types.users.SavedMusic>`
+            - :obj:`users.SavedMusicNotModified <pyrogram.raw.types.users.SavedMusicNotModified>`
 
-    Returns:
-        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
-    """
+    See Also:
+        This object can be returned by 2 methods:
 
-    __slots__: List[str] = []
+        .. hlist::
+            :columns: 2
 
-    ID = 0x72c64955
-    QUALNAME = "functions.ProfileTabMedia"
-
-    def __init__(self) -> None:
-        pass
-
-    @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabMedia":
-        # No flags
-        
-        return ProfileTabMedia()
-
-    def write(self, *args) -> bytes:
-        b = BytesIO()
-        b.write(Int(self.ID, False))
-
-        # No flags
-        
-        return b.getvalue()
+            - :obj:`users.GetSavedMusic <pyrogram.raw.functions.users.GetSavedMusic>`
+            - :obj:`users.GetSavedMusicByID <pyrogram.raw.functions.users.GetSavedMusicByID>`
+"""

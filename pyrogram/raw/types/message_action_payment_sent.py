@@ -44,15 +44,6 @@ class MessageActionPaymentSent(TLObject):  # type: ignore
         recurring_used (optional): ``bool``
         invoice_slug (optional): ``str``
         subscription_until_date (optional): ``int`` ``32-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["currency", "total_amount", "recurring_init", "recurring_used", "invoice_slug", "subscription_until_date"]

@@ -16,51 +16,33 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from io import BytesIO
-
-from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
-from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
-
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
+from typing import Union
+from pyrogram import raw
+from pyrogram.raw.core import TLObject
 
-class ProfileTabMusic(TLObject):  # type: ignore
-    """Telegram API method.
+# We need to dynamically set `__doc__` due to `sphinx`
+CheckCanSendGiftResult = Union[raw.types.payments.CheckCanSendGiftResultFail, raw.types.payments.CheckCanSendGiftResultOk]
+CheckCanSendGiftResult.__doc__ = """
+    This base type has 2 constructors available.
 
-    Details:
-        - Layer: ``214``
-        - ID: ``9F27D26E``
+    Constructors:
+        .. hlist::
+            :columns: 2
 
-    **No parameters required.**
+            - :obj:`payments.CheckCanSendGiftResultFail <pyrogram.raw.types.payments.CheckCanSendGiftResultFail>`
+            - :obj:`payments.CheckCanSendGiftResultOk <pyrogram.raw.types.payments.CheckCanSendGiftResultOk>`
 
-    Returns:
-        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
-    """
+    See Also:
+        This object can be returned by 1 method:
 
-    __slots__: List[str] = []
+        .. hlist::
+            :columns: 2
 
-    ID = 0x9f27d26e
-    QUALNAME = "functions.ProfileTabMusic"
-
-    def __init__(self) -> None:
-        pass
-
-    @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabMusic":
-        # No flags
-        
-        return ProfileTabMusic()
-
-    def write(self, *args) -> bytes:
-        b = BytesIO()
-        b.write(Int(self.ID, False))
-
-        # No flags
-        
-        return b.getvalue()
+            - :obj:`payments.CheckCanSendGift <pyrogram.raw.functions.payments.CheckCanSendGift>`
+"""

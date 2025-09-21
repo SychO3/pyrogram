@@ -38,11 +38,10 @@ UniqueStarGift.__doc__ = """
             - :obj:`payments.UniqueStarGift <pyrogram.raw.types.payments.UniqueStarGift>`
 
     See Also:
-        This object can be returned by 2 methods:
+        This object can be returned by 1 method:
 
         .. hlist::
             :columns: 2
 
             - :obj:`payments.GetUniqueStarGift <pyrogram.raw.functions.payments.GetUniqueStarGift>`
-            - :obj:`payments.UniqueStarGift <pyrogram.raw.functions.payments.UniqueStarGift>`
 """

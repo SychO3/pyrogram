@@ -40,14 +40,6 @@ class InputStorePaymentPremiumSubscription(TLObject):  # type: ignore
     Parameters:
         restore (optional): ``bool``
         upgrade (optional): ``bool``
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
     """
 
     __slots__: List[str] = ["restore", "upgrade"]

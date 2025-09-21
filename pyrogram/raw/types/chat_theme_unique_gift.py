@@ -30,37 +30,45 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ProfileTabFiles(TLObject):  # type: ignore
-    """Telegram API method.
+class ChatThemeUniqueGift(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatTheme`.
 
     Details:
         - Layer: ``214``
-        - ID: ``AB339C00``
+        - ID: ``3458F9C8``
 
-    **No parameters required.**
-
-    Returns:
-        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
+    Parameters:
+        gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
+        theme_settings: List of :obj:`ThemeSettings <pyrogram.raw.base.ThemeSettings>`
     """
 
-    __slots__: List[str] = []
+    __slots__: List[str] = ["gift", "theme_settings"]
 
-    ID = 0xab339c00
-    QUALNAME = "functions.ProfileTabFiles"
+    ID = 0x3458f9c8
+    QUALNAME = "types.ChatThemeUniqueGift"
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, *, gift: "raw.base.StarGift", theme_settings: List["raw.base.ThemeSettings"]) -> None:
+        self.gift = gift  # StarGift
+        self.theme_settings = theme_settings  # Vector<ThemeSettings>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabFiles":
+    def read(b: BytesIO, *args: Any) -> "ChatThemeUniqueGift":
         # No flags
         
-        return ProfileTabFiles()
+        gift = TLObject.read(b)
+        
+        theme_settings = TLObject.read(b)
+        
+        return ChatThemeUniqueGift(gift=gift, theme_settings=theme_settings)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
+        
+        b.write(self.gift.write())
+        
+        b.write(Vector(self.theme_settings))
         
         return b.getvalue()

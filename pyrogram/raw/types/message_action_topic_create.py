@@ -41,15 +41,6 @@ class MessageActionTopicCreate(TLObject):  # type: ignore
         title: ``str``
         icon_color: ``int`` ``32-bit``
         icon_emoji_id (optional): ``int`` ``64-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["title", "icon_color", "icon_emoji_id"]

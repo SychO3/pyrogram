@@ -16,51 +16,25 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from io import BytesIO
-
-from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
-from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
-
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
+from typing import Union
+from pyrogram import raw
+from pyrogram.raw.core import TLObject
 
-class InputChatThemeEmpty(TLObject):  # type: ignore
-    """Telegram API method.
+# We need to dynamically set `__doc__` due to `sphinx`
+ChatTheme = Union[raw.types.ChatTheme, raw.types.ChatThemeUniqueGift]
+ChatTheme.__doc__ = """
+    This base type has 2 constructors available.
 
-    Details:
-        - Layer: ``214``
-        - ID: ``83268483``
+    Constructors:
+        .. hlist::
+            :columns: 2
 
-    **No parameters required.**
-
-    Returns:
-        :obj:`InputChatTheme <pyrogram.raw.base.InputChatTheme>`
-    """
-
-    __slots__: List[str] = []
-
-    ID = 0x83268483
-    QUALNAME = "functions.InputChatThemeEmpty"
-
-    def __init__(self) -> None:
-        pass
-
-    @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputChatThemeEmpty":
-        # No flags
-        
-        return InputChatThemeEmpty()
-
-    def write(self, *args) -> bytes:
-        b = BytesIO()
-        b.write(Int(self.ID, False))
-
-        # No flags
-        
-        return b.getvalue()
+            - :obj:`ChatTheme <pyrogram.raw.types.ChatTheme>`
+            - :obj:`ChatThemeUniqueGift <pyrogram.raw.types.ChatThemeUniqueGift>`
+"""

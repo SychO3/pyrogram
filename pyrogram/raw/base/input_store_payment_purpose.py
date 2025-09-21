@@ -43,12 +43,4 @@ InputStorePaymentPurpose.__doc__ = """
             - :obj:`InputStorePaymentStarsGift <pyrogram.raw.types.InputStorePaymentStarsGift>`
             - :obj:`InputStorePaymentStarsGiveaway <pyrogram.raw.types.InputStorePaymentStarsGiveaway>`
             - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.types.InputStorePaymentStarsTopup>`
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
 """

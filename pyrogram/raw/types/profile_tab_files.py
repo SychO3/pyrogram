@@ -30,42 +30,34 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class CheckCanSendGiftResultFail(TLObject):  # type: ignore
-    """Telegram API method.
+class ProfileTabFiles(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
 
     Details:
         - Layer: ``214``
-        - ID: ``D5E58274``
+        - ID: ``AB339C00``
 
-    Parameters:
-        reason: :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
-
-    Returns:
-        :obj:`payments.CheckCanSendGiftResult <pyrogram.raw.base.payments.CheckCanSendGiftResult>`
+    **No parameters required.**
     """
 
-    __slots__: List[str] = ["reason"]
+    __slots__: List[str] = []
 
-    ID = 0xd5e58274
-    QUALNAME = "functions.payments.CheckCanSendGiftResultFail"
+    ID = 0xab339c00
+    QUALNAME = "types.ProfileTabFiles"
 
-    def __init__(self, *, reason: "raw.base.TextWithEntities") -> None:
-        self.reason = reason  # TextWithEntities
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "CheckCanSendGiftResultFail":
+    def read(b: BytesIO, *args: Any) -> "ProfileTabFiles":
         # No flags
         
-        reason = TLObject.read(b)
-        
-        return CheckCanSendGiftResultFail(reason=reason)
+        return ProfileTabFiles()
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
-        
-        b.write(self.reason.write())
         
         return b.getvalue()

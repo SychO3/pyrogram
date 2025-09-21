@@ -36,12 +36,4 @@ UserFull.__doc__ = """
             :columns: 2
 
             - :obj:`UserFull <pyrogram.raw.types.UserFull>`
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`UserFull <pyrogram.raw.functions.UserFull>`
 """

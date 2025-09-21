@@ -27,21 +27,20 @@ from pyrogram import raw
 from pyrogram.raw.core import TLObject
 
 # We need to dynamically set `__doc__` due to `sphinx`
-WebPagePreview = Union[raw.types.messages.WebPagePreview]
-WebPagePreview.__doc__ = """
-    This base type has 1 constructor available.
+ProfileTab = Union[raw.types.ProfileTabFiles, raw.types.ProfileTabGifs, raw.types.ProfileTabGifts, raw.types.ProfileTabLinks, raw.types.ProfileTabMedia, raw.types.ProfileTabMusic, raw.types.ProfileTabPosts, raw.types.ProfileTabVoice]
+ProfileTab.__doc__ = """
+    This base type has 8 constructors available.
 
     Constructors:
         .. hlist::
             :columns: 2
 
-            - :obj:`messages.WebPagePreview <pyrogram.raw.types.messages.WebPagePreview>`
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`messages.GetWebPagePreview <pyrogram.raw.functions.messages.GetWebPagePreview>`
+            - :obj:`ProfileTabFiles <pyrogram.raw.types.ProfileTabFiles>`
+            - :obj:`ProfileTabGifs <pyrogram.raw.types.ProfileTabGifs>`
+            - :obj:`ProfileTabGifts <pyrogram.raw.types.ProfileTabGifts>`
+            - :obj:`ProfileTabLinks <pyrogram.raw.types.ProfileTabLinks>`
+            - :obj:`ProfileTabMedia <pyrogram.raw.types.ProfileTabMedia>`
+            - :obj:`ProfileTabMusic <pyrogram.raw.types.ProfileTabMusic>`
+            - :obj:`ProfileTabPosts <pyrogram.raw.types.ProfileTabPosts>`
+            - :obj:`ProfileTabVoice <pyrogram.raw.types.ProfileTabVoice>`
 """

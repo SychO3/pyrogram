@@ -30,39 +30,40 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ChatThemeUniqueGift(TLObject):  # type: ignore
-    """Telegram API method.
+class CheckCanSendGiftResultFail(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.CheckCanSendGiftResult`.
 
     Details:
         - Layer: ``214``
-        - ID: ``3458F9C8``
+        - ID: ``D5E58274``
 
     Parameters:
-        gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
-        theme_settings: List of :obj:`ThemeSettings <pyrogram.raw.base.ThemeSettings>`
+        reason: :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
 
-    Returns:
-        :obj:`ChatTheme <pyrogram.raw.base.ChatTheme>`
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`payments.CheckCanSendGift <pyrogram.raw.functions.payments.CheckCanSendGift>`
     """
 
-    __slots__: List[str] = ["gift", "theme_settings"]
+    __slots__: List[str] = ["reason"]
 
-    ID = 0x3458f9c8
-    QUALNAME = "functions.ChatThemeUniqueGift"
+    ID = 0xd5e58274
+    QUALNAME = "types.payments.CheckCanSendGiftResultFail"
 
-    def __init__(self, *, gift: "raw.base.StarGift", theme_settings: List["raw.base.ThemeSettings"]) -> None:
-        self.gift = gift  # StarGift
-        self.theme_settings = theme_settings  # Vector<ThemeSettings>
+    def __init__(self, *, reason: "raw.base.TextWithEntities") -> None:
+        self.reason = reason  # TextWithEntities
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ChatThemeUniqueGift":
+    def read(b: BytesIO, *args: Any) -> "CheckCanSendGiftResultFail":
         # No flags
         
-        gift = TLObject.read(b)
+        reason = TLObject.read(b)
         
-        theme_settings = TLObject.read(b)
-        
-        return ChatThemeUniqueGift(gift=gift, theme_settings=theme_settings)
+        return CheckCanSendGiftResultFail(reason=reason)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -70,8 +71,6 @@ class ChatThemeUniqueGift(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(self.gift.write())
-        
-        b.write(Vector(self.theme_settings))
+        b.write(self.reason.write())
         
         return b.getvalue()

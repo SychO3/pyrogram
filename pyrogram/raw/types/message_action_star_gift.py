@@ -46,6 +46,7 @@ class MessageActionStarGift(TLObject):  # type: ignore
         refunded (optional): ``bool``
         can_upgrade (optional): ``bool``
         prepaid_upgrade (optional): ``bool``
+        upgrade_separate (optional): ``bool``
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
         convert_stars (optional): ``int`` ``64-bit``
         upgrade_msg_id (optional): ``int`` ``32-bit``
@@ -55,23 +56,14 @@ class MessageActionStarGift(TLObject):  # type: ignore
         saved_id (optional): ``int`` ``64-bit``
         prepaid_upgrade_hash (optional): ``str``
         gift_msg_id (optional): ``int`` ``32-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
-    __slots__: List[str] = ["gift", "name_hidden", "saved", "converted", "upgraded", "refunded", "can_upgrade", "prepaid_upgrade", "message", "convert_stars", "upgrade_msg_id", "upgrade_stars", "from_id", "peer", "saved_id", "prepaid_upgrade_hash", "gift_msg_id"]
+    __slots__: List[str] = ["gift", "name_hidden", "saved", "converted", "upgraded", "refunded", "can_upgrade", "prepaid_upgrade", "upgrade_separate", "message", "convert_stars", "upgrade_msg_id", "upgrade_stars", "from_id", "peer", "saved_id", "prepaid_upgrade_hash", "gift_msg_id"]
 
     ID = 0xf24de7fa
     QUALNAME = "types.MessageActionStarGift"
 
-    def __init__(self, *, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, saved: Optional[bool] = None, converted: Optional[bool] = None, upgraded: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, prepaid_upgrade: Optional[bool] = None, message: "raw.base.TextWithEntities" = None, convert_stars: Optional[int] = None, upgrade_msg_id: Optional[int] = None, upgrade_stars: Optional[int] = None, from_id: "raw.base.Peer" = None, peer: "raw.base.Peer" = None, saved_id: Optional[int] = None, prepaid_upgrade_hash: Optional[str] = None, gift_msg_id: Optional[int] = None) -> None:
+    def __init__(self, *, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, saved: Optional[bool] = None, converted: Optional[bool] = None, upgraded: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, prepaid_upgrade: Optional[bool] = None, upgrade_separate: Optional[bool] = None, message: "raw.base.TextWithEntities" = None, convert_stars: Optional[int] = None, upgrade_msg_id: Optional[int] = None, upgrade_stars: Optional[int] = None, from_id: "raw.base.Peer" = None, peer: "raw.base.Peer" = None, saved_id: Optional[int] = None, prepaid_upgrade_hash: Optional[str] = None, gift_msg_id: Optional[int] = None) -> None:
         self.gift = gift  # StarGift
         self.name_hidden = name_hidden  # flags.0?true
         self.saved = saved  # flags.2?true
@@ -80,6 +72,7 @@ class MessageActionStarGift(TLObject):  # type: ignore
         self.refunded = refunded  # flags.9?true
         self.can_upgrade = can_upgrade  # flags.10?true
         self.prepaid_upgrade = prepaid_upgrade  # flags.13?true
+        self.upgrade_separate = upgrade_separate  # flags.16?true
         self.message = message  # flags.1?TextWithEntities
         self.convert_stars = convert_stars  # flags.4?long
         self.upgrade_msg_id = upgrade_msg_id  # flags.5?int
@@ -102,6 +95,7 @@ class MessageActionStarGift(TLObject):  # type: ignore
         refunded = True if flags & (1 << 9) else False
         can_upgrade = True if flags & (1 << 10) else False
         prepaid_upgrade = True if flags & (1 << 13) else False
+        upgrade_separate = True if flags & (1 << 16) else False
         gift = TLObject.read(b)
         
         message = TLObject.read(b) if flags & (1 << 1) else None
@@ -116,7 +110,7 @@ class MessageActionStarGift(TLObject):  # type: ignore
         saved_id = Long.read(b) if flags & (1 << 12) else None
         prepaid_upgrade_hash = String.read(b) if flags & (1 << 14) else None
         gift_msg_id = Int.read(b) if flags & (1 << 15) else None
-        return MessageActionStarGift(gift=gift, name_hidden=name_hidden, saved=saved, converted=converted, upgraded=upgraded, refunded=refunded, can_upgrade=can_upgrade, prepaid_upgrade=prepaid_upgrade, message=message, convert_stars=convert_stars, upgrade_msg_id=upgrade_msg_id, upgrade_stars=upgrade_stars, from_id=from_id, peer=peer, saved_id=saved_id, prepaid_upgrade_hash=prepaid_upgrade_hash, gift_msg_id=gift_msg_id)
+        return MessageActionStarGift(gift=gift, name_hidden=name_hidden, saved=saved, converted=converted, upgraded=upgraded, refunded=refunded, can_upgrade=can_upgrade, prepaid_upgrade=prepaid_upgrade, upgrade_separate=upgrade_separate, message=message, convert_stars=convert_stars, upgrade_msg_id=upgrade_msg_id, upgrade_stars=upgrade_stars, from_id=from_id, peer=peer, saved_id=saved_id, prepaid_upgrade_hash=prepaid_upgrade_hash, gift_msg_id=gift_msg_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -130,6 +124,7 @@ class MessageActionStarGift(TLObject):  # type: ignore
         flags |= (1 << 9) if self.refunded else 0
         flags |= (1 << 10) if self.can_upgrade else 0
         flags |= (1 << 13) if self.prepaid_upgrade else 0
+        flags |= (1 << 16) if self.upgrade_separate else 0
         flags |= (1 << 1) if self.message is not None else 0
         flags |= (1 << 4) if self.convert_stars is not None else 0
         flags |= (1 << 5) if self.upgrade_msg_id is not None else 0

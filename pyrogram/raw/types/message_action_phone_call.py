@@ -42,15 +42,6 @@ class MessageActionPhoneCall(TLObject):  # type: ignore
         video (optional): ``bool``
         reason (optional): :obj:`PhoneCallDiscardReason <pyrogram.raw.base.PhoneCallDiscardReason>`
         duration (optional): ``int`` ``32-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["call_id", "video", "reason", "duration"]

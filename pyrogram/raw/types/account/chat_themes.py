@@ -31,7 +31,7 @@ from typing import List, Optional, Any
 
 
 class ChatThemes(TLObject):  # type: ignore
-    """Telegram API method.
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.ChatThemes`.
 
     Details:
         - Layer: ``214``
@@ -44,14 +44,19 @@ class ChatThemes(TLObject):  # type: ignore
         users: List of :obj:`User <pyrogram.raw.base.User>`
         next_offset (optional): ``int`` ``32-bit``
 
-    Returns:
-        :obj:`account.ChatThemes <pyrogram.raw.base.account.ChatThemes>`
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`account.GetUniqueGiftChatThemes <pyrogram.raw.functions.account.GetUniqueGiftChatThemes>`
     """
 
     __slots__: List[str] = ["hash", "themes", "chats", "users", "next_offset"]
 
     ID = 0x16484857
-    QUALNAME = "functions.account.ChatThemes"
+    QUALNAME = "types.account.ChatThemes"
 
     def __init__(self, *, hash: int, themes: List["raw.base.ChatTheme"], chats: List["raw.base.Chat"], users: List["raw.base.User"], next_offset: Optional[int] = None) -> None:
         self.hash = hash  # long

@@ -30,32 +30,29 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ProfileTabVoice(TLObject):  # type: ignore
-    """Telegram API method.
+class InputChatThemeEmpty(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatTheme`.
 
     Details:
         - Layer: ``214``
-        - ID: ``E477092E``
+        - ID: ``83268483``
 
     **No parameters required.**
-
-    Returns:
-        :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
     """
 
     __slots__: List[str] = []
 
-    ID = 0xe477092e
-    QUALNAME = "functions.ProfileTabVoice"
+    ID = 0x83268483
+    QUALNAME = "types.InputChatThemeEmpty"
 
     def __init__(self) -> None:
         pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "ProfileTabVoice":
+    def read(b: BytesIO, *args: Any) -> "InputChatThemeEmpty":
         # No flags
         
-        return ProfileTabVoice()
+        return InputChatThemeEmpty()
 
     def write(self, *args) -> bytes:
         b = BytesIO()

@@ -37,6 +37,7 @@ from .auto_download_settings import AutoDownloadSettings
 from .themes import Themes
 from .content_settings import ContentSettings
 from .reset_password_result import ResetPasswordResult
+from .chat_themes import ChatThemes
 from .saved_ringtones import SavedRingtones
 from .saved_ringtone import SavedRingtone
 from .emoji_statuses import EmojiStatuses
@@ -46,3 +47,4 @@ from .connected_bots import ConnectedBots
 from .business_chat_links import BusinessChatLinks
 from .resolved_business_chat_links import ResolvedBusinessChatLinks
 from .paid_messages_revenue import PaidMessagesRevenue
+from .saved_music_ids import SavedMusicIds

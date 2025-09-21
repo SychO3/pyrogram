@@ -30,43 +30,32 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class WebPagePreview(TLObject):  # type: ignore
-    """Telegram API method.
+class InputChatTheme(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatTheme`.
 
     Details:
         - Layer: ``214``
-        - ID: ``8C9A88AC``
+        - ID: ``C93DE95C``
 
     Parameters:
-        media: :obj:`MessageMedia <pyrogram.raw.base.MessageMedia>`
-        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
-        users: List of :obj:`User <pyrogram.raw.base.User>`
-
-    Returns:
-        :obj:`messages.WebPagePreview <pyrogram.raw.base.messages.WebPagePreview>`
+        emoticon: ``str``
     """
 
-    __slots__: List[str] = ["media", "chats", "users"]
+    __slots__: List[str] = ["emoticon"]
 
-    ID = 0x8c9a88ac
-    QUALNAME = "functions.messages.WebPagePreview"
+    ID = 0xc93de95c
+    QUALNAME = "types.InputChatTheme"
 
-    def __init__(self, *, media: "raw.base.MessageMedia", chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
-        self.media = media  # MessageMedia
-        self.chats = chats  # Vector<Chat>
-        self.users = users  # Vector<User>
+    def __init__(self, *, emoticon: str) -> None:
+        self.emoticon = emoticon  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "WebPagePreview":
+    def read(b: BytesIO, *args: Any) -> "InputChatTheme":
         # No flags
         
-        media = TLObject.read(b)
+        emoticon = String.read(b)
         
-        chats = TLObject.read(b)
-        
-        users = TLObject.read(b)
-        
-        return WebPagePreview(media=media, chats=chats, users=users)
+        return InputChatTheme(emoticon=emoticon)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -74,10 +63,6 @@ class WebPagePreview(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(self.media.write())
-        
-        b.write(Vector(self.chats))
-        
-        b.write(Vector(self.users))
+        b.write(String(self.emoticon))
         
         return b.getvalue()

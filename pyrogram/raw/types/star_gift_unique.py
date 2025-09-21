@@ -35,7 +35,7 @@ class StarGiftUnique(TLObject):  # type: ignore
 
     Details:
         - Layer: ``214``
-        - ID: ``26A5553E``
+        - ID: ``1BEFE865``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -48,6 +48,7 @@ class StarGiftUnique(TLObject):  # type: ignore
         availability_total: ``int`` ``32-bit``
         require_premium (optional): ``bool``
         resale_ton_only (optional): ``bool``
+        theme_available (optional): ``bool``
         owner_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
         owner_name (optional): ``str``
         owner_address (optional): ``str``
@@ -56,23 +57,15 @@ class StarGiftUnique(TLObject):  # type: ignore
         released_by (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
         value_amount (optional): ``int`` ``64-bit``
         value_currency (optional): ``str``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`StarGift <pyrogram.raw.functions.StarGift>`
-            - :obj:`StarGiftUnique <pyrogram.raw.functions.StarGiftUnique>`
+        theme_peer (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
     """
 
-    __slots__: List[str] = ["id", "gift_id", "title", "slug", "num", "attributes", "availability_issued", "availability_total", "require_premium", "resale_ton_only", "owner_id", "owner_name", "owner_address", "gift_address", "resell_amount", "released_by", "value_amount", "value_currency"]
+    __slots__: List[str] = ["id", "gift_id", "title", "slug", "num", "attributes", "availability_issued", "availability_total", "require_premium", "resale_ton_only", "theme_available", "owner_id", "owner_name", "owner_address", "gift_address", "resell_amount", "released_by", "value_amount", "value_currency", "theme_peer"]
 
-    ID = 0x26a5553e
+    ID = 0x1befe865
     QUALNAME = "types.StarGiftUnique"
 
-    def __init__(self, *, id: int, gift_id: int, title: str, slug: str, num: int, attributes: List["raw.base.StarGiftAttribute"], availability_issued: int, availability_total: int, require_premium: Optional[bool] = None, resale_ton_only: Optional[bool] = None, owner_id: "raw.base.Peer" = None, owner_name: Optional[str] = None, owner_address: Optional[str] = None, gift_address: Optional[str] = None, resell_amount: Optional[List["raw.base.StarsAmount"]] = None, released_by: "raw.base.Peer" = None, value_amount: Optional[int] = None, value_currency: Optional[str] = None) -> None:
+    def __init__(self, *, id: int, gift_id: int, title: str, slug: str, num: int, attributes: List["raw.base.StarGiftAttribute"], availability_issued: int, availability_total: int, require_premium: Optional[bool] = None, resale_ton_only: Optional[bool] = None, theme_available: Optional[bool] = None, owner_id: "raw.base.Peer" = None, owner_name: Optional[str] = None, owner_address: Optional[str] = None, gift_address: Optional[str] = None, resell_amount: Optional[List["raw.base.StarsAmount"]] = None, released_by: "raw.base.Peer" = None, value_amount: Optional[int] = None, value_currency: Optional[str] = None, theme_peer: "raw.base.Peer" = None) -> None:
         self.id = id  # long
         self.gift_id = gift_id  # long
         self.title = title  # string
@@ -83,6 +76,7 @@ class StarGiftUnique(TLObject):  # type: ignore
         self.availability_total = availability_total  # int
         self.require_premium = require_premium  # flags.6?true
         self.resale_ton_only = resale_ton_only  # flags.7?true
+        self.theme_available = theme_available  # flags.9?true
         self.owner_id = owner_id  # flags.0?Peer
         self.owner_name = owner_name  # flags.1?string
         self.owner_address = owner_address  # flags.2?string
@@ -91,6 +85,7 @@ class StarGiftUnique(TLObject):  # type: ignore
         self.released_by = released_by  # flags.5?Peer
         self.value_amount = value_amount  # flags.8?long
         self.value_currency = value_currency  # flags.8?string
+        self.theme_peer = theme_peer  # flags.10?Peer
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftUnique":
@@ -99,6 +94,7 @@ class StarGiftUnique(TLObject):  # type: ignore
         
         require_premium = True if flags & (1 << 6) else False
         resale_ton_only = True if flags & (1 << 7) else False
+        theme_available = True if flags & (1 << 9) else False
         id = Long.read(b)
         
         gift_id = Long.read(b)
@@ -126,7 +122,9 @@ class StarGiftUnique(TLObject):  # type: ignore
         
         value_amount = Long.read(b) if flags & (1 << 8) else None
         value_currency = String.read(b) if flags & (1 << 8) else None
-        return StarGiftUnique(id=id, gift_id=gift_id, title=title, slug=slug, num=num, attributes=attributes, availability_issued=availability_issued, availability_total=availability_total, require_premium=require_premium, resale_ton_only=resale_ton_only, owner_id=owner_id, owner_name=owner_name, owner_address=owner_address, gift_address=gift_address, resell_amount=resell_amount, released_by=released_by, value_amount=value_amount, value_currency=value_currency)
+        theme_peer = TLObject.read(b) if flags & (1 << 10) else None
+        
+        return StarGiftUnique(id=id, gift_id=gift_id, title=title, slug=slug, num=num, attributes=attributes, availability_issued=availability_issued, availability_total=availability_total, require_premium=require_premium, resale_ton_only=resale_ton_only, theme_available=theme_available, owner_id=owner_id, owner_name=owner_name, owner_address=owner_address, gift_address=gift_address, resell_amount=resell_amount, released_by=released_by, value_amount=value_amount, value_currency=value_currency, theme_peer=theme_peer)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -135,6 +133,7 @@ class StarGiftUnique(TLObject):  # type: ignore
         flags = 0
         flags |= (1 << 6) if self.require_premium else 0
         flags |= (1 << 7) if self.resale_ton_only else 0
+        flags |= (1 << 9) if self.theme_available else 0
         flags |= (1 << 0) if self.owner_id is not None else 0
         flags |= (1 << 1) if self.owner_name is not None else 0
         flags |= (1 << 2) if self.owner_address is not None else 0
@@ -143,6 +142,7 @@ class StarGiftUnique(TLObject):  # type: ignore
         flags |= (1 << 5) if self.released_by is not None else 0
         flags |= (1 << 8) if self.value_amount is not None else 0
         flags |= (1 << 8) if self.value_currency is not None else 0
+        flags |= (1 << 10) if self.theme_peer is not None else 0
         b.write(Int(flags))
         
         b.write(Long(self.id))
@@ -184,5 +184,8 @@ class StarGiftUnique(TLObject):  # type: ignore
         
         if self.value_currency is not None:
             b.write(String(self.value_currency))
+        
+        if self.theme_peer is not None:
+            b.write(self.theme_peer.write())
         
         return b.getvalue()

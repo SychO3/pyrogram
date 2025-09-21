@@ -43,15 +43,6 @@ class MessageActionSuggestedPostApproval(TLObject):  # type: ignore
         reject_comment (optional): ``str``
         schedule_date (optional): ``int`` ``32-bit``
         price (optional): :obj:`StarsAmount <pyrogram.raw.base.StarsAmount>`
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["rejected", "balance_too_low", "reject_comment", "schedule_date", "price"]

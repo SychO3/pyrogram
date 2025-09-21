@@ -52,3 +52,5 @@ from .resale_star_gifts import ResaleStarGifts
 from .star_gift_collections_not_modified import StarGiftCollectionsNotModified
 from .star_gift_collections import StarGiftCollections
 from .unique_star_gift_value_info import UniqueStarGiftValueInfo
+from .check_can_send_gift_result_ok import CheckCanSendGiftResultOk
+from .check_can_send_gift_result_fail import CheckCanSendGiftResultFail

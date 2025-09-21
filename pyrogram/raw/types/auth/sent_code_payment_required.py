@@ -35,14 +35,16 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
 
     Details:
         - Layer: ``214``
-        - ID: ``D7CEF980``
+        - ID: ``D7A2FCF9``
 
     Parameters:
         store_product: ``str``
         phone_code_hash: ``str``
+        support_email_address: ``str``
+        support_email_subject: ``str``
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 6 methods:
 
         .. hlist::
             :columns: 2
@@ -53,17 +55,18 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
             - :obj:`account.SendChangePhoneCode <pyrogram.raw.functions.account.SendChangePhoneCode>`
             - :obj:`account.SendConfirmPhoneCode <pyrogram.raw.functions.account.SendConfirmPhoneCode>`
             - :obj:`account.SendVerifyPhoneCode <pyrogram.raw.functions.account.SendVerifyPhoneCode>`
-            - :obj:`auth.SentCodePaymentRequired <pyrogram.raw.functions.auth.SentCodePaymentRequired>`
     """
 
-    __slots__: List[str] = ["store_product", "phone_code_hash"]
+    __slots__: List[str] = ["store_product", "phone_code_hash", "support_email_address", "support_email_subject"]
 
-    ID = 0xd7cef980
+    ID = 0xd7a2fcf9
     QUALNAME = "types.auth.SentCodePaymentRequired"
 
-    def __init__(self, *, store_product: str, phone_code_hash: str) -> None:
+    def __init__(self, *, store_product: str, phone_code_hash: str, support_email_address: str, support_email_subject: str) -> None:
         self.store_product = store_product  # string
         self.phone_code_hash = phone_code_hash  # string
+        self.support_email_address = support_email_address  # string
+        self.support_email_subject = support_email_subject  # string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SentCodePaymentRequired":
@@ -73,7 +76,11 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
         
         phone_code_hash = String.read(b)
         
-        return SentCodePaymentRequired(store_product=store_product, phone_code_hash=phone_code_hash)
+        support_email_address = String.read(b)
+        
+        support_email_subject = String.read(b)
+        
+        return SentCodePaymentRequired(store_product=store_product, phone_code_hash=phone_code_hash, support_email_address=support_email_address, support_email_subject=support_email_subject)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -84,5 +91,9 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
         b.write(String(self.store_product))
         
         b.write(String(self.phone_code_hash))
+        
+        b.write(String(self.support_email_address))
+        
+        b.write(String(self.support_email_subject))
         
         return b.getvalue()

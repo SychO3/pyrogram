@@ -40,15 +40,6 @@ class MessageActionRequestedPeerSentMe(TLObject):  # type: ignore
     Parameters:
         button_id: ``int`` ``32-bit``
         peers: List of :obj:`RequestedPeer <pyrogram.raw.base.RequestedPeer>`
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["button_id", "peers"]

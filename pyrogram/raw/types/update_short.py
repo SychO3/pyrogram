@@ -42,7 +42,7 @@ class UpdateShort(TLObject):  # type: ignore
         date: ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 120 methods:
+        This object can be returned by 119 methods:
 
         .. hlist::
             :columns: 2
@@ -166,7 +166,6 @@ class UpdateShort(TLObject):  # type: ignore
             - :obj:`stories.ActivateStealthMode <pyrogram.raw.functions.stories.ActivateStealthMode>`
             - :obj:`stories.SendReaction <pyrogram.raw.functions.stories.SendReaction>`
             - :obj:`stories.GetAllReadPeerStories <pyrogram.raw.functions.stories.GetAllReadPeerStories>`
-            - :obj:`messages.SetChatTheme <pyrogram.raw.functions.messages.SetChatTheme>`
     """
 
     __slots__: List[str] = ["update", "date"]

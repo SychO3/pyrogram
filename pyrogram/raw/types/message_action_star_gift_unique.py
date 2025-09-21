@@ -52,15 +52,6 @@ class MessageActionStarGiftUnique(TLObject):  # type: ignore
         resale_amount (optional): :obj:`StarsAmount <pyrogram.raw.base.StarsAmount>`
         can_transfer_at (optional): ``int`` ``32-bit``
         can_resell_at (optional): ``int`` ``32-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["gift", "upgrade", "transferred", "saved", "refunded", "prepaid_upgrade", "can_export_at", "transfer_stars", "from_id", "peer", "saved_id", "resale_amount", "can_transfer_at", "can_resell_at"]

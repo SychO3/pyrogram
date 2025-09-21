@@ -44,15 +44,6 @@ class MessageActionConferenceCall(TLObject):  # type: ignore
         video (optional): ``bool``
         duration (optional): ``int`` ``32-bit``
         other_participants (optional): List of :obj:`Peer <pyrogram.raw.base.Peer>`
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["call_id", "missed", "active", "video", "duration", "other_participants"]

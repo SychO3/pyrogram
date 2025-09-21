@@ -42,14 +42,6 @@ class InputStorePaymentStarsGift(TLObject):  # type: ignore
         stars: ``int`` ``64-bit``
         currency: ``str``
         amount: ``int`` ``64-bit``
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
     """
 
     __slots__: List[str] = ["user_id", "stars", "currency", "amount"]

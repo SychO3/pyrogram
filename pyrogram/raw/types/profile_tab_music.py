@@ -30,42 +30,34 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedMusicIds(TLObject):  # type: ignore
-    """Telegram API method.
+class ProfileTabMusic(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
 
     Details:
         - Layer: ``214``
-        - ID: ``998D6636``
+        - ID: ``9F27D26E``
 
-    Parameters:
-        ids: List of ``int`` ``64-bit``
-
-    Returns:
-        :obj:`account.SavedMusicIds <pyrogram.raw.base.account.SavedMusicIds>`
+    **No parameters required.**
     """
 
-    __slots__: List[str] = ["ids"]
+    __slots__: List[str] = []
 
-    ID = 0x998d6636
-    QUALNAME = "functions.account.SavedMusicIds"
+    ID = 0x9f27d26e
+    QUALNAME = "types.ProfileTabMusic"
 
-    def __init__(self, *, ids: List[int]) -> None:
-        self.ids = ids  # Vector<long>
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SavedMusicIds":
+    def read(b: BytesIO, *args: Any) -> "ProfileTabMusic":
         # No flags
         
-        ids = TLObject.read(b, Long)
-        
-        return SavedMusicIds(ids=ids)
+        return ProfileTabMusic()
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
-        
-        b.write(Vector(self.ids, Long))
         
         return b.getvalue()

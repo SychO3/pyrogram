@@ -30,39 +30,40 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedMusic(TLObject):  # type: ignore
-    """Telegram API method.
+class SavedMusicIds(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.SavedMusicIds`.
 
     Details:
         - Layer: ``214``
-        - ID: ``34A2F297``
+        - ID: ``998D6636``
 
     Parameters:
-        count: ``int`` ``32-bit``
-        documents: List of :obj:`Document <pyrogram.raw.base.Document>`
+        ids: List of ``int`` ``64-bit``
 
-    Returns:
-        :obj:`users.SavedMusic <pyrogram.raw.base.users.SavedMusic>`
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`account.GetSavedMusicIds <pyrogram.raw.functions.account.GetSavedMusicIds>`
     """
 
-    __slots__: List[str] = ["count", "documents"]
+    __slots__: List[str] = ["ids"]
 
-    ID = 0x34a2f297
-    QUALNAME = "functions.users.SavedMusic"
+    ID = 0x998d6636
+    QUALNAME = "types.account.SavedMusicIds"
 
-    def __init__(self, *, count: int, documents: List["raw.base.Document"]) -> None:
-        self.count = count  # int
-        self.documents = documents  # Vector<Document>
+    def __init__(self, *, ids: List[int]) -> None:
+        self.ids = ids  # Vector<long>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SavedMusic":
+    def read(b: BytesIO, *args: Any) -> "SavedMusicIds":
         # No flags
         
-        count = Int.read(b)
+        ids = TLObject.read(b, Long)
         
-        documents = TLObject.read(b)
-        
-        return SavedMusic(count=count, documents=documents)
+        return SavedMusicIds(ids=ids)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -70,8 +71,6 @@ class SavedMusic(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(Int(self.count))
-        
-        b.write(Vector(self.documents))
+        b.write(Vector(self.ids, Long))
         
         return b.getvalue()

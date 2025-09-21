@@ -40,15 +40,6 @@ class MessageActionSetMessagesTTL(TLObject):  # type: ignore
     Parameters:
         period: ``int`` ``32-bit``
         auto_setting_from (optional): ``int`` ``64-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`MessageActionSetChatTheme <pyrogram.raw.functions.MessageActionSetChatTheme>`
-            - :obj:`MessageActionStarGift <pyrogram.raw.functions.MessageActionStarGift>`
     """
 
     __slots__: List[str] = ["period", "auto_setting_from"]

@@ -43,14 +43,6 @@ class InputStorePaymentPremiumGiftCode(TLObject):  # type: ignore
         amount: ``int`` ``64-bit``
         boost_peer (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.functions.InputStorePaymentStarsTopup>`
     """
 
     __slots__: List[str] = ["users", "currency", "amount", "boost_peer", "message"]

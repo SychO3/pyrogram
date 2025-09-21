@@ -30,35 +30,32 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedMusicNotModified(TLObject):  # type: ignore
-    """Telegram API method.
+class InputChatThemeUniqueGift(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatTheme`.
 
     Details:
         - Layer: ``214``
-        - ID: ``E3878AA4``
+        - ID: ``87E5DFE4``
 
     Parameters:
-        count: ``int`` ``32-bit``
-
-    Returns:
-        :obj:`users.SavedMusic <pyrogram.raw.base.users.SavedMusic>`
+        slug: ``str``
     """
 
-    __slots__: List[str] = ["count"]
+    __slots__: List[str] = ["slug"]
 
-    ID = 0xe3878aa4
-    QUALNAME = "functions.users.SavedMusicNotModified"
+    ID = 0x87e5dfe4
+    QUALNAME = "types.InputChatThemeUniqueGift"
 
-    def __init__(self, *, count: int) -> None:
-        self.count = count  # int
+    def __init__(self, *, slug: str) -> None:
+        self.slug = slug  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SavedMusicNotModified":
+    def read(b: BytesIO, *args: Any) -> "InputChatThemeUniqueGift":
         # No flags
         
-        count = Int.read(b)
+        slug = String.read(b)
         
-        return SavedMusicNotModified(count=count)
+        return InputChatThemeUniqueGift(slug=slug)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -66,6 +63,6 @@ class SavedMusicNotModified(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(Int(self.count))
+        b.write(String(self.slug))
         
         return b.getvalue()

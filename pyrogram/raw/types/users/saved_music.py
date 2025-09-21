@@ -30,47 +30,45 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SentCodePaymentRequired(TLObject):  # type: ignore
-    """Telegram API method.
+class SavedMusic(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.users.SavedMusic`.
 
     Details:
         - Layer: ``214``
-        - ID: ``D7A2FCF9``
+        - ID: ``34A2F297``
 
     Parameters:
-        store_product: ``str``
-        phone_code_hash: ``str``
-        support_email_address: ``str``
-        support_email_subject: ``str``
+        count: ``int`` ``32-bit``
+        documents: List of :obj:`Document <pyrogram.raw.base.Document>`
 
-    Returns:
-        :obj:`auth.SentCode <pyrogram.raw.base.auth.SentCode>`
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`users.GetSavedMusic <pyrogram.raw.functions.users.GetSavedMusic>`
+            - :obj:`users.GetSavedMusicByID <pyrogram.raw.functions.users.GetSavedMusicByID>`
     """
 
-    __slots__: List[str] = ["store_product", "phone_code_hash", "support_email_address", "support_email_subject"]
+    __slots__: List[str] = ["count", "documents"]
 
-    ID = 0xd7a2fcf9
-    QUALNAME = "functions.auth.SentCodePaymentRequired"
+    ID = 0x34a2f297
+    QUALNAME = "types.users.SavedMusic"
 
-    def __init__(self, *, store_product: str, phone_code_hash: str, support_email_address: str, support_email_subject: str) -> None:
-        self.store_product = store_product  # string
-        self.phone_code_hash = phone_code_hash  # string
-        self.support_email_address = support_email_address  # string
-        self.support_email_subject = support_email_subject  # string
+    def __init__(self, *, count: int, documents: List["raw.base.Document"]) -> None:
+        self.count = count  # int
+        self.documents = documents  # Vector<Document>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "SentCodePaymentRequired":
+    def read(b: BytesIO, *args: Any) -> "SavedMusic":
         # No flags
         
-        store_product = String.read(b)
+        count = Int.read(b)
         
-        phone_code_hash = String.read(b)
+        documents = TLObject.read(b)
         
-        support_email_address = String.read(b)
-        
-        support_email_subject = String.read(b)
-        
-        return SentCodePaymentRequired(store_product=store_product, phone_code_hash=phone_code_hash, support_email_address=support_email_address, support_email_subject=support_email_subject)
+        return SavedMusic(count=count, documents=documents)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -78,12 +76,8 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(String(self.store_product))
+        b.write(Int(self.count))
         
-        b.write(String(self.phone_code_hash))
-        
-        b.write(String(self.support_email_address))
-        
-        b.write(String(self.support_email_subject))
+        b.write(Vector(self.documents))
         
         return b.getvalue()

@@ -35,29 +35,30 @@ class UniqueStarGift(TLObject):  # type: ignore
 
     Details:
         - Layer: ``214``
-        - ID: ``CAA2F60B``
+        - ID: ``416C56E8``
 
     Parameters:
         gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
+        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
         users: List of :obj:`User <pyrogram.raw.base.User>`
 
     See Also:
-        This object can be returned by 2 methods:
+        This object can be returned by 1 method:
 
         .. hlist::
             :columns: 2
 
             - :obj:`payments.GetUniqueStarGift <pyrogram.raw.functions.payments.GetUniqueStarGift>`
-            - :obj:`payments.UniqueStarGift <pyrogram.raw.functions.payments.UniqueStarGift>`
     """
 
-    __slots__: List[str] = ["gift", "users"]
+    __slots__: List[str] = ["gift", "chats", "users"]
 
-    ID = 0xcaa2f60b
+    ID = 0x416c56e8
     QUALNAME = "types.payments.UniqueStarGift"
 
-    def __init__(self, *, gift: "raw.base.StarGift", users: List["raw.base.User"]) -> None:
+    def __init__(self, *, gift: "raw.base.StarGift", chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
         self.gift = gift  # StarGift
+        self.chats = chats  # Vector<Chat>
         self.users = users  # Vector<User>
 
     @staticmethod
@@ -66,9 +67,11 @@ class UniqueStarGift(TLObject):  # type: ignore
         
         gift = TLObject.read(b)
         
+        chats = TLObject.read(b)
+        
         users = TLObject.read(b)
         
-        return UniqueStarGift(gift=gift, users=users)
+        return UniqueStarGift(gift=gift, chats=chats, users=users)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -77,6 +80,8 @@ class UniqueStarGift(TLObject):  # type: ignore
         # No flags
         
         b.write(self.gift.write())
+        
+        b.write(Vector(self.chats))
         
         b.write(Vector(self.users))
         

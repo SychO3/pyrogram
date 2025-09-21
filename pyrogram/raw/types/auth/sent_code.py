@@ -44,7 +44,7 @@ class SentCode(TLObject):  # type: ignore
         timeout (optional): ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 6 methods:
 
         .. hlist::
             :columns: 2
@@ -55,7 +55,6 @@ class SentCode(TLObject):  # type: ignore
             - :obj:`account.SendChangePhoneCode <pyrogram.raw.functions.account.SendChangePhoneCode>`
             - :obj:`account.SendConfirmPhoneCode <pyrogram.raw.functions.account.SendConfirmPhoneCode>`
             - :obj:`account.SendVerifyPhoneCode <pyrogram.raw.functions.account.SendVerifyPhoneCode>`
-            - :obj:`auth.SentCodePaymentRequired <pyrogram.raw.functions.auth.SentCodePaymentRequired>`
     """
 
     __slots__: List[str] = ["type", "phone_code_hash", "next_type", "timeout"]

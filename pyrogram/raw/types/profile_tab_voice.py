@@ -30,39 +30,34 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class MessageActionChatEditTitle(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
+class ProfileTabVoice(TLObject):  # type: ignore
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
 
     Details:
         - Layer: ``214``
-        - ID: ``B5A1CE5A``
+        - ID: ``E477092E``
 
-    Parameters:
-        title: ``str``
+    **No parameters required.**
     """
 
-    __slots__: List[str] = ["title"]
+    __slots__: List[str] = []
 
-    ID = 0xb5a1ce5a
-    QUALNAME = "types.MessageActionChatEditTitle"
+    ID = 0xe477092e
+    QUALNAME = "types.ProfileTabVoice"
 
-    def __init__(self, *, title: str) -> None:
-        self.title = title  # string
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "MessageActionChatEditTitle":
+    def read(b: BytesIO, *args: Any) -> "ProfileTabVoice":
         # No flags
         
-        title = String.read(b)
-        
-        return MessageActionChatEditTitle(title=title)
+        return ProfileTabVoice()
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
-        
-        b.write(String(self.title))
         
         return b.getvalue()
