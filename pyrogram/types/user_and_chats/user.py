@@ -284,8 +284,8 @@ class User(Object, Update):
             The time after which all messages sent to the chat will be automatically deleted; in seconds.
             Returned only in :meth:`~pyrogram.Client.get_me`.
 
-        theme_emoji (``str``, *optional*):
-            Emoji representing a specific chat theme.
+        theme (:obj:`~pyrogram.types.ChatTheme`, *optional*):
+            Theme set for the chat.
             Returned only in :meth:`~pyrogram.Client.get_me`
 
         private_forward_name (``str``, *optional*):
@@ -450,7 +450,7 @@ class User(Object, Update):
         pinned_message: Optional["types.Message"] = None,
         folder_id: Optional[int] = None,
         message_auto_delete_time: Optional[int] = None,
-        theme_emoji: Optional[str] = None,
+        theme: Optional[str] = None,
         private_forward_name: Optional[str] = None,
         chat_admin_rights: Optional["types.ChatPrivileges"] = None,
         channel_admin_rights: Optional["types.ChatPrivileges"] = None,
@@ -540,7 +540,7 @@ class User(Object, Update):
         self.pinned_message = pinned_message
         self.folder_id = folder_id
         self.message_auto_delete_time = message_auto_delete_time
-        self.theme_emoji = theme_emoji
+        self.theme = theme
         self.private_forward_name = private_forward_name
         self.chat_admin_rights = chat_admin_rights
         self.channel_admin_rights = channel_admin_rights
@@ -689,11 +689,7 @@ class User(Object, Update):
 
         parsed_user.folder_id = user.folder_id
         parsed_user.message_auto_delete_time = user.ttl_period
-
-        # UserFull has `theme_emoticon` (string) instead of a `ChatTheme` object
-        if getattr(user, "theme_emoticon", None):
-            parsed_user.theme_emoji = user.theme_emoticon
-
+        parsed_user.theme = await types.ChatTheme._parse(client, user.theme)
         parsed_user.private_forward_name = user.private_forward_name
         # Map raw bot_* admin rights to public fields
         parsed_user.chat_admin_rights = types.ChatPrivileges._parse(user.bot_group_admin_rights)

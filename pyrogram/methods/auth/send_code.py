@@ -40,6 +40,7 @@ class SendCode:
         allow_firebase: bool = None,
         logout_tokens: List[bytes] = None,
         token: str = None,
+        recaptcha_token: str = None,
         app_sandbox: bool = None,
     ) -> "types.SentCode":
         """Send the confirmation code to the given phone number.
@@ -71,6 +72,9 @@ class SendCode:
             token (``str``, *optional*):
                 Token.
 
+            recaptcha_token (``str``, *optional*):
+                Recaptcha token.
+
             app_sandbox (``bool``, *optional*):
                 Whether to use the app sandbox.
 
@@ -100,7 +104,8 @@ class SendCode:
                             token=token,
                             app_sandbox=app_sandbox
                         )
-                    )
+                    ),
+                    recaptcha_token=recaptcha_token
                 )
             except (PhoneMigrateX, NetworkMigrateX) as e:
                 dc_option = await self.get_dc_option(e.value, ipv6=self.ipv6)
