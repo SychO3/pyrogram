@@ -323,7 +323,7 @@ class SQLiteStorage(Storage):
             [(id, username) for id, usernames in usernames for username in usernames],
         )
 
-    async def update_state(self, value: Tuple[int, int, int, int, int] = object):
+    async def update_state(self, value: Any = object):
         if value is object:
             async with self.conn.execute(
                 "SELECT id, pts, qts, date, seq FROM update_state ORDER BY date ASC"
