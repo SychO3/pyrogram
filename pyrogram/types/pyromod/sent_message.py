@@ -17,36 +17,20 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-Lightweight structures representing the prompt returned by ask().
+SentMessage: semantic subtype for the prompt message sent by ask().
 
-These dataclasses reflect the minimal, stable shape of the object attached to
-`sent_message` in the ask() response, independent from the full
-`pyrogram.types.Message` model.
+This class inherits from the core :class:`~pyrogram.types.Message`, so it
+exposes the full Message API (e.g., delete, edit, reply) while providing a
+stable name to reference the prompt message in type hints and docs.
 """
 
-from dataclasses import dataclass
-from typing import Optional
-from pyrogram.types.messages_and_media.message import Str as _TextStr
-from pyrogram.enums import ChatType as _ChatType
+from pyrogram.types.messages_and_media.message import Message as _Message
 
 
-@dataclass
-class SentChat:
-    _ : str
-    id: int
-    type: _ChatType
+class SentMessage(_Message):
+    pass
 
 
-@dataclass
-class SentMessage:
-    _ : str
-    id: int
-    date: str
-    chat: SentChat
-    text: Optional[_TextStr]
-    outgoing: bool
-
-
-__all__ = ["SentMessage", "SentChat"]
+__all__ = ["SentMessage"]
 
 

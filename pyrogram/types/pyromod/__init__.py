@@ -18,6 +18,6 @@
 
 from .identifier import Identifier
 from .listener import Listener
-from .sent_message import SentMessage, SentChat
+from .sent_message import SentMessage
 
-__all__ = ["Identifier", "Listener", "SentMessage", "SentChat"]
+__all__ = ["Identifier", "Listener", "SentMessage"]
