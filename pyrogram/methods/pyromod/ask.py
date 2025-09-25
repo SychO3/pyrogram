@@ -29,12 +29,13 @@ from typing import List, Optional, Union
 
 if TYPE_CHECKING:
     from pyrogram import types as _types
+    from pyrogram.types.pyromod import SentMessage as _SentMessage
 
     class _MessageWithPrompt(_types.Message):
-        sent_message: Optional[_types.Message]
+        sent_message: Optional[_SentMessage]
 
     class _CallbackQueryWithPrompt(_types.CallbackQuery):
-        sent_message: Optional[_types.Message]
+        sent_message: Optional[_SentMessage]
 
 class Ask:
     async def ask(

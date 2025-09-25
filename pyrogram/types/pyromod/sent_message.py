@@ -16,8 +16,37 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .identifier import Identifier
-from .listener import Listener
-from .sent_message import SentMessage, SentChat
+"""
+Lightweight structures representing the prompt returned by ask().
 
-__all__ = ["Identifier", "Listener", "SentMessage", "SentChat"]
+These dataclasses reflect the minimal, stable shape of the object attached to
+`sent_message` in the ask() response, independent from the full
+`pyrogram.types.Message` model.
+"""
+
+from dataclasses import dataclass
+from typing import Optional
+from pyrogram.types.messages_and_media.message import Str as _TextStr
+from pyrogram.enums import ChatType as _ChatType
+
+
+@dataclass
+class SentChat:
+    _ : str
+    id: int
+    type: _ChatType
+
+
+@dataclass
+class SentMessage:
+    _ : str
+    id: int
+    date: str
+    chat: SentChat
+    text: Optional[_TextStr]
+    outgoing: bool
+
+
+__all__ = ["SentMessage", "SentChat"]
+
+
