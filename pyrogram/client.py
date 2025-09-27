@@ -63,6 +63,7 @@ from pyrogram.utils import ainput
 
 from .connection import Connection
 from .connection.transport import TCP, TCPAbridged
+from .connection.endpoint_selector import select_best_dc_option
 from .dispatcher import Dispatcher
 from .file_id import FileId, FileType, ThumbnailSource
 from .mime_types import mime_types
@@ -1468,6 +1469,20 @@ class Client(Methods):
         prod_options = [dc for dc in options if not dc.media_only]
 
         if prod_options:
+            # Internal low-latency selection (no public configuration)
+            try:
+                best = await select_best_dc_option(
+                    self,
+                    dc_id,
+                    prod_options,
+                    is_media=is_media,
+                    is_cdn=is_cdn,
+                    ipv6=ipv6,
+                )
+                if best is not None:
+                    return best
+            except Exception as e:
+                log.info("Endpoint selection failed: %s %s", type(e).__name__, e)
             return prod_options[0]
 
         raise ValueError("No suitable DC found")

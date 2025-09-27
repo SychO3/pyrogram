@@ -16,18 +16,22 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .invoke import Invoke
-from .recover_gaps import RecoverGaps
-from .resolve_peer import ResolvePeer
-from .save_file import SaveFile
-from .get_config import GetConfig
+import pyrogram
+from pyrogram import raw
 
 
-class Advanced(
-    Invoke,
-    RecoverGaps,
-    ResolvePeer,
-    SaveFile,
-    GetConfig
-):
-    pass
+class GetConfig:
+    async def get_config(self: "pyrogram.Client") -> "raw.types.Config":
+        """Fetch Telegram configuration (dc options, limits, etc.).
+
+        .. include:: /_includes/usable-by/users-bots.rst
+
+        Returns:
+            :obj:`pyrogram.raw.types.Config`: The raw Telegram configuration object.
+        """
+        if not self.is_connected:
+            raise ConnectionError("Client has not been started yet")
+
+        return await self.invoke(raw.functions.help.GetConfig())
+
+
