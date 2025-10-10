@@ -43,6 +43,7 @@ from .chat_reactions import ChatReactions
 from .chat_settings import ChatSettings
 from .dialog import Dialog
 from .emoji_status import EmojiStatus
+from .failed_to_add_member import FailedToAddMember
 from .folder import Folder
 from .found_contacts import FoundContacts
 from .global_privacy_settings import GlobalPrivacySettings
@@ -103,6 +104,7 @@ __all__ = [
     "ChatAdministratorRights",
     "ChatJoiner",
     "EmojiStatus",
+    "FailedToAddMember",
     "Folder",
     "FoundContacts",
     "GlobalPrivacySettings",

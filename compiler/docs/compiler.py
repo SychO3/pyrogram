@@ -655,6 +655,7 @@ def pyrogram_api():
             Dialog
             Restriction
             EmojiStatus
+            FailedToAddMember
             Folder
             GroupCallMember
             ChatColor
