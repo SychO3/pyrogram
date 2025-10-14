@@ -99,6 +99,28 @@ def get_input_media_from_file_id(
     raise ValueError(f"Unknown file id: {file_id}")
 
 
+async def get_input_stargift(client: "pyrogram.Client", owned_gift_id: str) -> "raw.base.InputSavedStarGift":
+    if not isinstance(owned_gift_id, str):
+        raise ValueError(f"owned_gift_id has to be str, but {type(owned_gift_id)} was provided")
+
+    saved_gift_match = client.SAVED_GIFT_RE.match(owned_gift_id)
+    slug_match = client.UPGRADED_GIFT_RE.match(owned_gift_id)
+
+    if saved_gift_match:
+        return raw.types.InputSavedStarGiftChat(
+            peer=await client.resolve_peer(int(saved_gift_match.group(1))),
+            saved_id=int(saved_gift_match.group(2))
+        )
+    elif slug_match:
+        return raw.types.InputSavedStarGiftSlug(
+            slug=slug_match.group(1)
+        )
+    else:
+        return raw.types.InputSavedStarGiftUser(
+            msg_id=int(owned_gift_id)
+        )
+
+
 async def parse_messages(
     client: "pyrogram.Client",
     messages: Union["raw.base.messages.Messages", "raw.base.Updates"],
