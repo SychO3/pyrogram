@@ -16,8 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Union
-import pyrogram
+from typing import Optional, Union
 
 from pyrogram import raw
 from ..object import Object
@@ -27,93 +26,84 @@ class Location(Object):
     """A point on the map.
 
     Parameters:
-        longitude (``float``):
+        longitude (``float``, *optional*):
             Longitude as defined by sender.
 
-        latitude (``float``):
+        latitude (``float``, *optional*):
             Latitude as defined by sender.
 
-        horizontal_accuracy (``float``, *optional*):
-            The radius of uncertainty for the location, measured in meters; 0-1500.
-
-        live_period (``int``, *optional*):
-            Time relative to the message sending date, during which the location can be updated; in seconds.
-            For active live locations only.
-
-        heading (``int``, *optional*):
-            The direction in which user is moving, in degrees; 1-360.
-            For active live locations only.
-
-        proximity_alert_radius (``int``, *optional*):
-            The maximum distance for proximity alerts about approaching another chat member, in meters.
-            For sent live locations only.
+        accuracy_radius (``int``, *optional*):
+            The estimated horizontal accuracy of the location, in meters as defined by the sender.
 
         address (``str``, *optional*):
-            Address of the location. For business locations only.
+            Textual description of the address (mandatory).
 
-        stopped (``bool``, *optional*):
-            True if the live location has been stopped. For live locations only.
+        live_period (``int``, *optional*):
+            For live locations, the time relative to the message send date, for which the location can be updated, in seconds.
+
+        heading (``int``, *optional*):
+            For live locations, a direction in which the location moves, in degrees; 1-360.
+
+        proximity_alert_radius (``int``, *optional*):
+            For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
     """
 
     def __init__(
         self,
         *,
-        client: "pyrogram.Client" = None,
-        longitude: float,
-        latitude: float,
-        horizontal_accuracy: float = None,
-        live_period: int = None,
-        heading: int = None,
-        proximity_alert_radius: int = None,
-        address: str = None,
-        stopped: bool = None
+        longitude: Optional[float] = None,
+        latitude: Optional[float] = None,
+        accuracy_radius: Optional[int] = None,
+        address: Optional[str] = None,
+        live_period: Optional[int] = None,
+        heading: Optional[int] = None,
+        proximity_alert_radius: Optional[int] = None
     ):
-        super().__init__(client)
+        super().__init__()
 
         self.longitude = longitude
         self.latitude = latitude
-        self.horizontal_accuracy = horizontal_accuracy
+        self.accuracy_radius = accuracy_radius
+        self.address = address
         self.live_period = live_period
         self.heading = heading
         self.proximity_alert_radius = proximity_alert_radius
-        self.address = address
-        self.stopped = stopped
 
     @staticmethod
-    def _parse(client, geo_point: Union["raw.types.GeoPoint", "raw.types.BusinessLocation", "raw.types.InputGeoPoint", "raw.types.InputMediaGeoLive"]) -> "Location":
+    def _parse(geo_point: "raw.types.GeoPoint") -> Optional["Location"]:
         if isinstance(geo_point, raw.types.GeoPoint):
             return Location(
                 longitude=geo_point.long,
                 latitude=geo_point.lat,
-                horizontal_accuracy=getattr(geo_point, "accuracy_radius", None),
-                client=client
+                accuracy_radius=geo_point.accuracy_radius,
             )
 
-        if isinstance(geo_point, raw.types.BusinessLocation):
+    @staticmethod
+    def _parse_business(location: "raw.types.BusinessLocation") -> "Location":
+        if isinstance(location, raw.types.BusinessLocation):
+            longitude = None
+            latitude = None
+            accuracy_radius = None
+
+            if isinstance(location.geo_point, raw.types.GeoPoint):
+                longitude = location.geo_point.long
+                latitude = location.geo_point.lat
+                accuracy_radius = location.geo_point.accuracy_radius
+
             return Location(
-                longitude=getattr(geo_point.geo_point, "long", None),
-                latitude=getattr(geo_point.geo_point, "lat", None),
-                horizontal_accuracy=getattr(geo_point.geo_point, "accuracy_radius", None),
-                address=geo_point.address,
-                client=client
+                longitude=longitude,
+                latitude=latitude,
+                accuracy_radius=accuracy_radius,
+                address=location.address
             )
 
-        if isinstance(geo_point, raw.types.InputGeoPoint):
-            return Location(
-                longitude=geo_point.long,
-                latitude=geo_point.lat,
-                horizontal_accuracy=getattr(geo_point, "accuracy_radius", None),
-                client=client
-            )
+    @staticmethod
+    def _parse_media(media: "raw.types.MessageMediaGeoLive") -> Optional["Location"]:
+        if isinstance(media, raw.types.MessageMediaGeoLive):
+            parsed_location = Location._parse(media.geo)
 
-        if isinstance(geo_point, raw.types.InputMediaGeoLive):
-            return Location(
-                longitude=getattr(geo_point.geo_point, "long", None),
-                latitude=getattr(geo_point.geo_point, "lat", None),
-                horizontal_accuracy=getattr(geo_point.geo_point, "accuracy_radius", None),
-                heading=getattr(geo_point, "heading", None),
-                live_period=getattr(geo_point, "period", None),
-                proximity_alert_radius=getattr(geo_point, "proximity_notification_radius", None),
-                stopped=getattr(geo_point, "stopped", None),
-                client=client
-            )
+            parsed_location.live_period = media.period
+            parsed_location.heading = media.heading
+            parsed_location.proximity_alert_radius = media.proximity_notification_radius
+
+            return parsed_location
