@@ -425,7 +425,7 @@ class Client(Methods):
         if isinstance(loop, asyncio.AbstractEventLoop):
             self.loop = loop
         else:
-            self.loop = asyncio.get_event_loop()
+            self.loop = utils.get_event_loop()
 
         self.__config: "raw.types.Config" = None
 

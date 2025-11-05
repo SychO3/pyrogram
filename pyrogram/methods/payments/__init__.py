@@ -24,6 +24,7 @@ from .convert_gift_to_stars import ConvertGiftToStars
 from .create_gift_collection import CreateGiftCollection
 from .delete_gift_collection import DeleteGiftCollection
 from .drop_gift_original_details import DropGiftOriginalDetails
+from .edit_star_subscription import EditStarSubscription
 from .get_available_gifts import GetAvailableGifts
 from .get_chat_gifts import GetChatGifts
 from .get_chat_gifts_count import GetChatGiftsCount
@@ -39,6 +40,7 @@ from .hide_gift import HideGift
 from .remove_collection_gifts import RemoveCollectionGifts
 from .reorder_collection_gifts import ReorderCollectionGifts
 from .reorder_gift_collections import ReorderGiftCollections
+from .reuse_star_subscription import ReuseStarSubscription
 from .search_gifts_for_resale import SearchGiftsForResale
 from .send_gift import SendGift
 from .send_payment_form import SendPaymentForm
@@ -61,6 +63,7 @@ class Payments(
     CreateGiftCollection,
     DeleteGiftCollection,
     DropGiftOriginalDetails,
+    EditStarSubscription,
     GetAvailableGifts,
     GetChatGifts,
     GetChatGiftsCount,
@@ -76,6 +79,7 @@ class Payments(
     RemoveCollectionGifts,
     ReorderCollectionGifts,
     ReorderGiftCollections,
+    ReuseStarSubscription,
     SearchGiftsForResale,
     SendGift,
     SendPaymentForm,
