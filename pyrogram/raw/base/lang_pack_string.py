@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-LangPackString = Union[raw.types.LangPackString, raw.types.LangPackStringDeleted, raw.types.LangPackStringPluralized]
-LangPackString.__doc__ = """
-    This base type has 3 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    LangPackString = Union[raw.types.LangPackString, raw.types.LangPackStringDeleted, raw.types.LangPackStringPluralized]
+else:
+    # noinspection PyRedeclaration
+    class LangPackString(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
@@ -46,4 +50,13 @@ LangPackString.__doc__ = """
             :columns: 2
 
             - :obj:`langpack.GetStrings <pyrogram.raw.functions.langpack.GetStrings>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.LangPackString"
+        __union_types__ = Union[raw.types.LangPackString, raw.types.LangPackStringDeleted, raw.types.LangPackStringPluralized]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/lang-pack-string")

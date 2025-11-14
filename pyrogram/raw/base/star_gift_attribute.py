@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-StarGiftAttribute = Union[raw.types.StarGiftAttributeBackdrop, raw.types.StarGiftAttributeModel, raw.types.StarGiftAttributeOriginalDetails, raw.types.StarGiftAttributePattern]
-StarGiftAttribute.__doc__ = """
-    This base type has 4 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    StarGiftAttribute = Union[raw.types.StarGiftAttributeBackdrop, raw.types.StarGiftAttributeModel, raw.types.StarGiftAttributeOriginalDetails, raw.types.StarGiftAttributePattern]
+else:
+    # noinspection PyRedeclaration
+    class StarGiftAttribute(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 4 constructors available.
 
     Constructors:
         .. hlist::
@@ -39,4 +43,13 @@ StarGiftAttribute.__doc__ = """
             - :obj:`StarGiftAttributeModel <pyrogram.raw.types.StarGiftAttributeModel>`
             - :obj:`StarGiftAttributeOriginalDetails <pyrogram.raw.types.StarGiftAttributeOriginalDetails>`
             - :obj:`StarGiftAttributePattern <pyrogram.raw.types.StarGiftAttributePattern>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.StarGiftAttribute"
+        __union_types__ = Union[raw.types.StarGiftAttributeBackdrop, raw.types.StarGiftAttributeModel, raw.types.StarGiftAttributeOriginalDetails, raw.types.StarGiftAttributePattern]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/star-gift-attribute")

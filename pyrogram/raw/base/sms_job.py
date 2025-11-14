@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SmsJob = Union[raw.types.SmsJob]
-SmsJob.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SmsJob = Union[raw.types.SmsJob]
+else:
+    # noinspection PyRedeclaration
+    class SmsJob(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -44,4 +48,13 @@ SmsJob.__doc__ = """
             :columns: 2
 
             - :obj:`smsjobs.GetSmsJob <pyrogram.raw.functions.smsjobs.GetSmsJob>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.SmsJob"
+        __union_types__ = Union[raw.types.SmsJob]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/sms-job")

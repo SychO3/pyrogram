@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-AutoDownloadSettings = Union[raw.types.account.AutoDownloadSettings]
-AutoDownloadSettings.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    AutoDownloadSettings = Union[raw.types.account.AutoDownloadSettings]
+else:
+    # noinspection PyRedeclaration
+    class AutoDownloadSettings(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -44,4 +48,13 @@ AutoDownloadSettings.__doc__ = """
             :columns: 2
 
             - :obj:`account.GetAutoDownloadSettings <pyrogram.raw.functions.account.GetAutoDownloadSettings>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.account.AutoDownloadSettings"
+        __union_types__ = Union[raw.types.account.AutoDownloadSettings]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/auto-download-settings")

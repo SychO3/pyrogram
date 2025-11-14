@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,17 +32,18 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class CreateForumTopic(TLObject):  # type: ignore
+class CreateForumTopic(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``F40C0224``
+        - Layer: ``216``
+        - ID: ``2F98C3D5``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
+        peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         title: ``str``
         random_id: ``int`` ``64-bit``
+        title_missing (optional): ``bool``
         icon_color (optional): ``int`` ``32-bit``
         icon_emoji_id (optional): ``int`` ``64-bit``
         send_as (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
@@ -49,15 +52,16 @@ class CreateForumTopic(TLObject):  # type: ignore
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["channel", "title", "random_id", "icon_color", "icon_emoji_id", "send_as"]
+    __slots__: List[str] = ["peer", "title", "random_id", "title_missing", "icon_color", "icon_emoji_id", "send_as"]
 
-    ID = 0xf40c0224
-    QUALNAME = "functions.channels.CreateForumTopic"
+    ID = 0x2f98c3d5
+    QUALNAME = "functions.messages.CreateForumTopic"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", title: str, random_id: int, icon_color: Optional[int] = None, icon_emoji_id: Optional[int] = None, send_as: "raw.base.InputPeer" = None) -> None:
-        self.channel = channel  # InputChannel
+    def __init__(self, *, peer: "raw.base.InputPeer", title: str, random_id: int, title_missing: Optional[bool] = None, icon_color: Optional[int] = None, icon_emoji_id: Optional[int] = None, send_as: "raw.base.InputPeer" = None) -> None:
+        self.peer = peer  # InputPeer
         self.title = title  # string
         self.random_id = random_id  # long
+        self.title_missing = title_missing  # flags.4?true
         self.icon_color = icon_color  # flags.0?int
         self.icon_emoji_id = icon_emoji_id  # flags.3?long
         self.send_as = send_as  # flags.2?InputPeer
@@ -67,7 +71,8 @@ class CreateForumTopic(TLObject):  # type: ignore
         
         flags = Int.read(b)
         
-        channel = TLObject.read(b)
+        title_missing = True if flags & (1 << 4) else False
+        peer = TLObject.read(b)
         
         title = String.read(b)
         
@@ -77,19 +82,20 @@ class CreateForumTopic(TLObject):  # type: ignore
         
         send_as = TLObject.read(b) if flags & (1 << 2) else None
         
-        return CreateForumTopic(channel=channel, title=title, random_id=random_id, icon_color=icon_color, icon_emoji_id=icon_emoji_id, send_as=send_as)
+        return CreateForumTopic(peer=peer, title=title, random_id=random_id, title_missing=title_missing, icon_color=icon_color, icon_emoji_id=icon_emoji_id, send_as=send_as)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         flags = 0
+        flags |= (1 << 4) if self.title_missing else 0
         flags |= (1 << 0) if self.icon_color is not None else 0
         flags |= (1 << 3) if self.icon_emoji_id is not None else 0
         flags |= (1 << 2) if self.send_as is not None else 0
         b.write(Int(flags))
         
-        b.write(self.channel.write())
+        b.write(self.peer.write())
         
         b.write(String(self.title))
         

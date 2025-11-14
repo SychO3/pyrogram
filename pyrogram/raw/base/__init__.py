@@ -401,4 +401,5 @@ from .story_album import StoryAlbum
 from .search_posts_flood import SearchPostsFlood
 from .profile_tab import ProfileTab
 from .input_chat_theme import InputChatTheme
+from .star_gift_upgrade_price import StarGiftUpgradePrice
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

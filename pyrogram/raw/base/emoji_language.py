@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-EmojiLanguage = Union[raw.types.EmojiLanguage]
-EmojiLanguage.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    EmojiLanguage = Union[raw.types.EmojiLanguage]
+else:
+    # noinspection PyRedeclaration
+    class EmojiLanguage(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -44,4 +48,13 @@ EmojiLanguage.__doc__ = """
             :columns: 2
 
             - :obj:`messages.GetEmojiKeywordsLanguages <pyrogram.raw.functions.messages.GetEmojiKeywordsLanguages>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.EmojiLanguage"
+        __union_types__ = Union[raw.types.EmojiLanguage]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/emoji-language")

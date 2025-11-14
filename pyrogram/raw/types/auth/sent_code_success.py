@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,18 +32,18 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SentCodeSuccess(TLObject):  # type: ignore
+class SentCodeSuccess(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.SentCode`.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``2390FE44``
 
     Parameters:
         authorization: :obj:`auth.Authorization <pyrogram.raw.base.auth.Authorization>`
 
     See Also:
-        This object can be returned by 6 methods:
+        This object can be returned by 7 methods:
 
         .. hlist::
             :columns: 2
@@ -49,6 +51,7 @@ class SentCodeSuccess(TLObject):  # type: ignore
             - :obj:`auth.SendCode <pyrogram.raw.functions.auth.SendCode>`
             - :obj:`auth.ResendCode <pyrogram.raw.functions.auth.ResendCode>`
             - :obj:`auth.ResetLoginEmail <pyrogram.raw.functions.auth.ResetLoginEmail>`
+            - :obj:`auth.CheckPaidAuth <pyrogram.raw.functions.auth.CheckPaidAuth>`
             - :obj:`account.SendChangePhoneCode <pyrogram.raw.functions.account.SendChangePhoneCode>`
             - :obj:`account.SendConfirmPhoneCode <pyrogram.raw.functions.account.SendConfirmPhoneCode>`
             - :obj:`account.SendVerifyPhoneCode <pyrogram.raw.functions.account.SendVerifyPhoneCode>`

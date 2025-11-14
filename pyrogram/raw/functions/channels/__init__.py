@@ -65,13 +65,6 @@ from .reorder_usernames import ReorderUsernames
 from .toggle_username import ToggleUsername
 from .deactivate_all_usernames import DeactivateAllUsernames
 from .toggle_forum import ToggleForum
-from .create_forum_topic import CreateForumTopic
-from .get_forum_topics import GetForumTopics
-from .get_forum_topics_by_id import GetForumTopicsByID
-from .edit_forum_topic import EditForumTopic
-from .update_pinned_forum_topic import UpdatePinnedForumTopic
-from .delete_topic_history import DeleteTopicHistory
-from .reorder_pinned_forum_topics import ReorderPinnedForumTopics
 from .toggle_anti_spam import ToggleAntiSpam
 from .report_anti_spam_false_positive import ReportAntiSpamFalsePositive
 from .toggle_participants_hidden import ToggleParticipantsHidden

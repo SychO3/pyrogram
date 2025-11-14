@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,11 +32,11 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class StarGift(TLObject):  # type: ignore
+class StarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGift`.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``80AC53C3``
 
     Parameters:
@@ -47,6 +49,7 @@ class StarGift(TLObject):  # type: ignore
         birthday (optional): ``bool``
         require_premium (optional): ``bool``
         limited_per_user (optional): ``bool``
+        peer_color_available (optional): ``bool``
         availability_remains (optional): ``int`` ``32-bit``
         availability_total (optional): ``int`` ``32-bit``
         availability_resale (optional): ``int`` ``64-bit``
@@ -61,12 +64,12 @@ class StarGift(TLObject):  # type: ignore
         locked_until_date (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["id", "sticker", "stars", "convert_stars", "limited", "sold_out", "birthday", "require_premium", "limited_per_user", "availability_remains", "availability_total", "availability_resale", "first_sale_date", "last_sale_date", "upgrade_stars", "resell_min_stars", "title", "released_by", "per_user_total", "per_user_remains", "locked_until_date"]
+    __slots__: List[str] = ["id", "sticker", "stars", "convert_stars", "limited", "sold_out", "birthday", "require_premium", "limited_per_user", "peer_color_available", "availability_remains", "availability_total", "availability_resale", "first_sale_date", "last_sale_date", "upgrade_stars", "resell_min_stars", "title", "released_by", "per_user_total", "per_user_remains", "locked_until_date"]
 
     ID = 0x80ac53c3
     QUALNAME = "types.StarGift"
 
-    def __init__(self, *, id: int, sticker: "raw.base.Document", stars: int, convert_stars: int, limited: Optional[bool] = None, sold_out: Optional[bool] = None, birthday: Optional[bool] = None, require_premium: Optional[bool] = None, limited_per_user: Optional[bool] = None, availability_remains: Optional[int] = None, availability_total: Optional[int] = None, availability_resale: Optional[int] = None, first_sale_date: Optional[int] = None, last_sale_date: Optional[int] = None, upgrade_stars: Optional[int] = None, resell_min_stars: Optional[int] = None, title: Optional[str] = None, released_by: "raw.base.Peer" = None, per_user_total: Optional[int] = None, per_user_remains: Optional[int] = None, locked_until_date: Optional[int] = None) -> None:
+    def __init__(self, *, id: int, sticker: "raw.base.Document", stars: int, convert_stars: int, limited: Optional[bool] = None, sold_out: Optional[bool] = None, birthday: Optional[bool] = None, require_premium: Optional[bool] = None, limited_per_user: Optional[bool] = None, peer_color_available: Optional[bool] = None, availability_remains: Optional[int] = None, availability_total: Optional[int] = None, availability_resale: Optional[int] = None, first_sale_date: Optional[int] = None, last_sale_date: Optional[int] = None, upgrade_stars: Optional[int] = None, resell_min_stars: Optional[int] = None, title: Optional[str] = None, released_by: "raw.base.Peer" = None, per_user_total: Optional[int] = None, per_user_remains: Optional[int] = None, locked_until_date: Optional[int] = None) -> None:
         self.id = id  # long
         self.sticker = sticker  # Document
         self.stars = stars  # long
@@ -76,6 +79,7 @@ class StarGift(TLObject):  # type: ignore
         self.birthday = birthday  # flags.2?true
         self.require_premium = require_premium  # flags.7?true
         self.limited_per_user = limited_per_user  # flags.8?true
+        self.peer_color_available = peer_color_available  # flags.10?true
         self.availability_remains = availability_remains  # flags.0?int
         self.availability_total = availability_total  # flags.0?int
         self.availability_resale = availability_resale  # flags.4?long
@@ -99,6 +103,7 @@ class StarGift(TLObject):  # type: ignore
         birthday = True if flags & (1 << 2) else False
         require_premium = True if flags & (1 << 7) else False
         limited_per_user = True if flags & (1 << 8) else False
+        peer_color_available = True if flags & (1 << 10) else False
         id = Long.read(b)
         
         sticker = TLObject.read(b)
@@ -120,7 +125,7 @@ class StarGift(TLObject):  # type: ignore
         per_user_total = Int.read(b) if flags & (1 << 8) else None
         per_user_remains = Int.read(b) if flags & (1 << 8) else None
         locked_until_date = Int.read(b) if flags & (1 << 9) else None
-        return StarGift(id=id, sticker=sticker, stars=stars, convert_stars=convert_stars, limited=limited, sold_out=sold_out, birthday=birthday, require_premium=require_premium, limited_per_user=limited_per_user, availability_remains=availability_remains, availability_total=availability_total, availability_resale=availability_resale, first_sale_date=first_sale_date, last_sale_date=last_sale_date, upgrade_stars=upgrade_stars, resell_min_stars=resell_min_stars, title=title, released_by=released_by, per_user_total=per_user_total, per_user_remains=per_user_remains, locked_until_date=locked_until_date)
+        return StarGift(id=id, sticker=sticker, stars=stars, convert_stars=convert_stars, limited=limited, sold_out=sold_out, birthday=birthday, require_premium=require_premium, limited_per_user=limited_per_user, peer_color_available=peer_color_available, availability_remains=availability_remains, availability_total=availability_total, availability_resale=availability_resale, first_sale_date=first_sale_date, last_sale_date=last_sale_date, upgrade_stars=upgrade_stars, resell_min_stars=resell_min_stars, title=title, released_by=released_by, per_user_total=per_user_total, per_user_remains=per_user_remains, locked_until_date=locked_until_date)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -132,6 +137,7 @@ class StarGift(TLObject):  # type: ignore
         flags |= (1 << 2) if self.birthday else 0
         flags |= (1 << 7) if self.require_premium else 0
         flags |= (1 << 8) if self.limited_per_user else 0
+        flags |= (1 << 10) if self.peer_color_available else 0
         flags |= (1 << 0) if self.availability_remains is not None else 0
         flags |= (1 << 0) if self.availability_total is not None else 0
         flags |= (1 << 4) if self.availability_resale is not None else 0

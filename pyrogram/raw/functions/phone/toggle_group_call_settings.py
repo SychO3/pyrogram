@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,31 +32,33 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ToggleGroupCallSettings(TLObject):  # type: ignore
+class ToggleGroupCallSettings(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``74BBB43D``
+        - Layer: ``216``
+        - ID: ``E9723804``
 
     Parameters:
         call: :obj:`InputGroupCall <pyrogram.raw.base.InputGroupCall>`
         reset_invite_hash (optional): ``bool``
         join_muted (optional): ``bool``
+        messages_enabled (optional): ``bool``
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["call", "reset_invite_hash", "join_muted"]
+    __slots__: List[str] = ["call", "reset_invite_hash", "join_muted", "messages_enabled"]
 
-    ID = 0x74bbb43d
+    ID = 0xe9723804
     QUALNAME = "functions.phone.ToggleGroupCallSettings"
 
-    def __init__(self, *, call: "raw.base.InputGroupCall", reset_invite_hash: Optional[bool] = None, join_muted: Optional[bool] = None) -> None:
+    def __init__(self, *, call: "raw.base.InputGroupCall", reset_invite_hash: Optional[bool] = None, join_muted: Optional[bool] = None, messages_enabled: Optional[bool] = None) -> None:
         self.call = call  # InputGroupCall
         self.reset_invite_hash = reset_invite_hash  # flags.1?true
         self.join_muted = join_muted  # flags.0?Bool
+        self.messages_enabled = messages_enabled  # flags.2?Bool
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ToggleGroupCallSettings":
@@ -65,7 +69,8 @@ class ToggleGroupCallSettings(TLObject):  # type: ignore
         call = TLObject.read(b)
         
         join_muted = Bool.read(b) if flags & (1 << 0) else None
-        return ToggleGroupCallSettings(call=call, reset_invite_hash=reset_invite_hash, join_muted=join_muted)
+        messages_enabled = Bool.read(b) if flags & (1 << 2) else None
+        return ToggleGroupCallSettings(call=call, reset_invite_hash=reset_invite_hash, join_muted=join_muted, messages_enabled=messages_enabled)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -74,11 +79,15 @@ class ToggleGroupCallSettings(TLObject):  # type: ignore
         flags = 0
         flags |= (1 << 1) if self.reset_invite_hash else 0
         flags |= (1 << 0) if self.join_muted is not None else 0
+        flags |= (1 << 2) if self.messages_enabled is not None else 0
         b.write(Int(flags))
         
         b.write(self.call.write())
         
         if self.join_muted is not None:
             b.write(Bool(self.join_muted))
+        
+        if self.messages_enabled is not None:
+            b.write(Bool(self.messages_enabled))
         
         return b.getvalue()

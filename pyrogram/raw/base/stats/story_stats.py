@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-StoryStats = Union[raw.types.stats.StoryStats]
-StoryStats.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    StoryStats = Union[raw.types.stats.StoryStats]
+else:
+    # noinspection PyRedeclaration
+    class StoryStats(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -44,4 +48,13 @@ StoryStats.__doc__ = """
             :columns: 2
 
             - :obj:`stats.GetStoryStats <pyrogram.raw.functions.stats.GetStoryStats>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.stats.StoryStats"
+        __union_types__ = Union[raw.types.stats.StoryStats]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/story-stats")

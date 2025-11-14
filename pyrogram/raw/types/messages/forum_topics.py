@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,11 +32,11 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ForumTopics(TLObject):  # type: ignore
+class ForumTopics(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.ForumTopics`.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``367617D3``
 
     Parameters:
@@ -52,8 +54,8 @@ class ForumTopics(TLObject):  # type: ignore
         .. hlist::
             :columns: 2
 
-            - :obj:`channels.GetForumTopics <pyrogram.raw.functions.channels.GetForumTopics>`
-            - :obj:`channels.GetForumTopicsByID <pyrogram.raw.functions.channels.GetForumTopicsByID>`
+            - :obj:`messages.GetForumTopics <pyrogram.raw.functions.messages.GetForumTopics>`
+            - :obj:`messages.GetForumTopicsByID <pyrogram.raw.functions.messages.GetForumTopicsByID>`
     """
 
     __slots__: List[str] = ["count", "topics", "messages", "chats", "users", "pts", "order_by_create_date"]

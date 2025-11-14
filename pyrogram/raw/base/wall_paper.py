@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-WallPaper = Union[raw.types.WallPaper, raw.types.WallPaperNoFile]
-WallPaper.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    WallPaper = Union[raw.types.WallPaper, raw.types.WallPaperNoFile]
+else:
+    # noinspection PyRedeclaration
+    class WallPaper(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -47,4 +51,13 @@ WallPaper.__doc__ = """
             - :obj:`account.GetWallPaper <pyrogram.raw.functions.account.GetWallPaper>`
             - :obj:`account.UploadWallPaper <pyrogram.raw.functions.account.UploadWallPaper>`
             - :obj:`account.GetMultiWallPapers <pyrogram.raw.functions.account.GetMultiWallPapers>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.WallPaper"
+        __union_types__ = Union[raw.types.WallPaper, raw.types.WallPaperNoFile]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/wall-paper")

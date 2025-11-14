@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-Authorization = Union[raw.types.auth.Authorization, raw.types.auth.AuthorizationSignUpRequired]
-Authorization.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    Authorization = Union[raw.types.auth.Authorization, raw.types.auth.AuthorizationSignUpRequired]
+else:
+    # noinspection PyRedeclaration
+    class Authorization(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -51,4 +55,13 @@ Authorization.__doc__ = """
             - :obj:`auth.CheckPassword <pyrogram.raw.functions.auth.CheckPassword>`
             - :obj:`auth.RecoverPassword <pyrogram.raw.functions.auth.RecoverPassword>`
             - :obj:`auth.ImportWebTokenAuthorization <pyrogram.raw.functions.auth.ImportWebTokenAuthorization>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.auth.Authorization"
+        __union_types__ = Union[raw.types.auth.Authorization, raw.types.auth.AuthorizationSignUpRequired]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/authorization")

@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-StickerSet = Union[raw.types.messages.StickerSet, raw.types.messages.StickerSetNotModified]
-StickerSet.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    StickerSet = Union[raw.types.messages.StickerSet, raw.types.messages.StickerSetNotModified]
+else:
+    # noinspection PyRedeclaration
+    class StickerSet(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -53,4 +57,13 @@ StickerSet.__doc__ = """
             - :obj:`stickers.ChangeSticker <pyrogram.raw.functions.stickers.ChangeSticker>`
             - :obj:`stickers.RenameStickerSet <pyrogram.raw.functions.stickers.RenameStickerSet>`
             - :obj:`stickers.ReplaceSticker <pyrogram.raw.functions.stickers.ReplaceSticker>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.messages.StickerSet"
+        __union_types__ = Union[raw.types.messages.StickerSet, raw.types.messages.StickerSetNotModified]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/sticker-set")

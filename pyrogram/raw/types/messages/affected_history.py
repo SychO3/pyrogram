@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,11 +32,11 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class AffectedHistory(TLObject):  # type: ignore
+class AffectedHistory(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.AffectedHistory`.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``B45C69D1``
 
     Parameters:
@@ -53,8 +55,8 @@ class AffectedHistory(TLObject):  # type: ignore
             - :obj:`messages.UnpinAllMessages <pyrogram.raw.functions.messages.UnpinAllMessages>`
             - :obj:`messages.ReadReactions <pyrogram.raw.functions.messages.ReadReactions>`
             - :obj:`messages.DeleteSavedHistory <pyrogram.raw.functions.messages.DeleteSavedHistory>`
+            - :obj:`messages.DeleteTopicHistory <pyrogram.raw.functions.messages.DeleteTopicHistory>`
             - :obj:`channels.DeleteParticipantHistory <pyrogram.raw.functions.channels.DeleteParticipantHistory>`
-            - :obj:`channels.DeleteTopicHistory <pyrogram.raw.functions.channels.DeleteTopicHistory>`
     """
 
     __slots__: List[str] = ["pts", "pts_count", "offset"]

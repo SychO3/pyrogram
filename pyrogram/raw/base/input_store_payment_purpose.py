@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-InputStorePaymentPurpose = Union[raw.types.InputStorePaymentAuthCode, raw.types.InputStorePaymentGiftPremium, raw.types.InputStorePaymentPremiumGiftCode, raw.types.InputStorePaymentPremiumGiveaway, raw.types.InputStorePaymentPremiumSubscription, raw.types.InputStorePaymentStarsGift, raw.types.InputStorePaymentStarsGiveaway, raw.types.InputStorePaymentStarsTopup]
-InputStorePaymentPurpose.__doc__ = """
-    This base type has 8 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    InputStorePaymentPurpose = Union[raw.types.InputStorePaymentAuthCode, raw.types.InputStorePaymentGiftPremium, raw.types.InputStorePaymentPremiumGiftCode, raw.types.InputStorePaymentPremiumGiveaway, raw.types.InputStorePaymentPremiumSubscription, raw.types.InputStorePaymentStarsGift, raw.types.InputStorePaymentStarsGiveaway, raw.types.InputStorePaymentStarsTopup]
+else:
+    # noinspection PyRedeclaration
+    class InputStorePaymentPurpose(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 8 constructors available.
 
     Constructors:
         .. hlist::
@@ -43,4 +47,13 @@ InputStorePaymentPurpose.__doc__ = """
             - :obj:`InputStorePaymentStarsGift <pyrogram.raw.types.InputStorePaymentStarsGift>`
             - :obj:`InputStorePaymentStarsGiveaway <pyrogram.raw.types.InputStorePaymentStarsGiveaway>`
             - :obj:`InputStorePaymentStarsTopup <pyrogram.raw.types.InputStorePaymentStarsTopup>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.InputStorePaymentPurpose"
+        __union_types__ = Union[raw.types.InputStorePaymentAuthCode, raw.types.InputStorePaymentGiftPremium, raw.types.InputStorePaymentPremiumGiftCode, raw.types.InputStorePaymentPremiumGiveaway, raw.types.InputStorePaymentPremiumSubscription, raw.types.InputStorePaymentStarsGift, raw.types.InputStorePaymentStarsGiveaway, raw.types.InputStorePaymentStarsTopup]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/input-store-payment-purpose")

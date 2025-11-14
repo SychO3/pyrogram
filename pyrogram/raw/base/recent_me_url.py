@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-RecentMeUrl = Union[raw.types.RecentMeUrlChat, raw.types.RecentMeUrlChatInvite, raw.types.RecentMeUrlStickerSet, raw.types.RecentMeUrlUnknown, raw.types.RecentMeUrlUser]
-RecentMeUrl.__doc__ = """
-    This base type has 5 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    RecentMeUrl = Union[raw.types.RecentMeUrlChat, raw.types.RecentMeUrlChatInvite, raw.types.RecentMeUrlStickerSet, raw.types.RecentMeUrlUnknown, raw.types.RecentMeUrlUser]
+else:
+    # noinspection PyRedeclaration
+    class RecentMeUrl(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 5 constructors available.
 
     Constructors:
         .. hlist::
@@ -40,4 +44,13 @@ RecentMeUrl.__doc__ = """
             - :obj:`RecentMeUrlStickerSet <pyrogram.raw.types.RecentMeUrlStickerSet>`
             - :obj:`RecentMeUrlUnknown <pyrogram.raw.types.RecentMeUrlUnknown>`
             - :obj:`RecentMeUrlUser <pyrogram.raw.types.RecentMeUrlUser>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.RecentMeUrl"
+        __union_types__ = Union[raw.types.RecentMeUrlChat, raw.types.RecentMeUrlChatInvite, raw.types.RecentMeUrlStickerSet, raw.types.RecentMeUrlUnknown, raw.types.RecentMeUrlUser]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/recent-me-url")

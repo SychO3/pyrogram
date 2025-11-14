@@ -59,3 +59,5 @@ from .send_conference_call_broadcast import SendConferenceCallBroadcast
 from .invite_conference_call_participant import InviteConferenceCallParticipant
 from .decline_conference_call_invite import DeclineConferenceCallInvite
 from .get_group_call_chain_blocks import GetGroupCallChainBlocks
+from .send_group_call_message import SendGroupCallMessage
+from .send_group_call_encrypted_message import SendGroupCallEncryptedMessage

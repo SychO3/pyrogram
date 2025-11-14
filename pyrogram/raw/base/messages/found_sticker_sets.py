@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-FoundStickerSets = Union[raw.types.messages.FoundStickerSets, raw.types.messages.FoundStickerSetsNotModified]
-FoundStickerSets.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    FoundStickerSets = Union[raw.types.messages.FoundStickerSets, raw.types.messages.FoundStickerSetsNotModified]
+else:
+    # noinspection PyRedeclaration
+    class FoundStickerSets(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -46,4 +50,13 @@ FoundStickerSets.__doc__ = """
 
             - :obj:`messages.SearchStickerSets <pyrogram.raw.functions.messages.SearchStickerSets>`
             - :obj:`messages.SearchEmojiStickerSets <pyrogram.raw.functions.messages.SearchEmojiStickerSets>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.messages.FoundStickerSets"
+        __union_types__ = Union[raw.types.messages.FoundStickerSets, raw.types.messages.FoundStickerSetsNotModified]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/found-sticker-sets")

@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,15 +32,15 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class GetUniqueGiftChatThemes(TLObject):  # type: ignore
+class GetUniqueGiftChatThemes(TLObject["raw.base.account.ChatThemes"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``FE74EF9F``
+        - Layer: ``216``
+        - ID: ``E42CE9C9``
 
     Parameters:
-        offset: ``int`` ``32-bit``
+        offset: ``str``
         limit: ``int`` ``32-bit``
         hash: ``int`` ``64-bit``
 
@@ -48,11 +50,11 @@ class GetUniqueGiftChatThemes(TLObject):  # type: ignore
 
     __slots__: List[str] = ["offset", "limit", "hash"]
 
-    ID = 0xfe74ef9f
+    ID = 0xe42ce9c9
     QUALNAME = "functions.account.GetUniqueGiftChatThemes"
 
-    def __init__(self, *, offset: int, limit: int, hash: int) -> None:
-        self.offset = offset  # int
+    def __init__(self, *, offset: str, limit: int, hash: int) -> None:
+        self.offset = offset  # string
         self.limit = limit  # int
         self.hash = hash  # long
 
@@ -60,7 +62,7 @@ class GetUniqueGiftChatThemes(TLObject):  # type: ignore
     def read(b: BytesIO, *args: Any) -> "GetUniqueGiftChatThemes":
         # No flags
         
-        offset = Int.read(b)
+        offset = String.read(b)
         
         limit = Int.read(b)
         
@@ -74,7 +76,7 @@ class GetUniqueGiftChatThemes(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(Int(self.offset))
+        b.write(String(self.offset))
         
         b.write(Int(self.limit))
         

@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-RequestedPeer = Union[raw.types.RequestedPeerChannel, raw.types.RequestedPeerChat, raw.types.RequestedPeerUser]
-RequestedPeer.__doc__ = """
-    This base type has 3 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    RequestedPeer = Union[raw.types.RequestedPeerChannel, raw.types.RequestedPeerChat, raw.types.RequestedPeerUser]
+else:
+    # noinspection PyRedeclaration
+    class RequestedPeer(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
@@ -38,4 +42,13 @@ RequestedPeer.__doc__ = """
             - :obj:`RequestedPeerChannel <pyrogram.raw.types.RequestedPeerChannel>`
             - :obj:`RequestedPeerChat <pyrogram.raw.types.RequestedPeerChat>`
             - :obj:`RequestedPeerUser <pyrogram.raw.types.RequestedPeerUser>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.RequestedPeer"
+        __union_types__ = Union[raw.types.RequestedPeerChannel, raw.types.RequestedPeerChat, raw.types.RequestedPeerUser]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/requested-peer")

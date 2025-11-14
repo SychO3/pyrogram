@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SavedInfo = Union[raw.types.payments.SavedInfo]
-SavedInfo.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SavedInfo = Union[raw.types.payments.SavedInfo]
+else:
+    # noinspection PyRedeclaration
+    class SavedInfo(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -44,4 +48,13 @@ SavedInfo.__doc__ = """
             :columns: 2
 
             - :obj:`payments.GetSavedInfo <pyrogram.raw.functions.payments.GetSavedInfo>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.payments.SavedInfo"
+        __union_types__ = Union[raw.types.payments.SavedInfo]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/saved-info")

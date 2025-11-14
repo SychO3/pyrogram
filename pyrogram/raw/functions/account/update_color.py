@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,31 +32,29 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class UpdateColor(TLObject):  # type: ignore
+class UpdateColor(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``7CEFA15D``
+        - Layer: ``216``
+        - ID: ``684D214E``
 
     Parameters:
         for_profile (optional): ``bool``
-        color (optional): ``int`` ``32-bit``
-        background_emoji_id (optional): ``int`` ``64-bit``
+        color (optional): :obj:`PeerColor <pyrogram.raw.base.PeerColor>`
 
     Returns:
         ``bool``
     """
 
-    __slots__: List[str] = ["for_profile", "color", "background_emoji_id"]
+    __slots__: List[str] = ["for_profile", "color"]
 
-    ID = 0x7cefa15d
+    ID = 0x684d214e
     QUALNAME = "functions.account.UpdateColor"
 
-    def __init__(self, *, for_profile: Optional[bool] = None, color: Optional[int] = None, background_emoji_id: Optional[int] = None) -> None:
+    def __init__(self, *, for_profile: Optional[bool] = None, color: "raw.base.PeerColor" = None) -> None:
         self.for_profile = for_profile  # flags.1?true
-        self.color = color  # flags.2?int
-        self.background_emoji_id = background_emoji_id  # flags.0?long
+        self.color = color  # flags.2?PeerColor
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "UpdateColor":
@@ -62,9 +62,9 @@ class UpdateColor(TLObject):  # type: ignore
         flags = Int.read(b)
         
         for_profile = True if flags & (1 << 1) else False
-        color = Int.read(b) if flags & (1 << 2) else None
-        background_emoji_id = Long.read(b) if flags & (1 << 0) else None
-        return UpdateColor(for_profile=for_profile, color=color, background_emoji_id=background_emoji_id)
+        color = TLObject.read(b) if flags & (1 << 2) else None
+        
+        return UpdateColor(for_profile=for_profile, color=color)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -73,13 +73,9 @@ class UpdateColor(TLObject):  # type: ignore
         flags = 0
         flags |= (1 << 1) if self.for_profile else 0
         flags |= (1 << 2) if self.color is not None else 0
-        flags |= (1 << 0) if self.background_emoji_id is not None else 0
         b.write(Int(flags))
         
         if self.color is not None:
-            b.write(Int(self.color))
-        
-        if self.background_emoji_id is not None:
-            b.write(Long(self.background_emoji_id))
+            b.write(self.color.write())
         
         return b.getvalue()

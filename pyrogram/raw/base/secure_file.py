@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SecureFile = Union[raw.types.SecureFile, raw.types.SecureFileEmpty]
-SecureFile.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SecureFile = Union[raw.types.SecureFile, raw.types.SecureFileEmpty]
+else:
+    # noinspection PyRedeclaration
+    class SecureFile(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -37,4 +41,13 @@ SecureFile.__doc__ = """
 
             - :obj:`SecureFile <pyrogram.raw.types.SecureFile>`
             - :obj:`SecureFileEmpty <pyrogram.raw.types.SecureFileEmpty>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.SecureFile"
+        __union_types__ = Union[raw.types.SecureFile, raw.types.SecureFileEmpty]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/secure-file")

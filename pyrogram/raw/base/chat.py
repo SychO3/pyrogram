@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-Chat = Union[raw.types.Channel, raw.types.ChannelForbidden, raw.types.Chat, raw.types.ChatEmpty, raw.types.ChatForbidden]
-Chat.__doc__ = """
-    This base type has 5 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    Chat = Union[raw.types.Channel, raw.types.ChannelForbidden, raw.types.Chat, raw.types.ChatEmpty, raw.types.ChatForbidden]
+else:
+    # noinspection PyRedeclaration
+    class Chat(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 5 constructors available.
 
     Constructors:
         .. hlist::
@@ -40,4 +44,13 @@ Chat.__doc__ = """
             - :obj:`Chat <pyrogram.raw.types.Chat>`
             - :obj:`ChatEmpty <pyrogram.raw.types.ChatEmpty>`
             - :obj:`ChatForbidden <pyrogram.raw.types.ChatForbidden>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.Chat"
+        __union_types__ = Union[raw.types.Channel, raw.types.ChannelForbidden, raw.types.Chat, raw.types.ChatEmpty, raw.types.ChatForbidden]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/chat")

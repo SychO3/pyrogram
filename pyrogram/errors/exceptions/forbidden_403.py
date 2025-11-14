@@ -27,7 +27,7 @@ class Forbidden(RPCError):
 
 
 class AllowPaymentRequiredX(Forbidden):
-    """This peer charges {value} [Telegram Stars](https://core.telegram.org/api/stars) per message, but the `allow_paid_stars` was not set or its value is smaller than {value}."""
+    """The user has enabled paid messages with {value} stars."""
     ID = "ALLOW_PAYMENT_REQUIRED_X"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -40,15 +40,29 @@ class AnonymousReactionsDisabled(Forbidden):
     MESSAGE = __doc__
 
 
+class BotAccessForbidden(Forbidden):
+    """You can't access this bot."""
+    ID = "BOT_ACCESS_FORBIDDEN"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class BotOwnerRequired(Forbidden):
+    """You must be the owner of the bot to perform this action."""
+    ID = "BOT_OWNER_REQUIRED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class BroadcastForbidden(Forbidden):
-    """Channel poll voters and reactions cannot be fetched to prevent deanonymization."""
+    """This request can't be used in channels."""
     ID = "BROADCAST_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class ChannelPublicGroupNa(Forbidden):
-    """channel/supergroup not available."""
+    """The channel/supergroup is not available."""
     ID = "CHANNEL_PUBLIC_GROUP_NA"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -62,7 +76,7 @@ class ChatActionForbidden(Forbidden):
 
 
 class ChatAdminInviteRequired(Forbidden):
-    """You do not have the rights to do this."""
+    """You don't have rights to invite other users."""
     ID = "CHAT_ADMIN_INVITE_REQUIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -83,7 +97,7 @@ class ChatForbidden(Forbidden):
 
 
 class ChatGuestSendForbidden(Forbidden):
-    """You join the discussion group before commenting, see [here &raquo;](https://core.telegram.org/api/discussion#requiring-users-to-join-the-group) for more info."""
+    """You need to join the discussion group before commenting, see [here »](https://core.telegram.org/api/discussion#requiring-users-to-join-the-group) for more info."""
     ID = "CHAT_GUEST_SEND_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -111,21 +125,21 @@ class ChatSendGameForbidden(Forbidden):
 
 
 class ChatSendGifsForbidden(Forbidden):
-    """You can't send gifs in this chat."""
+    """You can't send animations in this chat."""
     ID = "CHAT_SEND_GIFS_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class ChatSendInlineForbidden(Forbidden):
-    """You can't send inline messages in this group."""
+    """You cannot use inline bots to send messages in this chat."""
     ID = "CHAT_SEND_INLINE_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class ChatSendMediaForbidden(Forbidden):
-    """You can't send media in this chat."""
+    """You can't send media messages in this chat."""
     ID = "CHAT_SEND_MEDIA_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -153,7 +167,7 @@ class ChatSendPollForbidden(Forbidden):
 
 
 class ChatSendRoundvideosForbidden(Forbidden):
-    """You can't send round videos to this chat."""
+    """You can't send video notes in this chat."""
     ID = "CHAT_SEND_ROUNDVIDEOS_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -180,22 +194,15 @@ class ChatSendVoicesForbidden(Forbidden):
     MESSAGE = __doc__
 
 
-class ChatSendWebpageForbidden(Forbidden):
-    """You can't send webpage previews to this chat."""
-    ID = "CHAT_SEND_WEBPAGE_FORBIDDEN"
-    """``str``: RPC Error ID"""
-    MESSAGE = __doc__
-
-
 class ChatTypeInvalid(Forbidden):
-    """The specified user type is invalid."""
+    """The specified chat type is invalid."""
     ID = "CHAT_TYPE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class ChatWriteForbidden(Forbidden):
-    """You can't write in this chat."""
+    """You don't have rights to send messages in this chat."""
     ID = "CHAT_WRITE_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -223,28 +230,42 @@ class GroupcallForbidden(Forbidden):
 
 
 class InlineBotRequired(Forbidden):
-    """Only the inline bot can edit message."""
+    """The action must be performed through an inline bot callback."""
     ID = "INLINE_BOT_REQUIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
+class LiveDisabled(Forbidden):
+    """Story is disabled server-side."""
+    ID = "LIVE_DISABLED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class MessageAuthorRequired(Forbidden):
-    """Message author required."""
+    """You are not the author of this message."""
     ID = "MESSAGE_AUTHOR_REQUIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class MessageDeleteForbidden(Forbidden):
-    """You can't delete one of the messages you tried to delete, most likely because it is a service message."""
+    """You don't have rights to delete one of the messages you tried to delete, most likely because it is a service message or you are not the author of them."""
     ID = "MESSAGE_DELETE_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
+class NotAllowed(Forbidden):
+    """Not allowed."""
+    ID = "NOT_ALLOWED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class NotEligible(Forbidden):
-    """The current user is not eligible to join the Peer-to-Peer Login Program."""
+    """The current user is not eligible for this action."""
     ID = "NOT_ELIGIBLE"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -279,7 +300,7 @@ class PremiumAccountRequired(Forbidden):
 
 
 class PrivacyPremiumRequired(Forbidden):
-    """You need a [Telegram Premium subscription](https://core.telegram.org/api/premium) to send a message to this user."""
+    """The user has restricted from sending messages or this action requires a [Telegram Premium subscription](https://core.telegram.org/api/premium)."""
     ID = "PRIVACY_PREMIUM_REQUIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -292,22 +313,36 @@ class PublicChannelMissing(Forbidden):
     MESSAGE = __doc__
 
 
+class RecaptchaCheckX(Forbidden):
+    """The request can't be completed unless reCAPTCHA verification {value} is performed."""
+    ID = "RECAPTCHA_CHECK_X"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class RightForbidden(Forbidden):
-    """Your admin rights do not allow you to do this."""
+    """You don't have enough rights for this action, or you tried to set one or more admin rights that can't be applied to this kind of chat (channel or supergroup)."""
     ID = "RIGHT_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class SensitiveChangeForbidden(Forbidden):
-    """You can't change your sensitive content settings."""
+    """You can't change your sensitive content settings at this time."""
     ID = "SENSITIVE_CHANGE_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
+class StargiftConvertBotNotAllowed(Forbidden):
+    """You can't convert this gift to stars."""
+    ID = "STARGIFT_CONVERT_BOT_NOT_ALLOWED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class TakeoutRequired(Forbidden):
-    """A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](https://core.telegram.org/api/takeout)."""
+    """The method must be invoked inside a [takeout](https://core.telegram.org/api/takeout) session."""
     ID = "TAKEOUT_REQUIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -334,8 +369,15 @@ class UserDeleted(Forbidden):
     MESSAGE = __doc__
 
 
+class UserDisallowedStargifts(Forbidden):
+    """You can't send gifts to this user due to their privacy settings."""
+    ID = "USER_DISALLOWED_STARGIFTS"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class UserInvalid(Forbidden):
-    """Invalid user provided."""
+    """The provided user is invalid."""
     ID = "USER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -370,7 +412,7 @@ class UserPrivacyRestricted(Forbidden):
 
 
 class UserRestricted(Forbidden):
-    """You're spamreported, you can't create channels or chats."""
+    """You're limited/restricted by telegram. You can't perform this action."""
     ID = "USER_RESTRICTED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__

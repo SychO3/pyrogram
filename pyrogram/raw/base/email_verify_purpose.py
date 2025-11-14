@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-EmailVerifyPurpose = Union[raw.types.EmailVerifyPurposeLoginChange, raw.types.EmailVerifyPurposeLoginSetup, raw.types.EmailVerifyPurposePassport]
-EmailVerifyPurpose.__doc__ = """
-    This base type has 3 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    EmailVerifyPurpose = Union[raw.types.EmailVerifyPurposeLoginChange, raw.types.EmailVerifyPurposeLoginSetup, raw.types.EmailVerifyPurposePassport]
+else:
+    # noinspection PyRedeclaration
+    class EmailVerifyPurpose(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
@@ -38,4 +42,13 @@ EmailVerifyPurpose.__doc__ = """
             - :obj:`EmailVerifyPurposeLoginChange <pyrogram.raw.types.EmailVerifyPurposeLoginChange>`
             - :obj:`EmailVerifyPurposeLoginSetup <pyrogram.raw.types.EmailVerifyPurposeLoginSetup>`
             - :obj:`EmailVerifyPurposePassport <pyrogram.raw.types.EmailVerifyPurposePassport>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.EmailVerifyPurpose"
+        __union_types__ = Union[raw.types.EmailVerifyPurposeLoginChange, raw.types.EmailVerifyPurposeLoginSetup, raw.types.EmailVerifyPurposePassport]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/email-verify-purpose")

@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ProfileTab = Union[raw.types.ProfileTabFiles, raw.types.ProfileTabGifs, raw.types.ProfileTabGifts, raw.types.ProfileTabLinks, raw.types.ProfileTabMedia, raw.types.ProfileTabMusic, raw.types.ProfileTabPosts, raw.types.ProfileTabVoice]
-ProfileTab.__doc__ = """
-    This base type has 8 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ProfileTab = Union[raw.types.ProfileTabFiles, raw.types.ProfileTabGifs, raw.types.ProfileTabGifts, raw.types.ProfileTabLinks, raw.types.ProfileTabMedia, raw.types.ProfileTabMusic, raw.types.ProfileTabPosts, raw.types.ProfileTabVoice]
+else:
+    # noinspection PyRedeclaration
+    class ProfileTab(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 8 constructors available.
 
     Constructors:
         .. hlist::
@@ -43,4 +47,13 @@ ProfileTab.__doc__ = """
             - :obj:`ProfileTabMusic <pyrogram.raw.types.ProfileTabMusic>`
             - :obj:`ProfileTabPosts <pyrogram.raw.types.ProfileTabPosts>`
             - :obj:`ProfileTabVoice <pyrogram.raw.types.ProfileTabVoice>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.ProfileTab"
+        __union_types__ = Union[raw.types.ProfileTabFiles, raw.types.ProfileTabGifs, raw.types.ProfileTabGifts, raw.types.ProfileTabLinks, raw.types.ProfileTabMedia, raw.types.ProfileTabMusic, raw.types.ProfileTabPosts, raw.types.ProfileTabVoice]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/profile-tab")

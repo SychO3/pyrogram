@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-DestroyAuthKeyRes = Union[raw.types.DestroyAuthKeyFail, raw.types.DestroyAuthKeyNone, raw.types.DestroyAuthKeyOk]
-DestroyAuthKeyRes.__doc__ = """
-    This base type has 3 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    DestroyAuthKeyRes = Union[raw.types.DestroyAuthKeyFail, raw.types.DestroyAuthKeyNone, raw.types.DestroyAuthKeyOk]
+else:
+    # noinspection PyRedeclaration
+    class DestroyAuthKeyRes(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
@@ -46,4 +50,13 @@ DestroyAuthKeyRes.__doc__ = """
             :columns: 2
 
             - :obj:`DestroyAuthKey <pyrogram.raw.functions.DestroyAuthKey>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.DestroyAuthKeyRes"
+        __union_types__ = Union[raw.types.DestroyAuthKeyFail, raw.types.DestroyAuthKeyNone, raw.types.DestroyAuthKeyOk]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/destroy-auth-key-res")

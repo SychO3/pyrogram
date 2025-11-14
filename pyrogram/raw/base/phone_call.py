@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-PhoneCall = Union[raw.types.PhoneCall, raw.types.PhoneCallAccepted, raw.types.PhoneCallDiscarded, raw.types.PhoneCallEmpty, raw.types.PhoneCallRequested, raw.types.PhoneCallWaiting]
-PhoneCall.__doc__ = """
-    This base type has 6 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    PhoneCall = Union[raw.types.PhoneCall, raw.types.PhoneCallAccepted, raw.types.PhoneCallDiscarded, raw.types.PhoneCallEmpty, raw.types.PhoneCallRequested, raw.types.PhoneCallWaiting]
+else:
+    # noinspection PyRedeclaration
+    class PhoneCall(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 6 constructors available.
 
     Constructors:
         .. hlist::
@@ -41,4 +45,13 @@ PhoneCall.__doc__ = """
             - :obj:`PhoneCallEmpty <pyrogram.raw.types.PhoneCallEmpty>`
             - :obj:`PhoneCallRequested <pyrogram.raw.types.PhoneCallRequested>`
             - :obj:`PhoneCallWaiting <pyrogram.raw.types.PhoneCallWaiting>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.PhoneCall"
+        __union_types__ = Union[raw.types.PhoneCall, raw.types.PhoneCallAccepted, raw.types.PhoneCallDiscarded, raw.types.PhoneCallEmpty, raw.types.PhoneCallRequested, raw.types.PhoneCallWaiting]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/phone-call")

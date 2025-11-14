@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SavedMusic = Union[raw.types.users.SavedMusic, raw.types.users.SavedMusicNotModified]
-SavedMusic.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SavedMusic = Union[raw.types.users.SavedMusic, raw.types.users.SavedMusicNotModified]
+else:
+    # noinspection PyRedeclaration
+    class SavedMusic(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -46,4 +50,13 @@ SavedMusic.__doc__ = """
 
             - :obj:`users.GetSavedMusic <pyrogram.raw.functions.users.GetSavedMusic>`
             - :obj:`users.GetSavedMusicByID <pyrogram.raw.functions.users.GetSavedMusicByID>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.users.SavedMusic"
+        __union_types__ = Union[raw.types.users.SavedMusic, raw.types.users.SavedMusicNotModified]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/saved-music")

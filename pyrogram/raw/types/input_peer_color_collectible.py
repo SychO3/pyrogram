@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,39 +32,32 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class GetForumTopicsByID(TLObject):  # type: ignore
-    """Telegram API method.
+class InputPeerColorCollectible(TLObject):
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PeerColor`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``B0831EB9``
+        - Layer: ``216``
+        - ID: ``B8EA86A9``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
-        topics: List of ``int`` ``32-bit``
-
-    Returns:
-        :obj:`messages.ForumTopics <pyrogram.raw.base.messages.ForumTopics>`
+        collectible_id: ``int`` ``64-bit``
     """
 
-    __slots__: List[str] = ["channel", "topics"]
+    __slots__: List[str] = ["collectible_id"]
 
-    ID = 0xb0831eb9
-    QUALNAME = "functions.channels.GetForumTopicsByID"
+    ID = 0xb8ea86a9
+    QUALNAME = "types.InputPeerColorCollectible"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", topics: List[int]) -> None:
-        self.channel = channel  # InputChannel
-        self.topics = topics  # Vector<int>
+    def __init__(self, *, collectible_id: int) -> None:
+        self.collectible_id = collectible_id  # long
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "GetForumTopicsByID":
+    def read(b: BytesIO, *args: Any) -> "InputPeerColorCollectible":
         # No flags
         
-        channel = TLObject.read(b)
+        collectible_id = Long.read(b)
         
-        topics = TLObject.read(b, Int)
-        
-        return GetForumTopicsByID(channel=channel, topics=topics)
+        return InputPeerColorCollectible(collectible_id=collectible_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -70,8 +65,6 @@ class GetForumTopicsByID(TLObject):  # type: ignore
 
         # No flags
         
-        b.write(self.channel.write())
-        
-        b.write(Vector(self.topics, Int))
+        b.write(Long(self.collectible_id))
         
         return b.getvalue()

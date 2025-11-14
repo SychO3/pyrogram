@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-GroupCall = Union[raw.types.phone.GroupCall]
-GroupCall.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    GroupCall = Union[raw.types.phone.GroupCall]
+else:
+    # noinspection PyRedeclaration
+    class GroupCall(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -44,4 +48,13 @@ GroupCall.__doc__ = """
             :columns: 2
 
             - :obj:`phone.GetGroupCall <pyrogram.raw.functions.phone.GetGroupCall>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.phone.GroupCall"
+        __union_types__ = Union[raw.types.phone.GroupCall]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/group-call")

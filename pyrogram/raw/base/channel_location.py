@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ChannelLocation = Union[raw.types.ChannelLocation, raw.types.ChannelLocationEmpty]
-ChannelLocation.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ChannelLocation = Union[raw.types.ChannelLocation, raw.types.ChannelLocationEmpty]
+else:
+    # noinspection PyRedeclaration
+    class ChannelLocation(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -37,4 +41,13 @@ ChannelLocation.__doc__ = """
 
             - :obj:`ChannelLocation <pyrogram.raw.types.ChannelLocation>`
             - :obj:`ChannelLocationEmpty <pyrogram.raw.types.ChannelLocationEmpty>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.ChannelLocation"
+        __union_types__ = Union[raw.types.ChannelLocation, raw.types.ChannelLocationEmpty]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/channel-location")

@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,11 +32,11 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class GetSavedStarGifts(TLObject):  # type: ignore
+class GetSavedStarGifts(TLObject["raw.base.payments.SavedStarGifts"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``A319E569``
 
     Parameters:
@@ -48,18 +50,20 @@ class GetSavedStarGifts(TLObject):  # type: ignore
         sort_by_value (optional): ``bool``
         exclude_upgradable (optional): ``bool``
         exclude_unupgradable (optional): ``bool``
+        peer_color_available (optional): ``bool``
+        exclude_hosted (optional): ``bool``
         collection_id (optional): ``int`` ``32-bit``
 
     Returns:
         :obj:`payments.SavedStarGifts <pyrogram.raw.base.payments.SavedStarGifts>`
     """
 
-    __slots__: List[str] = ["peer", "offset", "limit", "exclude_unsaved", "exclude_saved", "exclude_unlimited", "exclude_unique", "sort_by_value", "exclude_upgradable", "exclude_unupgradable", "collection_id"]
+    __slots__: List[str] = ["peer", "offset", "limit", "exclude_unsaved", "exclude_saved", "exclude_unlimited", "exclude_unique", "sort_by_value", "exclude_upgradable", "exclude_unupgradable", "peer_color_available", "exclude_hosted", "collection_id"]
 
     ID = 0xa319e569
     QUALNAME = "functions.payments.GetSavedStarGifts"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", offset: str, limit: int, exclude_unsaved: Optional[bool] = None, exclude_saved: Optional[bool] = None, exclude_unlimited: Optional[bool] = None, exclude_unique: Optional[bool] = None, sort_by_value: Optional[bool] = None, exclude_upgradable: Optional[bool] = None, exclude_unupgradable: Optional[bool] = None, collection_id: Optional[int] = None) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", offset: str, limit: int, exclude_unsaved: Optional[bool] = None, exclude_saved: Optional[bool] = None, exclude_unlimited: Optional[bool] = None, exclude_unique: Optional[bool] = None, sort_by_value: Optional[bool] = None, exclude_upgradable: Optional[bool] = None, exclude_unupgradable: Optional[bool] = None, peer_color_available: Optional[bool] = None, exclude_hosted: Optional[bool] = None, collection_id: Optional[int] = None) -> None:
         self.peer = peer  # InputPeer
         self.offset = offset  # string
         self.limit = limit  # int
@@ -70,6 +74,8 @@ class GetSavedStarGifts(TLObject):  # type: ignore
         self.sort_by_value = sort_by_value  # flags.5?true
         self.exclude_upgradable = exclude_upgradable  # flags.7?true
         self.exclude_unupgradable = exclude_unupgradable  # flags.8?true
+        self.peer_color_available = peer_color_available  # flags.9?true
+        self.exclude_hosted = exclude_hosted  # flags.10?true
         self.collection_id = collection_id  # flags.6?int
 
     @staticmethod
@@ -84,6 +90,8 @@ class GetSavedStarGifts(TLObject):  # type: ignore
         sort_by_value = True if flags & (1 << 5) else False
         exclude_upgradable = True if flags & (1 << 7) else False
         exclude_unupgradable = True if flags & (1 << 8) else False
+        peer_color_available = True if flags & (1 << 9) else False
+        exclude_hosted = True if flags & (1 << 10) else False
         peer = TLObject.read(b)
         
         collection_id = Int.read(b) if flags & (1 << 6) else None
@@ -91,7 +99,7 @@ class GetSavedStarGifts(TLObject):  # type: ignore
         
         limit = Int.read(b)
         
-        return GetSavedStarGifts(peer=peer, offset=offset, limit=limit, exclude_unsaved=exclude_unsaved, exclude_saved=exclude_saved, exclude_unlimited=exclude_unlimited, exclude_unique=exclude_unique, sort_by_value=sort_by_value, exclude_upgradable=exclude_upgradable, exclude_unupgradable=exclude_unupgradable, collection_id=collection_id)
+        return GetSavedStarGifts(peer=peer, offset=offset, limit=limit, exclude_unsaved=exclude_unsaved, exclude_saved=exclude_saved, exclude_unlimited=exclude_unlimited, exclude_unique=exclude_unique, sort_by_value=sort_by_value, exclude_upgradable=exclude_upgradable, exclude_unupgradable=exclude_unupgradable, peer_color_available=peer_color_available, exclude_hosted=exclude_hosted, collection_id=collection_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -105,6 +113,8 @@ class GetSavedStarGifts(TLObject):  # type: ignore
         flags |= (1 << 5) if self.sort_by_value else 0
         flags |= (1 << 7) if self.exclude_upgradable else 0
         flags |= (1 << 8) if self.exclude_unupgradable else 0
+        flags |= (1 << 9) if self.peer_color_available else 0
+        flags |= (1 << 10) if self.exclude_hosted else 0
         flags |= (1 << 6) if self.collection_id is not None else 0
         b.write(Int(flags))
         

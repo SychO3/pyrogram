@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,11 +32,11 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputSavedStarGiftChat(TLObject):  # type: ignore
+class InputSavedStarGiftChat(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputSavedStarGift`.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``F101AA7F``
 
     Parameters:

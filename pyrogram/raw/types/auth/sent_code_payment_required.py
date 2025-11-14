@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,21 +32,23 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SentCodePaymentRequired(TLObject):  # type: ignore
+class SentCodePaymentRequired(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.SentCode`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``D7A2FCF9``
+        - Layer: ``216``
+        - ID: ``E0955A3C``
 
     Parameters:
         store_product: ``str``
         phone_code_hash: ``str``
         support_email_address: ``str``
         support_email_subject: ``str``
+        currency: ``str``
+        amount: ``int`` ``64-bit``
 
     See Also:
-        This object can be returned by 6 methods:
+        This object can be returned by 7 methods:
 
         .. hlist::
             :columns: 2
@@ -52,21 +56,24 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
             - :obj:`auth.SendCode <pyrogram.raw.functions.auth.SendCode>`
             - :obj:`auth.ResendCode <pyrogram.raw.functions.auth.ResendCode>`
             - :obj:`auth.ResetLoginEmail <pyrogram.raw.functions.auth.ResetLoginEmail>`
+            - :obj:`auth.CheckPaidAuth <pyrogram.raw.functions.auth.CheckPaidAuth>`
             - :obj:`account.SendChangePhoneCode <pyrogram.raw.functions.account.SendChangePhoneCode>`
             - :obj:`account.SendConfirmPhoneCode <pyrogram.raw.functions.account.SendConfirmPhoneCode>`
             - :obj:`account.SendVerifyPhoneCode <pyrogram.raw.functions.account.SendVerifyPhoneCode>`
     """
 
-    __slots__: List[str] = ["store_product", "phone_code_hash", "support_email_address", "support_email_subject"]
+    __slots__: List[str] = ["store_product", "phone_code_hash", "support_email_address", "support_email_subject", "currency", "amount"]
 
-    ID = 0xd7a2fcf9
+    ID = 0xe0955a3c
     QUALNAME = "types.auth.SentCodePaymentRequired"
 
-    def __init__(self, *, store_product: str, phone_code_hash: str, support_email_address: str, support_email_subject: str) -> None:
+    def __init__(self, *, store_product: str, phone_code_hash: str, support_email_address: str, support_email_subject: str, currency: str, amount: int) -> None:
         self.store_product = store_product  # string
         self.phone_code_hash = phone_code_hash  # string
         self.support_email_address = support_email_address  # string
         self.support_email_subject = support_email_subject  # string
+        self.currency = currency  # string
+        self.amount = amount  # long
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SentCodePaymentRequired":
@@ -80,7 +87,11 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
         
         support_email_subject = String.read(b)
         
-        return SentCodePaymentRequired(store_product=store_product, phone_code_hash=phone_code_hash, support_email_address=support_email_address, support_email_subject=support_email_subject)
+        currency = String.read(b)
+        
+        amount = Long.read(b)
+        
+        return SentCodePaymentRequired(store_product=store_product, phone_code_hash=phone_code_hash, support_email_address=support_email_address, support_email_subject=support_email_subject, currency=currency, amount=amount)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -95,5 +106,9 @@ class SentCodePaymentRequired(TLObject):  # type: ignore
         b.write(String(self.support_email_address))
         
         b.write(String(self.support_email_subject))
+        
+        b.write(String(self.currency))
+        
+        b.write(Long(self.amount))
         
         return b.getvalue()

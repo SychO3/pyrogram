@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,11 +32,11 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class Updates(TLObject):  # type: ignore
+class Updates(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Updates`.
 
     Details:
-        - Layer: ``214``
+        - Layer: ``216``
         - ID: ``74AE4240``
 
     Parameters:
@@ -45,7 +47,7 @@ class Updates(TLObject):  # type: ignore
         seq: ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 119 methods:
+        This object can be returned by 120 methods:
 
         .. hlist::
             :columns: 2
@@ -53,6 +55,7 @@ class Updates(TLObject):  # type: ignore
             - :obj:`account.GetNotifyExceptions <pyrogram.raw.functions.account.GetNotifyExceptions>`
             - :obj:`account.UpdateConnectedBot <pyrogram.raw.functions.account.UpdateConnectedBot>`
             - :obj:`account.GetBotBusinessConnection <pyrogram.raw.functions.account.GetBotBusinessConnection>`
+            - :obj:`users.SuggestBirthday <pyrogram.raw.functions.users.SuggestBirthday>`
             - :obj:`contacts.DeleteContacts <pyrogram.raw.functions.contacts.DeleteContacts>`
             - :obj:`contacts.AddContact <pyrogram.raw.functions.contacts.AddContact>`
             - :obj:`contacts.AcceptContact <pyrogram.raw.functions.contacts.AcceptContact>`
@@ -100,6 +103,10 @@ class Updates(TLObject):  # type: ignore
             - :obj:`messages.ToggleTodoCompleted <pyrogram.raw.functions.messages.ToggleTodoCompleted>`
             - :obj:`messages.AppendTodoList <pyrogram.raw.functions.messages.AppendTodoList>`
             - :obj:`messages.ToggleSuggestedPostApproval <pyrogram.raw.functions.messages.ToggleSuggestedPostApproval>`
+            - :obj:`messages.EditForumTopic <pyrogram.raw.functions.messages.EditForumTopic>`
+            - :obj:`messages.UpdatePinnedForumTopic <pyrogram.raw.functions.messages.UpdatePinnedForumTopic>`
+            - :obj:`messages.ReorderPinnedForumTopics <pyrogram.raw.functions.messages.ReorderPinnedForumTopics>`
+            - :obj:`messages.CreateForumTopic <pyrogram.raw.functions.messages.CreateForumTopic>`
             - :obj:`channels.CreateChannel <pyrogram.raw.functions.channels.CreateChannel>`
             - :obj:`channels.EditAdmin <pyrogram.raw.functions.channels.EditAdmin>`
             - :obj:`channels.EditTitle <pyrogram.raw.functions.channels.EditTitle>`
@@ -117,10 +124,6 @@ class Updates(TLObject):  # type: ignore
             - :obj:`channels.ToggleJoinToSend <pyrogram.raw.functions.channels.ToggleJoinToSend>`
             - :obj:`channels.ToggleJoinRequest <pyrogram.raw.functions.channels.ToggleJoinRequest>`
             - :obj:`channels.ToggleForum <pyrogram.raw.functions.channels.ToggleForum>`
-            - :obj:`channels.CreateForumTopic <pyrogram.raw.functions.channels.CreateForumTopic>`
-            - :obj:`channels.EditForumTopic <pyrogram.raw.functions.channels.EditForumTopic>`
-            - :obj:`channels.UpdatePinnedForumTopic <pyrogram.raw.functions.channels.UpdatePinnedForumTopic>`
-            - :obj:`channels.ReorderPinnedForumTopics <pyrogram.raw.functions.channels.ReorderPinnedForumTopics>`
             - :obj:`channels.ToggleAntiSpam <pyrogram.raw.functions.channels.ToggleAntiSpam>`
             - :obj:`channels.ToggleParticipantsHidden <pyrogram.raw.functions.channels.ToggleParticipantsHidden>`
             - :obj:`channels.UpdateColor <pyrogram.raw.functions.channels.UpdateColor>`

@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-Reaction = Union[raw.types.ReactionCustomEmoji, raw.types.ReactionEmoji, raw.types.ReactionEmpty, raw.types.ReactionPaid]
-Reaction.__doc__ = """
-    This base type has 4 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    Reaction = Union[raw.types.ReactionCustomEmoji, raw.types.ReactionEmoji, raw.types.ReactionEmpty, raw.types.ReactionPaid]
+else:
+    # noinspection PyRedeclaration
+    class Reaction(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 4 constructors available.
 
     Constructors:
         .. hlist::
@@ -39,4 +43,13 @@ Reaction.__doc__ = """
             - :obj:`ReactionEmoji <pyrogram.raw.types.ReactionEmoji>`
             - :obj:`ReactionEmpty <pyrogram.raw.types.ReactionEmpty>`
             - :obj:`ReactionPaid <pyrogram.raw.types.ReactionPaid>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.Reaction"
+        __union_types__ = Union[raw.types.ReactionCustomEmoji, raw.types.ReactionEmoji, raw.types.ReactionEmpty, raw.types.ReactionPaid]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/reaction")

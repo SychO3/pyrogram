@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ChannelParticipantsFilter = Union[raw.types.ChannelParticipantsAdmins, raw.types.ChannelParticipantsBanned, raw.types.ChannelParticipantsBots, raw.types.ChannelParticipantsContacts, raw.types.ChannelParticipantsKicked, raw.types.ChannelParticipantsMentions, raw.types.ChannelParticipantsRecent, raw.types.ChannelParticipantsSearch]
-ChannelParticipantsFilter.__doc__ = """
-    This base type has 8 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ChannelParticipantsFilter = Union[raw.types.ChannelParticipantsAdmins, raw.types.ChannelParticipantsBanned, raw.types.ChannelParticipantsBots, raw.types.ChannelParticipantsContacts, raw.types.ChannelParticipantsKicked, raw.types.ChannelParticipantsMentions, raw.types.ChannelParticipantsRecent, raw.types.ChannelParticipantsSearch]
+else:
+    # noinspection PyRedeclaration
+    class ChannelParticipantsFilter(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 8 constructors available.
 
     Constructors:
         .. hlist::
@@ -43,4 +47,13 @@ ChannelParticipantsFilter.__doc__ = """
             - :obj:`ChannelParticipantsMentions <pyrogram.raw.types.ChannelParticipantsMentions>`
             - :obj:`ChannelParticipantsRecent <pyrogram.raw.types.ChannelParticipantsRecent>`
             - :obj:`ChannelParticipantsSearch <pyrogram.raw.types.ChannelParticipantsSearch>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.ChannelParticipantsFilter"
+        __union_types__ = Union[raw.types.ChannelParticipantsAdmins, raw.types.ChannelParticipantsBanned, raw.types.ChannelParticipantsBots, raw.types.ChannelParticipantsContacts, raw.types.ChannelParticipantsKicked, raw.types.ChannelParticipantsMentions, raw.types.ChannelParticipantsRecent, raw.types.ChannelParticipantsSearch]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/channel-participants-filter")

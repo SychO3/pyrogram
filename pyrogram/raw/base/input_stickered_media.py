@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-InputStickeredMedia = Union[raw.types.InputStickeredMediaDocument, raw.types.InputStickeredMediaPhoto]
-InputStickeredMedia.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    InputStickeredMedia = Union[raw.types.InputStickeredMediaDocument, raw.types.InputStickeredMediaPhoto]
+else:
+    # noinspection PyRedeclaration
+    class InputStickeredMedia(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -37,4 +41,13 @@ InputStickeredMedia.__doc__ = """
 
             - :obj:`InputStickeredMediaDocument <pyrogram.raw.types.InputStickeredMediaDocument>`
             - :obj:`InputStickeredMediaPhoto <pyrogram.raw.types.InputStickeredMediaPhoto>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.InputStickeredMedia"
+        __union_types__ = Union[raw.types.InputStickeredMediaDocument, raw.types.InputStickeredMediaPhoto]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/input-stickered-media")

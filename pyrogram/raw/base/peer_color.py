@@ -22,18 +22,33 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-PeerColor = Union[raw.types.PeerColor]
-PeerColor.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    PeerColor = Union[raw.types.InputPeerColorCollectible, raw.types.PeerColor, raw.types.PeerColorCollectible]
+else:
+    # noinspection PyRedeclaration
+    class PeerColor(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
             :columns: 2
 
+            - :obj:`InputPeerColorCollectible <pyrogram.raw.types.InputPeerColorCollectible>`
             - :obj:`PeerColor <pyrogram.raw.types.PeerColor>`
-"""
+            - :obj:`PeerColorCollectible <pyrogram.raw.types.PeerColorCollectible>`
+        """
+
+        QUALNAME = "pyrogram.raw.base.PeerColor"
+        __union_types__ = Union[raw.types.InputPeerColorCollectible, raw.types.PeerColor, raw.types.PeerColorCollectible]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/peer-color")

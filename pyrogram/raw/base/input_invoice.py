@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-InputInvoice = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
-InputInvoice.__doc__ = """
-    This base type has 12 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    InputInvoice = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumAuthCode, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftDropOriginalDetails, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
+else:
+    # noinspection PyRedeclaration
+    class InputInvoice(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 14 constructors available.
 
     Constructors:
         .. hlist::
@@ -38,13 +42,24 @@ InputInvoice.__doc__ = """
             - :obj:`InputInvoiceBusinessBotTransferStars <pyrogram.raw.types.InputInvoiceBusinessBotTransferStars>`
             - :obj:`InputInvoiceChatInviteSubscription <pyrogram.raw.types.InputInvoiceChatInviteSubscription>`
             - :obj:`InputInvoiceMessage <pyrogram.raw.types.InputInvoiceMessage>`
+            - :obj:`InputInvoicePremiumAuthCode <pyrogram.raw.types.InputInvoicePremiumAuthCode>`
             - :obj:`InputInvoicePremiumGiftCode <pyrogram.raw.types.InputInvoicePremiumGiftCode>`
             - :obj:`InputInvoicePremiumGiftStars <pyrogram.raw.types.InputInvoicePremiumGiftStars>`
             - :obj:`InputInvoiceSlug <pyrogram.raw.types.InputInvoiceSlug>`
             - :obj:`InputInvoiceStarGift <pyrogram.raw.types.InputInvoiceStarGift>`
+            - :obj:`InputInvoiceStarGiftDropOriginalDetails <pyrogram.raw.types.InputInvoiceStarGiftDropOriginalDetails>`
             - :obj:`InputInvoiceStarGiftPrepaidUpgrade <pyrogram.raw.types.InputInvoiceStarGiftPrepaidUpgrade>`
             - :obj:`InputInvoiceStarGiftResale <pyrogram.raw.types.InputInvoiceStarGiftResale>`
             - :obj:`InputInvoiceStarGiftTransfer <pyrogram.raw.types.InputInvoiceStarGiftTransfer>`
             - :obj:`InputInvoiceStarGiftUpgrade <pyrogram.raw.types.InputInvoiceStarGiftUpgrade>`
             - :obj:`InputInvoiceStars <pyrogram.raw.types.InputInvoiceStars>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.InputInvoice"
+        __union_types__ = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumAuthCode, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftDropOriginalDetails, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/input-invoice")

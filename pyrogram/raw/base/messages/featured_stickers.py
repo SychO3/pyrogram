@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-FeaturedStickers = Union[raw.types.messages.FeaturedStickers, raw.types.messages.FeaturedStickersNotModified]
-FeaturedStickers.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    FeaturedStickers = Union[raw.types.messages.FeaturedStickers, raw.types.messages.FeaturedStickersNotModified]
+else:
+    # noinspection PyRedeclaration
+    class FeaturedStickers(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -47,4 +51,13 @@ FeaturedStickers.__doc__ = """
             - :obj:`messages.GetFeaturedStickers <pyrogram.raw.functions.messages.GetFeaturedStickers>`
             - :obj:`messages.GetOldFeaturedStickers <pyrogram.raw.functions.messages.GetOldFeaturedStickers>`
             - :obj:`messages.GetFeaturedEmojiStickers <pyrogram.raw.functions.messages.GetFeaturedEmojiStickers>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.messages.FeaturedStickers"
+        __union_types__ = Union[raw.types.messages.FeaturedStickers, raw.types.messages.FeaturedStickersNotModified]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/featured-stickers")

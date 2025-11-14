@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SponsoredMessages = Union[raw.types.messages.SponsoredMessages, raw.types.messages.SponsoredMessagesEmpty]
-SponsoredMessages.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SponsoredMessages = Union[raw.types.messages.SponsoredMessages, raw.types.messages.SponsoredMessagesEmpty]
+else:
+    # noinspection PyRedeclaration
+    class SponsoredMessages(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -45,4 +49,13 @@ SponsoredMessages.__doc__ = """
             :columns: 2
 
             - :obj:`messages.GetSponsoredMessages <pyrogram.raw.functions.messages.GetSponsoredMessages>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.messages.SponsoredMessages"
+        __union_types__ = Union[raw.types.messages.SponsoredMessages, raw.types.messages.SponsoredMessagesEmpty]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/sponsored-messages")

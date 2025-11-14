@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,12 +32,12 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SavedStarGift(TLObject):  # type: ignore
+class SavedStarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SavedStarGift`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``19A9B572``
+        - Layer: ``216``
+        - ID: ``8983A452``
 
     Parameters:
         date: ``int`` ``32-bit``
@@ -58,14 +60,15 @@ class SavedStarGift(TLObject):  # type: ignore
         can_resell_at (optional): ``int`` ``32-bit``
         collection_id (optional): List of ``int`` ``32-bit``
         prepaid_upgrade_hash (optional): ``str``
+        drop_original_details_stars (optional): ``int`` ``64-bit``
     """
 
-    __slots__: List[str] = ["date", "gift", "name_hidden", "unsaved", "refunded", "can_upgrade", "pinned_to_top", "upgrade_separate", "from_id", "message", "msg_id", "saved_id", "convert_stars", "upgrade_stars", "can_export_at", "transfer_stars", "can_transfer_at", "can_resell_at", "collection_id", "prepaid_upgrade_hash"]
+    __slots__: List[str] = ["date", "gift", "name_hidden", "unsaved", "refunded", "can_upgrade", "pinned_to_top", "upgrade_separate", "from_id", "message", "msg_id", "saved_id", "convert_stars", "upgrade_stars", "can_export_at", "transfer_stars", "can_transfer_at", "can_resell_at", "collection_id", "prepaid_upgrade_hash", "drop_original_details_stars"]
 
-    ID = 0x19a9b572
+    ID = 0x8983a452
     QUALNAME = "types.SavedStarGift"
 
-    def __init__(self, *, date: int, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, unsaved: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, pinned_to_top: Optional[bool] = None, upgrade_separate: Optional[bool] = None, from_id: "raw.base.Peer" = None, message: "raw.base.TextWithEntities" = None, msg_id: Optional[int] = None, saved_id: Optional[int] = None, convert_stars: Optional[int] = None, upgrade_stars: Optional[int] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, collection_id: Optional[List[int]] = None, prepaid_upgrade_hash: Optional[str] = None) -> None:
+    def __init__(self, *, date: int, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, unsaved: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, pinned_to_top: Optional[bool] = None, upgrade_separate: Optional[bool] = None, from_id: "raw.base.Peer" = None, message: "raw.base.TextWithEntities" = None, msg_id: Optional[int] = None, saved_id: Optional[int] = None, convert_stars: Optional[int] = None, upgrade_stars: Optional[int] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, collection_id: Optional[List[int]] = None, prepaid_upgrade_hash: Optional[str] = None, drop_original_details_stars: Optional[int] = None) -> None:
         self.date = date  # int
         self.gift = gift  # StarGift
         self.name_hidden = name_hidden  # flags.0?true
@@ -86,6 +89,7 @@ class SavedStarGift(TLObject):  # type: ignore
         self.can_resell_at = can_resell_at  # flags.14?int
         self.collection_id = collection_id  # flags.15?Vector<int>
         self.prepaid_upgrade_hash = prepaid_upgrade_hash  # flags.16?string
+        self.drop_original_details_stars = drop_original_details_stars  # flags.18?long
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SavedStarGift":
@@ -117,7 +121,8 @@ class SavedStarGift(TLObject):  # type: ignore
         collection_id = TLObject.read(b, Int) if flags & (1 << 15) else []
         
         prepaid_upgrade_hash = String.read(b) if flags & (1 << 16) else None
-        return SavedStarGift(date=date, gift=gift, name_hidden=name_hidden, unsaved=unsaved, refunded=refunded, can_upgrade=can_upgrade, pinned_to_top=pinned_to_top, upgrade_separate=upgrade_separate, from_id=from_id, message=message, msg_id=msg_id, saved_id=saved_id, convert_stars=convert_stars, upgrade_stars=upgrade_stars, can_export_at=can_export_at, transfer_stars=transfer_stars, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, collection_id=collection_id, prepaid_upgrade_hash=prepaid_upgrade_hash)
+        drop_original_details_stars = Long.read(b) if flags & (1 << 18) else None
+        return SavedStarGift(date=date, gift=gift, name_hidden=name_hidden, unsaved=unsaved, refunded=refunded, can_upgrade=can_upgrade, pinned_to_top=pinned_to_top, upgrade_separate=upgrade_separate, from_id=from_id, message=message, msg_id=msg_id, saved_id=saved_id, convert_stars=convert_stars, upgrade_stars=upgrade_stars, can_export_at=can_export_at, transfer_stars=transfer_stars, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, collection_id=collection_id, prepaid_upgrade_hash=prepaid_upgrade_hash, drop_original_details_stars=drop_original_details_stars)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -142,6 +147,7 @@ class SavedStarGift(TLObject):  # type: ignore
         flags |= (1 << 14) if self.can_resell_at is not None else 0
         flags |= (1 << 15) if self.collection_id else 0
         flags |= (1 << 16) if self.prepaid_upgrade_hash is not None else 0
+        flags |= (1 << 18) if self.drop_original_details_stars is not None else 0
         b.write(Int(flags))
         
         if self.from_id is not None:
@@ -183,5 +189,8 @@ class SavedStarGift(TLObject):  # type: ignore
         
         if self.prepaid_upgrade_hash is not None:
             b.write(String(self.prepaid_upgrade_hash))
+        
+        if self.drop_original_details_stars is not None:
+            b.write(Long(self.drop_original_details_stars))
         
         return b.getvalue()

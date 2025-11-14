@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SendMessageAction = Union[raw.types.SendMessageCancelAction, raw.types.SendMessageChooseContactAction, raw.types.SendMessageChooseStickerAction, raw.types.SendMessageEmojiInteraction, raw.types.SendMessageEmojiInteractionSeen, raw.types.SendMessageGamePlayAction, raw.types.SendMessageGeoLocationAction, raw.types.SendMessageHistoryImportAction, raw.types.SendMessageRecordAudioAction, raw.types.SendMessageRecordRoundAction, raw.types.SendMessageRecordVideoAction, raw.types.SendMessageTypingAction, raw.types.SendMessageUploadAudioAction, raw.types.SendMessageUploadDocumentAction, raw.types.SendMessageUploadPhotoAction, raw.types.SendMessageUploadRoundAction, raw.types.SendMessageUploadVideoAction, raw.types.SpeakingInGroupCallAction]
-SendMessageAction.__doc__ = """
-    This base type has 18 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SendMessageAction = Union[raw.types.SendMessageCancelAction, raw.types.SendMessageChooseContactAction, raw.types.SendMessageChooseStickerAction, raw.types.SendMessageEmojiInteraction, raw.types.SendMessageEmojiInteractionSeen, raw.types.SendMessageGamePlayAction, raw.types.SendMessageGeoLocationAction, raw.types.SendMessageHistoryImportAction, raw.types.SendMessageRecordAudioAction, raw.types.SendMessageRecordRoundAction, raw.types.SendMessageRecordVideoAction, raw.types.SendMessageTextDraftAction, raw.types.SendMessageTypingAction, raw.types.SendMessageUploadAudioAction, raw.types.SendMessageUploadDocumentAction, raw.types.SendMessageUploadPhotoAction, raw.types.SendMessageUploadRoundAction, raw.types.SendMessageUploadVideoAction, raw.types.SpeakingInGroupCallAction]
+else:
+    # noinspection PyRedeclaration
+    class SendMessageAction(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 19 constructors available.
 
     Constructors:
         .. hlist::
@@ -46,6 +50,7 @@ SendMessageAction.__doc__ = """
             - :obj:`SendMessageRecordAudioAction <pyrogram.raw.types.SendMessageRecordAudioAction>`
             - :obj:`SendMessageRecordRoundAction <pyrogram.raw.types.SendMessageRecordRoundAction>`
             - :obj:`SendMessageRecordVideoAction <pyrogram.raw.types.SendMessageRecordVideoAction>`
+            - :obj:`SendMessageTextDraftAction <pyrogram.raw.types.SendMessageTextDraftAction>`
             - :obj:`SendMessageTypingAction <pyrogram.raw.types.SendMessageTypingAction>`
             - :obj:`SendMessageUploadAudioAction <pyrogram.raw.types.SendMessageUploadAudioAction>`
             - :obj:`SendMessageUploadDocumentAction <pyrogram.raw.types.SendMessageUploadDocumentAction>`
@@ -53,4 +58,13 @@ SendMessageAction.__doc__ = """
             - :obj:`SendMessageUploadRoundAction <pyrogram.raw.types.SendMessageUploadRoundAction>`
             - :obj:`SendMessageUploadVideoAction <pyrogram.raw.types.SendMessageUploadVideoAction>`
             - :obj:`SpeakingInGroupCallAction <pyrogram.raw.types.SpeakingInGroupCallAction>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.SendMessageAction"
+        __union_types__ = Union[raw.types.SendMessageCancelAction, raw.types.SendMessageChooseContactAction, raw.types.SendMessageChooseStickerAction, raw.types.SendMessageEmojiInteraction, raw.types.SendMessageEmojiInteractionSeen, raw.types.SendMessageGamePlayAction, raw.types.SendMessageGeoLocationAction, raw.types.SendMessageHistoryImportAction, raw.types.SendMessageRecordAudioAction, raw.types.SendMessageRecordRoundAction, raw.types.SendMessageRecordVideoAction, raw.types.SendMessageTextDraftAction, raw.types.SendMessageTypingAction, raw.types.SendMessageUploadAudioAction, raw.types.SendMessageUploadDocumentAction, raw.types.SendMessageUploadPhotoAction, raw.types.SendMessageUploadRoundAction, raw.types.SendMessageUploadVideoAction, raw.types.SpeakingInGroupCallAction]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/send-message-action")

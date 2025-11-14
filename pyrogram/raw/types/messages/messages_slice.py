@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,16 +32,17 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class MessagesSlice(TLObject):  # type: ignore
+class MessagesSlice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Messages`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``762B263D``
+        - Layer: ``216``
+        - ID: ``5F206716``
 
     Parameters:
         count: ``int`` ``32-bit``
         messages: List of :obj:`Message <pyrogram.raw.base.Message>`
+        topics: List of :obj:`ForumTopic <pyrogram.raw.base.ForumTopic>`
         chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
         users: List of :obj:`User <pyrogram.raw.base.User>`
         inexact (optional): ``bool``
@@ -70,14 +73,15 @@ class MessagesSlice(TLObject):  # type: ignore
             - :obj:`channels.SearchPosts <pyrogram.raw.functions.channels.SearchPosts>`
     """
 
-    __slots__: List[str] = ["count", "messages", "chats", "users", "inexact", "next_rate", "offset_id_offset", "search_flood"]
+    __slots__: List[str] = ["count", "messages", "topics", "chats", "users", "inexact", "next_rate", "offset_id_offset", "search_flood"]
 
-    ID = 0x762b263d
+    ID = 0x5f206716
     QUALNAME = "types.messages.MessagesSlice"
 
-    def __init__(self, *, count: int, messages: List["raw.base.Message"], chats: List["raw.base.Chat"], users: List["raw.base.User"], inexact: Optional[bool] = None, next_rate: Optional[int] = None, offset_id_offset: Optional[int] = None, search_flood: "raw.base.SearchPostsFlood" = None) -> None:
+    def __init__(self, *, count: int, messages: List["raw.base.Message"], topics: List["raw.base.ForumTopic"], chats: List["raw.base.Chat"], users: List["raw.base.User"], inexact: Optional[bool] = None, next_rate: Optional[int] = None, offset_id_offset: Optional[int] = None, search_flood: "raw.base.SearchPostsFlood" = None) -> None:
         self.count = count  # int
         self.messages = messages  # Vector<Message>
+        self.topics = topics  # Vector<ForumTopic>
         self.chats = chats  # Vector<Chat>
         self.users = users  # Vector<User>
         self.inexact = inexact  # flags.1?true
@@ -99,11 +103,13 @@ class MessagesSlice(TLObject):  # type: ignore
         
         messages = TLObject.read(b)
         
+        topics = TLObject.read(b)
+        
         chats = TLObject.read(b)
         
         users = TLObject.read(b)
         
-        return MessagesSlice(count=count, messages=messages, chats=chats, users=users, inexact=inexact, next_rate=next_rate, offset_id_offset=offset_id_offset, search_flood=search_flood)
+        return MessagesSlice(count=count, messages=messages, topics=topics, chats=chats, users=users, inexact=inexact, next_rate=next_rate, offset_id_offset=offset_id_offset, search_flood=search_flood)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -128,6 +134,8 @@ class MessagesSlice(TLObject):  # type: ignore
             b.write(self.search_flood.write())
         
         b.write(Vector(self.messages))
+        
+        b.write(Vector(self.topics))
         
         b.write(Vector(self.chats))
         

@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-EmojiStatuses = Union[raw.types.account.EmojiStatuses, raw.types.account.EmojiStatusesNotModified]
-EmojiStatuses.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    EmojiStatuses = Union[raw.types.account.EmojiStatuses, raw.types.account.EmojiStatusesNotModified]
+else:
+    # noinspection PyRedeclaration
+    class EmojiStatuses(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -48,4 +52,13 @@ EmojiStatuses.__doc__ = """
             - :obj:`account.GetRecentEmojiStatuses <pyrogram.raw.functions.account.GetRecentEmojiStatuses>`
             - :obj:`account.GetChannelDefaultEmojiStatuses <pyrogram.raw.functions.account.GetChannelDefaultEmojiStatuses>`
             - :obj:`account.GetCollectibleEmojiStatuses <pyrogram.raw.functions.account.GetCollectibleEmojiStatuses>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.account.EmojiStatuses"
+        __union_types__ = Union[raw.types.account.EmojiStatuses, raw.types.account.EmojiStatusesNotModified]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/emoji-statuses")

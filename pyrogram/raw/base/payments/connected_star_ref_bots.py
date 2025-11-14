@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ConnectedStarRefBots = Union[raw.types.payments.ConnectedStarRefBots]
-ConnectedStarRefBots.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ConnectedStarRefBots = Union[raw.types.payments.ConnectedStarRefBots]
+else:
+    # noinspection PyRedeclaration
+    class ConnectedStarRefBots(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -47,4 +51,13 @@ ConnectedStarRefBots.__doc__ = """
             - :obj:`payments.GetConnectedStarRefBot <pyrogram.raw.functions.payments.GetConnectedStarRefBot>`
             - :obj:`payments.ConnectStarRefBot <pyrogram.raw.functions.payments.ConnectStarRefBot>`
             - :obj:`payments.EditConnectedStarRefBot <pyrogram.raw.functions.payments.EditConnectedStarRefBot>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.payments.ConnectedStarRefBots"
+        __union_types__ = Union[raw.types.payments.ConnectedStarRefBots]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/connected-star-ref-bots")

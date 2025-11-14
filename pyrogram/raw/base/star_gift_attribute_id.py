@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-StarGiftAttributeId = Union[raw.types.StarGiftAttributeIdBackdrop, raw.types.StarGiftAttributeIdModel, raw.types.StarGiftAttributeIdPattern]
-StarGiftAttributeId.__doc__ = """
-    This base type has 3 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    StarGiftAttributeId = Union[raw.types.StarGiftAttributeIdBackdrop, raw.types.StarGiftAttributeIdModel, raw.types.StarGiftAttributeIdPattern]
+else:
+    # noinspection PyRedeclaration
+    class StarGiftAttributeId(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
@@ -38,4 +42,13 @@ StarGiftAttributeId.__doc__ = """
             - :obj:`StarGiftAttributeIdBackdrop <pyrogram.raw.types.StarGiftAttributeIdBackdrop>`
             - :obj:`StarGiftAttributeIdModel <pyrogram.raw.types.StarGiftAttributeIdModel>`
             - :obj:`StarGiftAttributeIdPattern <pyrogram.raw.types.StarGiftAttributeIdPattern>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.StarGiftAttributeId"
+        __union_types__ = Union[raw.types.StarGiftAttributeIdBackdrop, raw.types.StarGiftAttributeIdModel, raw.types.StarGiftAttributeIdPattern]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/star-gift-attribute-id")

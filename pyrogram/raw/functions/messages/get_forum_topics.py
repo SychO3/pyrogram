@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,15 +32,15 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class GetForumTopics(TLObject):  # type: ignore
+class GetForumTopics(TLObject["raw.base.messages.ForumTopics"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``DE560D1``
+        - Layer: ``216``
+        - ID: ``3BA47BFF``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
+        peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         offset_date: ``int`` ``32-bit``
         offset_id: ``int`` ``32-bit``
         offset_topic: ``int`` ``32-bit``
@@ -49,13 +51,13 @@ class GetForumTopics(TLObject):  # type: ignore
         :obj:`messages.ForumTopics <pyrogram.raw.base.messages.ForumTopics>`
     """
 
-    __slots__: List[str] = ["channel", "offset_date", "offset_id", "offset_topic", "limit", "q"]
+    __slots__: List[str] = ["peer", "offset_date", "offset_id", "offset_topic", "limit", "q"]
 
-    ID = 0xde560d1
-    QUALNAME = "functions.channels.GetForumTopics"
+    ID = 0x3ba47bff
+    QUALNAME = "functions.messages.GetForumTopics"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", offset_date: int, offset_id: int, offset_topic: int, limit: int, q: Optional[str] = None) -> None:
-        self.channel = channel  # InputChannel
+    def __init__(self, *, peer: "raw.base.InputPeer", offset_date: int, offset_id: int, offset_topic: int, limit: int, q: Optional[str] = None) -> None:
+        self.peer = peer  # InputPeer
         self.offset_date = offset_date  # int
         self.offset_id = offset_id  # int
         self.offset_topic = offset_topic  # int
@@ -67,7 +69,7 @@ class GetForumTopics(TLObject):  # type: ignore
         
         flags = Int.read(b)
         
-        channel = TLObject.read(b)
+        peer = TLObject.read(b)
         
         q = String.read(b) if flags & (1 << 0) else None
         offset_date = Int.read(b)
@@ -78,7 +80,7 @@ class GetForumTopics(TLObject):  # type: ignore
         
         limit = Int.read(b)
         
-        return GetForumTopics(channel=channel, offset_date=offset_date, offset_id=offset_id, offset_topic=offset_topic, limit=limit, q=q)
+        return GetForumTopics(peer=peer, offset_date=offset_date, offset_id=offset_id, offset_topic=offset_topic, limit=limit, q=q)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -88,7 +90,7 @@ class GetForumTopics(TLObject):  # type: ignore
         flags |= (1 << 0) if self.q is not None else 0
         b.write(Int(flags))
         
-        b.write(self.channel.write())
+        b.write(self.peer.write())
         
         if self.q is not None:
             b.write(String(self.q))

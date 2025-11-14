@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,15 +32,17 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class StarGiftUpgradePreview(TLObject):  # type: ignore
+class StarGiftUpgradePreview(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftUpgradePreview`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``167BD90B``
+        - Layer: ``216``
+        - ID: ``3DE1DFED``
 
     Parameters:
         sample_attributes: List of :obj:`StarGiftAttribute <pyrogram.raw.base.StarGiftAttribute>`
+        prices: List of :obj:`StarGiftUpgradePrice <pyrogram.raw.base.StarGiftUpgradePrice>`
+        next_prices: List of :obj:`StarGiftUpgradePrice <pyrogram.raw.base.StarGiftUpgradePrice>`
 
     See Also:
         This object can be returned by 1 method:
@@ -49,13 +53,15 @@ class StarGiftUpgradePreview(TLObject):  # type: ignore
             - :obj:`payments.GetStarGiftUpgradePreview <pyrogram.raw.functions.payments.GetStarGiftUpgradePreview>`
     """
 
-    __slots__: List[str] = ["sample_attributes"]
+    __slots__: List[str] = ["sample_attributes", "prices", "next_prices"]
 
-    ID = 0x167bd90b
+    ID = 0x3de1dfed
     QUALNAME = "types.payments.StarGiftUpgradePreview"
 
-    def __init__(self, *, sample_attributes: List["raw.base.StarGiftAttribute"]) -> None:
+    def __init__(self, *, sample_attributes: List["raw.base.StarGiftAttribute"], prices: List["raw.base.StarGiftUpgradePrice"], next_prices: List["raw.base.StarGiftUpgradePrice"]) -> None:
         self.sample_attributes = sample_attributes  # Vector<StarGiftAttribute>
+        self.prices = prices  # Vector<StarGiftUpgradePrice>
+        self.next_prices = next_prices  # Vector<StarGiftUpgradePrice>
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftUpgradePreview":
@@ -63,7 +69,11 @@ class StarGiftUpgradePreview(TLObject):  # type: ignore
         
         sample_attributes = TLObject.read(b)
         
-        return StarGiftUpgradePreview(sample_attributes=sample_attributes)
+        prices = TLObject.read(b)
+        
+        next_prices = TLObject.read(b)
+        
+        return StarGiftUpgradePreview(sample_attributes=sample_attributes, prices=prices, next_prices=next_prices)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -72,5 +82,9 @@ class StarGiftUpgradePreview(TLObject):  # type: ignore
         # No flags
         
         b.write(Vector(self.sample_attributes))
+        
+        b.write(Vector(self.prices))
+        
+        b.write(Vector(self.next_prices))
         
         return b.getvalue()

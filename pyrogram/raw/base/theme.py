@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-Theme = Union[raw.types.Theme]
-Theme.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    Theme = Union[raw.types.Theme]
+else:
+    # noinspection PyRedeclaration
+    class Theme(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -46,4 +50,13 @@ Theme.__doc__ = """
             - :obj:`account.CreateTheme <pyrogram.raw.functions.account.CreateTheme>`
             - :obj:`account.UpdateTheme <pyrogram.raw.functions.account.UpdateTheme>`
             - :obj:`account.GetTheme <pyrogram.raw.functions.account.GetTheme>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.Theme"
+        __union_types__ = Union[raw.types.Theme]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/theme")

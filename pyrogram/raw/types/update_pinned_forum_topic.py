@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,54 +32,51 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class UpdatePinnedForumTopic(TLObject):  # type: ignore
-    """Telegram API method.
+class UpdatePinnedForumTopic(TLObject):
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``6C2D9026``
+        - Layer: ``216``
+        - ID: ``683B2C52``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
+        peer: :obj:`Peer <pyrogram.raw.base.Peer>`
         topic_id: ``int`` ``32-bit``
-        pinned: ``bool``
-
-    Returns:
-        :obj:`Updates <pyrogram.raw.base.Updates>`
+        pinned (optional): ``bool``
     """
 
-    __slots__: List[str] = ["channel", "topic_id", "pinned"]
+    __slots__: List[str] = ["peer", "topic_id", "pinned"]
 
-    ID = 0x6c2d9026
-    QUALNAME = "functions.channels.UpdatePinnedForumTopic"
+    ID = 0x683b2c52
+    QUALNAME = "types.UpdatePinnedForumTopic"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", topic_id: int, pinned: bool) -> None:
-        self.channel = channel  # InputChannel
+    def __init__(self, *, peer: "raw.base.Peer", topic_id: int, pinned: Optional[bool] = None) -> None:
+        self.peer = peer  # Peer
         self.topic_id = topic_id  # int
-        self.pinned = pinned  # Bool
+        self.pinned = pinned  # flags.0?true
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "UpdatePinnedForumTopic":
-        # No flags
         
-        channel = TLObject.read(b)
+        flags = Int.read(b)
+        
+        pinned = True if flags & (1 << 0) else False
+        peer = TLObject.read(b)
         
         topic_id = Int.read(b)
         
-        pinned = Bool.read(b)
-        
-        return UpdatePinnedForumTopic(channel=channel, topic_id=topic_id, pinned=pinned)
+        return UpdatePinnedForumTopic(peer=peer, topic_id=topic_id, pinned=pinned)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.pinned else 0
+        b.write(Int(flags))
         
-        b.write(self.channel.write())
+        b.write(self.peer.write())
         
         b.write(Int(self.topic_id))
-        
-        b.write(Bool(self.pinned))
         
         return b.getvalue()

@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,51 +32,51 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class UpdateChannelPinnedTopic(TLObject):  # type: ignore
+class UpdateGroupCallEncryptedMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``192EFBE3``
+        - Layer: ``216``
+        - ID: ``C957A766``
 
     Parameters:
-        channel_id: ``int`` ``64-bit``
-        topic_id: ``int`` ``32-bit``
-        pinned (optional): ``bool``
+        call: :obj:`InputGroupCall <pyrogram.raw.base.InputGroupCall>`
+        from_id: :obj:`Peer <pyrogram.raw.base.Peer>`
+        encrypted_message: ``bytes``
     """
 
-    __slots__: List[str] = ["channel_id", "topic_id", "pinned"]
+    __slots__: List[str] = ["call", "from_id", "encrypted_message"]
 
-    ID = 0x192efbe3
-    QUALNAME = "types.UpdateChannelPinnedTopic"
+    ID = 0xc957a766
+    QUALNAME = "types.UpdateGroupCallEncryptedMessage"
 
-    def __init__(self, *, channel_id: int, topic_id: int, pinned: Optional[bool] = None) -> None:
-        self.channel_id = channel_id  # long
-        self.topic_id = topic_id  # int
-        self.pinned = pinned  # flags.0?true
+    def __init__(self, *, call: "raw.base.InputGroupCall", from_id: "raw.base.Peer", encrypted_message: bytes) -> None:
+        self.call = call  # InputGroupCall
+        self.from_id = from_id  # Peer
+        self.encrypted_message = encrypted_message  # bytes
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "UpdateChannelPinnedTopic":
+    def read(b: BytesIO, *args: Any) -> "UpdateGroupCallEncryptedMessage":
+        # No flags
         
-        flags = Int.read(b)
+        call = TLObject.read(b)
         
-        pinned = True if flags & (1 << 0) else False
-        channel_id = Long.read(b)
+        from_id = TLObject.read(b)
         
-        topic_id = Int.read(b)
+        encrypted_message = Bytes.read(b)
         
-        return UpdateChannelPinnedTopic(channel_id=channel_id, topic_id=topic_id, pinned=pinned)
+        return UpdateGroupCallEncryptedMessage(call=call, from_id=from_id, encrypted_message=encrypted_message)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        flags = 0
-        flags |= (1 << 0) if self.pinned else 0
-        b.write(Int(flags))
+        # No flags
         
-        b.write(Long(self.channel_id))
+        b.write(self.call.write())
         
-        b.write(Int(self.topic_id))
+        b.write(self.from_id.write())
+        
+        b.write(Bytes(self.encrypted_message))
         
         return b.getvalue()

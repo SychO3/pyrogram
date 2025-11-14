@@ -712,7 +712,7 @@ def to_nano(amount: float) -> int:
 PyromodConfig = SimpleNamespace(
     timeout_handler=None,
     stopped_handler=None,
-    throw_exceptions=True,
+    throw_exceptions=False,
     unallowed_click_alert=True,
     unallowed_click_alert_text="You're not expected to click this button.",
 )

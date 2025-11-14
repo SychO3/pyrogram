@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,12 +32,12 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class StarGiftUnique(TLObject):  # type: ignore
+class StarGiftUnique(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGift`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``1BEFE865``
+        - Layer: ``216``
+        - ID: ``B0BF741B``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -58,14 +60,16 @@ class StarGiftUnique(TLObject):  # type: ignore
         value_amount (optional): ``int`` ``64-bit``
         value_currency (optional): ``str``
         theme_peer (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
+        peer_color (optional): :obj:`PeerColor <pyrogram.raw.base.PeerColor>`
+        host_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
     """
 
-    __slots__: List[str] = ["id", "gift_id", "title", "slug", "num", "attributes", "availability_issued", "availability_total", "require_premium", "resale_ton_only", "theme_available", "owner_id", "owner_name", "owner_address", "gift_address", "resell_amount", "released_by", "value_amount", "value_currency", "theme_peer"]
+    __slots__: List[str] = ["id", "gift_id", "title", "slug", "num", "attributes", "availability_issued", "availability_total", "require_premium", "resale_ton_only", "theme_available", "owner_id", "owner_name", "owner_address", "gift_address", "resell_amount", "released_by", "value_amount", "value_currency", "theme_peer", "peer_color", "host_id"]
 
-    ID = 0x1befe865
+    ID = 0xb0bf741b
     QUALNAME = "types.StarGiftUnique"
 
-    def __init__(self, *, id: int, gift_id: int, title: str, slug: str, num: int, attributes: List["raw.base.StarGiftAttribute"], availability_issued: int, availability_total: int, require_premium: Optional[bool] = None, resale_ton_only: Optional[bool] = None, theme_available: Optional[bool] = None, owner_id: "raw.base.Peer" = None, owner_name: Optional[str] = None, owner_address: Optional[str] = None, gift_address: Optional[str] = None, resell_amount: Optional[List["raw.base.StarsAmount"]] = None, released_by: "raw.base.Peer" = None, value_amount: Optional[int] = None, value_currency: Optional[str] = None, theme_peer: "raw.base.Peer" = None) -> None:
+    def __init__(self, *, id: int, gift_id: int, title: str, slug: str, num: int, attributes: List["raw.base.StarGiftAttribute"], availability_issued: int, availability_total: int, require_premium: Optional[bool] = None, resale_ton_only: Optional[bool] = None, theme_available: Optional[bool] = None, owner_id: "raw.base.Peer" = None, owner_name: Optional[str] = None, owner_address: Optional[str] = None, gift_address: Optional[str] = None, resell_amount: Optional[List["raw.base.StarsAmount"]] = None, released_by: "raw.base.Peer" = None, value_amount: Optional[int] = None, value_currency: Optional[str] = None, theme_peer: "raw.base.Peer" = None, peer_color: "raw.base.PeerColor" = None, host_id: "raw.base.Peer" = None) -> None:
         self.id = id  # long
         self.gift_id = gift_id  # long
         self.title = title  # string
@@ -86,6 +90,8 @@ class StarGiftUnique(TLObject):  # type: ignore
         self.value_amount = value_amount  # flags.8?long
         self.value_currency = value_currency  # flags.8?string
         self.theme_peer = theme_peer  # flags.10?Peer
+        self.peer_color = peer_color  # flags.11?PeerColor
+        self.host_id = host_id  # flags.12?Peer
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftUnique":
@@ -124,7 +130,11 @@ class StarGiftUnique(TLObject):  # type: ignore
         value_currency = String.read(b) if flags & (1 << 8) else None
         theme_peer = TLObject.read(b) if flags & (1 << 10) else None
         
-        return StarGiftUnique(id=id, gift_id=gift_id, title=title, slug=slug, num=num, attributes=attributes, availability_issued=availability_issued, availability_total=availability_total, require_premium=require_premium, resale_ton_only=resale_ton_only, theme_available=theme_available, owner_id=owner_id, owner_name=owner_name, owner_address=owner_address, gift_address=gift_address, resell_amount=resell_amount, released_by=released_by, value_amount=value_amount, value_currency=value_currency, theme_peer=theme_peer)
+        peer_color = TLObject.read(b) if flags & (1 << 11) else None
+        
+        host_id = TLObject.read(b) if flags & (1 << 12) else None
+        
+        return StarGiftUnique(id=id, gift_id=gift_id, title=title, slug=slug, num=num, attributes=attributes, availability_issued=availability_issued, availability_total=availability_total, require_premium=require_premium, resale_ton_only=resale_ton_only, theme_available=theme_available, owner_id=owner_id, owner_name=owner_name, owner_address=owner_address, gift_address=gift_address, resell_amount=resell_amount, released_by=released_by, value_amount=value_amount, value_currency=value_currency, theme_peer=theme_peer, peer_color=peer_color, host_id=host_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -143,6 +153,8 @@ class StarGiftUnique(TLObject):  # type: ignore
         flags |= (1 << 8) if self.value_amount is not None else 0
         flags |= (1 << 8) if self.value_currency is not None else 0
         flags |= (1 << 10) if self.theme_peer is not None else 0
+        flags |= (1 << 11) if self.peer_color is not None else 0
+        flags |= (1 << 12) if self.host_id is not None else 0
         b.write(Int(flags))
         
         b.write(Long(self.id))
@@ -187,5 +199,11 @@ class StarGiftUnique(TLObject):  # type: ignore
         
         if self.theme_peer is not None:
             b.write(self.theme_peer.write())
+        
+        if self.peer_color is not None:
+            b.write(self.peer_color.write())
+        
+        if self.host_id is not None:
+            b.write(self.host_id.write())
         
         return b.getvalue()

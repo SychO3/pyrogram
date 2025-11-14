@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-Updates = Union[raw.types.UpdateShort, raw.types.UpdateShortChatMessage, raw.types.UpdateShortMessage, raw.types.UpdateShortSentMessage, raw.types.Updates, raw.types.UpdatesCombined, raw.types.UpdatesTooLong]
-Updates.__doc__ = """
-    This base type has 7 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    Updates = Union[raw.types.UpdateShort, raw.types.UpdateShortChatMessage, raw.types.UpdateShortMessage, raw.types.UpdateShortSentMessage, raw.types.Updates, raw.types.UpdatesCombined, raw.types.UpdatesTooLong]
+else:
+    # noinspection PyRedeclaration
+    class Updates(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 7 constructors available.
 
     Constructors:
         .. hlist::
@@ -44,7 +48,7 @@ Updates.__doc__ = """
             - :obj:`UpdatesTooLong <pyrogram.raw.types.UpdatesTooLong>`
 
     See Also:
-        This object can be returned by 119 methods:
+        This object can be returned by 120 methods:
 
         .. hlist::
             :columns: 2
@@ -52,6 +56,7 @@ Updates.__doc__ = """
             - :obj:`account.GetNotifyExceptions <pyrogram.raw.functions.account.GetNotifyExceptions>`
             - :obj:`account.UpdateConnectedBot <pyrogram.raw.functions.account.UpdateConnectedBot>`
             - :obj:`account.GetBotBusinessConnection <pyrogram.raw.functions.account.GetBotBusinessConnection>`
+            - :obj:`users.SuggestBirthday <pyrogram.raw.functions.users.SuggestBirthday>`
             - :obj:`contacts.DeleteContacts <pyrogram.raw.functions.contacts.DeleteContacts>`
             - :obj:`contacts.AddContact <pyrogram.raw.functions.contacts.AddContact>`
             - :obj:`contacts.AcceptContact <pyrogram.raw.functions.contacts.AcceptContact>`
@@ -99,6 +104,10 @@ Updates.__doc__ = """
             - :obj:`messages.ToggleTodoCompleted <pyrogram.raw.functions.messages.ToggleTodoCompleted>`
             - :obj:`messages.AppendTodoList <pyrogram.raw.functions.messages.AppendTodoList>`
             - :obj:`messages.ToggleSuggestedPostApproval <pyrogram.raw.functions.messages.ToggleSuggestedPostApproval>`
+            - :obj:`messages.EditForumTopic <pyrogram.raw.functions.messages.EditForumTopic>`
+            - :obj:`messages.UpdatePinnedForumTopic <pyrogram.raw.functions.messages.UpdatePinnedForumTopic>`
+            - :obj:`messages.ReorderPinnedForumTopics <pyrogram.raw.functions.messages.ReorderPinnedForumTopics>`
+            - :obj:`messages.CreateForumTopic <pyrogram.raw.functions.messages.CreateForumTopic>`
             - :obj:`channels.CreateChannel <pyrogram.raw.functions.channels.CreateChannel>`
             - :obj:`channels.EditAdmin <pyrogram.raw.functions.channels.EditAdmin>`
             - :obj:`channels.EditTitle <pyrogram.raw.functions.channels.EditTitle>`
@@ -116,10 +125,6 @@ Updates.__doc__ = """
             - :obj:`channels.ToggleJoinToSend <pyrogram.raw.functions.channels.ToggleJoinToSend>`
             - :obj:`channels.ToggleJoinRequest <pyrogram.raw.functions.channels.ToggleJoinRequest>`
             - :obj:`channels.ToggleForum <pyrogram.raw.functions.channels.ToggleForum>`
-            - :obj:`channels.CreateForumTopic <pyrogram.raw.functions.channels.CreateForumTopic>`
-            - :obj:`channels.EditForumTopic <pyrogram.raw.functions.channels.EditForumTopic>`
-            - :obj:`channels.UpdatePinnedForumTopic <pyrogram.raw.functions.channels.UpdatePinnedForumTopic>`
-            - :obj:`channels.ReorderPinnedForumTopics <pyrogram.raw.functions.channels.ReorderPinnedForumTopics>`
             - :obj:`channels.ToggleAntiSpam <pyrogram.raw.functions.channels.ToggleAntiSpam>`
             - :obj:`channels.ToggleParticipantsHidden <pyrogram.raw.functions.channels.ToggleParticipantsHidden>`
             - :obj:`channels.UpdateColor <pyrogram.raw.functions.channels.UpdateColor>`
@@ -168,4 +173,13 @@ Updates.__doc__ = """
             - :obj:`stories.ActivateStealthMode <pyrogram.raw.functions.stories.ActivateStealthMode>`
             - :obj:`stories.SendReaction <pyrogram.raw.functions.stories.SendReaction>`
             - :obj:`stories.GetAllReadPeerStories <pyrogram.raw.functions.stories.GetAllReadPeerStories>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.Updates"
+        __union_types__ = Union[raw.types.UpdateShort, raw.types.UpdateShortChatMessage, raw.types.UpdateShortMessage, raw.types.UpdateShortSentMessage, raw.types.Updates, raw.types.UpdatesCombined, raw.types.UpdatesTooLong]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/updates")

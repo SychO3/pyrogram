@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,19 +32,19 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ChatThemes(TLObject):  # type: ignore
+class ChatThemes(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.ChatThemes`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``16484857``
+        - Layer: ``216``
+        - ID: ``BE098173``
 
     Parameters:
         hash: ``int`` ``64-bit``
         themes: List of :obj:`ChatTheme <pyrogram.raw.base.ChatTheme>`
         chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
         users: List of :obj:`User <pyrogram.raw.base.User>`
-        next_offset (optional): ``int`` ``32-bit``
+        next_offset (optional): ``str``
 
     See Also:
         This object can be returned by 1 method:
@@ -55,15 +57,15 @@ class ChatThemes(TLObject):  # type: ignore
 
     __slots__: List[str] = ["hash", "themes", "chats", "users", "next_offset"]
 
-    ID = 0x16484857
+    ID = 0xbe098173
     QUALNAME = "types.account.ChatThemes"
 
-    def __init__(self, *, hash: int, themes: List["raw.base.ChatTheme"], chats: List["raw.base.Chat"], users: List["raw.base.User"], next_offset: Optional[int] = None) -> None:
+    def __init__(self, *, hash: int, themes: List["raw.base.ChatTheme"], chats: List["raw.base.Chat"], users: List["raw.base.User"], next_offset: Optional[str] = None) -> None:
         self.hash = hash  # long
         self.themes = themes  # Vector<ChatTheme>
         self.chats = chats  # Vector<Chat>
         self.users = users  # Vector<User>
-        self.next_offset = next_offset  # flags.0?int
+        self.next_offset = next_offset  # flags.0?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ChatThemes":
@@ -78,7 +80,7 @@ class ChatThemes(TLObject):  # type: ignore
         
         users = TLObject.read(b)
         
-        next_offset = Int.read(b) if flags & (1 << 0) else None
+        next_offset = String.read(b) if flags & (1 << 0) else None
         return ChatThemes(hash=hash, themes=themes, chats=chats, users=users, next_offset=next_offset)
 
     def write(self, *args) -> bytes:
@@ -98,6 +100,6 @@ class ChatThemes(TLObject):  # type: ignore
         b.write(Vector(self.users))
         
         if self.next_offset is not None:
-            b.write(Int(self.next_offset))
+            b.write(String(self.next_offset))
         
         return b.getvalue()

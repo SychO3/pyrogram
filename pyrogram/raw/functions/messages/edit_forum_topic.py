@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,15 +32,15 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class EditForumTopic(TLObject):  # type: ignore
+class EditForumTopic(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``F4DFA185``
+        - Layer: ``216``
+        - ID: ``CECC1134``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
+        peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         topic_id: ``int`` ``32-bit``
         title (optional): ``str``
         icon_emoji_id (optional): ``int`` ``64-bit``
@@ -49,13 +51,13 @@ class EditForumTopic(TLObject):  # type: ignore
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["channel", "topic_id", "title", "icon_emoji_id", "closed", "hidden"]
+    __slots__: List[str] = ["peer", "topic_id", "title", "icon_emoji_id", "closed", "hidden"]
 
-    ID = 0xf4dfa185
-    QUALNAME = "functions.channels.EditForumTopic"
+    ID = 0xcecc1134
+    QUALNAME = "functions.messages.EditForumTopic"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", topic_id: int, title: Optional[str] = None, icon_emoji_id: Optional[int] = None, closed: Optional[bool] = None, hidden: Optional[bool] = None) -> None:
-        self.channel = channel  # InputChannel
+    def __init__(self, *, peer: "raw.base.InputPeer", topic_id: int, title: Optional[str] = None, icon_emoji_id: Optional[int] = None, closed: Optional[bool] = None, hidden: Optional[bool] = None) -> None:
+        self.peer = peer  # InputPeer
         self.topic_id = topic_id  # int
         self.title = title  # flags.0?string
         self.icon_emoji_id = icon_emoji_id  # flags.1?long
@@ -67,7 +69,7 @@ class EditForumTopic(TLObject):  # type: ignore
         
         flags = Int.read(b)
         
-        channel = TLObject.read(b)
+        peer = TLObject.read(b)
         
         topic_id = Int.read(b)
         
@@ -75,7 +77,7 @@ class EditForumTopic(TLObject):  # type: ignore
         icon_emoji_id = Long.read(b) if flags & (1 << 1) else None
         closed = Bool.read(b) if flags & (1 << 2) else None
         hidden = Bool.read(b) if flags & (1 << 3) else None
-        return EditForumTopic(channel=channel, topic_id=topic_id, title=title, icon_emoji_id=icon_emoji_id, closed=closed, hidden=hidden)
+        return EditForumTopic(peer=peer, topic_id=topic_id, title=title, icon_emoji_id=icon_emoji_id, closed=closed, hidden=hidden)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -88,7 +90,7 @@ class EditForumTopic(TLObject):  # type: ignore
         flags |= (1 << 3) if self.hidden is not None else 0
         b.write(Int(flags))
         
-        b.write(self.channel.write())
+        b.write(self.peer.write())
         
         b.write(Int(self.topic_id))
         

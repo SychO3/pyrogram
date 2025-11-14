@@ -22,18 +22,31 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-MaskCoords = Union[raw.types.MaskCoords]
-MaskCoords.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    MaskCoords = Union[raw.types.MaskCoords]
+else:
+    # noinspection PyRedeclaration
+    class MaskCoords(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
             :columns: 2
 
             - :obj:`MaskCoords <pyrogram.raw.types.MaskCoords>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.MaskCoords"
+        __union_types__ = Union[raw.types.MaskCoords]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/mask-coords")

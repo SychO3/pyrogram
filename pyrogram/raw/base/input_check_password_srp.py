@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-InputCheckPasswordSRP = Union[raw.types.InputCheckPasswordEmpty, raw.types.InputCheckPasswordSRP]
-InputCheckPasswordSRP.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    InputCheckPasswordSRP = Union[raw.types.InputCheckPasswordEmpty, raw.types.InputCheckPasswordSRP]
+else:
+    # noinspection PyRedeclaration
+    class InputCheckPasswordSRP(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -37,4 +41,13 @@ InputCheckPasswordSRP.__doc__ = """
 
             - :obj:`InputCheckPasswordEmpty <pyrogram.raw.types.InputCheckPasswordEmpty>`
             - :obj:`InputCheckPasswordSRP <pyrogram.raw.types.InputCheckPasswordSRP>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.InputCheckPasswordSRP"
+        __union_types__ = Union[raw.types.InputCheckPasswordEmpty, raw.types.InputCheckPasswordSRP]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/input-check-password-srp")

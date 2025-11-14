@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ResolvedPeer = Union[raw.types.contacts.ResolvedPeer]
-ResolvedPeer.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ResolvedPeer = Union[raw.types.contacts.ResolvedPeer]
+else:
+    # noinspection PyRedeclaration
+    class ResolvedPeer(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -45,4 +49,13 @@ ResolvedPeer.__doc__ = """
 
             - :obj:`contacts.ResolveUsername <pyrogram.raw.functions.contacts.ResolveUsername>`
             - :obj:`contacts.ResolvePhone <pyrogram.raw.functions.contacts.ResolvePhone>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.contacts.ResolvedPeer"
+        __union_types__ = Union[raw.types.contacts.ResolvedPeer]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/resolved-peer")

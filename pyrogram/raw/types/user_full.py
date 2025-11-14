@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,12 +32,12 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class UserFull(TLObject):  # type: ignore
+class UserFull(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.UserFull`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``C577B5AD``
+        - Layer: ``216``
+        - ID: ``A02BC13E``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -91,14 +93,15 @@ class UserFull(TLObject):  # type: ignore
         stars_my_pending_rating_date (optional): ``int`` ``32-bit``
         main_tab (optional): :obj:`ProfileTab <pyrogram.raw.base.ProfileTab>`
         saved_music (optional): :obj:`Document <pyrogram.raw.base.Document>`
+        note (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
     """
 
-    __slots__: List[str] = ["id", "settings", "notify_settings", "common_chats_count", "blocked", "phone_calls_available", "phone_calls_private", "can_pin_message", "has_scheduled", "video_calls_available", "voice_messages_forbidden", "translations_disabled", "stories_pinned_available", "blocked_my_stories_from", "wallpaper_overridden", "contact_require_premium", "read_dates_private", "sponsored_enabled", "can_view_revenue", "bot_can_manage_emoji_status", "display_gifts_button", "about", "personal_photo", "profile_photo", "fallback_photo", "bot_info", "pinned_msg_id", "folder_id", "ttl_period", "theme", "private_forward_name", "bot_group_admin_rights", "bot_broadcast_admin_rights", "wallpaper", "stories", "business_work_hours", "business_location", "business_greeting_message", "business_away_message", "business_intro", "birthday", "personal_channel_id", "personal_channel_message", "stargifts_count", "starref_program", "bot_verification", "send_paid_messages_stars", "disallowed_gifts", "stars_rating", "stars_my_pending_rating", "stars_my_pending_rating_date", "main_tab", "saved_music"]
+    __slots__: List[str] = ["id", "settings", "notify_settings", "common_chats_count", "blocked", "phone_calls_available", "phone_calls_private", "can_pin_message", "has_scheduled", "video_calls_available", "voice_messages_forbidden", "translations_disabled", "stories_pinned_available", "blocked_my_stories_from", "wallpaper_overridden", "contact_require_premium", "read_dates_private", "sponsored_enabled", "can_view_revenue", "bot_can_manage_emoji_status", "display_gifts_button", "about", "personal_photo", "profile_photo", "fallback_photo", "bot_info", "pinned_msg_id", "folder_id", "ttl_period", "theme", "private_forward_name", "bot_group_admin_rights", "bot_broadcast_admin_rights", "wallpaper", "stories", "business_work_hours", "business_location", "business_greeting_message", "business_away_message", "business_intro", "birthday", "personal_channel_id", "personal_channel_message", "stargifts_count", "starref_program", "bot_verification", "send_paid_messages_stars", "disallowed_gifts", "stars_rating", "stars_my_pending_rating", "stars_my_pending_rating_date", "main_tab", "saved_music", "note"]
 
-    ID = 0xc577b5ad
+    ID = 0xa02bc13e
     QUALNAME = "types.UserFull"
 
-    def __init__(self, *, id: int, settings: "raw.base.PeerSettings", notify_settings: "raw.base.PeerNotifySettings", common_chats_count: int, blocked: Optional[bool] = None, phone_calls_available: Optional[bool] = None, phone_calls_private: Optional[bool] = None, can_pin_message: Optional[bool] = None, has_scheduled: Optional[bool] = None, video_calls_available: Optional[bool] = None, voice_messages_forbidden: Optional[bool] = None, translations_disabled: Optional[bool] = None, stories_pinned_available: Optional[bool] = None, blocked_my_stories_from: Optional[bool] = None, wallpaper_overridden: Optional[bool] = None, contact_require_premium: Optional[bool] = None, read_dates_private: Optional[bool] = None, sponsored_enabled: Optional[bool] = None, can_view_revenue: Optional[bool] = None, bot_can_manage_emoji_status: Optional[bool] = None, display_gifts_button: Optional[bool] = None, about: Optional[str] = None, personal_photo: "raw.base.Photo" = None, profile_photo: "raw.base.Photo" = None, fallback_photo: "raw.base.Photo" = None, bot_info: "raw.base.BotInfo" = None, pinned_msg_id: Optional[int] = None, folder_id: Optional[int] = None, ttl_period: Optional[int] = None, theme: "raw.base.ChatTheme" = None, private_forward_name: Optional[str] = None, bot_group_admin_rights: "raw.base.ChatAdminRights" = None, bot_broadcast_admin_rights: "raw.base.ChatAdminRights" = None, wallpaper: "raw.base.WallPaper" = None, stories: "raw.base.PeerStories" = None, business_work_hours: "raw.base.BusinessWorkHours" = None, business_location: "raw.base.BusinessLocation" = None, business_greeting_message: "raw.base.BusinessGreetingMessage" = None, business_away_message: "raw.base.BusinessAwayMessage" = None, business_intro: "raw.base.BusinessIntro" = None, birthday: "raw.base.Birthday" = None, personal_channel_id: Optional[int] = None, personal_channel_message: Optional[int] = None, stargifts_count: Optional[int] = None, starref_program: "raw.base.StarRefProgram" = None, bot_verification: "raw.base.BotVerification" = None, send_paid_messages_stars: Optional[int] = None, disallowed_gifts: "raw.base.DisallowedGiftsSettings" = None, stars_rating: "raw.base.StarsRating" = None, stars_my_pending_rating: "raw.base.StarsRating" = None, stars_my_pending_rating_date: Optional[int] = None, main_tab: "raw.base.ProfileTab" = None, saved_music: "raw.base.Document" = None) -> None:
+    def __init__(self, *, id: int, settings: "raw.base.PeerSettings", notify_settings: "raw.base.PeerNotifySettings", common_chats_count: int, blocked: Optional[bool] = None, phone_calls_available: Optional[bool] = None, phone_calls_private: Optional[bool] = None, can_pin_message: Optional[bool] = None, has_scheduled: Optional[bool] = None, video_calls_available: Optional[bool] = None, voice_messages_forbidden: Optional[bool] = None, translations_disabled: Optional[bool] = None, stories_pinned_available: Optional[bool] = None, blocked_my_stories_from: Optional[bool] = None, wallpaper_overridden: Optional[bool] = None, contact_require_premium: Optional[bool] = None, read_dates_private: Optional[bool] = None, sponsored_enabled: Optional[bool] = None, can_view_revenue: Optional[bool] = None, bot_can_manage_emoji_status: Optional[bool] = None, display_gifts_button: Optional[bool] = None, about: Optional[str] = None, personal_photo: "raw.base.Photo" = None, profile_photo: "raw.base.Photo" = None, fallback_photo: "raw.base.Photo" = None, bot_info: "raw.base.BotInfo" = None, pinned_msg_id: Optional[int] = None, folder_id: Optional[int] = None, ttl_period: Optional[int] = None, theme: "raw.base.ChatTheme" = None, private_forward_name: Optional[str] = None, bot_group_admin_rights: "raw.base.ChatAdminRights" = None, bot_broadcast_admin_rights: "raw.base.ChatAdminRights" = None, wallpaper: "raw.base.WallPaper" = None, stories: "raw.base.PeerStories" = None, business_work_hours: "raw.base.BusinessWorkHours" = None, business_location: "raw.base.BusinessLocation" = None, business_greeting_message: "raw.base.BusinessGreetingMessage" = None, business_away_message: "raw.base.BusinessAwayMessage" = None, business_intro: "raw.base.BusinessIntro" = None, birthday: "raw.base.Birthday" = None, personal_channel_id: Optional[int] = None, personal_channel_message: Optional[int] = None, stargifts_count: Optional[int] = None, starref_program: "raw.base.StarRefProgram" = None, bot_verification: "raw.base.BotVerification" = None, send_paid_messages_stars: Optional[int] = None, disallowed_gifts: "raw.base.DisallowedGiftsSettings" = None, stars_rating: "raw.base.StarsRating" = None, stars_my_pending_rating: "raw.base.StarsRating" = None, stars_my_pending_rating_date: Optional[int] = None, main_tab: "raw.base.ProfileTab" = None, saved_music: "raw.base.Document" = None, note: "raw.base.TextWithEntities" = None) -> None:
         self.id = id  # long
         self.settings = settings  # PeerSettings
         self.notify_settings = notify_settings  # PeerNotifySettings
@@ -152,6 +155,7 @@ class UserFull(TLObject):  # type: ignore
         self.stars_my_pending_rating_date = stars_my_pending_rating_date  # flags2.18?int
         self.main_tab = main_tab  # flags2.20?ProfileTab
         self.saved_music = saved_music  # flags2.21?Document
+        self.note = note  # flags2.22?TextWithEntities
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "UserFull":
@@ -239,7 +243,9 @@ class UserFull(TLObject):  # type: ignore
         
         saved_music = TLObject.read(b) if flags2 & (1 << 21) else None
         
-        return UserFull(id=id, settings=settings, notify_settings=notify_settings, common_chats_count=common_chats_count, blocked=blocked, phone_calls_available=phone_calls_available, phone_calls_private=phone_calls_private, can_pin_message=can_pin_message, has_scheduled=has_scheduled, video_calls_available=video_calls_available, voice_messages_forbidden=voice_messages_forbidden, translations_disabled=translations_disabled, stories_pinned_available=stories_pinned_available, blocked_my_stories_from=blocked_my_stories_from, wallpaper_overridden=wallpaper_overridden, contact_require_premium=contact_require_premium, read_dates_private=read_dates_private, sponsored_enabled=sponsored_enabled, can_view_revenue=can_view_revenue, bot_can_manage_emoji_status=bot_can_manage_emoji_status, display_gifts_button=display_gifts_button, about=about, personal_photo=personal_photo, profile_photo=profile_photo, fallback_photo=fallback_photo, bot_info=bot_info, pinned_msg_id=pinned_msg_id, folder_id=folder_id, ttl_period=ttl_period, theme=theme, private_forward_name=private_forward_name, bot_group_admin_rights=bot_group_admin_rights, bot_broadcast_admin_rights=bot_broadcast_admin_rights, wallpaper=wallpaper, stories=stories, business_work_hours=business_work_hours, business_location=business_location, business_greeting_message=business_greeting_message, business_away_message=business_away_message, business_intro=business_intro, birthday=birthday, personal_channel_id=personal_channel_id, personal_channel_message=personal_channel_message, stargifts_count=stargifts_count, starref_program=starref_program, bot_verification=bot_verification, send_paid_messages_stars=send_paid_messages_stars, disallowed_gifts=disallowed_gifts, stars_rating=stars_rating, stars_my_pending_rating=stars_my_pending_rating, stars_my_pending_rating_date=stars_my_pending_rating_date, main_tab=main_tab, saved_music=saved_music)
+        note = TLObject.read(b) if flags2 & (1 << 22) else None
+        
+        return UserFull(id=id, settings=settings, notify_settings=notify_settings, common_chats_count=common_chats_count, blocked=blocked, phone_calls_available=phone_calls_available, phone_calls_private=phone_calls_private, can_pin_message=can_pin_message, has_scheduled=has_scheduled, video_calls_available=video_calls_available, voice_messages_forbidden=voice_messages_forbidden, translations_disabled=translations_disabled, stories_pinned_available=stories_pinned_available, blocked_my_stories_from=blocked_my_stories_from, wallpaper_overridden=wallpaper_overridden, contact_require_premium=contact_require_premium, read_dates_private=read_dates_private, sponsored_enabled=sponsored_enabled, can_view_revenue=can_view_revenue, bot_can_manage_emoji_status=bot_can_manage_emoji_status, display_gifts_button=display_gifts_button, about=about, personal_photo=personal_photo, profile_photo=profile_photo, fallback_photo=fallback_photo, bot_info=bot_info, pinned_msg_id=pinned_msg_id, folder_id=folder_id, ttl_period=ttl_period, theme=theme, private_forward_name=private_forward_name, bot_group_admin_rights=bot_group_admin_rights, bot_broadcast_admin_rights=bot_broadcast_admin_rights, wallpaper=wallpaper, stories=stories, business_work_hours=business_work_hours, business_location=business_location, business_greeting_message=business_greeting_message, business_away_message=business_away_message, business_intro=business_intro, birthday=birthday, personal_channel_id=personal_channel_id, personal_channel_message=personal_channel_message, stargifts_count=stargifts_count, starref_program=starref_program, bot_verification=bot_verification, send_paid_messages_stars=send_paid_messages_stars, disallowed_gifts=disallowed_gifts, stars_rating=stars_rating, stars_my_pending_rating=stars_my_pending_rating, stars_my_pending_rating_date=stars_my_pending_rating_date, main_tab=main_tab, saved_music=saved_music, note=note)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -297,6 +303,7 @@ class UserFull(TLObject):  # type: ignore
         flags2 |= (1 << 18) if self.stars_my_pending_rating_date is not None else 0
         flags2 |= (1 << 20) if self.main_tab is not None else 0
         flags2 |= (1 << 21) if self.saved_music is not None else 0
+        flags2 |= (1 << 22) if self.note is not None else 0
         b.write(Int(flags2))
         
         b.write(Long(self.id))
@@ -402,5 +409,8 @@ class UserFull(TLObject):  # type: ignore
         
         if self.saved_music is not None:
             b.write(self.saved_music.write())
+        
+        if self.note is not None:
+            b.write(self.note.write())
         
         return b.getvalue()

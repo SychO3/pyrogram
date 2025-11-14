@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,48 +32,49 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class DeleteTopicHistory(TLObject):  # type: ignore
-    """Telegram API method.
+class UpdatePinnedForumTopics(TLObject):
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``34435F2D``
+        - Layer: ``216``
+        - ID: ``DEF143D0``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
-        top_msg_id: ``int`` ``32-bit``
-
-    Returns:
-        :obj:`messages.AffectedHistory <pyrogram.raw.base.messages.AffectedHistory>`
+        peer: :obj:`Peer <pyrogram.raw.base.Peer>`
+        order (optional): List of ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["channel", "top_msg_id"]
+    __slots__: List[str] = ["peer", "order"]
 
-    ID = 0x34435f2d
-    QUALNAME = "functions.channels.DeleteTopicHistory"
+    ID = 0xdef143d0
+    QUALNAME = "types.UpdatePinnedForumTopics"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", top_msg_id: int) -> None:
-        self.channel = channel  # InputChannel
-        self.top_msg_id = top_msg_id  # int
+    def __init__(self, *, peer: "raw.base.Peer", order: Optional[List[int]] = None) -> None:
+        self.peer = peer  # Peer
+        self.order = order  # flags.0?Vector<int>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "DeleteTopicHistory":
-        # No flags
+    def read(b: BytesIO, *args: Any) -> "UpdatePinnedForumTopics":
         
-        channel = TLObject.read(b)
+        flags = Int.read(b)
         
-        top_msg_id = Int.read(b)
+        peer = TLObject.read(b)
         
-        return DeleteTopicHistory(channel=channel, top_msg_id=top_msg_id)
+        order = TLObject.read(b, Int) if flags & (1 << 0) else []
+        
+        return UpdatePinnedForumTopics(peer=peer, order=order)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.order else 0
+        b.write(Int(flags))
         
-        b.write(self.channel.write())
+        b.write(self.peer.write())
         
-        b.write(Int(self.top_msg_id))
+        if self.order is not None:
+            b.write(Vector(self.order, Int))
         
         return b.getvalue()

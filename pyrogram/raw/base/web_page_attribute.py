@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-WebPageAttribute = Union[raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
-WebPageAttribute.__doc__ = """
-    This base type has 5 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    WebPageAttribute = Union[raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
+else:
+    # noinspection PyRedeclaration
+    class WebPageAttribute(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 5 constructors available.
 
     Constructors:
         .. hlist::
@@ -40,4 +44,13 @@ WebPageAttribute.__doc__ = """
             - :obj:`WebPageAttributeStory <pyrogram.raw.types.WebPageAttributeStory>`
             - :obj:`WebPageAttributeTheme <pyrogram.raw.types.WebPageAttributeTheme>`
             - :obj:`WebPageAttributeUniqueStarGift <pyrogram.raw.types.WebPageAttributeUniqueStarGift>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.WebPageAttribute"
+        __union_types__ = Union[raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/web-page-attribute")

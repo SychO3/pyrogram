@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-InputEncryptedFile = Union[raw.types.InputEncryptedFile, raw.types.InputEncryptedFileBigUploaded, raw.types.InputEncryptedFileEmpty, raw.types.InputEncryptedFileUploaded]
-InputEncryptedFile.__doc__ = """
-    This base type has 4 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    InputEncryptedFile = Union[raw.types.InputEncryptedFile, raw.types.InputEncryptedFileBigUploaded, raw.types.InputEncryptedFileEmpty, raw.types.InputEncryptedFileUploaded]
+else:
+    # noinspection PyRedeclaration
+    class InputEncryptedFile(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 4 constructors available.
 
     Constructors:
         .. hlist::
@@ -39,4 +43,13 @@ InputEncryptedFile.__doc__ = """
             - :obj:`InputEncryptedFileBigUploaded <pyrogram.raw.types.InputEncryptedFileBigUploaded>`
             - :obj:`InputEncryptedFileEmpty <pyrogram.raw.types.InputEncryptedFileEmpty>`
             - :obj:`InputEncryptedFileUploaded <pyrogram.raw.types.InputEncryptedFileUploaded>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.InputEncryptedFile"
+        __union_types__ = Union[raw.types.InputEncryptedFile, raw.types.InputEncryptedFileBigUploaded, raw.types.InputEncryptedFileEmpty, raw.types.InputEncryptedFileUploaded]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/input-encrypted-file")

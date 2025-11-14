@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,12 +32,12 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class AddContact(TLObject):  # type: ignore
+class AddContact(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``E8F463D0``
+        - Layer: ``216``
+        - ID: ``D9BA2E54``
 
     Parameters:
         id: :obj:`InputUser <pyrogram.raw.base.InputUser>`
@@ -43,22 +45,24 @@ class AddContact(TLObject):  # type: ignore
         last_name: ``str``
         phone: ``str``
         add_phone_privacy_exception (optional): ``bool``
+        note (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["id", "first_name", "last_name", "phone", "add_phone_privacy_exception"]
+    __slots__: List[str] = ["id", "first_name", "last_name", "phone", "add_phone_privacy_exception", "note"]
 
-    ID = 0xe8f463d0
+    ID = 0xd9ba2e54
     QUALNAME = "functions.contacts.AddContact"
 
-    def __init__(self, *, id: "raw.base.InputUser", first_name: str, last_name: str, phone: str, add_phone_privacy_exception: Optional[bool] = None) -> None:
+    def __init__(self, *, id: "raw.base.InputUser", first_name: str, last_name: str, phone: str, add_phone_privacy_exception: Optional[bool] = None, note: "raw.base.TextWithEntities" = None) -> None:
         self.id = id  # InputUser
         self.first_name = first_name  # string
         self.last_name = last_name  # string
         self.phone = phone  # string
         self.add_phone_privacy_exception = add_phone_privacy_exception  # flags.0?true
+        self.note = note  # flags.1?TextWithEntities
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "AddContact":
@@ -74,7 +78,9 @@ class AddContact(TLObject):  # type: ignore
         
         phone = String.read(b)
         
-        return AddContact(id=id, first_name=first_name, last_name=last_name, phone=phone, add_phone_privacy_exception=add_phone_privacy_exception)
+        note = TLObject.read(b) if flags & (1 << 1) else None
+        
+        return AddContact(id=id, first_name=first_name, last_name=last_name, phone=phone, add_phone_privacy_exception=add_phone_privacy_exception, note=note)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -82,6 +88,7 @@ class AddContact(TLObject):  # type: ignore
 
         flags = 0
         flags |= (1 << 0) if self.add_phone_privacy_exception else 0
+        flags |= (1 << 1) if self.note is not None else 0
         b.write(Int(flags))
         
         b.write(self.id.write())
@@ -91,5 +98,8 @@ class AddContact(TLObject):  # type: ignore
         b.write(String(self.last_name))
         
         b.write(String(self.phone))
+        
+        if self.note is not None:
+            b.write(self.note.write())
         
         return b.getvalue()

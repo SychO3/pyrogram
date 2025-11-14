@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,49 +32,54 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class UpdateChannelPinnedTopics(TLObject):  # type: ignore
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
+class SendGroupCallMessage(TLObject["raw.base.Bool"]):
+    """Telegram API method.
 
     Details:
-        - Layer: ``214``
-        - ID: ``FE198602``
+        - Layer: ``216``
+        - ID: ``87893014``
 
     Parameters:
-        channel_id: ``int`` ``64-bit``
-        order (optional): List of ``int`` ``32-bit``
+        call: :obj:`InputGroupCall <pyrogram.raw.base.InputGroupCall>`
+        random_id: ``int`` ``64-bit``
+        message: :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
+
+    Returns:
+        ``bool``
     """
 
-    __slots__: List[str] = ["channel_id", "order"]
+    __slots__: List[str] = ["call", "random_id", "message"]
 
-    ID = 0xfe198602
-    QUALNAME = "types.UpdateChannelPinnedTopics"
+    ID = 0x87893014
+    QUALNAME = "functions.phone.SendGroupCallMessage"
 
-    def __init__(self, *, channel_id: int, order: Optional[List[int]] = None) -> None:
-        self.channel_id = channel_id  # long
-        self.order = order  # flags.0?Vector<int>
+    def __init__(self, *, call: "raw.base.InputGroupCall", random_id: int, message: "raw.base.TextWithEntities") -> None:
+        self.call = call  # InputGroupCall
+        self.random_id = random_id  # long
+        self.message = message  # TextWithEntities
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "UpdateChannelPinnedTopics":
+    def read(b: BytesIO, *args: Any) -> "SendGroupCallMessage":
+        # No flags
         
-        flags = Int.read(b)
+        call = TLObject.read(b)
         
-        channel_id = Long.read(b)
+        random_id = Long.read(b)
         
-        order = TLObject.read(b, Int) if flags & (1 << 0) else []
+        message = TLObject.read(b)
         
-        return UpdateChannelPinnedTopics(channel_id=channel_id, order=order)
+        return SendGroupCallMessage(call=call, random_id=random_id, message=message)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        flags = 0
-        flags |= (1 << 0) if self.order else 0
-        b.write(Int(flags))
+        # No flags
         
-        b.write(Long(self.channel_id))
+        b.write(self.call.write())
         
-        if self.order is not None:
-            b.write(Vector(self.order, Int))
+        b.write(Long(self.random_id))
+        
+        b.write(self.message.write())
         
         return b.getvalue()

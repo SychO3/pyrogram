@@ -217,6 +217,7 @@ from .message_action_suggested_post_approval import MessageActionSuggestedPostAp
 from .message_action_suggested_post_success import MessageActionSuggestedPostSuccess
 from .message_action_suggested_post_refund import MessageActionSuggestedPostRefund
 from .message_action_gift_ton import MessageActionGiftTon
+from .message_action_suggest_birthday import MessageActionSuggestBirthday
 from .dialog import Dialog
 from .dialog_folder import DialogFolder
 from .photo_empty import PhotoEmpty
@@ -377,8 +378,6 @@ from .update_recent_emoji_statuses import UpdateRecentEmojiStatuses
 from .update_recent_reactions import UpdateRecentReactions
 from .update_move_sticker_set_to_top import UpdateMoveStickerSetToTop
 from .update_message_extended_media import UpdateMessageExtendedMedia
-from .update_channel_pinned_topic import UpdateChannelPinnedTopic
-from .update_channel_pinned_topics import UpdateChannelPinnedTopics
 from .update_user import UpdateUser
 from .update_auto_save_settings import UpdateAutoSaveSettings
 from .update_story import UpdateStory
@@ -415,6 +414,10 @@ from .update_group_call_chain_blocks import UpdateGroupCallChainBlocks
 from .update_read_mono_forum_inbox import UpdateReadMonoForumInbox
 from .update_read_mono_forum_outbox import UpdateReadMonoForumOutbox
 from .update_mono_forum_no_paid_exception import UpdateMonoForumNoPaidException
+from .update_group_call_message import UpdateGroupCallMessage
+from .update_group_call_encrypted_message import UpdateGroupCallEncryptedMessage
+from .update_pinned_forum_topic import UpdatePinnedForumTopic
+from .update_pinned_forum_topics import UpdatePinnedForumTopics
 from .updates_too_long import UpdatesTooLong
 from .update_short_message import UpdateShortMessage
 from .update_short_chat_message import UpdateShortChatMessage
@@ -466,6 +469,7 @@ from .send_message_history_import_action import SendMessageHistoryImportAction
 from .send_message_choose_sticker_action import SendMessageChooseStickerAction
 from .send_message_emoji_interaction import SendMessageEmojiInteraction
 from .send_message_emoji_interaction_seen import SendMessageEmojiInteractionSeen
+from .send_message_text_draft_action import SendMessageTextDraftAction
 from .input_privacy_key_status_timestamp import InputPrivacyKeyStatusTimestamp
 from .input_privacy_key_chat_invite import InputPrivacyKeyChatInvite
 from .input_privacy_key_phone_call import InputPrivacyKeyPhoneCall
@@ -1017,6 +1021,8 @@ from .input_invoice_premium_gift_stars import InputInvoicePremiumGiftStars
 from .input_invoice_business_bot_transfer_stars import InputInvoiceBusinessBotTransferStars
 from .input_invoice_star_gift_resale import InputInvoiceStarGiftResale
 from .input_invoice_star_gift_prepaid_upgrade import InputInvoiceStarGiftPrepaidUpgrade
+from .input_invoice_premium_auth_code import InputInvoicePremiumAuthCode
+from .input_invoice_star_gift_drop_original_details import InputInvoiceStarGiftDropOriginalDetails
 from .input_store_payment_premium_subscription import InputStorePaymentPremiumSubscription
 from .input_store_payment_gift_premium import InputStorePaymentGiftPremium
 from .input_store_payment_premium_gift_code import InputStorePaymentPremiumGiftCode
@@ -1109,6 +1115,8 @@ from .post_interaction_counters_story import PostInteractionCountersStory
 from .public_forward_message import PublicForwardMessage
 from .public_forward_story import PublicForwardStory
 from .peer_color import PeerColor
+from .peer_color_collectible import PeerColorCollectible
+from .input_peer_color_collectible import InputPeerColorCollectible
 from .story_reaction import StoryReaction
 from .story_reaction_public_forward import StoryReactionPublicForward
 from .story_reaction_public_repost import StoryReactionPublicRepost
@@ -1230,4 +1238,5 @@ from .profile_tab_gifs import ProfileTabGifs
 from .input_chat_theme_empty import InputChatThemeEmpty
 from .input_chat_theme import InputChatTheme
 from .input_chat_theme_unique_gift import InputChatThemeUniqueGift
+from .star_gift_upgrade_price import StarGiftUpgradePrice
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SavedGifs = Union[raw.types.messages.SavedGifs, raw.types.messages.SavedGifsNotModified]
-SavedGifs.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SavedGifs = Union[raw.types.messages.SavedGifs, raw.types.messages.SavedGifsNotModified]
+else:
+    # noinspection PyRedeclaration
+    class SavedGifs(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -45,4 +49,13 @@ SavedGifs.__doc__ = """
             :columns: 2
 
             - :obj:`messages.GetSavedGifs <pyrogram.raw.functions.messages.GetSavedGifs>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.messages.SavedGifs"
+        __union_types__ = Union[raw.types.messages.SavedGifs, raw.types.messages.SavedGifsNotModified]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/saved-gifs")

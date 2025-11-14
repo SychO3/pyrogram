@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ServerDHParams = Union[raw.types.ServerDHParamsFail, raw.types.ServerDHParamsOk]
-ServerDHParams.__doc__ = """
-    This base type has 2 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ServerDHParams = Union[raw.types.ServerDHParamsFail, raw.types.ServerDHParamsOk]
+else:
+    # noinspection PyRedeclaration
+    class ServerDHParams(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
@@ -45,4 +49,13 @@ ServerDHParams.__doc__ = """
             :columns: 2
 
             - :obj:`ReqDHParams <pyrogram.raw.functions.ReqDHParams>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.ServerDHParams"
+        __union_types__ = Union[raw.types.ServerDHParamsFail, raw.types.ServerDHParamsOk]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/server-dh-params")

@@ -49,3 +49,4 @@ from .edit_close_friends import EditCloseFriends
 from .set_blocked import SetBlocked
 from .get_birthdays import GetBirthdays
 from .get_sponsored_peers import GetSponsoredPeers
+from .update_contact_note import UpdateContactNote

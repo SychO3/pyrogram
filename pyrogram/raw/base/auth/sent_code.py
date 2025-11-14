@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-SentCode = Union[raw.types.auth.SentCode, raw.types.auth.SentCodePaymentRequired, raw.types.auth.SentCodeSuccess]
-SentCode.__doc__ = """
-    This base type has 3 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    SentCode = Union[raw.types.auth.SentCode, raw.types.auth.SentCodePaymentRequired, raw.types.auth.SentCodeSuccess]
+else:
+    # noinspection PyRedeclaration
+    class SentCode(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 3 constructors available.
 
     Constructors:
         .. hlist::
@@ -40,7 +44,7 @@ SentCode.__doc__ = """
             - :obj:`auth.SentCodeSuccess <pyrogram.raw.types.auth.SentCodeSuccess>`
 
     See Also:
-        This object can be returned by 6 methods:
+        This object can be returned by 7 methods:
 
         .. hlist::
             :columns: 2
@@ -48,7 +52,17 @@ SentCode.__doc__ = """
             - :obj:`auth.SendCode <pyrogram.raw.functions.auth.SendCode>`
             - :obj:`auth.ResendCode <pyrogram.raw.functions.auth.ResendCode>`
             - :obj:`auth.ResetLoginEmail <pyrogram.raw.functions.auth.ResetLoginEmail>`
+            - :obj:`auth.CheckPaidAuth <pyrogram.raw.functions.auth.CheckPaidAuth>`
             - :obj:`account.SendChangePhoneCode <pyrogram.raw.functions.account.SendChangePhoneCode>`
             - :obj:`account.SendConfirmPhoneCode <pyrogram.raw.functions.account.SendConfirmPhoneCode>`
             - :obj:`account.SendVerifyPhoneCode <pyrogram.raw.functions.account.SendVerifyPhoneCode>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.auth.SentCode"
+        __union_types__ = Union[raw.types.auth.SentCode, raw.types.auth.SentCodePaymentRequired, raw.types.auth.SentCodeSuccess]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/sent-code")

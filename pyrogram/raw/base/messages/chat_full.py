@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-ChatFull = Union[raw.types.messages.ChatFull]
-ChatFull.__doc__ = """
-    This base type has 1 constructor available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    ChatFull = Union[raw.types.messages.ChatFull]
+else:
+    # noinspection PyRedeclaration
+    class ChatFull(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
     Constructors:
         .. hlist::
@@ -45,4 +49,13 @@ ChatFull.__doc__ = """
 
             - :obj:`messages.GetFullChat <pyrogram.raw.functions.messages.GetFullChat>`
             - :obj:`channels.GetFullChannel <pyrogram.raw.functions.channels.GetFullChannel>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.messages.ChatFull"
+        __union_types__ = Union[raw.types.messages.ChatFull]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/chat-full")

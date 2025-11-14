@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,15 +32,16 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class Messages(TLObject):  # type: ignore
+class Messages(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Messages`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``8C718E87``
+        - Layer: ``216``
+        - ID: ``1D73E7EA``
 
     Parameters:
         messages: List of :obj:`Message <pyrogram.raw.base.Message>`
+        topics: List of :obj:`ForumTopic <pyrogram.raw.base.ForumTopic>`
         chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
         users: List of :obj:`User <pyrogram.raw.base.User>`
 
@@ -65,13 +68,14 @@ class Messages(TLObject):  # type: ignore
             - :obj:`channels.SearchPosts <pyrogram.raw.functions.channels.SearchPosts>`
     """
 
-    __slots__: List[str] = ["messages", "chats", "users"]
+    __slots__: List[str] = ["messages", "topics", "chats", "users"]
 
-    ID = 0x8c718e87
+    ID = 0x1d73e7ea
     QUALNAME = "types.messages.Messages"
 
-    def __init__(self, *, messages: List["raw.base.Message"], chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
+    def __init__(self, *, messages: List["raw.base.Message"], topics: List["raw.base.ForumTopic"], chats: List["raw.base.Chat"], users: List["raw.base.User"]) -> None:
         self.messages = messages  # Vector<Message>
+        self.topics = topics  # Vector<ForumTopic>
         self.chats = chats  # Vector<Chat>
         self.users = users  # Vector<User>
 
@@ -81,11 +85,13 @@ class Messages(TLObject):  # type: ignore
         
         messages = TLObject.read(b)
         
+        topics = TLObject.read(b)
+        
         chats = TLObject.read(b)
         
         users = TLObject.read(b)
         
-        return Messages(messages=messages, chats=chats, users=users)
+        return Messages(messages=messages, topics=topics, chats=chats, users=users)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -94,6 +100,8 @@ class Messages(TLObject):  # type: ignore
         # No flags
         
         b.write(Vector(self.messages))
+        
+        b.write(Vector(self.topics))
         
         b.write(Vector(self.chats))
         

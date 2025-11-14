@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from io import BytesIO
+from typing import TYPE_CHECKING, List, Optional, Any
 
 from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
 from pyrogram.raw.core import TLObject
-from pyrogram import raw
-from typing import List, Optional, Any
+
+if TYPE_CHECKING:
+    from pyrogram import raw
 
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
@@ -30,16 +32,17 @@ from typing import List, Optional, Any
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class ForumTopic(TLObject):  # type: ignore
+class ForumTopic(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ForumTopic`.
 
     Details:
-        - Layer: ``214``
-        - ID: ``71701DA9``
+        - Layer: ``216``
+        - ID: ``CDFF0ECA``
 
     Parameters:
         id: ``int`` ``32-bit``
         date: ``int`` ``32-bit``
+        peer: :obj:`Peer <pyrogram.raw.base.Peer>`
         title: ``str``
         icon_color: ``int`` ``32-bit``
         top_message: ``int`` ``32-bit``
@@ -55,18 +58,20 @@ class ForumTopic(TLObject):  # type: ignore
         pinned (optional): ``bool``
         short (optional): ``bool``
         hidden (optional): ``bool``
+        title_missing (optional): ``bool``
         icon_emoji_id (optional): ``int`` ``64-bit``
         draft (optional): :obj:`DraftMessage <pyrogram.raw.base.DraftMessage>`
     """
 
-    __slots__: List[str] = ["id", "date", "title", "icon_color", "top_message", "read_inbox_max_id", "read_outbox_max_id", "unread_count", "unread_mentions_count", "unread_reactions_count", "from_id", "notify_settings", "my", "closed", "pinned", "short", "hidden", "icon_emoji_id", "draft"]
+    __slots__: List[str] = ["id", "date", "peer", "title", "icon_color", "top_message", "read_inbox_max_id", "read_outbox_max_id", "unread_count", "unread_mentions_count", "unread_reactions_count", "from_id", "notify_settings", "my", "closed", "pinned", "short", "hidden", "title_missing", "icon_emoji_id", "draft"]
 
-    ID = 0x71701da9
+    ID = 0xcdff0eca
     QUALNAME = "types.ForumTopic"
 
-    def __init__(self, *, id: int, date: int, title: str, icon_color: int, top_message: int, read_inbox_max_id: int, read_outbox_max_id: int, unread_count: int, unread_mentions_count: int, unread_reactions_count: int, from_id: "raw.base.Peer", notify_settings: "raw.base.PeerNotifySettings", my: Optional[bool] = None, closed: Optional[bool] = None, pinned: Optional[bool] = None, short: Optional[bool] = None, hidden: Optional[bool] = None, icon_emoji_id: Optional[int] = None, draft: "raw.base.DraftMessage" = None) -> None:
+    def __init__(self, *, id: int, date: int, peer: "raw.base.Peer", title: str, icon_color: int, top_message: int, read_inbox_max_id: int, read_outbox_max_id: int, unread_count: int, unread_mentions_count: int, unread_reactions_count: int, from_id: "raw.base.Peer", notify_settings: "raw.base.PeerNotifySettings", my: Optional[bool] = None, closed: Optional[bool] = None, pinned: Optional[bool] = None, short: Optional[bool] = None, hidden: Optional[bool] = None, title_missing: Optional[bool] = None, icon_emoji_id: Optional[int] = None, draft: "raw.base.DraftMessage" = None) -> None:
         self.id = id  # int
         self.date = date  # int
+        self.peer = peer  # Peer
         self.title = title  # string
         self.icon_color = icon_color  # int
         self.top_message = top_message  # int
@@ -82,6 +87,7 @@ class ForumTopic(TLObject):  # type: ignore
         self.pinned = pinned  # flags.3?true
         self.short = short  # flags.5?true
         self.hidden = hidden  # flags.6?true
+        self.title_missing = title_missing  # flags.7?true
         self.icon_emoji_id = icon_emoji_id  # flags.0?long
         self.draft = draft  # flags.4?DraftMessage
 
@@ -95,9 +101,12 @@ class ForumTopic(TLObject):  # type: ignore
         pinned = True if flags & (1 << 3) else False
         short = True if flags & (1 << 5) else False
         hidden = True if flags & (1 << 6) else False
+        title_missing = True if flags & (1 << 7) else False
         id = Int.read(b)
         
         date = Int.read(b)
+        
+        peer = TLObject.read(b)
         
         title = String.read(b)
         
@@ -122,7 +131,7 @@ class ForumTopic(TLObject):  # type: ignore
         
         draft = TLObject.read(b) if flags & (1 << 4) else None
         
-        return ForumTopic(id=id, date=date, title=title, icon_color=icon_color, top_message=top_message, read_inbox_max_id=read_inbox_max_id, read_outbox_max_id=read_outbox_max_id, unread_count=unread_count, unread_mentions_count=unread_mentions_count, unread_reactions_count=unread_reactions_count, from_id=from_id, notify_settings=notify_settings, my=my, closed=closed, pinned=pinned, short=short, hidden=hidden, icon_emoji_id=icon_emoji_id, draft=draft)
+        return ForumTopic(id=id, date=date, peer=peer, title=title, icon_color=icon_color, top_message=top_message, read_inbox_max_id=read_inbox_max_id, read_outbox_max_id=read_outbox_max_id, unread_count=unread_count, unread_mentions_count=unread_mentions_count, unread_reactions_count=unread_reactions_count, from_id=from_id, notify_settings=notify_settings, my=my, closed=closed, pinned=pinned, short=short, hidden=hidden, title_missing=title_missing, icon_emoji_id=icon_emoji_id, draft=draft)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -134,6 +143,7 @@ class ForumTopic(TLObject):  # type: ignore
         flags |= (1 << 3) if self.pinned else 0
         flags |= (1 << 5) if self.short else 0
         flags |= (1 << 6) if self.hidden else 0
+        flags |= (1 << 7) if self.title_missing else 0
         flags |= (1 << 0) if self.icon_emoji_id is not None else 0
         flags |= (1 << 4) if self.draft is not None else 0
         b.write(Int(flags))
@@ -141,6 +151,8 @@ class ForumTopic(TLObject):  # type: ignore
         b.write(Int(self.id))
         
         b.write(Int(self.date))
+        
+        b.write(self.peer.write())
         
         b.write(String(self.title))
         

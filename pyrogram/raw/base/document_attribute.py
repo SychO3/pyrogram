@@ -22,14 +22,18 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from typing import Union
-from pyrogram import raw
-from pyrogram.raw.core import TLObject
+from typing import TYPE_CHECKING, Union
 
-# We need to dynamically set `__doc__` due to `sphinx`
-DocumentAttribute = Union[raw.types.DocumentAttributeAnimated, raw.types.DocumentAttributeAudio, raw.types.DocumentAttributeCustomEmoji, raw.types.DocumentAttributeFilename, raw.types.DocumentAttributeHasStickers, raw.types.DocumentAttributeImageSize, raw.types.DocumentAttributeSticker, raw.types.DocumentAttributeVideo]
-DocumentAttribute.__doc__ = """
-    This base type has 8 constructors available.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
+
+
+if TYPE_CHECKING:
+    DocumentAttribute = Union[raw.types.DocumentAttributeAnimated, raw.types.DocumentAttributeAudio, raw.types.DocumentAttributeCustomEmoji, raw.types.DocumentAttributeFilename, raw.types.DocumentAttributeHasStickers, raw.types.DocumentAttributeImageSize, raw.types.DocumentAttributeSticker, raw.types.DocumentAttributeVideo]
+else:
+    # noinspection PyRedeclaration
+    class DocumentAttribute(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 8 constructors available.
 
     Constructors:
         .. hlist::
@@ -43,4 +47,13 @@ DocumentAttribute.__doc__ = """
             - :obj:`DocumentAttributeImageSize <pyrogram.raw.types.DocumentAttributeImageSize>`
             - :obj:`DocumentAttributeSticker <pyrogram.raw.types.DocumentAttributeSticker>`
             - :obj:`DocumentAttributeVideo <pyrogram.raw.types.DocumentAttributeVideo>`
-"""
+        """
+
+        QUALNAME = "pyrogram.raw.base.DocumentAttribute"
+        __union_types__ = Union[raw.types.DocumentAttributeAnimated, raw.types.DocumentAttributeAudio, raw.types.DocumentAttributeCustomEmoji, raw.types.DocumentAttributeFilename, raw.types.DocumentAttributeHasStickers, raw.types.DocumentAttributeImageSize, raw.types.DocumentAttributeSticker, raw.types.DocumentAttributeVideo]
+
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.live/telegram/base/document-attribute")
