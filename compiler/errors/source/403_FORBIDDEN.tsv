@@ -23,6 +23,7 @@ CHAT_SEND_ROUNDVIDEOS_FORBIDDEN	You can't send video notes in this chat.
 CHAT_SEND_STICKERS_FORBIDDEN	You can't send stickers in this chat.
 CHAT_SEND_VIDEOS_FORBIDDEN	You can't send videos in this chat.
 CHAT_SEND_VOICES_FORBIDDEN	You can't send voice recordings in this chat.
+CHAT_SEND_WEBPAGE_FORBIDDEN	You can't send web pages in this chat.
 CHAT_TYPE_INVALID	The specified chat type is invalid.
 CHAT_WRITE_FORBIDDEN	You don't have rights to send messages in this chat.
 EDIT_BOT_INVITE_FORBIDDEN	Normal users can't edit invites that were created by bots.
