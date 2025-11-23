@@ -36,7 +36,7 @@ class GetCdnConfig(TLObject["raw.base.CdnConfig"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``52029342``
 
     **No parameters required.**

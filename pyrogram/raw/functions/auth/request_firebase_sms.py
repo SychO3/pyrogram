@@ -36,7 +36,7 @@ class RequestFirebaseSms(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8E39261E``
 
     Parameters:

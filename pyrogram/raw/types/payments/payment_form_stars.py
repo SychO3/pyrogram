@@ -36,7 +36,7 @@ class PaymentFormStars(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.PaymentForm`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7BF6B15C``
 
     Parameters:

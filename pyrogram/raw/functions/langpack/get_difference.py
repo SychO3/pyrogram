@@ -36,7 +36,7 @@ class GetDifference(TLObject["raw.base.LangPackDifference"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CD984AA5``
 
     Parameters:

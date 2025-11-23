@@ -36,7 +36,7 @@ class UpdateBotInlineSend(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``12F12A07``
 
     Parameters:

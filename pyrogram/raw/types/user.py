@@ -36,8 +36,8 @@ class User(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.User`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``20B1422``
+        - Layer: ``218``
+        - ID: ``31774388``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -80,7 +80,7 @@ class User(TLObject):
         lang_code (optional): ``str``
         emoji_status (optional): :obj:`EmojiStatus <pyrogram.raw.base.EmojiStatus>`
         usernames (optional): List of :obj:`Username <pyrogram.raw.base.Username>`
-        stories_max_id (optional): ``int`` ``32-bit``
+        stories_max_id (optional): :obj:`RecentStory <pyrogram.raw.base.RecentStory>`
         color (optional): :obj:`PeerColor <pyrogram.raw.base.PeerColor>`
         profile_color (optional): :obj:`PeerColor <pyrogram.raw.base.PeerColor>`
         bot_active_users (optional): ``int`` ``32-bit``
@@ -104,10 +104,10 @@ class User(TLObject):
 
     __slots__: List[str] = ["id", "is_self", "contact", "mutual_contact", "deleted", "bot", "bot_chat_history", "bot_nochats", "verified", "restricted", "min", "bot_inline_geo", "support", "scam", "apply_min_photo", "fake", "bot_attach_menu", "premium", "attach_menu_enabled", "bot_can_edit", "close_friend", "stories_hidden", "stories_unavailable", "contact_require_premium", "bot_business", "bot_has_main_app", "bot_forum_view", "access_hash", "first_name", "last_name", "username", "phone", "photo", "status", "bot_info_version", "restriction_reason", "bot_inline_placeholder", "lang_code", "emoji_status", "usernames", "stories_max_id", "color", "profile_color", "bot_active_users", "bot_verification_icon", "send_paid_messages_stars"]
 
-    ID = 0x20b1422
+    ID = 0x31774388
     QUALNAME = "types.User"
 
-    def __init__(self, *, id: int, is_self: Optional[bool] = None, contact: Optional[bool] = None, mutual_contact: Optional[bool] = None, deleted: Optional[bool] = None, bot: Optional[bool] = None, bot_chat_history: Optional[bool] = None, bot_nochats: Optional[bool] = None, verified: Optional[bool] = None, restricted: Optional[bool] = None, min: Optional[bool] = None, bot_inline_geo: Optional[bool] = None, support: Optional[bool] = None, scam: Optional[bool] = None, apply_min_photo: Optional[bool] = None, fake: Optional[bool] = None, bot_attach_menu: Optional[bool] = None, premium: Optional[bool] = None, attach_menu_enabled: Optional[bool] = None, bot_can_edit: Optional[bool] = None, close_friend: Optional[bool] = None, stories_hidden: Optional[bool] = None, stories_unavailable: Optional[bool] = None, contact_require_premium: Optional[bool] = None, bot_business: Optional[bool] = None, bot_has_main_app: Optional[bool] = None, bot_forum_view: Optional[bool] = None, access_hash: Optional[int] = None, first_name: Optional[str] = None, last_name: Optional[str] = None, username: Optional[str] = None, phone: Optional[str] = None, photo: "raw.base.UserProfilePhoto" = None, status: "raw.base.UserStatus" = None, bot_info_version: Optional[int] = None, restriction_reason: Optional[List["raw.base.RestrictionReason"]] = None, bot_inline_placeholder: Optional[str] = None, lang_code: Optional[str] = None, emoji_status: "raw.base.EmojiStatus" = None, usernames: Optional[List["raw.base.Username"]] = None, stories_max_id: Optional[int] = None, color: "raw.base.PeerColor" = None, profile_color: "raw.base.PeerColor" = None, bot_active_users: Optional[int] = None, bot_verification_icon: Optional[int] = None, send_paid_messages_stars: Optional[int] = None) -> None:
+    def __init__(self, *, id: int, is_self: Optional[bool] = None, contact: Optional[bool] = None, mutual_contact: Optional[bool] = None, deleted: Optional[bool] = None, bot: Optional[bool] = None, bot_chat_history: Optional[bool] = None, bot_nochats: Optional[bool] = None, verified: Optional[bool] = None, restricted: Optional[bool] = None, min: Optional[bool] = None, bot_inline_geo: Optional[bool] = None, support: Optional[bool] = None, scam: Optional[bool] = None, apply_min_photo: Optional[bool] = None, fake: Optional[bool] = None, bot_attach_menu: Optional[bool] = None, premium: Optional[bool] = None, attach_menu_enabled: Optional[bool] = None, bot_can_edit: Optional[bool] = None, close_friend: Optional[bool] = None, stories_hidden: Optional[bool] = None, stories_unavailable: Optional[bool] = None, contact_require_premium: Optional[bool] = None, bot_business: Optional[bool] = None, bot_has_main_app: Optional[bool] = None, bot_forum_view: Optional[bool] = None, access_hash: Optional[int] = None, first_name: Optional[str] = None, last_name: Optional[str] = None, username: Optional[str] = None, phone: Optional[str] = None, photo: "raw.base.UserProfilePhoto" = None, status: "raw.base.UserStatus" = None, bot_info_version: Optional[int] = None, restriction_reason: Optional[List["raw.base.RestrictionReason"]] = None, bot_inline_placeholder: Optional[str] = None, lang_code: Optional[str] = None, emoji_status: "raw.base.EmojiStatus" = None, usernames: Optional[List["raw.base.Username"]] = None, stories_max_id: "raw.base.RecentStory" = None, color: "raw.base.PeerColor" = None, profile_color: "raw.base.PeerColor" = None, bot_active_users: Optional[int] = None, bot_verification_icon: Optional[int] = None, send_paid_messages_stars: Optional[int] = None) -> None:
         self.id = id  # long
         self.is_self = is_self  # flags.10?true
         self.contact = contact  # flags.11?true
@@ -148,7 +148,7 @@ class User(TLObject):
         self.lang_code = lang_code  # flags.22?string
         self.emoji_status = emoji_status  # flags.30?EmojiStatus
         self.usernames = usernames  # flags2.0?Vector<Username>
-        self.stories_max_id = stories_max_id  # flags2.5?int
+        self.stories_max_id = stories_max_id  # flags2.5?RecentStory
         self.color = color  # flags2.8?PeerColor
         self.profile_color = profile_color  # flags2.9?PeerColor
         self.bot_active_users = bot_active_users  # flags2.12?int
@@ -208,7 +208,8 @@ class User(TLObject):
         
         usernames = TLObject.read(b) if flags2 & (1 << 0) else []
         
-        stories_max_id = Int.read(b) if flags2 & (1 << 5) else None
+        stories_max_id = TLObject.read(b) if flags2 & (1 << 5) else None
+        
         color = TLObject.read(b) if flags2 & (1 << 8) else None
         
         profile_color = TLObject.read(b) if flags2 & (1 << 9) else None
@@ -314,7 +315,7 @@ class User(TLObject):
             b.write(Vector(self.usernames))
         
         if self.stories_max_id is not None:
-            b.write(Int(self.stories_max_id))
+            b.write(self.stories_max_id.write())
         
         if self.color is not None:
             b.write(self.color.write())

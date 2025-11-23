@@ -36,7 +36,7 @@ class WallPapersNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.WallPapers`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1C199183``
 
     **No parameters required.**

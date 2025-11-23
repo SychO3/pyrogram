@@ -36,7 +36,7 @@ class GetStarsRevenueAdsAccountUrl(TLObject["raw.base.payments.StarsRevenueAdsAc
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D1D7EFC5``
 
     Parameters:

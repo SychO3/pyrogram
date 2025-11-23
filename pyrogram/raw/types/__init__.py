@@ -160,6 +160,7 @@ from .message_media_giveaway import MessageMediaGiveaway
 from .message_media_giveaway_results import MessageMediaGiveawayResults
 from .message_media_paid_media import MessageMediaPaidMedia
 from .message_media_to_do import MessageMediaToDo
+from .message_media_video_stream import MessageMediaVideoStream
 from .message_action_empty import MessageActionEmpty
 from .message_action_chat_create import MessageActionChatCreate
 from .message_action_chat_edit_title import MessageActionChatEditTitle
@@ -418,6 +419,9 @@ from .update_group_call_message import UpdateGroupCallMessage
 from .update_group_call_encrypted_message import UpdateGroupCallEncryptedMessage
 from .update_pinned_forum_topic import UpdatePinnedForumTopic
 from .update_pinned_forum_topics import UpdatePinnedForumTopics
+from .update_delete_group_call_messages import UpdateDeleteGroupCallMessages
+from .update_star_gift_auction_state import UpdateStarGiftAuctionState
+from .update_star_gift_auction_user_state import UpdateStarGiftAuctionUserState
 from .updates_too_long import UpdatesTooLong
 from .update_short_message import UpdateShortMessage
 from .update_short_chat_message import UpdateShortChatMessage
@@ -483,6 +487,7 @@ from .input_privacy_key_about import InputPrivacyKeyAbout
 from .input_privacy_key_birthday import InputPrivacyKeyBirthday
 from .input_privacy_key_star_gifts_auto_save import InputPrivacyKeyStarGiftsAutoSave
 from .input_privacy_key_no_paid_messages import InputPrivacyKeyNoPaidMessages
+from .input_privacy_key_saved_music import InputPrivacyKeySavedMusic
 from .privacy_key_status_timestamp import PrivacyKeyStatusTimestamp
 from .privacy_key_chat_invite import PrivacyKeyChatInvite
 from .privacy_key_phone_call import PrivacyKeyPhoneCall
@@ -496,6 +501,7 @@ from .privacy_key_about import PrivacyKeyAbout
 from .privacy_key_birthday import PrivacyKeyBirthday
 from .privacy_key_star_gifts_auto_save import PrivacyKeyStarGiftsAutoSave
 from .privacy_key_no_paid_messages import PrivacyKeyNoPaidMessages
+from .privacy_key_saved_music import PrivacyKeySavedMusic
 from .input_privacy_value_allow_contacts import InputPrivacyValueAllowContacts
 from .input_privacy_value_allow_all import InputPrivacyValueAllowAll
 from .input_privacy_value_allow_users import InputPrivacyValueAllowUsers
@@ -933,6 +939,7 @@ from .web_page_attribute_story import WebPageAttributeStory
 from .web_page_attribute_sticker_set import WebPageAttributeStickerSet
 from .web_page_attribute_unique_star_gift import WebPageAttributeUniqueStarGift
 from .web_page_attribute_star_gift_collection import WebPageAttributeStarGiftCollection
+from .web_page_attribute_star_gift_auction import WebPageAttributeStarGiftAuction
 from .bank_card_open_url import BankCardOpenUrl
 from .dialog_filter import DialogFilter
 from .dialog_filter_default import DialogFilterDefault
@@ -1023,6 +1030,7 @@ from .input_invoice_star_gift_resale import InputInvoiceStarGiftResale
 from .input_invoice_star_gift_prepaid_upgrade import InputInvoiceStarGiftPrepaidUpgrade
 from .input_invoice_premium_auth_code import InputInvoicePremiumAuthCode
 from .input_invoice_star_gift_drop_original_details import InputInvoiceStarGiftDropOriginalDetails
+from .input_invoice_star_gift_auction_bid import InputInvoiceStarGiftAuctionBid
 from .input_store_payment_premium_subscription import InputStorePaymentPremiumSubscription
 from .input_store_payment_gift_premium import InputStorePaymentGiftPremium
 from .input_store_payment_premium_gift_code import InputStorePaymentPremiumGiftCode
@@ -1239,4 +1247,16 @@ from .input_chat_theme_empty import InputChatThemeEmpty
 from .input_chat_theme import InputChatTheme
 from .input_chat_theme_unique_gift import InputChatThemeUniqueGift
 from .star_gift_upgrade_price import StarGiftUpgradePrice
+from .group_call_message import GroupCallMessage
+from .group_call_donor import GroupCallDonor
+from .recent_story import RecentStory
+from .auction_bid_level import AuctionBidLevel
+from .star_gift_auction_state_not_modified import StarGiftAuctionStateNotModified
+from .star_gift_auction_state import StarGiftAuctionState
+from .star_gift_auction_state_finished import StarGiftAuctionStateFinished
+from .star_gift_auction_user_state import StarGiftAuctionUserState
+from .star_gift_auction_acquired_gift import StarGiftAuctionAcquiredGift
+from .star_gift_active_auction_state import StarGiftActiveAuctionState
+from .input_star_gift_auction import InputStarGiftAuction
+from .input_star_gift_auction_slug import InputStarGiftAuctionSlug
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

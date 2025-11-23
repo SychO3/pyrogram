@@ -36,7 +36,7 @@ class DeleteStickerSet(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``87704394``
 
     Parameters:

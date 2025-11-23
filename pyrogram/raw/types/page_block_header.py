@@ -36,7 +36,7 @@ class PageBlockHeader(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``BFD064EC``
 
     Parameters:

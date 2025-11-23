@@ -36,7 +36,7 @@ class DeleteMessages(TLObject["raw.base.messages.AffectedMessages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E58E95D2``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputStarsTransaction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStarsTransaction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``206AE6D1``
 
     Parameters:

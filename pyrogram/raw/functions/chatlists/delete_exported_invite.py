@@ -36,7 +36,7 @@ class DeleteExportedInvite(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``719C5C5E``
 
     Parameters:

@@ -36,7 +36,7 @@ class EmojiStatusesNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.EmojiStatuses`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D08CE645``
 
     **No parameters required.**

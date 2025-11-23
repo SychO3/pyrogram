@@ -36,7 +36,7 @@ class Authorization(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.Authorization`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2EA2C0D4``
 
     Parameters:

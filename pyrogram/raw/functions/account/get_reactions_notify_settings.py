@@ -36,7 +36,7 @@ class GetReactionsNotifySettings(TLObject["raw.base.ReactionsNotifySettings"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``6DD654C``
 
     **No parameters required.**

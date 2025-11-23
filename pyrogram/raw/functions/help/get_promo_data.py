@@ -36,7 +36,7 @@ class GetPromoData(TLObject["raw.base.help.PromoData"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C0977421``
 
     **No parameters required.**

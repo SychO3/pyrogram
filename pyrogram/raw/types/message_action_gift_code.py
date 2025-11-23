@@ -36,11 +36,11 @@ class MessageActionGiftCode(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``56D03994``
+        - Layer: ``218``
+        - ID: ``31C48347``
 
     Parameters:
-        months: ``int`` ``32-bit``
+        days: ``int`` ``32-bit``
         slug: ``str``
         via_giveaway (optional): ``bool``
         unclaimed (optional): ``bool``
@@ -52,13 +52,13 @@ class MessageActionGiftCode(TLObject):
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
     """
 
-    __slots__: List[str] = ["months", "slug", "via_giveaway", "unclaimed", "boost_peer", "currency", "amount", "crypto_currency", "crypto_amount", "message"]
+    __slots__: List[str] = ["days", "slug", "via_giveaway", "unclaimed", "boost_peer", "currency", "amount", "crypto_currency", "crypto_amount", "message"]
 
-    ID = 0x56d03994
+    ID = 0x31c48347
     QUALNAME = "types.MessageActionGiftCode"
 
-    def __init__(self, *, months: int, slug: str, via_giveaway: Optional[bool] = None, unclaimed: Optional[bool] = None, boost_peer: "raw.base.Peer" = None, currency: Optional[str] = None, amount: Optional[int] = None, crypto_currency: Optional[str] = None, crypto_amount: Optional[int] = None, message: "raw.base.TextWithEntities" = None) -> None:
-        self.months = months  # int
+    def __init__(self, *, days: int, slug: str, via_giveaway: Optional[bool] = None, unclaimed: Optional[bool] = None, boost_peer: "raw.base.Peer" = None, currency: Optional[str] = None, amount: Optional[int] = None, crypto_currency: Optional[str] = None, crypto_amount: Optional[int] = None, message: "raw.base.TextWithEntities" = None) -> None:
+        self.days = days  # int
         self.slug = slug  # string
         self.via_giveaway = via_giveaway  # flags.0?true
         self.unclaimed = unclaimed  # flags.5?true
@@ -78,7 +78,7 @@ class MessageActionGiftCode(TLObject):
         unclaimed = True if flags & (1 << 5) else False
         boost_peer = TLObject.read(b) if flags & (1 << 1) else None
         
-        months = Int.read(b)
+        days = Int.read(b)
         
         slug = String.read(b)
         
@@ -88,7 +88,7 @@ class MessageActionGiftCode(TLObject):
         crypto_amount = Long.read(b) if flags & (1 << 3) else None
         message = TLObject.read(b) if flags & (1 << 4) else None
         
-        return MessageActionGiftCode(months=months, slug=slug, via_giveaway=via_giveaway, unclaimed=unclaimed, boost_peer=boost_peer, currency=currency, amount=amount, crypto_currency=crypto_currency, crypto_amount=crypto_amount, message=message)
+        return MessageActionGiftCode(days=days, slug=slug, via_giveaway=via_giveaway, unclaimed=unclaimed, boost_peer=boost_peer, currency=currency, amount=amount, crypto_currency=crypto_currency, crypto_amount=crypto_amount, message=message)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -108,7 +108,7 @@ class MessageActionGiftCode(TLObject):
         if self.boost_peer is not None:
             b.write(self.boost_peer.write())
         
-        b.write(Int(self.months))
+        b.write(Int(self.days))
         
         b.write(String(self.slug))
         

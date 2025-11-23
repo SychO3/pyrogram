@@ -36,7 +36,7 @@ class ToggleSuggestedPostApproval(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8107455C``
 
     Parameters:

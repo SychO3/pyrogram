@@ -36,7 +36,7 @@ class InputPhotoLegacyFileLocation(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D83466F3``
 
     Parameters:

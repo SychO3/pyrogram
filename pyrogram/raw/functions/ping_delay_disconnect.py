@@ -36,7 +36,7 @@ class PingDelayDisconnect(TLObject["raw.base.Pong"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F3427B8C``
 
     Parameters:

@@ -36,7 +36,7 @@ class ChatInvitePublicJoinRequests(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ExportedChatInvite`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``ED107AB7``
 
     **No parameters required.**

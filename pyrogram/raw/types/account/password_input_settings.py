@@ -36,7 +36,7 @@ class PasswordInputSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.PasswordInputSettings`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C23727C9``
 
     Parameters:

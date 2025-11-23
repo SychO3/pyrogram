@@ -36,7 +36,7 @@ class SetChatAvailableReactions(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``864B2581``
 
     Parameters:

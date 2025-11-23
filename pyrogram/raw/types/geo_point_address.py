@@ -36,7 +36,7 @@ class GeoPointAddress(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GeoPointAddress`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``DE4C5D93``
 
     Parameters:

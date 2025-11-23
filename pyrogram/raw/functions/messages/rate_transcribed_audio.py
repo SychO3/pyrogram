@@ -36,7 +36,7 @@ class RateTranscribedAudio(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7F1D072F``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetMessageStats(TLObject["raw.base.stats.MessageStats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B6E0A3F5``
 
     Parameters:

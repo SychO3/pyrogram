@@ -36,7 +36,7 @@ class ChatParticipantCreator(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatParticipant`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E46BCEE4``
 
     Parameters:

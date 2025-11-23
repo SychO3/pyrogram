@@ -36,7 +36,7 @@ class GetTermsOfServiceUpdate(TLObject["raw.base.help.TermsOfServiceUpdate"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2CA51FD1``
 
     **No parameters required.**

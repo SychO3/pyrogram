@@ -36,7 +36,7 @@ class DhConfigNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.DhConfig`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C0E24635``
 
     Parameters:

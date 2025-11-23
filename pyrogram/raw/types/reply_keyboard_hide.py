@@ -36,7 +36,7 @@ class ReplyKeyboardHide(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReplyMarkup`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A03E5B85``
 
     Parameters:

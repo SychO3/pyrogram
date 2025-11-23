@@ -36,7 +36,7 @@ class SendChangePhoneCode(TLObject["raw.base.auth.SentCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``82574AE5``
 
     Parameters:

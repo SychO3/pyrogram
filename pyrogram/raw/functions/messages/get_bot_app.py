@@ -36,7 +36,7 @@ class GetBotApp(TLObject["raw.base.messages.BotApp"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``34FDC5C3``
 
     Parameters:

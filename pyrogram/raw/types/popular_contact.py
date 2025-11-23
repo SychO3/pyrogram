@@ -36,7 +36,7 @@ class PopularContact(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PopularContact`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5CE14175``
 
     Parameters:

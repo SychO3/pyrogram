@@ -36,7 +36,7 @@ class SecureValueErrorSelfie(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueError`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E537CED6``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetSearchResultsPositions(TLObject["raw.base.messages.SearchResultsPositio
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9C7F2F10``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputBusinessGreetingMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputBusinessGreetingMessage`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``194CB3B``
 
     Parameters:

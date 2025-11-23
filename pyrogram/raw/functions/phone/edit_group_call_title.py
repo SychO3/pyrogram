@@ -36,7 +36,7 @@ class EditGroupCallTitle(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1CA6AC0A``
 
     Parameters:

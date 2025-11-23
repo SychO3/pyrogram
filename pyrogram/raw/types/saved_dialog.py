@@ -36,7 +36,7 @@ class SavedDialog(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SavedDialog`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``BD87CB6C``
 
     Parameters:

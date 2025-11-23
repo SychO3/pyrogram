@@ -36,7 +36,7 @@ class ReqPq(TLObject["raw.base.ResPQ"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``60469778``
 
     Parameters:

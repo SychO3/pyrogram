@@ -36,7 +36,7 @@ class ClearRecentEmojiStatuses(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``18201AAE``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class ReadMentions(TLObject["raw.base.messages.AffectedHistory"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``36E5BF4D``
 
     Parameters:

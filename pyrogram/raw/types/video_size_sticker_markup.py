@@ -36,7 +36,7 @@ class VideoSizeStickerMarkup(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.VideoSize`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``DA082FE``
 
     Parameters:

@@ -36,7 +36,7 @@ class PeerColors(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.PeerColors`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F8ED08``
 
     Parameters:

@@ -36,7 +36,7 @@ class SetChatWallPaper(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8FFACAE1``
 
     Parameters:

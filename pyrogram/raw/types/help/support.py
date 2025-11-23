@@ -36,7 +36,7 @@ class Support(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.Support`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``17C6B5F6``
 
     Parameters:

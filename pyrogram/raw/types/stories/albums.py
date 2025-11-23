@@ -36,7 +36,7 @@ class Albums(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stories.Albums`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C3987A3A``
 
     Parameters:

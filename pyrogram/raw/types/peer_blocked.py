@@ -36,7 +36,7 @@ class PeerBlocked(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PeerBlocked`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E8FD8014``
 
     Parameters:

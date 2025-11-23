@@ -36,26 +36,22 @@ class UpdateGroupCallMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``78C314E0``
+        - Layer: ``218``
+        - ID: ``D8326F0D``
 
     Parameters:
         call: :obj:`InputGroupCall <pyrogram.raw.base.InputGroupCall>`
-        from_id: :obj:`Peer <pyrogram.raw.base.Peer>`
-        random_id: ``int`` ``64-bit``
-        message: :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
+        message: :obj:`GroupCallMessage <pyrogram.raw.base.GroupCallMessage>`
     """
 
-    __slots__: List[str] = ["call", "from_id", "random_id", "message"]
+    __slots__: List[str] = ["call", "message"]
 
-    ID = 0x78c314e0
+    ID = 0xd8326f0d
     QUALNAME = "types.UpdateGroupCallMessage"
 
-    def __init__(self, *, call: "raw.base.InputGroupCall", from_id: "raw.base.Peer", random_id: int, message: "raw.base.TextWithEntities") -> None:
+    def __init__(self, *, call: "raw.base.InputGroupCall", message: "raw.base.GroupCallMessage") -> None:
         self.call = call  # InputGroupCall
-        self.from_id = from_id  # Peer
-        self.random_id = random_id  # long
-        self.message = message  # TextWithEntities
+        self.message = message  # GroupCallMessage
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "UpdateGroupCallMessage":
@@ -63,13 +59,9 @@ class UpdateGroupCallMessage(TLObject):
         
         call = TLObject.read(b)
         
-        from_id = TLObject.read(b)
-        
-        random_id = Long.read(b)
-        
         message = TLObject.read(b)
         
-        return UpdateGroupCallMessage(call=call, from_id=from_id, random_id=random_id, message=message)
+        return UpdateGroupCallMessage(call=call, message=message)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -78,10 +70,6 @@ class UpdateGroupCallMessage(TLObject):
         # No flags
         
         b.write(self.call.write())
-        
-        b.write(self.from_id.write())
-        
-        b.write(Long(self.random_id))
         
         b.write(self.message.write())
         

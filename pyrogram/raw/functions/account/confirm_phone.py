@@ -36,7 +36,7 @@ class ConfirmPhone(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5F2178C3``
 
     Parameters:

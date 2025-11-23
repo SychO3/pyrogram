@@ -36,7 +36,7 @@ class GetSavedMusic(TLObject["raw.base.users.SavedMusic"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``788D7FE3``
 
     Parameters:

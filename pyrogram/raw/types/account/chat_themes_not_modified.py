@@ -36,7 +36,7 @@ class ChatThemesNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.ChatThemes`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E011E1C4``
 
     **No parameters required.**

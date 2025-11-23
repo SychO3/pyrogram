@@ -36,7 +36,7 @@ class SaveDeveloperInfo(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9A5F6E95``
 
     Parameters:

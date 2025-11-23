@@ -36,7 +36,7 @@ class GetLeftChannels(TLObject["raw.base.messages.Chats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8341ECC0``
 
     Parameters:

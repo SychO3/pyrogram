@@ -36,7 +36,7 @@ class PrivacyKeyBirthday(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PrivacyKey`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2000A518``
 
     **No parameters required.**

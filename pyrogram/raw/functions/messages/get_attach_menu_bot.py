@@ -36,7 +36,7 @@ class GetAttachMenuBot(TLObject["raw.base.AttachMenuBotsBot"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``77216192``
 
     Parameters:

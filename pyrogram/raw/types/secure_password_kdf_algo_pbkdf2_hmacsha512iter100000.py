@@ -36,7 +36,7 @@ class SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecurePasswordKdfAlgo`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``BBF2DDA0``
 
     Parameters:

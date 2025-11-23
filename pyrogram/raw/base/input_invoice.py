@@ -29,11 +29,11 @@ from pyrogram.raw.core import BaseTypeMeta
 
 
 if TYPE_CHECKING:
-    InputInvoice = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumAuthCode, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftDropOriginalDetails, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
+    InputInvoice = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumAuthCode, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftAuctionBid, raw.types.InputInvoiceStarGiftDropOriginalDetails, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
 else:
     # noinspection PyRedeclaration
     class InputInvoice(metaclass=BaseTypeMeta):  # type: ignore
-        """This base type has 14 constructors available.
+        """This base type has 15 constructors available.
 
     Constructors:
         .. hlist::
@@ -47,6 +47,7 @@ else:
             - :obj:`InputInvoicePremiumGiftStars <pyrogram.raw.types.InputInvoicePremiumGiftStars>`
             - :obj:`InputInvoiceSlug <pyrogram.raw.types.InputInvoiceSlug>`
             - :obj:`InputInvoiceStarGift <pyrogram.raw.types.InputInvoiceStarGift>`
+            - :obj:`InputInvoiceStarGiftAuctionBid <pyrogram.raw.types.InputInvoiceStarGiftAuctionBid>`
             - :obj:`InputInvoiceStarGiftDropOriginalDetails <pyrogram.raw.types.InputInvoiceStarGiftDropOriginalDetails>`
             - :obj:`InputInvoiceStarGiftPrepaidUpgrade <pyrogram.raw.types.InputInvoiceStarGiftPrepaidUpgrade>`
             - :obj:`InputInvoiceStarGiftResale <pyrogram.raw.types.InputInvoiceStarGiftResale>`
@@ -56,7 +57,7 @@ else:
         """
 
         QUALNAME = "pyrogram.raw.base.InputInvoice"
-        __union_types__ = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumAuthCode, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftDropOriginalDetails, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
+        __union_types__ = Union[raw.types.InputInvoiceBusinessBotTransferStars, raw.types.InputInvoiceChatInviteSubscription, raw.types.InputInvoiceMessage, raw.types.InputInvoicePremiumAuthCode, raw.types.InputInvoicePremiumGiftCode, raw.types.InputInvoicePremiumGiftStars, raw.types.InputInvoiceSlug, raw.types.InputInvoiceStarGift, raw.types.InputInvoiceStarGiftAuctionBid, raw.types.InputInvoiceStarGiftDropOriginalDetails, raw.types.InputInvoiceStarGiftPrepaidUpgrade, raw.types.InputInvoiceStarGiftResale, raw.types.InputInvoiceStarGiftTransfer, raw.types.InputInvoiceStarGiftUpgrade, raw.types.InputInvoiceStars]
 
         def __init__(self):
             raise TypeError("Base types can only be used for type checking purposes: "

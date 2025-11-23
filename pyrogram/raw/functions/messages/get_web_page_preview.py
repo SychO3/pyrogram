@@ -36,7 +36,7 @@ class GetWebPagePreview(TLObject["raw.base.messages.WebPagePreview"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``570D6F6F``
 
     Parameters:

@@ -36,7 +36,7 @@ class MessageFwdHeader(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageFwdHeader`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4E4DF4BB``
 
     Parameters:

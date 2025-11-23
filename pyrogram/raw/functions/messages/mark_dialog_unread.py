@@ -36,7 +36,7 @@ class MarkDialogUnread(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8C5006F8``
 
     Parameters:

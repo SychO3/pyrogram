@@ -36,7 +36,7 @@ class MessageReactor(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageReactor`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4BA3A95A``
 
     Parameters:

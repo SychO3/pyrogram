@@ -36,7 +36,7 @@ class ChannelAdminLogEventActionToggleAntiSpam(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventAction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``64F36DFC``
 
     Parameters:

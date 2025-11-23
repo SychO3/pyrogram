@@ -36,43 +36,48 @@ class UpdateGroupCall(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``97D64341``
+        - Layer: ``218``
+        - ID: ``9D2216E0``
 
     Parameters:
         call: :obj:`GroupCall <pyrogram.raw.base.GroupCall>`
-        chat_id (optional): ``int`` ``64-bit``
+        live_story (optional): ``bool``
+        peer (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
     """
 
-    __slots__: List[str] = ["call", "chat_id"]
+    __slots__: List[str] = ["call", "live_story", "peer"]
 
-    ID = 0x97d64341
+    ID = 0x9d2216e0
     QUALNAME = "types.UpdateGroupCall"
 
-    def __init__(self, *, call: "raw.base.GroupCall", chat_id: Optional[int] = None) -> None:
+    def __init__(self, *, call: "raw.base.GroupCall", live_story: Optional[bool] = None, peer: "raw.base.Peer" = None) -> None:
         self.call = call  # GroupCall
-        self.chat_id = chat_id  # flags.0?long
+        self.live_story = live_story  # flags.2?true
+        self.peer = peer  # flags.1?Peer
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "UpdateGroupCall":
         
         flags = Int.read(b)
         
-        chat_id = Long.read(b) if flags & (1 << 0) else None
+        live_story = True if flags & (1 << 2) else False
+        peer = TLObject.read(b) if flags & (1 << 1) else None
+        
         call = TLObject.read(b)
         
-        return UpdateGroupCall(call=call, chat_id=chat_id)
+        return UpdateGroupCall(call=call, live_story=live_story, peer=peer)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         flags = 0
-        flags |= (1 << 0) if self.chat_id is not None else 0
+        flags |= (1 << 2) if self.live_story else 0
+        flags |= (1 << 1) if self.peer is not None else 0
         b.write(Int(flags))
         
-        if self.chat_id is not None:
-            b.write(Long(self.chat_id))
+        if self.peer is not None:
+            b.write(self.peer.write())
         
         b.write(self.call.write())
         

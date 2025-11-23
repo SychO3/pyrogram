@@ -36,7 +36,7 @@ class ProfileTabGifts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4D4BD46A``
 
     **No parameters required.**

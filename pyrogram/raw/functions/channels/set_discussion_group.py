@@ -36,7 +36,7 @@ class SetDiscussionGroup(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``40582BB2``
 
     Parameters:

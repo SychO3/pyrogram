@@ -36,7 +36,7 @@ class ArchivedStickers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.ArchivedStickers`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4FCBA9C8``
 
     Parameters:

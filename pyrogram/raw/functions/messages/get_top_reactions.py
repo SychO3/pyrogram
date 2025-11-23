@@ -36,7 +36,7 @@ class GetTopReactions(TLObject["raw.base.messages.Reactions"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``BB8125BA``
 
     Parameters:

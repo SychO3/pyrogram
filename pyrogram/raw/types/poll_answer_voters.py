@@ -36,7 +36,7 @@ class PollAnswerVoters(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PollAnswerVoters`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3B6DDAD2``
 
     Parameters:

@@ -36,7 +36,7 @@ class ConvertStarGift(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``74BF076B``
 
     Parameters:

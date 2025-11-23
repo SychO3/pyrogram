@@ -36,7 +36,7 @@ class DcOption(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DcOption`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``18B7A10D``
 
     Parameters:

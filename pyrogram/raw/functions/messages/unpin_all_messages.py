@@ -36,7 +36,7 @@ class UnpinAllMessages(TLObject["raw.base.messages.AffectedHistory"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``62DD747``
 
     Parameters:

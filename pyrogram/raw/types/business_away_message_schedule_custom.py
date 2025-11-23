@@ -36,7 +36,7 @@ class BusinessAwayMessageScheduleCustom(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessAwayMessageSchedule`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CC4D9ECC``
 
     Parameters:

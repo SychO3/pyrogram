@@ -36,7 +36,7 @@ class KeyboardButtonRow(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButtonRow`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``77608B83``
 
     Parameters:

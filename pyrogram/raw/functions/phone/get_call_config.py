@@ -36,7 +36,7 @@ class GetCallConfig(TLObject["raw.base.DataJSON"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``55451FA9``
 
     **No parameters required.**

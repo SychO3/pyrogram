@@ -36,7 +36,7 @@ class InputSavedStarGiftSlug(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputSavedStarGift`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2085C238``
 
     Parameters:

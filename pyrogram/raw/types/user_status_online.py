@@ -36,7 +36,7 @@ class UserStatusOnline(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.UserStatus`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EDB93949``
 
     Parameters:

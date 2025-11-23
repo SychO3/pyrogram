@@ -36,7 +36,7 @@ class IpPortSecret(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.IpPort`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``37982646``
 
     Parameters:

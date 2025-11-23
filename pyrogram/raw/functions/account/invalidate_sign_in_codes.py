@@ -36,7 +36,7 @@ class InvalidateSignInCodes(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CA8AE8BA``
 
     Parameters:

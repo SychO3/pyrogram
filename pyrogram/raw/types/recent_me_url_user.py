@@ -36,7 +36,7 @@ class RecentMeUrlUser(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RecentMeUrl`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B92C09E2``
 
     Parameters:

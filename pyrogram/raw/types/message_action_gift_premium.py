@@ -36,27 +36,27 @@ class MessageActionGiftPremium(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``6C6274FA``
+        - Layer: ``218``
+        - ID: ``48E91302``
 
     Parameters:
         currency: ``str``
         amount: ``int`` ``64-bit``
-        months: ``int`` ``32-bit``
+        days: ``int`` ``32-bit``
         crypto_currency (optional): ``str``
         crypto_amount (optional): ``int`` ``64-bit``
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
     """
 
-    __slots__: List[str] = ["currency", "amount", "months", "crypto_currency", "crypto_amount", "message"]
+    __slots__: List[str] = ["currency", "amount", "days", "crypto_currency", "crypto_amount", "message"]
 
-    ID = 0x6c6274fa
+    ID = 0x48e91302
     QUALNAME = "types.MessageActionGiftPremium"
 
-    def __init__(self, *, currency: str, amount: int, months: int, crypto_currency: Optional[str] = None, crypto_amount: Optional[int] = None, message: "raw.base.TextWithEntities" = None) -> None:
+    def __init__(self, *, currency: str, amount: int, days: int, crypto_currency: Optional[str] = None, crypto_amount: Optional[int] = None, message: "raw.base.TextWithEntities" = None) -> None:
         self.currency = currency  # string
         self.amount = amount  # long
-        self.months = months  # int
+        self.days = days  # int
         self.crypto_currency = crypto_currency  # flags.0?string
         self.crypto_amount = crypto_amount  # flags.0?long
         self.message = message  # flags.1?TextWithEntities
@@ -70,13 +70,13 @@ class MessageActionGiftPremium(TLObject):
         
         amount = Long.read(b)
         
-        months = Int.read(b)
+        days = Int.read(b)
         
         crypto_currency = String.read(b) if flags & (1 << 0) else None
         crypto_amount = Long.read(b) if flags & (1 << 0) else None
         message = TLObject.read(b) if flags & (1 << 1) else None
         
-        return MessageActionGiftPremium(currency=currency, amount=amount, months=months, crypto_currency=crypto_currency, crypto_amount=crypto_amount, message=message)
+        return MessageActionGiftPremium(currency=currency, amount=amount, days=days, crypto_currency=crypto_currency, crypto_amount=crypto_amount, message=message)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -92,7 +92,7 @@ class MessageActionGiftPremium(TLObject):
         
         b.write(Long(self.amount))
         
-        b.write(Int(self.months))
+        b.write(Int(self.days))
         
         if self.crypto_currency is not None:
             b.write(String(self.crypto_currency))

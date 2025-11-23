@@ -36,8 +36,8 @@ class SendMessage(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
-        - ID: ``FE05DC9A``
+        - Layer: ``218``
+        - ID: ``545CD15A``
 
     Parameters:
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
@@ -55,6 +55,7 @@ class SendMessage(TLObject["raw.base.Updates"]):
         reply_markup (optional): :obj:`ReplyMarkup <pyrogram.raw.base.ReplyMarkup>`
         entities (optional): List of :obj:`MessageEntity <pyrogram.raw.base.MessageEntity>`
         schedule_date (optional): ``int`` ``32-bit``
+        schedule_repeat_period (optional): ``int`` ``32-bit``
         send_as (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         quick_reply_shortcut (optional): :obj:`InputQuickReplyShortcut <pyrogram.raw.base.InputQuickReplyShortcut>`
         effect (optional): ``int`` ``64-bit``
@@ -65,12 +66,12 @@ class SendMessage(TLObject["raw.base.Updates"]):
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["peer", "message", "random_id", "no_webpage", "silent", "background", "clear_draft", "noforwards", "update_stickersets_order", "invert_media", "allow_paid_floodskip", "reply_to", "reply_markup", "entities", "schedule_date", "send_as", "quick_reply_shortcut", "effect", "allow_paid_stars", "suggested_post"]
+    __slots__: List[str] = ["peer", "message", "random_id", "no_webpage", "silent", "background", "clear_draft", "noforwards", "update_stickersets_order", "invert_media", "allow_paid_floodskip", "reply_to", "reply_markup", "entities", "schedule_date", "schedule_repeat_period", "send_as", "quick_reply_shortcut", "effect", "allow_paid_stars", "suggested_post"]
 
-    ID = 0xfe05dc9a
+    ID = 0x545cd15a
     QUALNAME = "functions.messages.SendMessage"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", message: str, random_id: int, no_webpage: Optional[bool] = None, silent: Optional[bool] = None, background: Optional[bool] = None, clear_draft: Optional[bool] = None, noforwards: Optional[bool] = None, update_stickersets_order: Optional[bool] = None, invert_media: Optional[bool] = None, allow_paid_floodskip: Optional[bool] = None, reply_to: "raw.base.InputReplyTo" = None, reply_markup: "raw.base.ReplyMarkup" = None, entities: Optional[List["raw.base.MessageEntity"]] = None, schedule_date: Optional[int] = None, send_as: "raw.base.InputPeer" = None, quick_reply_shortcut: "raw.base.InputQuickReplyShortcut" = None, effect: Optional[int] = None, allow_paid_stars: Optional[int] = None, suggested_post: "raw.base.SuggestedPost" = None) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", message: str, random_id: int, no_webpage: Optional[bool] = None, silent: Optional[bool] = None, background: Optional[bool] = None, clear_draft: Optional[bool] = None, noforwards: Optional[bool] = None, update_stickersets_order: Optional[bool] = None, invert_media: Optional[bool] = None, allow_paid_floodskip: Optional[bool] = None, reply_to: "raw.base.InputReplyTo" = None, reply_markup: "raw.base.ReplyMarkup" = None, entities: Optional[List["raw.base.MessageEntity"]] = None, schedule_date: Optional[int] = None, schedule_repeat_period: Optional[int] = None, send_as: "raw.base.InputPeer" = None, quick_reply_shortcut: "raw.base.InputQuickReplyShortcut" = None, effect: Optional[int] = None, allow_paid_stars: Optional[int] = None, suggested_post: "raw.base.SuggestedPost" = None) -> None:
         self.peer = peer  # InputPeer
         self.message = message  # string
         self.random_id = random_id  # long
@@ -86,6 +87,7 @@ class SendMessage(TLObject["raw.base.Updates"]):
         self.reply_markup = reply_markup  # flags.2?ReplyMarkup
         self.entities = entities  # flags.3?Vector<MessageEntity>
         self.schedule_date = schedule_date  # flags.10?int
+        self.schedule_repeat_period = schedule_repeat_period  # flags.24?int
         self.send_as = send_as  # flags.13?InputPeer
         self.quick_reply_shortcut = quick_reply_shortcut  # flags.17?InputQuickReplyShortcut
         self.effect = effect  # flags.18?long
@@ -118,6 +120,7 @@ class SendMessage(TLObject["raw.base.Updates"]):
         entities = TLObject.read(b) if flags & (1 << 3) else []
         
         schedule_date = Int.read(b) if flags & (1 << 10) else None
+        schedule_repeat_period = Int.read(b) if flags & (1 << 24) else None
         send_as = TLObject.read(b) if flags & (1 << 13) else None
         
         quick_reply_shortcut = TLObject.read(b) if flags & (1 << 17) else None
@@ -126,7 +129,7 @@ class SendMessage(TLObject["raw.base.Updates"]):
         allow_paid_stars = Long.read(b) if flags & (1 << 21) else None
         suggested_post = TLObject.read(b) if flags & (1 << 22) else None
         
-        return SendMessage(peer=peer, message=message, random_id=random_id, no_webpage=no_webpage, silent=silent, background=background, clear_draft=clear_draft, noforwards=noforwards, update_stickersets_order=update_stickersets_order, invert_media=invert_media, allow_paid_floodskip=allow_paid_floodskip, reply_to=reply_to, reply_markup=reply_markup, entities=entities, schedule_date=schedule_date, send_as=send_as, quick_reply_shortcut=quick_reply_shortcut, effect=effect, allow_paid_stars=allow_paid_stars, suggested_post=suggested_post)
+        return SendMessage(peer=peer, message=message, random_id=random_id, no_webpage=no_webpage, silent=silent, background=background, clear_draft=clear_draft, noforwards=noforwards, update_stickersets_order=update_stickersets_order, invert_media=invert_media, allow_paid_floodskip=allow_paid_floodskip, reply_to=reply_to, reply_markup=reply_markup, entities=entities, schedule_date=schedule_date, schedule_repeat_period=schedule_repeat_period, send_as=send_as, quick_reply_shortcut=quick_reply_shortcut, effect=effect, allow_paid_stars=allow_paid_stars, suggested_post=suggested_post)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -145,6 +148,7 @@ class SendMessage(TLObject["raw.base.Updates"]):
         flags |= (1 << 2) if self.reply_markup is not None else 0
         flags |= (1 << 3) if self.entities else 0
         flags |= (1 << 10) if self.schedule_date is not None else 0
+        flags |= (1 << 24) if self.schedule_repeat_period is not None else 0
         flags |= (1 << 13) if self.send_as is not None else 0
         flags |= (1 << 17) if self.quick_reply_shortcut is not None else 0
         flags |= (1 << 18) if self.effect is not None else 0
@@ -169,6 +173,9 @@ class SendMessage(TLObject["raw.base.Updates"]):
         
         if self.schedule_date is not None:
             b.write(Int(self.schedule_date))
+        
+        if self.schedule_repeat_period is not None:
+            b.write(Int(self.schedule_repeat_period))
         
         if self.send_as is not None:
             b.write(self.send_as.write())

@@ -36,7 +36,7 @@ class SentCodePaymentRequired(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.SentCode`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E0955A3C``
 
     Parameters:

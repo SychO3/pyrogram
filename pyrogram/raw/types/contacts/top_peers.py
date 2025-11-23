@@ -36,7 +36,7 @@ class TopPeers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.contacts.TopPeers`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``70B772A8``
 
     Parameters:

@@ -36,7 +36,7 @@ class CheckHistoryImportPeer(TLObject["raw.base.messages.CheckedHistoryImportPee
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5DC60F03``
 
     Parameters:

@@ -36,7 +36,7 @@ class BadServerSalt(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BadMsgNotification`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EDAB447B``
 
     Parameters:

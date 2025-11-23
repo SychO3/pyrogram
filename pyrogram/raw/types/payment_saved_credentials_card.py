@@ -36,7 +36,7 @@ class PaymentSavedCredentialsCard(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PaymentSavedCredentials`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CDC27A1F``
 
     Parameters:

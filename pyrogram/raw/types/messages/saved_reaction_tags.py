@@ -36,7 +36,7 @@ class SavedReactionTags(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.SavedReactionTags`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3259950A``
 
     Parameters:

@@ -36,8 +36,8 @@ class EditMessage(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
-        - ID: ``DFD14005``
+        - Layer: ``218``
+        - ID: ``51E842E1``
 
     Parameters:
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
@@ -49,18 +49,19 @@ class EditMessage(TLObject["raw.base.Updates"]):
         reply_markup (optional): :obj:`ReplyMarkup <pyrogram.raw.base.ReplyMarkup>`
         entities (optional): List of :obj:`MessageEntity <pyrogram.raw.base.MessageEntity>`
         schedule_date (optional): ``int`` ``32-bit``
+        schedule_repeat_period (optional): ``int`` ``32-bit``
         quick_reply_shortcut_id (optional): ``int`` ``32-bit``
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["peer", "id", "no_webpage", "invert_media", "message", "media", "reply_markup", "entities", "schedule_date", "quick_reply_shortcut_id"]
+    __slots__: List[str] = ["peer", "id", "no_webpage", "invert_media", "message", "media", "reply_markup", "entities", "schedule_date", "schedule_repeat_period", "quick_reply_shortcut_id"]
 
-    ID = 0xdfd14005
+    ID = 0x51e842e1
     QUALNAME = "functions.messages.EditMessage"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", id: int, no_webpage: Optional[bool] = None, invert_media: Optional[bool] = None, message: Optional[str] = None, media: "raw.base.InputMedia" = None, reply_markup: "raw.base.ReplyMarkup" = None, entities: Optional[List["raw.base.MessageEntity"]] = None, schedule_date: Optional[int] = None, quick_reply_shortcut_id: Optional[int] = None) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", id: int, no_webpage: Optional[bool] = None, invert_media: Optional[bool] = None, message: Optional[str] = None, media: "raw.base.InputMedia" = None, reply_markup: "raw.base.ReplyMarkup" = None, entities: Optional[List["raw.base.MessageEntity"]] = None, schedule_date: Optional[int] = None, schedule_repeat_period: Optional[int] = None, quick_reply_shortcut_id: Optional[int] = None) -> None:
         self.peer = peer  # InputPeer
         self.id = id  # int
         self.no_webpage = no_webpage  # flags.1?true
@@ -70,6 +71,7 @@ class EditMessage(TLObject["raw.base.Updates"]):
         self.reply_markup = reply_markup  # flags.2?ReplyMarkup
         self.entities = entities  # flags.3?Vector<MessageEntity>
         self.schedule_date = schedule_date  # flags.15?int
+        self.schedule_repeat_period = schedule_repeat_period  # flags.18?int
         self.quick_reply_shortcut_id = quick_reply_shortcut_id  # flags.17?int
 
     @staticmethod
@@ -91,8 +93,9 @@ class EditMessage(TLObject["raw.base.Updates"]):
         entities = TLObject.read(b) if flags & (1 << 3) else []
         
         schedule_date = Int.read(b) if flags & (1 << 15) else None
+        schedule_repeat_period = Int.read(b) if flags & (1 << 18) else None
         quick_reply_shortcut_id = Int.read(b) if flags & (1 << 17) else None
-        return EditMessage(peer=peer, id=id, no_webpage=no_webpage, invert_media=invert_media, message=message, media=media, reply_markup=reply_markup, entities=entities, schedule_date=schedule_date, quick_reply_shortcut_id=quick_reply_shortcut_id)
+        return EditMessage(peer=peer, id=id, no_webpage=no_webpage, invert_media=invert_media, message=message, media=media, reply_markup=reply_markup, entities=entities, schedule_date=schedule_date, schedule_repeat_period=schedule_repeat_period, quick_reply_shortcut_id=quick_reply_shortcut_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -106,6 +109,7 @@ class EditMessage(TLObject["raw.base.Updates"]):
         flags |= (1 << 2) if self.reply_markup is not None else 0
         flags |= (1 << 3) if self.entities else 0
         flags |= (1 << 15) if self.schedule_date is not None else 0
+        flags |= (1 << 18) if self.schedule_repeat_period is not None else 0
         flags |= (1 << 17) if self.quick_reply_shortcut_id is not None else 0
         b.write(Int(flags))
         
@@ -127,6 +131,9 @@ class EditMessage(TLObject["raw.base.Updates"]):
         
         if self.schedule_date is not None:
             b.write(Int(self.schedule_date))
+        
+        if self.schedule_repeat_period is not None:
+            b.write(Int(self.schedule_repeat_period))
         
         if self.quick_reply_shortcut_id is not None:
             b.write(Int(self.quick_reply_shortcut_id))

@@ -36,7 +36,7 @@ class DeclineConferenceCallInvite(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3C479971``
 
     Parameters:

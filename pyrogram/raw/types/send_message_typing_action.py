@@ -36,7 +36,7 @@ class SendMessageTypingAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``16BF744E``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class GetArchivedStickers(TLObject["raw.base.messages.ArchivedStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``57F17692``
 
     Parameters:

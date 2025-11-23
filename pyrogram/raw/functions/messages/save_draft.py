@@ -36,7 +36,7 @@ class SaveDraft(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``54AE308E``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetAccountTTL(TLObject["raw.base.AccountDaysTTL"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8FC711D``
 
     **No parameters required.**

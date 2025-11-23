@@ -36,7 +36,7 @@ class EditFactCheck(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``589EE75``
 
     Parameters:

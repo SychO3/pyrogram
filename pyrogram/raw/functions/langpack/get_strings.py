@@ -36,7 +36,7 @@ class GetStrings(TLObject["List[raw.base.LangPackString]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EFEA3803``
 
     Parameters:

@@ -61,3 +61,7 @@ from .decline_conference_call_invite import DeclineConferenceCallInvite
 from .get_group_call_chain_blocks import GetGroupCallChainBlocks
 from .send_group_call_message import SendGroupCallMessage
 from .send_group_call_encrypted_message import SendGroupCallEncryptedMessage
+from .delete_group_call_messages import DeleteGroupCallMessages
+from .delete_group_call_participant_messages import DeleteGroupCallParticipantMessages
+from .get_group_call_stars import GetGroupCallStars
+from .save_default_send_as import SaveDefaultSendAs

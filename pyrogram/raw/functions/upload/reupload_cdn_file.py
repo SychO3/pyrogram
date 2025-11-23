@@ -36,7 +36,7 @@ class ReuploadCdnFile(TLObject["List[raw.base.FileHash]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9B2754A8``
 
     Parameters:

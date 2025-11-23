@@ -36,7 +36,7 @@ class NotificationSoundRingtone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.NotificationSound`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``FF6C8049``
 
     Parameters:

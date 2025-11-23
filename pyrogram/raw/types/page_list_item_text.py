@@ -36,7 +36,7 @@ class PageListItemText(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageListItem`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B92FB6CD``
 
     Parameters:

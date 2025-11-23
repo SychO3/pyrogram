@@ -36,7 +36,7 @@ class Leave(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9898AD73``
 
     **No parameters required.**

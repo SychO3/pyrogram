@@ -36,7 +36,7 @@ class ToggleSavedDialogPin(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``AC81BBDE``
 
     Parameters:

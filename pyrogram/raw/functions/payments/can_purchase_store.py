@@ -36,7 +36,7 @@ class CanPurchaseStore(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4FDC5EA7``
 
     Parameters:

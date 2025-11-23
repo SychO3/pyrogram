@@ -36,7 +36,7 @@ class GetEmojiURL(TLObject["raw.base.EmojiURL"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D5B10C26``
 
     Parameters:

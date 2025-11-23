@@ -36,7 +36,7 @@ class GetInactiveChannels(TLObject["raw.base.messages.InactiveChats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``11E831EE``
 
     **No parameters required.**

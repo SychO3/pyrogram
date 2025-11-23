@@ -36,7 +36,7 @@ class TogglePinned(TLObject["List[raw.base.int]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9A75A1EF``
 
     Parameters:

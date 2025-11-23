@@ -32,35 +32,40 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class SendGroupCallMessage(TLObject["raw.base.Bool"]):
+class SendGroupCallMessage(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
-        - ID: ``87893014``
+        - Layer: ``218``
+        - ID: ``B1D11410``
 
     Parameters:
         call: :obj:`InputGroupCall <pyrogram.raw.base.InputGroupCall>`
         random_id: ``int`` ``64-bit``
         message: :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
+        allow_paid_stars (optional): ``int`` ``64-bit``
+        send_as (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
 
     Returns:
-        ``bool``
+        :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["call", "random_id", "message"]
+    __slots__: List[str] = ["call", "random_id", "message", "allow_paid_stars", "send_as"]
 
-    ID = 0x87893014
+    ID = 0xb1d11410
     QUALNAME = "functions.phone.SendGroupCallMessage"
 
-    def __init__(self, *, call: "raw.base.InputGroupCall", random_id: int, message: "raw.base.TextWithEntities") -> None:
+    def __init__(self, *, call: "raw.base.InputGroupCall", random_id: int, message: "raw.base.TextWithEntities", allow_paid_stars: Optional[int] = None, send_as: "raw.base.InputPeer" = None) -> None:
         self.call = call  # InputGroupCall
         self.random_id = random_id  # long
         self.message = message  # TextWithEntities
+        self.allow_paid_stars = allow_paid_stars  # flags.0?long
+        self.send_as = send_as  # flags.1?InputPeer
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SendGroupCallMessage":
-        # No flags
+        
+        flags = Int.read(b)
         
         call = TLObject.read(b)
         
@@ -68,18 +73,30 @@ class SendGroupCallMessage(TLObject["raw.base.Bool"]):
         
         message = TLObject.read(b)
         
-        return SendGroupCallMessage(call=call, random_id=random_id, message=message)
+        allow_paid_stars = Long.read(b) if flags & (1 << 0) else None
+        send_as = TLObject.read(b) if flags & (1 << 1) else None
+        
+        return SendGroupCallMessage(call=call, random_id=random_id, message=message, allow_paid_stars=allow_paid_stars, send_as=send_as)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.allow_paid_stars is not None else 0
+        flags |= (1 << 1) if self.send_as is not None else 0
+        b.write(Int(flags))
         
         b.write(self.call.write())
         
         b.write(Long(self.random_id))
         
         b.write(self.message.write())
+        
+        if self.allow_paid_stars is not None:
+            b.write(Long(self.allow_paid_stars))
+        
+        if self.send_as is not None:
+            b.write(self.send_as.write())
         
         return b.getvalue()

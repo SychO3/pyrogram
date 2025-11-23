@@ -36,7 +36,7 @@ class SuggestedStarRefBots(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.SuggestedStarRefBots`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B4D5D859``
 
     Parameters:

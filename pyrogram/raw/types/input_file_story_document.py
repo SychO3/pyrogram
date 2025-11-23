@@ -36,7 +36,7 @@ class InputFileStoryDocument(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFile`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``62DC8B48``
 
     Parameters:

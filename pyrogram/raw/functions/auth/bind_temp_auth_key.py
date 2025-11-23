@@ -36,7 +36,7 @@ class BindTempAuthKey(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CDD42A05``
 
     Parameters:

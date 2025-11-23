@@ -36,7 +36,7 @@ class ToggleStarGiftsPinnedToTop(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1513E7B0``
 
     Parameters:

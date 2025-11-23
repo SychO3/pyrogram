@@ -36,7 +36,7 @@ class MediaAreaUrl(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MediaArea`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``37381085``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputChatPhoto(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatPhoto`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8953AD37``
 
     Parameters:

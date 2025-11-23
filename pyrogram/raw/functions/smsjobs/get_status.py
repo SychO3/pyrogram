@@ -36,7 +36,7 @@ class GetStatus(TLObject["raw.base.smsjobs.Status"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``10A698E8``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class ReportMessagesDelivery(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5A6D7395``
 
     Parameters:

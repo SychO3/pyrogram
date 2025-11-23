@@ -36,7 +36,7 @@ class StarsGiveawayOption(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsGiveawayOption`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``94CE852A``
 
     Parameters:

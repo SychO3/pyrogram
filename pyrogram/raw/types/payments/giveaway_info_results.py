@@ -36,7 +36,7 @@ class GiveawayInfoResults(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.GiveawayInfo`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E175E66F``
 
     Parameters:

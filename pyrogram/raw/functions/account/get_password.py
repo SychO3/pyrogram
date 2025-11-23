@@ -36,7 +36,7 @@ class GetPassword(TLObject["raw.base.account.Password"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``548A30F5``
 
     **No parameters required.**

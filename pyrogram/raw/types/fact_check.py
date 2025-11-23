@@ -36,7 +36,7 @@ class FactCheck(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.FactCheck`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B89BFCCF``
 
     Parameters:

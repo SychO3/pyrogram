@@ -36,7 +36,7 @@ class GetInviteText(TLObject["raw.base.help.InviteText"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4D392343``
 
     **No parameters required.**

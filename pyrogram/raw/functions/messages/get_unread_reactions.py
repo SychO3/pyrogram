@@ -36,7 +36,7 @@ class GetUnreadReactions(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``BD7F90AC``
 
     Parameters:

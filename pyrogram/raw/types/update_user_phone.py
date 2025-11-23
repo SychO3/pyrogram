@@ -36,7 +36,7 @@ class UpdateUserPhone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5492A13``
 
     Parameters:

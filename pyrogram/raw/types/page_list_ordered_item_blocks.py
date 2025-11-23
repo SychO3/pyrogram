@@ -36,7 +36,7 @@ class PageListOrderedItemBlocks(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageListOrderedItem`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``98DD8936``
 
     Parameters:

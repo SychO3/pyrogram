@@ -36,7 +36,7 @@ class CheckPassword(TLObject["raw.base.auth.Authorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D18B4D16``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetFutureSalts(TLObject["raw.base.FutureSalts"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B921BD04``
 
     Parameters:

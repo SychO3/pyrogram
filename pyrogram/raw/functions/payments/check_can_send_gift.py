@@ -36,7 +36,7 @@ class CheckCanSendGift(TLObject["raw.base.payments.CheckCanSendGiftResult"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C0C4EDC9``
 
     Parameters:

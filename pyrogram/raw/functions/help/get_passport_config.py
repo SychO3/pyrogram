@@ -36,7 +36,7 @@ class GetPassportConfig(TLObject["raw.base.help.PassportConfig"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C661AD08``
 
     Parameters:

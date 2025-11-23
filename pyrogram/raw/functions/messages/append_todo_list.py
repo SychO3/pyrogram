@@ -36,7 +36,7 @@ class AppendTodoList(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``21A61057``
 
     Parameters:

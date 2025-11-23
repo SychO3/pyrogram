@@ -36,7 +36,7 @@ class InputSecureFileLocation(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CBC7EE28``
 
     Parameters:

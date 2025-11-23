@@ -36,7 +36,7 @@ class GetPaymentReceipt(TLObject["raw.base.payments.PaymentReceipt"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2478D1CC``
 
     Parameters:

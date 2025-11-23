@@ -36,7 +36,7 @@ class ExportedGroupCallInvite(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.phone.ExportedGroupCallInvite`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``204BD158``
 
     Parameters:

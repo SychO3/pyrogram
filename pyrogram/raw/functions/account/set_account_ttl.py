@@ -36,7 +36,7 @@ class SetAccountTTL(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2442485E``
 
     Parameters:

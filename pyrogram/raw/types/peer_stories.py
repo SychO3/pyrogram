@@ -36,7 +36,7 @@ class PeerStories(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PeerStories`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9A35E999``
 
     Parameters:

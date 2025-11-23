@@ -36,7 +36,7 @@ class TogglePaidReactionPrivacy(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``435885B5``
 
     Parameters:

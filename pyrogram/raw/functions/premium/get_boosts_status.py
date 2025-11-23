@@ -36,7 +36,7 @@ class GetBoostsStatus(TLObject["raw.base.premium.BoostsStatus"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``42F1F61``
 
     Parameters:

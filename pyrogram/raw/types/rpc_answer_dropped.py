@@ -36,7 +36,7 @@ class RpcAnswerDropped(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RpcDropAnswer`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A43AD8B7``
 
     Parameters:

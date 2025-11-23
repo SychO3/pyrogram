@@ -36,7 +36,7 @@ class ReportAntiSpamFalsePositive(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A850A693``
 
     Parameters:

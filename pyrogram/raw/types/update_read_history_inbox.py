@@ -36,7 +36,7 @@ class UpdateReadHistoryInbox(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9E84BC99``
 
     Parameters:

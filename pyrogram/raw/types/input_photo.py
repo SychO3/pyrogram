@@ -36,7 +36,7 @@ class InputPhoto(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPhoto`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3BB3B94A``
 
     Parameters:

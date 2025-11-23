@@ -36,7 +36,7 @@ class DeactivateAllUsernames(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A245DD3``
 
     Parameters:

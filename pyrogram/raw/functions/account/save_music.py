@@ -36,7 +36,7 @@ class SaveMusic(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B26732A9``
 
     Parameters:

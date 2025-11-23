@@ -36,7 +36,7 @@ class AdminLogResults(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.channels.AdminLogResults`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``ED8AF74D``
 
     Parameters:

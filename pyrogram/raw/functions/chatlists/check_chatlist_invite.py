@@ -36,7 +36,7 @@ class CheckChatlistInvite(TLObject["raw.base.chatlists.ChatlistInvite"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``41C10FFF``
 
     Parameters:

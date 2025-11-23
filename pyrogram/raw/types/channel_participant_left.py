@@ -36,7 +36,7 @@ class ChannelParticipantLeft(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelParticipant`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1B03F006``
 
     Parameters:

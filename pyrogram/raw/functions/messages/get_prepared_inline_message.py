@@ -36,7 +36,7 @@ class GetPreparedInlineMessage(TLObject["raw.base.messages.PreparedInlineMessage
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``857EBDB8``
 
     Parameters:

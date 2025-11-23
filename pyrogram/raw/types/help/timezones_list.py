@@ -36,7 +36,7 @@ class TimezonesList(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.TimezonesList`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7B74ED71``
 
     Parameters:

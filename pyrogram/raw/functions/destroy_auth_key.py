@@ -36,7 +36,7 @@ class DestroyAuthKey(TLObject["raw.base.DestroyAuthKeyRes"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D1435160``
 
     **No parameters required.**

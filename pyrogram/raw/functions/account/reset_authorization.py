@@ -36,7 +36,7 @@ class ResetAuthorization(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``DF77F3BC``
 
     Parameters:

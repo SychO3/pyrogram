@@ -36,7 +36,7 @@ class GetFileHashes(TLObject["List[raw.base.FileHash]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9156982A``
 
     Parameters:

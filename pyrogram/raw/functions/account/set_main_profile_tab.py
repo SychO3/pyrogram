@@ -36,7 +36,7 @@ class SetMainProfileTab(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5DEE78B0``
 
     Parameters:

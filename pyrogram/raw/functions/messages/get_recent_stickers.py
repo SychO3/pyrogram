@@ -36,7 +36,7 @@ class GetRecentStickers(TLObject["raw.base.messages.RecentStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9DA9403B``
 
     Parameters:

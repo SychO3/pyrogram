@@ -36,7 +36,7 @@ class EncryptedChatRequested(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EncryptedChat`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``48F1D94C``
 
     Parameters:

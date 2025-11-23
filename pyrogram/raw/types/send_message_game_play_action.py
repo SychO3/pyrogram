@@ -36,7 +36,7 @@ class SendMessageGamePlayAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``DD6A8F48``
 
     **No parameters required.**

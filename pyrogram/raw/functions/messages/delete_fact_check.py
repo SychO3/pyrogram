@@ -36,7 +36,7 @@ class DeleteFactCheck(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D1DA940C``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetRecentEmojiStatuses(TLObject["raw.base.account.EmojiStatuses"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F578105``
 
     Parameters:

@@ -36,7 +36,7 @@ class ExportedInvoice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.ExportedInvoice`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``AED0CBD9``
 
     Parameters:

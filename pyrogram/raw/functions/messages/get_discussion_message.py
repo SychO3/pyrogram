@@ -36,7 +36,7 @@ class GetDiscussionMessage(TLObject["raw.base.messages.DiscussionMessage"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``446972FD``
 
     Parameters:

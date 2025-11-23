@@ -36,7 +36,7 @@ class ChatThemeUniqueGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatTheme`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3458F9C8``
 
     Parameters:

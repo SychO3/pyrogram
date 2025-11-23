@@ -36,7 +36,7 @@ class ReactionCount(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReactionCount`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A3D1CB80``
 
     Parameters:

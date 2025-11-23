@@ -36,7 +36,7 @@ class ApplyGiftCode(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F6E26854``
 
     Parameters:

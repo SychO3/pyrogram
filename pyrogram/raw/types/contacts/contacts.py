@@ -36,7 +36,7 @@ class Contacts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.contacts.Contacts`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EAE87E42``
 
     Parameters:

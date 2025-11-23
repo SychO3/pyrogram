@@ -36,7 +36,7 @@ class GetDialogFilters(TLObject["raw.base.messages.DialogFilters"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EFD48C89``
 
     **No parameters required.**

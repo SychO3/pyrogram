@@ -36,7 +36,7 @@ class EditAdmin(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D33C8902``
 
     Parameters:

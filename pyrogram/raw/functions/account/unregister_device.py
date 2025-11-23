@@ -36,7 +36,7 @@ class UnregisterDevice(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``6A0D3206``
 
     Parameters:

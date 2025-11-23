@@ -36,7 +36,7 @@ class PQInnerDataTempDc(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PQInnerData`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``56FDDF88``
 
     Parameters:

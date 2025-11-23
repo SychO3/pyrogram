@@ -36,7 +36,7 @@ class GetStarsTransactionsByID(TLObject["raw.base.payments.StarsStatus"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2DCA16B8``
 
     Parameters:

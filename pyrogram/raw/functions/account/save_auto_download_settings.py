@@ -36,7 +36,7 @@ class SaveAutoDownloadSettings(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``76F36233``
 
     Parameters:

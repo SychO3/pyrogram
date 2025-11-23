@@ -36,7 +36,7 @@ class StarGiftCollectionsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftCollections`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A0BA4F17``
 
     **No parameters required.**

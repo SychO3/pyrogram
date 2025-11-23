@@ -36,7 +36,7 @@ class GetWallPaper(TLObject["raw.base.WallPaper"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``FC8DDBEA``
 
     Parameters:

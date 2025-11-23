@@ -36,7 +36,7 @@ class SecureValueHash(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueHash`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``ED1ECDB0``
 
     Parameters:

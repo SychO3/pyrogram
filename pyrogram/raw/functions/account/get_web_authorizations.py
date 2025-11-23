@@ -36,7 +36,7 @@ class GetWebAuthorizations(TLObject["raw.base.account.WebAuthorizations"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``182E6D6F``
 
     **No parameters required.**

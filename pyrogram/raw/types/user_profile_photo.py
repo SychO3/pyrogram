@@ -36,7 +36,7 @@ class UserProfilePhoto(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.UserProfilePhoto`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``82D1F706``
 
     Parameters:

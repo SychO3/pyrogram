@@ -36,7 +36,7 @@ class AutoSaveSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.AutoSaveSettings`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C84834CE``
 
     Parameters:

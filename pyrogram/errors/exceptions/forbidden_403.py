@@ -194,6 +194,13 @@ class ChatSendVoicesForbidden(Forbidden):
     MESSAGE = __doc__
 
 
+class ChatSendWebpageForbidden(Forbidden):
+    """You can't send web pages in this chat."""
+    ID = "CHAT_SEND_WEBPAGE_FORBIDDEN"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class ChatTypeInvalid(Forbidden):
     """The specified chat type is invalid."""
     ID = "CHAT_TYPE_INVALID"

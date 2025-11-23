@@ -36,7 +36,7 @@ class RequestUrlAuth(TLObject["raw.base.UrlAuthResult"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``198FB446``
 
     Parameters:

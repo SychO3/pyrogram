@@ -36,7 +36,7 @@ class SendReaction(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7FD736B2``
 
     Parameters:

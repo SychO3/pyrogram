@@ -36,8 +36,8 @@ class Channel(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Chat`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``FE685355``
+        - Layer: ``218``
+        - ID: ``1C32B11C``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -80,7 +80,7 @@ class Channel(TLObject):
         default_banned_rights (optional): :obj:`ChatBannedRights <pyrogram.raw.base.ChatBannedRights>`
         participants_count (optional): ``int`` ``32-bit``
         usernames (optional): List of :obj:`Username <pyrogram.raw.base.Username>`
-        stories_max_id (optional): ``int`` ``32-bit``
+        stories_max_id (optional): :obj:`RecentStory <pyrogram.raw.base.RecentStory>`
         color (optional): :obj:`PeerColor <pyrogram.raw.base.PeerColor>`
         profile_color (optional): :obj:`PeerColor <pyrogram.raw.base.PeerColor>`
         emoji_status (optional): :obj:`EmojiStatus <pyrogram.raw.base.EmojiStatus>`
@@ -93,10 +93,10 @@ class Channel(TLObject):
 
     __slots__: List[str] = ["id", "title", "photo", "date", "creator", "left", "broadcast", "verified", "megagroup", "restricted", "signatures", "min", "scam", "has_link", "has_geo", "slowmode_enabled", "call_active", "call_not_empty", "fake", "gigagroup", "noforwards", "join_to_send", "join_request", "forum", "stories_hidden", "stories_hidden_min", "stories_unavailable", "signature_profiles", "autotranslation", "broadcast_messages_allowed", "monoforum", "forum_tabs", "access_hash", "username", "restriction_reason", "admin_rights", "banned_rights", "default_banned_rights", "participants_count", "usernames", "stories_max_id", "color", "profile_color", "emoji_status", "level", "subscription_until_date", "bot_verification_icon", "send_paid_messages_stars", "linked_monoforum_id"]
 
-    ID = 0xfe685355
+    ID = 0x1c32b11c
     QUALNAME = "types.Channel"
 
-    def __init__(self, *, id: int, title: str, photo: "raw.base.ChatPhoto", date: int, creator: Optional[bool] = None, left: Optional[bool] = None, broadcast: Optional[bool] = None, verified: Optional[bool] = None, megagroup: Optional[bool] = None, restricted: Optional[bool] = None, signatures: Optional[bool] = None, min: Optional[bool] = None, scam: Optional[bool] = None, has_link: Optional[bool] = None, has_geo: Optional[bool] = None, slowmode_enabled: Optional[bool] = None, call_active: Optional[bool] = None, call_not_empty: Optional[bool] = None, fake: Optional[bool] = None, gigagroup: Optional[bool] = None, noforwards: Optional[bool] = None, join_to_send: Optional[bool] = None, join_request: Optional[bool] = None, forum: Optional[bool] = None, stories_hidden: Optional[bool] = None, stories_hidden_min: Optional[bool] = None, stories_unavailable: Optional[bool] = None, signature_profiles: Optional[bool] = None, autotranslation: Optional[bool] = None, broadcast_messages_allowed: Optional[bool] = None, monoforum: Optional[bool] = None, forum_tabs: Optional[bool] = None, access_hash: Optional[int] = None, username: Optional[str] = None, restriction_reason: Optional[List["raw.base.RestrictionReason"]] = None, admin_rights: "raw.base.ChatAdminRights" = None, banned_rights: "raw.base.ChatBannedRights" = None, default_banned_rights: "raw.base.ChatBannedRights" = None, participants_count: Optional[int] = None, usernames: Optional[List["raw.base.Username"]] = None, stories_max_id: Optional[int] = None, color: "raw.base.PeerColor" = None, profile_color: "raw.base.PeerColor" = None, emoji_status: "raw.base.EmojiStatus" = None, level: Optional[int] = None, subscription_until_date: Optional[int] = None, bot_verification_icon: Optional[int] = None, send_paid_messages_stars: Optional[int] = None, linked_monoforum_id: Optional[int] = None) -> None:
+    def __init__(self, *, id: int, title: str, photo: "raw.base.ChatPhoto", date: int, creator: Optional[bool] = None, left: Optional[bool] = None, broadcast: Optional[bool] = None, verified: Optional[bool] = None, megagroup: Optional[bool] = None, restricted: Optional[bool] = None, signatures: Optional[bool] = None, min: Optional[bool] = None, scam: Optional[bool] = None, has_link: Optional[bool] = None, has_geo: Optional[bool] = None, slowmode_enabled: Optional[bool] = None, call_active: Optional[bool] = None, call_not_empty: Optional[bool] = None, fake: Optional[bool] = None, gigagroup: Optional[bool] = None, noforwards: Optional[bool] = None, join_to_send: Optional[bool] = None, join_request: Optional[bool] = None, forum: Optional[bool] = None, stories_hidden: Optional[bool] = None, stories_hidden_min: Optional[bool] = None, stories_unavailable: Optional[bool] = None, signature_profiles: Optional[bool] = None, autotranslation: Optional[bool] = None, broadcast_messages_allowed: Optional[bool] = None, monoforum: Optional[bool] = None, forum_tabs: Optional[bool] = None, access_hash: Optional[int] = None, username: Optional[str] = None, restriction_reason: Optional[List["raw.base.RestrictionReason"]] = None, admin_rights: "raw.base.ChatAdminRights" = None, banned_rights: "raw.base.ChatBannedRights" = None, default_banned_rights: "raw.base.ChatBannedRights" = None, participants_count: Optional[int] = None, usernames: Optional[List["raw.base.Username"]] = None, stories_max_id: "raw.base.RecentStory" = None, color: "raw.base.PeerColor" = None, profile_color: "raw.base.PeerColor" = None, emoji_status: "raw.base.EmojiStatus" = None, level: Optional[int] = None, subscription_until_date: Optional[int] = None, bot_verification_icon: Optional[int] = None, send_paid_messages_stars: Optional[int] = None, linked_monoforum_id: Optional[int] = None) -> None:
         self.id = id  # long
         self.title = title  # string
         self.photo = photo  # ChatPhoto
@@ -137,7 +137,7 @@ class Channel(TLObject):
         self.default_banned_rights = default_banned_rights  # flags.18?ChatBannedRights
         self.participants_count = participants_count  # flags.17?int
         self.usernames = usernames  # flags2.0?Vector<Username>
-        self.stories_max_id = stories_max_id  # flags2.4?int
+        self.stories_max_id = stories_max_id  # flags2.4?RecentStory
         self.color = color  # flags2.7?PeerColor
         self.profile_color = profile_color  # flags2.8?PeerColor
         self.emoji_status = emoji_status  # flags2.9?EmojiStatus
@@ -203,7 +203,8 @@ class Channel(TLObject):
         participants_count = Int.read(b) if flags & (1 << 17) else None
         usernames = TLObject.read(b) if flags2 & (1 << 0) else []
         
-        stories_max_id = Int.read(b) if flags2 & (1 << 4) else None
+        stories_max_id = TLObject.read(b) if flags2 & (1 << 4) else None
+        
         color = TLObject.read(b) if flags2 & (1 << 7) else None
         
         profile_color = TLObject.read(b) if flags2 & (1 << 8) else None
@@ -304,7 +305,7 @@ class Channel(TLObject):
             b.write(Vector(self.usernames))
         
         if self.stories_max_id is not None:
-            b.write(Int(self.stories_max_id))
+            b.write(self.stories_max_id.write())
         
         if self.color is not None:
             b.write(self.color.write())

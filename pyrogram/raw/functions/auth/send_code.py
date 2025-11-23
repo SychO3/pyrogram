@@ -36,7 +36,7 @@ class SendCode(TLObject["raw.base.auth.SentCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A677244F``
 
     Parameters:

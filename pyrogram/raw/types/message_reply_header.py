@@ -36,7 +36,7 @@ class MessageReplyHeader(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageReplyHeader`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``6917560B``
 
     Parameters:

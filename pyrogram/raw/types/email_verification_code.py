@@ -36,7 +36,7 @@ class EmailVerificationCode(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmailVerification`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``922E55A9``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetMessageReactionsList(TLObject["raw.base.messages.MessageReactionsList"]
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``461B3F48``
 
     Parameters:

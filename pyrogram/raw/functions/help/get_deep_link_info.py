@@ -36,7 +36,7 @@ class GetDeepLinkInfo(TLObject["raw.base.help.DeepLinkInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3FEDC75F``
 
     Parameters:

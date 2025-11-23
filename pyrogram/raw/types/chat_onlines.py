@@ -36,7 +36,7 @@ class ChatOnlines(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatOnlines`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F041E250``
 
     Parameters:

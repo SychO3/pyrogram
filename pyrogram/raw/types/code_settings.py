@@ -36,7 +36,7 @@ class CodeSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.CodeSettings`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``AD253D78``
 
     Parameters:

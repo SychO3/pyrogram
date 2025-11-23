@@ -36,7 +36,7 @@ class VotesList(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.VotesList`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4899484E``
 
     Parameters:

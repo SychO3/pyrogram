@@ -36,7 +36,7 @@ class GetParticipants(TLObject["raw.base.channels.ChannelParticipants"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``77CED9D0``
 
     Parameters:

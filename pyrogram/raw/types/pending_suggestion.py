@@ -36,7 +36,7 @@ class PendingSuggestion(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PendingSuggestion`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E7E82E12``
 
     Parameters:

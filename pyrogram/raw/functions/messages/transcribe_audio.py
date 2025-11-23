@@ -36,7 +36,7 @@ class TranscribeAudio(TLObject["raw.base.messages.TranscribedAudio"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``269E9A49``
 
     Parameters:

@@ -36,7 +36,7 @@ class SetStickers(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EA8CA4F9``
 
     Parameters:

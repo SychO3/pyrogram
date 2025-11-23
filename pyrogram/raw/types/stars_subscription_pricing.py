@@ -36,7 +36,7 @@ class StarsSubscriptionPricing(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsSubscriptionPricing`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5416D58``
 
     Parameters:

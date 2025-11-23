@@ -36,7 +36,7 @@ class InputInvoiceStarGiftPrepaidUpgrade(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputInvoice`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9A0B48B8``
 
     Parameters:

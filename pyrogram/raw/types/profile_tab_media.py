@@ -36,7 +36,7 @@ class ProfileTabMedia(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``72C64955``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class SentCodeTypeMissedCall(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.SentCodeType`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``82006484``
 
     Parameters:

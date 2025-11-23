@@ -36,7 +36,7 @@ class GetPaidReactionPrivacy(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``472455AA``
 
     **No parameters required.**

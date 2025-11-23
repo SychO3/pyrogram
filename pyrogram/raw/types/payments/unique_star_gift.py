@@ -36,7 +36,7 @@ class UniqueStarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.UniqueStarGift`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``416C56E8``
 
     Parameters:

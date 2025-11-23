@@ -36,7 +36,7 @@ class DialogPeerFolder(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DialogPeer`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``514519E2``
 
     Parameters:

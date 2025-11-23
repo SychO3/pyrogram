@@ -36,7 +36,7 @@ class SuggestBirthday(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``FC533372``
 
     Parameters:

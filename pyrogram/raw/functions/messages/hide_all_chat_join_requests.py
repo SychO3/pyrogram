@@ -36,7 +36,7 @@ class HideAllChatJoinRequests(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E085F4EA``
 
     Parameters:

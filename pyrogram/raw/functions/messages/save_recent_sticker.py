@@ -36,7 +36,7 @@ class SaveRecentSticker(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``392718F8``
 
     Parameters:

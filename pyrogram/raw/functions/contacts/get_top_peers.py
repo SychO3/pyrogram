@@ -36,7 +36,7 @@ class GetTopPeers(TLObject["raw.base.contacts.TopPeers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``973478B6``
 
     Parameters:

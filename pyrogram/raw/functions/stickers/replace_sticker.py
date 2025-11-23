@@ -36,7 +36,7 @@ class ReplaceSticker(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4696459A``
 
     Parameters:

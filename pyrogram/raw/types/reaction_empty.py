@@ -36,7 +36,7 @@ class ReactionEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Reaction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``79F5D419``
 
     **No parameters required.**

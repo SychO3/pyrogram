@@ -36,7 +36,7 @@ class PaidReactionPrivacyAnonymous(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PaidReactionPrivacy`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1F0C1AD9``
 
     **No parameters required.**

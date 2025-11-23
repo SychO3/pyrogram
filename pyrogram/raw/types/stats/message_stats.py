@@ -36,7 +36,7 @@ class MessageStats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stats.MessageStats`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7FE91C14``
 
     Parameters:

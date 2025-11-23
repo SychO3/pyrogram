@@ -36,7 +36,7 @@ class RequestPasswordRecovery(TLObject["raw.base.auth.PasswordRecovery"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D897BC66``
 
     **No parameters required.**

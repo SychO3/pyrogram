@@ -36,7 +36,7 @@ class ExportContactToken(TLObject["raw.base.ExportedContactToken"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F8654027``
 
     **No parameters required.**

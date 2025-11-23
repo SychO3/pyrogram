@@ -36,7 +36,7 @@ class SetBotMenuButton(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4504D54F``
 
     Parameters:

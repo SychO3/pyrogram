@@ -36,7 +36,7 @@ class UploadMedia(TLObject["raw.base.MessageMedia"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``14967978``
 
     Parameters:

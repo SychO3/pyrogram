@@ -36,7 +36,7 @@ class Users(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.users.Users`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``62D706B8``
 
     Parameters:

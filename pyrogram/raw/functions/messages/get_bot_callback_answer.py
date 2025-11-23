@@ -36,7 +36,7 @@ class GetBotCallbackAnswer(TLObject["raw.base.messages.BotCallbackAnswer"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9342CA07``
 
     Parameters:

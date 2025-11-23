@@ -36,7 +36,7 @@ class GetStickerSet(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C8A0EC74``
 
     Parameters:

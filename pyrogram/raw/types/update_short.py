@@ -36,7 +36,7 @@ class UpdateShort(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Updates`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``78D4DEC1``
 
     Parameters:
@@ -44,7 +44,7 @@ class UpdateShort(TLObject):
         date: ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 120 methods:
+        This object can be returned by 124 methods:
 
         .. hlist::
             :columns: 2
@@ -160,6 +160,9 @@ class UpdateShort(TLObject):
             - :obj:`phone.InviteConferenceCallParticipant <pyrogram.raw.functions.phone.InviteConferenceCallParticipant>`
             - :obj:`phone.DeclineConferenceCallInvite <pyrogram.raw.functions.phone.DeclineConferenceCallInvite>`
             - :obj:`phone.GetGroupCallChainBlocks <pyrogram.raw.functions.phone.GetGroupCallChainBlocks>`
+            - :obj:`phone.SendGroupCallMessage <pyrogram.raw.functions.phone.SendGroupCallMessage>`
+            - :obj:`phone.DeleteGroupCallMessages <pyrogram.raw.functions.phone.DeleteGroupCallMessages>`
+            - :obj:`phone.DeleteGroupCallParticipantMessages <pyrogram.raw.functions.phone.DeleteGroupCallParticipantMessages>`
             - :obj:`folders.EditPeerFolders <pyrogram.raw.functions.folders.EditPeerFolders>`
             - :obj:`chatlists.JoinChatlistInvite <pyrogram.raw.functions.chatlists.JoinChatlistInvite>`
             - :obj:`chatlists.JoinChatlistUpdates <pyrogram.raw.functions.chatlists.JoinChatlistUpdates>`
@@ -169,6 +172,7 @@ class UpdateShort(TLObject):
             - :obj:`stories.ActivateStealthMode <pyrogram.raw.functions.stories.ActivateStealthMode>`
             - :obj:`stories.SendReaction <pyrogram.raw.functions.stories.SendReaction>`
             - :obj:`stories.GetAllReadPeerStories <pyrogram.raw.functions.stories.GetAllReadPeerStories>`
+            - :obj:`stories.StartLive <pyrogram.raw.functions.stories.StartLive>`
     """
 
     __slots__: List[str] = ["update", "date"]

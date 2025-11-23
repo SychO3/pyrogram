@@ -36,7 +36,7 @@ class Birthday(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Birthday`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``6C8E1E06``
 
     Parameters:

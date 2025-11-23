@@ -36,7 +36,7 @@ class RefundStarsCharge(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``25AE8F4A``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputNotifyChats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputNotifyPeer`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4A95E84E``
 
     **No parameters required.**

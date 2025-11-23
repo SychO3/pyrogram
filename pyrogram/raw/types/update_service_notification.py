@@ -36,7 +36,7 @@ class UpdateServiceNotification(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EBE46819``
 
     Parameters:

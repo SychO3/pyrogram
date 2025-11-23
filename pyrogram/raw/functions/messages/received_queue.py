@@ -36,7 +36,7 @@ class ReceivedQueue(TLObject["List[raw.base.long]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``55A5BB66``
 
     Parameters:

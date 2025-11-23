@@ -36,7 +36,7 @@ class GetDefaultBackgroundEmojis(TLObject["raw.base.EmojiList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A60AB9CE``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputPeerChat(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPeer`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``35A95CB9``
 
     Parameters:

@@ -36,7 +36,7 @@ class SaveCallDebug(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``277ADD7E``
 
     Parameters:

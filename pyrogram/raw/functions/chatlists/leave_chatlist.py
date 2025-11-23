@@ -36,7 +36,7 @@ class LeaveChatlist(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``74FAE13A``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetEmojiKeywords(TLObject["raw.base.EmojiKeywordsDifference"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``35A0E062``
 
     Parameters:

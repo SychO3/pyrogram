@@ -36,7 +36,7 @@ class GetFeaturedEmojiStickers(TLObject["raw.base.messages.FeaturedStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``ECF6736``
 
     Parameters:

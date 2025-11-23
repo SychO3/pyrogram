@@ -36,7 +36,7 @@ class SetStickerSetThumb(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A76A5392``
 
     Parameters:

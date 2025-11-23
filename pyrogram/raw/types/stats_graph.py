@@ -36,7 +36,7 @@ class StatsGraph(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StatsGraph`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8EA464B6``
 
     Parameters:

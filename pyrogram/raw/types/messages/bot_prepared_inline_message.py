@@ -36,7 +36,7 @@ class BotPreparedInlineMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.BotPreparedInlineMessage`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8ECF0511``
 
     Parameters:

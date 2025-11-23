@@ -36,7 +36,7 @@ class InputPrivacyValueDisallowBots(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPrivacyRule`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``C4E57915``
 
     **No parameters required.**

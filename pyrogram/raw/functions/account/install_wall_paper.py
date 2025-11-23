@@ -36,7 +36,7 @@ class InstallWallPaper(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``FEED5769``
 
     Parameters:

@@ -36,7 +36,7 @@ class PrivacyKeyPhoneNumber(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PrivacyKey`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D19AE46D``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class TopPeerCategoryChannels(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TopPeerCategory`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``161D9628``
 
     **No parameters required.**

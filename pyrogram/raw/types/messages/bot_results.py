@@ -36,7 +36,7 @@ class BotResults(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.BotResults`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E021F2F6``
 
     Parameters:

@@ -36,7 +36,7 @@ class MessageEditData(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.MessageEditData`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``26B5DDE6``
 
     Parameters:

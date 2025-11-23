@@ -36,7 +36,7 @@ class GetSupportName(TLObject["raw.base.help.SupportName"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D360E72C``
 
     **No parameters required.**

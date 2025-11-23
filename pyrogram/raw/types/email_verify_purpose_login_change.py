@@ -36,7 +36,7 @@ class EmailVerifyPurposeLoginChange(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmailVerifyPurpose`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``527D22EB``
 
     **No parameters required.**

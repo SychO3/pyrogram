@@ -36,7 +36,7 @@ class EmojiStatusCollectible(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmojiStatus`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7184603B``
 
     Parameters:

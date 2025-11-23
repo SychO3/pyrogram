@@ -36,7 +36,7 @@ class Search(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``29EE847A``
 
     Parameters:

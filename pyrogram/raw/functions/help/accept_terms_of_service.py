@@ -36,7 +36,7 @@ class AcceptTermsOfService(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EE72F79A``
 
     Parameters:

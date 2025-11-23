@@ -36,7 +36,7 @@ class PageBlockAnchor(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CE0D37B0``
 
     Parameters:

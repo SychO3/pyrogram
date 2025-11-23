@@ -36,7 +36,7 @@ class MessageActionScreenshotTaken(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4792929B``
 
     **No parameters required.**

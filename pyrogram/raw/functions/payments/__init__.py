@@ -79,3 +79,6 @@ from .delete_star_gift_collection import DeleteStarGiftCollection
 from .get_star_gift_collections import GetStarGiftCollections
 from .get_unique_star_gift_value_info import GetUniqueStarGiftValueInfo
 from .check_can_send_gift import CheckCanSendGift
+from .get_star_gift_auction_state import GetStarGiftAuctionState
+from .get_star_gift_auction_acquired_gifts import GetStarGiftAuctionAcquiredGifts
+from .get_star_gift_active_auctions import GetStarGiftActiveAuctions

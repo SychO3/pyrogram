@@ -36,7 +36,7 @@ class GetChannelDifference(TLObject["raw.base.updates.ChannelDifference"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3173D78``
 
     Parameters:

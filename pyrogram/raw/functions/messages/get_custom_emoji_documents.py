@@ -36,7 +36,7 @@ class GetCustomEmojiDocuments(TLObject["List[raw.base.Document]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D9AB0F54``
 
     Parameters:

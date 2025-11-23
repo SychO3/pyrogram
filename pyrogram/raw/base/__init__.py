@@ -402,4 +402,13 @@ from .search_posts_flood import SearchPostsFlood
 from .profile_tab import ProfileTab
 from .input_chat_theme import InputChatTheme
 from .star_gift_upgrade_price import StarGiftUpgradePrice
+from .group_call_message import GroupCallMessage
+from .group_call_donor import GroupCallDonor
+from .recent_story import RecentStory
+from .auction_bid_level import AuctionBidLevel
+from .star_gift_auction_state import StarGiftAuctionState
+from .star_gift_auction_user_state import StarGiftAuctionUserState
+from .star_gift_auction_acquired_gift import StarGiftAuctionAcquiredGift
+from .star_gift_active_auction_state import StarGiftActiveAuctionState
+from .input_star_gift_auction import InputStarGiftAuction
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

@@ -36,7 +36,7 @@ class ReqPqMulti(TLObject["raw.base.ResPQ"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``BE7E8EF1``
 
     Parameters:

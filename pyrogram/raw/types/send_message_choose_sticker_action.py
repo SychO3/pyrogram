@@ -36,7 +36,7 @@ class SendMessageChooseStickerAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B05AC6B1``
 
     **No parameters required.**

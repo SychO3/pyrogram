@@ -36,7 +36,7 @@ class SecureValueTypePassport(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueType`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3DAC6A00``
 
     **No parameters required.**

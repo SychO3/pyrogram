@@ -54,3 +54,7 @@ from .star_gift_collections import StarGiftCollections
 from .unique_star_gift_value_info import UniqueStarGiftValueInfo
 from .check_can_send_gift_result_ok import CheckCanSendGiftResultOk
 from .check_can_send_gift_result_fail import CheckCanSendGiftResultFail
+from .star_gift_auction_state import StarGiftAuctionState
+from .star_gift_auction_acquired_gifts import StarGiftAuctionAcquiredGifts
+from .star_gift_active_auctions_not_modified import StarGiftActiveAuctionsNotModified
+from .star_gift_active_auctions import StarGiftActiveAuctions

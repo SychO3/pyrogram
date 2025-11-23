@@ -36,7 +36,7 @@ class ReadStories(TLObject["List[raw.base.int]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``A556DAC8``
 
     Parameters:

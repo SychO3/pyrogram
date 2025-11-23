@@ -36,7 +36,7 @@ class SetCallRating(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``59EAD627``
 
     Parameters:

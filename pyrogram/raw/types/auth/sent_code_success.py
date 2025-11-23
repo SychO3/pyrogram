@@ -36,7 +36,7 @@ class SentCodeSuccess(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.SentCode`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``2390FE44``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputChannelFromMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChannel`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``5B934F9D``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetStarsGiftOptions(TLObject["List[raw.base.StarsGiftOption]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D3C96BC8``
 
     Parameters:

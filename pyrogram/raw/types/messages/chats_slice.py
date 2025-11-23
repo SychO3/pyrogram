@@ -36,7 +36,7 @@ class ChatsSlice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Chats`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9CD81144``
 
     Parameters:

@@ -36,7 +36,7 @@ class ExportGroupCallInvite(TLObject["raw.base.phone.ExportedGroupCallInvite"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E6AA647F``
 
     Parameters:

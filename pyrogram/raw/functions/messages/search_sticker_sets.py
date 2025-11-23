@@ -36,7 +36,7 @@ class SearchStickerSets(TLObject["raw.base.messages.FoundStickerSets"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``35705B8A``
 
     Parameters:

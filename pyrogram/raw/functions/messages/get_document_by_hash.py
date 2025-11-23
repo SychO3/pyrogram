@@ -36,7 +36,7 @@ class GetDocumentByHash(TLObject["raw.base.Document"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B1F2061F``
 
     Parameters:

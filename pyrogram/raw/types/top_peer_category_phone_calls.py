@@ -36,7 +36,7 @@ class TopPeerCategoryPhoneCalls(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TopPeerCategory`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1E76A78C``
 
     **No parameters required.**

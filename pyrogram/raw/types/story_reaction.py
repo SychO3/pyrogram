@@ -36,7 +36,7 @@ class StoryReaction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StoryReaction`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``6090D6D5``
 
     Parameters:

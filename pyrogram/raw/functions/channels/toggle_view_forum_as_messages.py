@@ -36,7 +36,7 @@ class ToggleViewForumAsMessages(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9738BB15``
 
     Parameters:

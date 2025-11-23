@@ -36,7 +36,7 @@ class CheckRecoveryPassword(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D36BF79``
 
     Parameters:

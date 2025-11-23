@@ -36,7 +36,7 @@ class GetState(TLObject["raw.base.updates.State"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``EDD4882A``
 
     **No parameters required.**

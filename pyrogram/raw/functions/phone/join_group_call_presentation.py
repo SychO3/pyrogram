@@ -36,7 +36,7 @@ class JoinGroupCallPresentation(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``CBEA6BC4``
 
     Parameters:

@@ -36,7 +36,7 @@ class StoryView(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StoryView`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``B0BDEAC5``
 
     Parameters:

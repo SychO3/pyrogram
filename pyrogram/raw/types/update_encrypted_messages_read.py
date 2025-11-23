@@ -36,7 +36,7 @@ class UpdateEncryptedMessagesRead(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``38FE25B7``
 
     Parameters:

@@ -29,16 +29,17 @@ from pyrogram.raw.core import BaseTypeMeta
 
 
 if TYPE_CHECKING:
-    WebPageAttribute = Union[raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
+    WebPageAttribute = Union[raw.types.WebPageAttributeStarGiftAuction, raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
 else:
     # noinspection PyRedeclaration
     class WebPageAttribute(metaclass=BaseTypeMeta):  # type: ignore
-        """This base type has 5 constructors available.
+        """This base type has 6 constructors available.
 
     Constructors:
         .. hlist::
             :columns: 2
 
+            - :obj:`WebPageAttributeStarGiftAuction <pyrogram.raw.types.WebPageAttributeStarGiftAuction>`
             - :obj:`WebPageAttributeStarGiftCollection <pyrogram.raw.types.WebPageAttributeStarGiftCollection>`
             - :obj:`WebPageAttributeStickerSet <pyrogram.raw.types.WebPageAttributeStickerSet>`
             - :obj:`WebPageAttributeStory <pyrogram.raw.types.WebPageAttributeStory>`
@@ -47,7 +48,7 @@ else:
         """
 
         QUALNAME = "pyrogram.raw.base.WebPageAttribute"
-        __union_types__ = Union[raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
+        __union_types__ = Union[raw.types.WebPageAttributeStarGiftAuction, raw.types.WebPageAttributeStarGiftCollection, raw.types.WebPageAttributeStickerSet, raw.types.WebPageAttributeStory, raw.types.WebPageAttributeTheme, raw.types.WebPageAttributeUniqueStarGift]
 
         def __init__(self):
             raise TypeError("Base types can only be used for type checking purposes: "

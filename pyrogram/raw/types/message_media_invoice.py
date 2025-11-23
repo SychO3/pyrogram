@@ -36,7 +36,7 @@ class MessageMediaInvoice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageMedia`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F6A548D3``
 
     Parameters:

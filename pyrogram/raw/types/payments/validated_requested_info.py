@@ -36,7 +36,7 @@ class ValidatedRequestedInfo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.ValidatedRequestedInfo`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``D1451883``
 
     Parameters:

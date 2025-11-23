@@ -36,7 +36,7 @@ class InputCheckPasswordEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputCheckPasswordSRP`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9880F658``
 
     **No parameters required.**

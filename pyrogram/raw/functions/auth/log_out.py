@@ -36,7 +36,7 @@ class LogOut(TLObject["raw.base.auth.LoggedOut"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3E72BA19``
 
     **No parameters required.**

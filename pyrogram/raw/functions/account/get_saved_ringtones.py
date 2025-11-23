@@ -36,7 +36,7 @@ class GetSavedRingtones(TLObject["raw.base.account.SavedRingtones"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E1902288``
 
     Parameters:

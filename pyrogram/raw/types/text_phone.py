@@ -36,7 +36,7 @@ class TextPhone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RichText`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``1CCB966A``
 
     Parameters:

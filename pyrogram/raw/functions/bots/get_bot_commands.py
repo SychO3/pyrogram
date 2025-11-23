@@ -36,7 +36,7 @@ class GetBotCommands(TLObject["List[raw.base.BotCommand]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``E34C0DD6``
 
     Parameters:

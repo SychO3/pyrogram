@@ -36,7 +36,7 @@ class CheckQuickReplyShortcut(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``F1D0FBD3``
 
     Parameters:

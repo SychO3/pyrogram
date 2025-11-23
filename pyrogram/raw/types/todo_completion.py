@@ -36,23 +36,23 @@ class TodoCompletion(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TodoCompletion`.
 
     Details:
-        - Layer: ``216``
-        - ID: ``4CC120B7``
+        - Layer: ``218``
+        - ID: ``221BB5E4``
 
     Parameters:
         id: ``int`` ``32-bit``
-        completed_by: ``int`` ``64-bit``
+        completed_by: :obj:`Peer <pyrogram.raw.base.Peer>`
         date: ``int`` ``32-bit``
     """
 
     __slots__: List[str] = ["id", "completed_by", "date"]
 
-    ID = 0x4cc120b7
+    ID = 0x221bb5e4
     QUALNAME = "types.TodoCompletion"
 
-    def __init__(self, *, id: int, completed_by: int, date: int) -> None:
+    def __init__(self, *, id: int, completed_by: "raw.base.Peer", date: int) -> None:
         self.id = id  # int
-        self.completed_by = completed_by  # long
+        self.completed_by = completed_by  # Peer
         self.date = date  # int
 
     @staticmethod
@@ -61,7 +61,7 @@ class TodoCompletion(TLObject):
         
         id = Int.read(b)
         
-        completed_by = Long.read(b)
+        completed_by = TLObject.read(b)
         
         date = Int.read(b)
         
@@ -75,7 +75,7 @@ class TodoCompletion(TLObject):
         
         b.write(Int(self.id))
         
-        b.write(Long(self.completed_by))
+        b.write(self.completed_by.write())
         
         b.write(Int(self.date))
         

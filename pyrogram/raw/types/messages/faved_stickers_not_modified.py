@@ -36,7 +36,7 @@ class FavedStickersNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.FavedStickers`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``9E8FA6D3``
 
     **No parameters required.**

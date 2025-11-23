@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-count = 768
+count = 769
 
 exceptions = {
     420: {
@@ -66,6 +66,7 @@ exceptions = {
         "CHAT_SEND_STICKERS_FORBIDDEN": "ChatSendStickersForbidden",
         "CHAT_SEND_VIDEOS_FORBIDDEN": "ChatSendVideosForbidden",
         "CHAT_SEND_VOICES_FORBIDDEN": "ChatSendVoicesForbidden",
+        "CHAT_SEND_WEBPAGE_FORBIDDEN": "ChatSendWebpageForbidden",
         "CHAT_TYPE_INVALID": "ChatTypeInvalid",
         "CHAT_WRITE_FORBIDDEN": "ChatWriteForbidden",
         "EDIT_BOT_INVITE_FORBIDDEN": "EditBotInviteForbidden",

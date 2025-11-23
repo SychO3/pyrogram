@@ -36,7 +36,7 @@ class WebPageNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.WebPage`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``7311CA11``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputMessagesFilterMusic(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessagesFilter`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``3751B49E``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class Takeout(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.Takeout`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``4DBA4501``
 
     Parameters:

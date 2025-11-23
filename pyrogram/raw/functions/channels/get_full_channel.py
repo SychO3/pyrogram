@@ -36,7 +36,7 @@ class GetFullChannel(TLObject["raw.base.messages.ChatFull"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``8736A09``
 
     Parameters:

@@ -36,7 +36,7 @@ class UrlAuthResultRequest(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.UrlAuthResult`.
 
     Details:
-        - Layer: ``216``
+        - Layer: ``218``
         - ID: ``92D33A0E``
 
     Parameters:
