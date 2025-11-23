@@ -23,7 +23,7 @@ from pyrogram import raw, types, utils, enums
 from .inline_query_result import InlineQueryResult
 
 
-class InlineQueryResultAnimation(InlineQueryResult):
+class InlineQueryResultGif(InlineQueryResult):
     """Link to an animated GIF file.
 
     By default, this animated GIF file will be sent by the user with optional caption.
