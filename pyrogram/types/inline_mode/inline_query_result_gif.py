@@ -23,32 +23,34 @@ from pyrogram import raw, types, utils, enums
 from .inline_query_result import InlineQueryResult
 
 
-class InlineQueryResultGif(InlineQueryResult):
-    """Represents a link to an animated GIF file. 
-    
-    By default, this animated GIF file will be sent by the user with optional caption. 
-    Alternatively, you can use :obj:`~pyrogram.types.InputMessageContent` to send a message with the specified content instead of the animation.
+class InlineQueryResultAnimation(InlineQueryResult):
+    """Link to an animated GIF file.
+
+    By default, this animated GIF file will be sent by the user with optional caption.
+    Alternatively, you can use *input_message_content* to send a message with the specified content instead of the
+    animation.
 
     Parameters:
-        gif_url (``str``):
-            A valid URL for the GIF file. File size must not exceed 1MB.
+        animation_url (``str``):
+            A valid URL for the animated GIF file.
+            File size must not exceed 1 MB.
+
+        animation_width (``int``, *optional*)
+            Width of the animation.
+
+        animation_height (``int``, *optional*)
+            Height of the animation.
+
+        animation_duration (``int``, *optional*)
+            Duration of the animation in seconds.
 
         thumb_url (``str``, *optional*):
-            URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
-            Defaults to the value passed in *gif_url*.
+            URL of the static thumbnail for the result (jpeg or gif)
+            Defaults to the value passed in *animation_url*.
 
-        thumbnail_mime_type (``str``, *optional*):
-            MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. 
-            Defaults to “image/jpeg”.
-
-        gif_width (``int``, *optional*):
-            Width of the GIF.
-
-        gif_height (``int``, *optional*):
-            Height of the GIF.
-
-        gif_duration (``int``, *optional*):
-            Duration of the GIF in seconds.
+        thumb_mime_type (``str``, *optional*)
+            MIME type of the thumbnail, must be one of "image/jpeg", "image/gif", or "video/mp4".
+            Defaults to "image/jpeg".
 
         id (``str``, *optional*):
             Unique identifier for this result, 1-64 bytes.
@@ -58,7 +60,7 @@ class InlineQueryResultGif(InlineQueryResult):
             Title for the result.
 
         caption (``str``, *optional*):
-            Caption of the GIF file to be sent, 0-1024 characters.
+            Caption of the animation to be sent, 0-1024 characters.
 
         parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
             By default, texts are parsed using both Markdown and HTML styles.
@@ -67,71 +69,67 @@ class InlineQueryResultGif(InlineQueryResult):
         caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
             List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
 
-        show_caption_above_media (``bool``, *optional*):
-            If true, the caption will be sent above the media.
-            Defaults to False.
-
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             An InlineKeyboardMarkup object.
 
         input_message_content (:obj:`~pyrogram.types.InputMessageContent`):
-            Content of the message to be sent instead of the GIF animation.
+            Content of the message to be sent instead of the photo.
     """
 
     def __init__(
         self,
-        gif_url: str,
+        animation_url: str,
+        animation_width: int = 0,
+        animation_height: int = 0,
+        animation_duration: int = 0,
         thumb_url: str = None,
-        thumbnail_mime_type: str = "image/jpeg",
-        gif_width: int = 0,
-        gif_height: int = 0,
-        gif_duration: int = 0,
+        thumb_mime_type: str = "image/jpeg",
         id: str = None,
         title: str = None,
+        description: str = None,
         caption: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
-        show_caption_above_media: bool = False,
         reply_markup: "types.InlineKeyboardMarkup" = None,
         input_message_content: "types.InputMessageContent" = None
     ):
         super().__init__("gif", id, input_message_content, reply_markup)
 
-        self.gif_url = gif_url
+        self.animation_url = animation_url
+        self.animation_width = animation_width
+        self.animation_height = animation_height
+        self.animation_duration = animation_duration
         self.thumb_url = thumb_url
-        self.thumbnail_mime_type = thumbnail_mime_type
-        self.gif_width = gif_width
-        self.gif_height = gif_height
-        self.gif_duration = gif_duration
+        self.thumb_mime_type = thumb_mime_type
         self.title = title
+        self.description = description
         self.caption = caption
         self.parse_mode = parse_mode
         self.caption_entities = caption_entities
-        self.show_caption_above_media = show_caption_above_media
         self.reply_markup = reply_markup
         self.input_message_content = input_message_content
 
     async def write(self, client: "pyrogram.Client"):
-        gif = raw.types.InputWebDocument(
-            url=self.gif_url,
+        animation = raw.types.InputWebDocument(
+            url=self.animation_url,
             size=0,
             mime_type="image/gif",
             attributes=[
-                raw.types.DocumentAttributeImageSize(
-                    w=self.gif_width,
-                    h=self.gif_height
-                ),
-                raw.types.DocumentAttributeAnimated()
+                raw.types.DocumentAttributeVideo(
+                    w=self.animation_width,
+                    h=self.animation_height,
+                    duration=self.animation_duration
+                )
             ]
         )
 
         if self.thumb_url is None:
-            thumb = gif
+            thumb = animation
         else:
             thumb = raw.types.InputWebDocument(
                 url=self.thumb_url,
                 size=0,
-                mime_type=self.thumbnail_mime_type,
+                mime_type=self.thumb_mime_type,
                 attributes=[]
             )
 
@@ -144,15 +142,15 @@ class InlineQueryResultGif(InlineQueryResult):
             type=self.type,
             title=self.title,
             thumb=thumb,
-            content=gif,
+            content=animation,
+            description=self.description,
             send_message=(
                 await self.input_message_content.write(client, self.reply_markup)
                 if self.input_message_content
                 else raw.types.InputBotInlineMessageMediaAuto(
                     reply_markup=await self.reply_markup.write(client) if self.reply_markup else None,
                     message=message,
-                    entities=entities,
-                    invert_media=self.show_caption_above_media
+                    entities=entities
                 )
             )
         )
