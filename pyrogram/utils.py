@@ -383,10 +383,10 @@ def get_peer_type(peer_id: int) -> str:
         if -MAX_CHAT_ID <= peer_id:
             return "chat"
 
-        if ZERO_CHANNEL_ID - MAX_CHANNEL_ID <= peer_id != ZERO_CHANNEL_ID:
+        if ZERO_CHANNEL_ID - MAX_CHANNEL_ID <= peer_id and peer_id != ZERO_CHANNEL_ID:
             return "channel"
 
-        if ZERO_SECRET_CHAT_ID + (-1 << 31) <= peer_id != ZERO_SECRET_CHAT_ID:
+        if ZERO_SECRET_CHAT_ID + (-1 << 31) <= peer_id and peer_id != ZERO_SECRET_CHAT_ID:
             return "secret_chat"
 
         if ZERO_CHANNEL_ID - MAX_MONOFORUM_CHANNEL_ID <= peer_id:
@@ -708,6 +708,17 @@ def from_nano(nano: int) -> float:
 
 def to_nano(amount: float) -> int:
     return int(amount * 1e9)
+
+
+def get_premium_duration_month_count(day_count: int) -> int:
+    return max(1, day_count // 30)
+
+
+def get_premium_duration_day_count(month_count: int) -> int:
+    if month_count <= 0 or month_count > 10000000:
+        return 7
+
+    return month_count * 30 + month_count // 3 + month_count // 12
 
 PyromodConfig = SimpleNamespace(
     timeout_handler=None,
