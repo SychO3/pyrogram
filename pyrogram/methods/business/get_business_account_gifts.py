@@ -124,7 +124,7 @@ class GetBusinessAccountGifts:
             chats = {i.id: i for i in r.chats}
 
             user_star_gifts = [
-                await types.Gift._parse_saved(self, gift, users, chats)
+                await types.Gift._parse(self, gift, users, chats)
                 for gift in r.gifts
             ]
 

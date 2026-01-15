@@ -807,6 +807,7 @@ def pyrogram_api():
             UpgradedGiftAttributeIdModel
             UpgradedGiftAttributeIdSymbol
             UpgradedGiftAttributeIdBackdrop
+            UpgradedGiftOriginalDetails
             InputChatPhoto
             InputChatPhotoPrevious
             InputChatPhotoStatic
@@ -1217,6 +1218,7 @@ def pyrogram_api():
             PrivacyRuleType
             GiftForResaleOrder
             GiftPurchaseOfferState
+            GiftType
             PaymentFormType
             StickerType
             MaskPointType
