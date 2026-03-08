@@ -19,9 +19,7 @@
 from typing import List, Optional
 
 import pyrogram
-from pyrogram import raw, types
-from pyrogram import enums
-from pyrogram import utils
+from pyrogram import enums, raw, types, utils
 
 from ..object import Object
 
@@ -61,7 +59,7 @@ class FormattedText(Object):
         entities = types.List(
             filter(
                 lambda x: x is not None,
-                [types.MessageEntity._parse(client, entity, {}) for entity in text.entities]
+                [types.MessageEntity._parse(client, entity, {}) for entity in text.entities],
             )
         )
 
@@ -70,10 +68,9 @@ class FormattedText(Object):
             entities=entities or None,
         )
 
-    async def write(self) -> "raw.types.TextWithEntities":
-        message, entities = (await utils.parse_text_entities(self, self.text, self.parse_mode, self.entities)).values()
+    async def write(self, client: "pyrogram.Client") -> "raw.types.TextWithEntities":
+        message, entities = (
+            await utils.parse_text_entities(client, self.text, self.parse_mode, self.entities)
+        ).values()
 
-        return raw.types.TextWithEntities(
-            text=message,
-            entities=entities or []
-        )
+        return raw.types.TextWithEntities(text=message, entities=entities or [])

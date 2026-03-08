@@ -243,6 +243,7 @@ def pyrogram_api():
             send_voice
             send_video_note
             send_media_group
+            send_message_draft
             send_location
             send_venue
             send_contact
@@ -432,6 +433,7 @@ def pyrogram_api():
             add_contact
             delete_contacts
             import_contacts
+            get_blocked_message_senders
             get_contacts
             get_contacts_count
             search_contacts
@@ -460,6 +462,8 @@ def pyrogram_api():
             set_gift_collection_name
             get_gift_upgrade_preview
             get_gift_upgrade_variants
+            get_gifts_for_crafting
+            craft_gift
             get_payment_form
             get_stars_balance
             get_ton_balance
@@ -714,6 +718,9 @@ def pyrogram_api():
             Voice
             VideoNote
             Contact
+            CraftGiftResult
+            CraftGiftResultSuccess
+            CraftGiftResultFail
             Location
             MaskPosition
             MediaArea
@@ -749,7 +756,7 @@ def pyrogram_api():
             Invoice
             LinkPreviewOptions
             GiftCollection
-            GiftCode
+            PremiumGiftCode
             GiftPurchaseLimit
             GiftResaleParameters
             GiftResalePrice
@@ -789,6 +796,8 @@ def pyrogram_api():
             SavedCredentials
             PaymentResult
             ChatBoost
+            ChatOwnerChanged
+            ChatOwnerLeft
             ContactRegistered
             ScreenshotTaken
             StarAmount
@@ -807,6 +816,12 @@ def pyrogram_api():
             UpgradedGiftAttributeIdModel
             UpgradedGiftAttributeIdSymbol
             UpgradedGiftAttributeIdBackdrop
+            UpgradedGiftAttributeRarity
+            UpgradedGiftAttributeRarityPerMille
+            UpgradedGiftAttributeRarityUncommon
+            UpgradedGiftAttributeRarityRare
+            UpgradedGiftAttributeRarityEpic
+            UpgradedGiftAttributeRarityLegendary
             UpgradedGiftOriginalDetails
             InputChatPhoto
             InputChatPhotoPrevious
@@ -1187,7 +1202,9 @@ def pyrogram_api():
     categories = dict(
         enums="""
         Enumerations
+            BlockList
             BusinessSchedule
+            ButtonStyle
             ChatAction
             ChatEventAction
             ChatJoinType
@@ -1213,6 +1230,7 @@ def pyrogram_api():
             SentCodeType
             StoriesPrivacyRules
             UserStatus
+            UpgradedGiftOrigin
             GiftAttributeType
             MediaAreaType
             PrivacyRuleType

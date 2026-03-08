@@ -270,6 +270,12 @@ class Message(Object, Update):
         left_chat_member (:obj:`~pyrogram.types.User`, *optional*):
             A member was removed from the group, information about them (this member may be the bot itself).
 
+        chat_owner_left (:obj:`~pyrogram.types.ChatOwnerLeft`, *optional*):
+            Service message: chat owner has left.
+
+        chat_owner_changed (:obj:`~pyrogram.types.ChatOwnerChanged`, *optional*):
+            Service message: chat owner has changed.
+
         chat_join_type (:obj:`~pyrogram.enums.ChatJoinType`, *optional*):
             This field will contain the enumeration type of how the user had joined the chat.
 
@@ -405,8 +411,8 @@ class Message(Object, Update):
         checklist_tasks_added (:obj:`~pyrogram.types.ChecklistTasksAdded`, *optional*):
             Service message: checklist tasks added.
 
-        gift_code (:obj:`~pyrogram.types.GiftCode`, *optional*):
-            Service message: gift code information.
+        premium_gift_code (:obj:`~pyrogram.types.PremiumGiftCode`, *optional*):
+            Service message: premium gift code information.
 
         gifted_premium (:obj:`~pyrogram.types.GiftedPremium`, *optional*):
             Service message: gifted premium information.
@@ -633,6 +639,8 @@ class Message(Object, Update):
         dice: Optional["types.Dice"] = None,
         new_chat_members: Optional[List["types.User"]] = None,
         left_chat_member: Optional["types.User"] = None,
+        chat_owner_left: Optional["types.ChatOwnerLeft"] = None,
+        chat_owner_changed: Optional["types.ChatOwnerChanged"] = None,
         chat_join_type: Optional["enums.ChatJoinType"] = None,
         new_chat_title: Optional[str] = None,
         new_chat_photo: Optional["types.Photo"] = None,
@@ -669,7 +677,7 @@ class Message(Object, Update):
         direct_message_price_changed: Optional["types.DirectMessagePriceChanged"] = None,
         checklist_tasks_done: Optional[List["types.ChecklistTasksDone"]] = None,
         checklist_tasks_added: Optional[List["types.ChecklistTasksAdded"]] = None,
-        gift_code: Optional["types.GiftCode"] = None,
+        premium_gift_code: Optional["types.PremiumGiftCode"] = None,
         gifted_premium: Optional["types.GiftedPremium"] = None,
         gifted_stars: Optional["types.GiftedStars"] = None,
         gifted_ton: Optional["types.GiftedTon"] = None,
@@ -793,6 +801,8 @@ class Message(Object, Update):
         self.dice = dice
         self.new_chat_members = new_chat_members
         self.left_chat_member = left_chat_member
+        self.chat_owner_left = chat_owner_left
+        self.chat_owner_changed = chat_owner_changed
         self.chat_join_type = chat_join_type
         self.new_chat_title = new_chat_title
         self.new_chat_photo = new_chat_photo
@@ -835,7 +845,7 @@ class Message(Object, Update):
         self.direct_message_price_changed = direct_message_price_changed
         self.checklist_tasks_done = checklist_tasks_done
         self.checklist_tasks_added = checklist_tasks_added
-        self.gift_code = gift_code
+        self.premium_gift_code = premium_gift_code
         self.gifted_premium = gifted_premium
         self.gifted_stars = gifted_stars
         self.gifted_ton = gifted_ton
@@ -921,13 +931,15 @@ class Message(Object, Update):
         group_chat_created = None
         delete_chat_photo = None
         left_chat_member = None
+        chat_owner_left = None
+        chat_owner_changed = None
         new_chat_photo = None
         new_chat_title = None
         migrate_to_chat_id = None
         contact_registered = None
         text = None
         proximity_alert_triggered = None
-        gift_code = None
+        premium_gift_code = None
         gifted_premium = None
         gifted_stars = None
         gifted_ton = None
@@ -1013,6 +1025,12 @@ class Message(Object, Update):
         elif isinstance(action, raw.types.MessageActionChatDeleteUser):
             service_type = enums.MessageServiceType.LEFT_CHAT_MEMBER
             left_chat_member = types.User._parse(client, users[action.user_id])
+        elif isinstance(action, raw.types.MessageActionNewCreatorPending):
+            service_type = enums.MessageServiceType.CHAT_OWNER_LEFT
+            chat_owner_left = types.ChatOwnerLeft._parse(client, action, users)
+        elif isinstance(action, raw.types.MessageActionChangeCreator):
+            service_type = enums.MessageServiceType.CHAT_OWNER_CHANGED
+            chat_owner_changed = types.ChatOwnerChanged._parse(client, action, users)
         elif isinstance(action, raw.types.MessageActionChatEditPhoto):
             service_type = enums.MessageServiceType.NEW_CHAT_PHOTO
             new_chat_photo = types.Photo._parse(client, action.photo)
@@ -1041,8 +1059,8 @@ class Message(Object, Update):
             service_type = enums.MessageServiceType.PROXIMITY_ALERT_TRIGGERED
             proximity_alert_triggered = types.ProximityAlertTriggered._parse(client, action, users, chats)
         elif isinstance(action, raw.types.MessageActionGiftCode):
-            service_type = enums.MessageServiceType.GIFT_CODE
-            gift_code = types.GiftCode._parse(client, action, users, chats)
+            service_type = enums.MessageServiceType.PREMIUM_GIFT_CODE
+            premium_gift_code = await types.PremiumGiftCode._parse(client, action, users, chats)
         elif isinstance(action, raw.types.MessageActionGiftPremium):
             service_type = enums.MessageServiceType.GIFTED_PREMIUM
             gifted_premium = await types.GiftedPremium._parse(
@@ -1183,7 +1201,7 @@ class Message(Object, Update):
             service_type = enums.MessageServiceType.GIFT
             is_prepaid_upgrade=action.prepaid_upgrade
             is_from_auction=getattr(action, "auction_acquired", None)
-            gift = await types.Gift._parse(client, action, users, chats)
+            gift = await types.Gift._parse(client, action, users=users, chats=chats)
         elif isinstance(action, raw.types.MessageActionSuggestProfilePhoto):
             service_type = enums.MessageServiceType.SUGGEST_PROFILE_PHOTO
             suggest_profile_photo = types.Photo._parse(client, action.photo)
@@ -1247,13 +1265,15 @@ class Message(Object, Update):
             group_chat_created=group_chat_created,
             delete_chat_photo=delete_chat_photo,
             left_chat_member=left_chat_member,
+            chat_owner_left=chat_owner_left,
+            chat_owner_changed=chat_owner_changed,
             new_chat_photo=new_chat_photo,
             new_chat_title=new_chat_title,
             migrate_to_chat_id=migrate_to_chat_id,
             contact_registered=contact_registered,
             text=text,
             proximity_alert_triggered=proximity_alert_triggered,
-            gift_code=gift_code,
+            premium_gift_code=premium_gift_code,
             gifted_premium=gifted_premium,
             gifted_stars=gifted_stars,
             gifted_ton=gifted_ton,
@@ -8143,9 +8163,9 @@ class Message(Object, Update):
         parse_mode: Optional["enums.ParseMode"] = None,
         entities: Optional[List["types.MessageEntity"]] = None,
         link_preview_options: Optional["types.LinkPreviewOptions"] = None,
-        show_caption_above_media: Optional[bool] = None,
         reply_markup: Optional["types.InlineKeyboardMarkup"] = None,
 
+        show_caption_above_media: Optional[bool] = None,
         disable_web_page_preview: Optional[bool] = None,
     ) -> "Message":
         """Shortcut for method :obj:`~pyrogram.Client.edit_message_text` will automatically fill method attributes:
@@ -8173,9 +8193,6 @@ class Message(Object, Update):
             link_preview_options (:obj:`~pyrogram.types.LinkPreviewOptions`, *optional*):
                 Options used for link preview generation for the message.
 
-            show_caption_above_media (``bool``, *optional*):
-                Pass True, if the caption must be shown above the message media.
-
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
                 An InlineKeyboardMarkup object.
 
@@ -8192,10 +8209,10 @@ class Message(Object, Update):
             parse_mode=parse_mode,
             entities=entities,
             link_preview_options=link_preview_options,
-            show_caption_above_media=show_caption_above_media,
             business_connection_id=self.business_connection_id,
             reply_markup=reply_markup,
 
+            show_caption_above_media=show_caption_above_media,
             disable_web_page_preview=disable_web_page_preview,
         )
 
@@ -8206,7 +8223,8 @@ class Message(Object, Update):
         caption: str,
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: Optional[List["types.MessageEntity"]] = None,
-        reply_markup: Optional["types.InlineKeyboardMarkup"] = None
+        reply_markup: Optional["types.InlineKeyboardMarkup"] = None,
+        show_caption_above_media: Optional[bool] = None
     ) -> "Message":
         """Shortcut for method :obj:`~pyrogram.Client.edit_message_caption` will automatically fill method attributes:
 
@@ -8225,6 +8243,10 @@ class Message(Object, Update):
             caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
                 List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
 
+            show_caption_above_media (``bool``, *optional*):
+                Pass True, if the caption must be shown above the message media.
+                Supported only for animation, photo and video messages.
+
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
                 An InlineKeyboardMarkup object.
 
@@ -8241,6 +8263,7 @@ class Message(Object, Update):
             parse_mode=parse_mode,
             caption_entities=caption_entities,
             business_connection_id=self.business_connection_id,
+            show_caption_above_media=show_caption_above_media,
             reply_markup=reply_markup
         )
 
@@ -8932,9 +8955,9 @@ class Message(Object, Update):
 
         Returns:
             -   The result of :meth:`~pyrogram.Client.request_callback_answer` in case of inline callback button clicks.
-            -   The result of :meth:`~Message.reply()` in case of normal button clicks.
-            -   A string in case the inline button is a URL, a *switch_inline_query* or a
-                *switch_inline_query_current_chat* button.
+            -   The result of :meth:`~Message.reply()` or :meth:`~Message.answer()` in case of normal button clicks.
+            -   A string in case the inline button is a URL, a *switch_inline_query*,
+                *switch_inline_query_current_chat* or a *copy_text* button.
             -   A string URL with the user details, in case of a WebApp button.
             -   A :obj:`~pyrogram.types.Chat` object in case of a ``KeyboardButtonUserProfile`` button.
 
@@ -9038,6 +9061,8 @@ class Message(Object, Update):
                 return button.switch_inline_query
             elif button.switch_inline_query_current_chat:
                 return button.switch_inline_query_current_chat
+            elif button.copy_text:
+                return button.copy_text
             else:
                 raise ValueError("This button is not supported yet")
         else:

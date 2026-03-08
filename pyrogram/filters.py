@@ -363,7 +363,7 @@ giveaway_winners = create(giveaway_winners_filter)
 
 # region gift_code_filter
 async def gift_code_filter(_, __, m: Message):
-    return bool(m.gift_code)
+    return bool(m.premium_gift_code)
 
 
 gift_code = create(gift_code_filter)

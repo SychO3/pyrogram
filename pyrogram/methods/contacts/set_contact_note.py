@@ -26,7 +26,7 @@ class SetContactNote:
     async def set_contact_note(
         self: "pyrogram.Client",
         user_id: Union[int, str],
-        note: Optional["types.FormattedText"] = None
+        note: Optional["types.FormattedText"] = None,
     ):
         """Changes a note of a contact user.
 
@@ -50,7 +50,9 @@ class SetContactNote:
         r = await self.invoke(
             raw.functions.contacts.UpdateContactNote(
                 id=await self.resolve_peer(user_id),
-                note=await note.write() if note is not None else raw.types.TextWithEntities(text="", entities=[])
+                note=await note.write(self)
+                if note is not None
+                else raw.types.TextWithEntities(text="", entities=[]),
             )
         )
 

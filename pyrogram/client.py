@@ -5,12 +5,12 @@
 #
 #  Pyrogram is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Lesser General Public License as published
-#  by the Free Software 我给他職5日4还有个63 摩羯男 Foundation, either version 3 of the License, or
+#  by the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 #
 #  Pyrogram is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR5A PARTICULAR PURPOSE.  See the
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
@@ -119,9 +119,10 @@ class Client(Methods):
             after which the server address will be updated (works both ways).
             Defaults to False (IPv4).
 
-        proxy (``dict``, *optional*):
+        proxy (``dict`` | ``str``, *optional*):
             The Proxy settings as dict.
-            E.g.: *dict(scheme="socks5", hostname="11.22.33.44", port=1234, username="user", password="pass")*.
+            E.g.: *dict(scheme="socks5", hostname="11.22.33.44", port=1234, username="user", password="pass")*
+            or *"http://11.22.33.44:1234"* or *"socks5://user:pass@11.22.33.44:1234"*.
             The *username* and *password* can be omitted if the proxy doesn't require authorization.
 
         test_mode (``bool``, *optional*):
@@ -180,6 +181,7 @@ class Client(Methods):
 
         skip_updates (``bool``, *optional*):
             Pass True to skip pending updates that arrived while the client was offline.
+            Doesn't work if *in_memory* is set to True.
             Defaults to True.
 
         takeout (``bool``, *optional*):
@@ -287,7 +289,7 @@ class Client(Methods):
         lang_code: str = LANG_CODE,
         system_lang_code: str = SYSTEM_LANG_CODE,
         ipv6: Optional[bool] = False,
-        proxy: Optional[dict] = None,
+        proxy: Optional[Union[dict, str]] = None,
         test_mode: Optional[bool] = False,
         bot_token: Optional[str] = None,
         session_string: Optional[str] = None,
@@ -382,10 +384,7 @@ class Client(Methods):
         self.dispatcher: Dispatcher = Dispatcher(self)
 
         self.rnd_id = MsgId
-        self._last_sync_time = time.time()
-        self._last_monotonic = time.monotonic()
-
-        self._is_server_time_synced = False
+        self._server_time_offset = 0.0
 
         self.parser: Parser = Parser(self)
 
@@ -425,9 +424,19 @@ class Client(Methods):
         if isinstance(loop, asyncio.AbstractEventLoop):
             self.loop = loop
         else:
-            self.loop = utils.get_event_loop()
+            self.loop = None
 
         self.__config: "raw.types.Config" = None
+
+    @property
+    def loop(self) -> asyncio.AbstractEventLoop:
+        if not self._loop:
+            self._loop = utils.get_event_loop()
+        return self._loop
+
+    @loop.setter
+    def loop(self, value: asyncio.AbstractEventLoop):
+        self._loop = value
 
         self.listeners = {listener_type: [] for listener_type in pyrogram.enums.ListenerTypes}
 
@@ -633,12 +642,12 @@ class Client(Methods):
         return signed_up
 
     async def authorize_qr(self, except_ids: List[int] = []) -> "User":
-        import qrcode
+        from qrcode import QRCode
 
         qr_login = QRLogin(self, except_ids)
         await qr_login.recreate()
 
-        qr = qrcode.QRCode(version=1)
+        qr = QRCode(version=1)
 
         while True:
             try:
@@ -822,7 +831,7 @@ class Client(Methods):
                 pts = getattr(update, "pts", None)
                 pts_count = getattr(update, "pts_count", None)
 
-                if pts and not self.skip_updates:
+                if pts:
                     await self.storage.update_state(
                         (
                             utils.get_channel_id(channel_id) if channel_id else 0,
@@ -864,16 +873,15 @@ class Client(Methods):
 
                 self.dispatcher.updates_queue.put_nowait((update, users, chats))
         elif isinstance(updates, (raw.types.UpdateShortMessage, raw.types.UpdateShortChatMessage)):
-            if not self.skip_updates:
-                await self.storage.update_state(
-                    (
-                        0,
-                        updates.pts,
-                        None,
-                        updates.date,
-                        None
-                    )
+            await self.storage.update_state(
+                (
+                    0,
+                    updates.pts,
+                    None,
+                    updates.date,
+                    None
                 )
+            )
 
             diff = await self.invoke(
                 raw.functions.updates.GetDifference(
@@ -1536,16 +1544,12 @@ class Client(Methods):
 
     @property
     def server_time(self) -> float:
-        return self._last_sync_time + (time.monotonic() - self._last_monotonic)
+        return time.time() + self._server_time_offset
 
     def _set_server_time(self, msg_id: int):
-        if self._is_server_time_synced:
-            return
-
-        self._last_sync_time = msg_id / float(2**32)
-        self._last_monotonic = time.monotonic()
-        self._is_server_time_synced = True
-        log.info(f"Time synced: {utils.timestamp_to_datetime(self._last_sync_time)}")
+        server_ts = msg_id / float(2**32)
+        self._server_time_offset = server_ts - time.time()
+        log.info(f"Time synced: offset={self._server_time_offset:.3f}s, server_time={utils.timestamp_to_datetime(server_ts)}")
 
     def guess_mime_type(self, filename: Union[str, BytesIO]) -> Optional[str]:
         if isinstance(filename, BytesIO):

@@ -15,33 +15,35 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
-from typing import List
+
+from typing import Dict
 
 import pyrogram
 from pyrogram import raw, types
 
+from ..object import Object
 
-class GetAvailableGifts:
-    async def get_available_gifts(
-        self: "pyrogram.Client",
-    ) -> List["types.Gift"]:
-        """Get all available star gifts that can be sent to other users.
 
-        .. include:: /_includes/usable-by/users-bots.rst
+class ChatOwnerChanged(Object):
+    """Describes a service message about an ownership change in the chat.
 
-        Returns:
-            List of :obj:`~pyrogram.types.Gift`: On success, a list of star gifts is returned.
+    Parameters:
+        new_owner (:obj:`~pyrogram.types.User`):
+            The new owner of the chat.
+    """
 
-        Example:
-            .. code-block:: python
+    def __init__(self, *, new_owner: "types.User"):
+        super().__init__()
 
-                await app.get_available_gifts()
-        """
-        r = await self.invoke(
-            raw.functions.payments.GetStarGifts(hash=0)
-        )
+        self.new_owner = new_owner
 
-        users = {i.id: i for i in r.users}
-        chats = {i.id: i for i in r.chats}
-
-        return types.List([await types.Gift._parse_regular(self, gift, users=users, chats=chats) for gift in r.gifts])
+    @staticmethod
+    def _parse(
+        client: "pyrogram.Client",
+        action: "raw.types.MessageActionChangeCreator",
+        users: Dict[int, "types.User"],
+    ) -> "ChatOwnerChanged":
+        if isinstance(action, raw.types.MessageActionChangeCreator):
+            return ChatOwnerChanged(
+                new_owner=types.User._parse(client, users.get(action.new_creator_id))
+            )

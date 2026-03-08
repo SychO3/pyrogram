@@ -26,6 +26,8 @@ from .boosts_status import BoostsStatus
 from .business_message import BusinessMessage
 from .chat_background import ChatBackground
 from .chat_boost import ChatBoost
+from .chat_owner_changed import ChatOwnerChanged
+from .chat_owner_left import ChatOwnerLeft
 from .chat_theme import ChatTheme
 from .checked_gift_code import CheckedGiftCode
 from .checklist_task import ChecklistTask
@@ -34,6 +36,7 @@ from .checklist_tasks_done import ChecklistTasksDone
 from .checklist import Checklist
 from .contact_registered import ContactRegistered
 from .contact import Contact
+from .craft_gift_result import CraftGiftResult, CraftGiftResultSuccess, CraftGiftResultFail
 from .dice import Dice
 from .direct_message_price_changed import DirectMessagePriceChanged
 from .direct_messages_topic import DirectMessagesTopic
@@ -50,7 +53,7 @@ from .game import Game
 from .general_forum_topic_hidden import GeneralForumTopicHidden
 from .general_forum_topic_unhidden import GeneralForumTopicUnhidden
 from .gift_collection import GiftCollection
-from .gift_code import GiftCode
+from .premium_gift_code import PremiumGiftCode
 from .gift_purchase_limit import GiftPurchaseLimit
 from .gift_resale_parameters import GiftResaleParameters
 from .gift_resale_price import GiftResalePrice, GiftResalePriceStar, GiftResalePriceTon
@@ -126,6 +129,7 @@ from .upgraded_gift_attribute_id_backdrop import UpgradedGiftAttributeIdBackdrop
 from .upgraded_gift_attribute_id_model import UpgradedGiftAttributeIdModel
 from .upgraded_gift_attribute_id_symbol import UpgradedGiftAttributeIdSymbol
 from .upgraded_gift_attribute_id import UpgradedGiftAttributeId
+from .upgraded_gift_attribute_rarity import UpgradedGiftAttributeRarity, UpgradedGiftAttributeRarityPerMille, UpgradedGiftAttributeRarityUncommon, UpgradedGiftAttributeRarityRare, UpgradedGiftAttributeRarityEpic, UpgradedGiftAttributeRarityLegendary
 from .upgraded_gift_original_details import UpgradedGiftOriginalDetails
 from .upgraded_gift_purchase_offer import UpgradedGiftPurchaseOffer, UpgradedGiftPurchaseOfferRejected
 from .upgraded_gift_value_info import UpgradedGiftValueInfo
@@ -150,6 +154,8 @@ __all__ = [
     "BusinessMessage",
     "ChatBackground",
     "ChatBoost",
+    "ChatOwnerChanged",
+    "ChatOwnerLeft",
     "ChatTheme",
     "CheckedGiftCode",
     "ChecklistTask",
@@ -158,6 +164,9 @@ __all__ = [
     "Checklist",
     "ContactRegistered",
     "Contact",
+    "CraftGiftResult",
+    "CraftGiftResultSuccess",
+    "CraftGiftResultFail",
     "Dice",
     "DirectMessagePriceChanged",
     "DirectMessagesTopic",
@@ -174,7 +183,7 @@ __all__ = [
     "GeneralForumTopicHidden",
     "GeneralForumTopicUnhidden",
     "GiftCollection",
-    "GiftCode",
+    "PremiumGiftCode",
     "GiftPurchaseLimit",
     "GiftResaleParameters",
     "GiftResalePrice",
@@ -254,6 +263,12 @@ __all__ = [
     "UpgradedGiftAttributeIdModel",
     "UpgradedGiftAttributeIdSymbol",
     "UpgradedGiftAttributeId",
+    "UpgradedGiftAttributeRarity",
+    "UpgradedGiftAttributeRarityPerMille",
+    "UpgradedGiftAttributeRarityUncommon",
+    "UpgradedGiftAttributeRarityRare",
+    "UpgradedGiftAttributeRarityEpic",
+    "UpgradedGiftAttributeRarityLegendary",
     "UpgradedGiftOriginalDetails",
     "UpgradedGiftPurchaseOffer",
     "UpgradedGiftPurchaseOfferRejected",
