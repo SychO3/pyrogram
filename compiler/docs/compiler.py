@@ -327,6 +327,7 @@ def pyrogram_api():
             pin_chat_message
             unpin_chat_message
             pin_forum_topic
+            process_chat_has_protected_content_disable_request
             unpin_forum_topic
             unpin_all_chat_messages
             get_chat
@@ -384,6 +385,7 @@ def pyrogram_api():
             transfer_chat_ownership
             get_suitable_discussion_chats
             set_chat_discussion_group
+            set_chat_member_tag
             set_main_profile_tab
         """,
         users="""
@@ -798,6 +800,8 @@ def pyrogram_api():
             ChatBoost
             ChatOwnerChanged
             ChatOwnerLeft
+            ChatHasProtectedContentToggled
+            ChatHasProtectedContentDisableRequested
             ContactRegistered
             ScreenshotTaken
             StarAmount

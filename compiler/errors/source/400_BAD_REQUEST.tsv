@@ -424,6 +424,7 @@ RANDOM_ID_EMPTY	The random ID is empty.
 RANDOM_ID_INVALID	The provided random ID is invalid.
 RANDOM_LENGTH_INVALID	The random length is invalid.
 RANGES_INVALID	Invalid range provided.
+RANK_INVALID	The specified member tag is invalid.
 REACTIONS_COUNT_INVALID	The count of the reactions should be less than `stars_paid_reaction_amount_max` stars, you can't react with more number of stars, see [the docs for more info](https://core.telegram.org/api/config#client-configuration).
 REACTIONS_TOO_MANY	Non-premium users, can set up only one reaction per message.
 REACTION_EMPTY	The specified reaction is empty.

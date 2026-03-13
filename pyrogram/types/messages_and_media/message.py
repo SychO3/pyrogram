@@ -29,6 +29,7 @@ from pyrogram.parser import utils as parser_utils
 
 from ..object import Object
 from ..update import Update
+import contextlib
 
 log = logging.getLogger(__name__)
 
@@ -77,6 +78,10 @@ class Message(Object, Update):
 
         sender_business_bot (:obj:`~pyrogram.types.User`, *optional*):
             The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
+
+        sender_tag (``str``, *optional*):
+            Tag or custom title of the sender of the message.
+            For supergroups only.
 
         date (:py:obj:`~datetime.datetime`, *optional*):
             Date the message was sent.
@@ -511,6 +516,12 @@ class Message(Object, Update):
         upgraded_gift_purchase_offer_rejected (:obj:`~pyrogram.types.UpgradedGiftPurchaseOfferRejected`, *optional*):
             Service message: An offer to purchase a gift was rejected or expired.
 
+        chat_has_protected_content_toggled (:obj:`~pyrogram.types.ChatHasProtectedContentToggled`, *optional*):
+            Service message: An ``has_protected_content`` setting was changed or request to change it was rejected in a chat.
+
+        chat_has_protected_content_disable_requested (:obj:`~pyrogram.types.ChatProtectedContentDisableRequested`, *optional*):
+            Service message: An process requested to disable ``has_protected_content`` in a chat.
+
         business_connection_id (``str``, *optional*):
             Unique identifier of the business connection from which the message was received.
             If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
@@ -576,6 +587,7 @@ class Message(Object, Update):
         sender_chat: Optional["types.Chat"] = None,
         sender_boost_count: Optional[int] = None,
         sender_business_bot: Optional["types.User"] = None,
+        sender_tag: Optional[str] = None,
         date: Optional[datetime] = None,
         chat: Optional["types.Chat"] = None,
         topic_message: Optional[bool] = None,
@@ -708,6 +720,8 @@ class Message(Object, Update):
         screenshot_taken: Optional["types.ScreenshotTaken"] = None,
         upgraded_gift_purchase_offer: Optional["types.UpgradedGiftPurchaseOffer"] = None,
         upgraded_gift_purchase_offer_rejected: Optional["types.UpgradedGiftPurchaseOfferRejected"] = None,
+        chat_has_protected_content_toggled: Optional["types.ChatHasProtectedContentToggled"] = None,
+        chat_has_protected_content_disable_requested: Optional["types.ChatHasProtectedContentDisableRequested"] = None,
         business_connection_id: Optional[str] = None,
         reply_markup: Optional[
             Union[
@@ -738,6 +752,7 @@ class Message(Object, Update):
         self.sender_chat = sender_chat
         self.sender_boost_count = sender_boost_count
         self.sender_business_bot = sender_business_bot
+        self.sender_tag = sender_tag
         self.date = date
         self.chat = chat
         self.topic_message = topic_message
@@ -824,6 +839,8 @@ class Message(Object, Update):
         self.screenshot_taken = screenshot_taken
         self.upgraded_gift_purchase_offer = upgraded_gift_purchase_offer
         self.upgraded_gift_purchase_offer_rejected = upgraded_gift_purchase_offer_rejected
+        self.chat_has_protected_content_toggled = chat_has_protected_content_toggled
+        self.chat_has_protected_content_disable_requested = chat_has_protected_content_disable_requested
         self.business_connection_id = business_connection_id
         self.reply_markup = reply_markup
         self.forum_topic_created = forum_topic_created
@@ -894,6 +911,7 @@ class Message(Object, Update):
         chats: Dict[int, "raw.base.Chat"],
         replies: int = 1,
         business_connection_id: str = None,
+        raw_reply_to_message: "raw.base.Message" = None
     ) -> "Message":
         from_id = utils.get_raw_peer_id(message.from_id)
         peer_id = utils.get_raw_peer_id(message.peer_id)
@@ -965,6 +983,8 @@ class Message(Object, Update):
         screenshot_taken = None
         upgraded_gift_purchase_offer = None
         upgraded_gift_purchase_offer_rejected = None
+        chat_has_protected_content_toggled = None
+        chat_has_protected_content_disable_requested = None
         # passport_data_send = None
         # passport_data_received = None
         chat_set_theme = None
@@ -1182,6 +1202,15 @@ class Message(Object, Update):
                 users,
                 chats
             )
+        elif isinstance(action, raw.types.MessageActionNoForwardsToggle):
+            service_type = enums.MessageServiceType.CHAT_HAS_PROTECTED_CONTENT_TOGGLED
+            chat_has_protected_content_toggled = types.ChatHasProtectedContentToggled._parse(
+                getattr(message.reply_to, "reply_to_msg_id", None),
+                action
+            )
+        elif isinstance(action, raw.types.MessageActionNoForwardsRequest):
+            service_type = enums.MessageServiceType.CHAT_HAS_PROTECTED_CONTENT_DISABLE_REQUESTED
+            chat_has_protected_content_disable_requested = types.ChatHasProtectedContentDisableRequested._parse(action)
         # TODO: elif isinstance(action, raw.types.MessageActionSecureValuesSent):
             # service_type = enums.MessageServiceType.PASSPORT_DATA_SEND
             # passport_data_send = ...
@@ -1300,6 +1329,8 @@ class Message(Object, Update):
             screenshot_taken=screenshot_taken,
             upgraded_gift_purchase_offer=upgraded_gift_purchase_offer,
             upgraded_gift_purchase_offer_rejected=upgraded_gift_purchase_offer_rejected,
+            chat_has_protected_content_toggled=chat_has_protected_content_toggled,
+            chat_has_protected_content_disable_requested=chat_has_protected_content_disable_requested,
             chat_set_theme=chat_set_theme,
             chat_set_background=chat_set_background,
             set_message_auto_delete_time=set_message_auto_delete_time,
@@ -1325,42 +1356,24 @@ class Message(Object, Update):
             client=client
         )
 
+        if message.reply_to:
+            parsed_message = await types.Message.__parse_reply(
+                client=client,
+                parsed_message=parsed_message,
+                message=message,
+                users=users,
+                chats=chats,
+                replies=replies,
+                business_connection_id=business_connection_id,
+                raw_reply_to_message=raw_reply_to_message,
+            )
+
         if isinstance(action, raw.types.MessageActionGameScore):
             parsed_message.game_high_score = types.GameHighScore._parse_action(client, message, users)
             parsed_message.service = enums.MessageServiceType.GAME_HIGH_SCORE
-
-            if client.fetch_replies and message.reply_to and replies:
-                try:
-                    parsed_message.reply_to_message = await client.get_messages(
-                        chat_id=parsed_message.chat.id,
-                        message_ids=message.id,
-                        reply=True,
-                        replies=0
-                    )
-                except (MessageIdsEmpty, ChannelPrivate):
-                    pass
         elif isinstance(action, raw.types.MessageActionPinMessage):
             parsed_message.service = enums.MessageServiceType.PINNED_MESSAGE
-
-            if client.fetch_replies:
-                try:
-                    parsed_message.pinned_message = await client.get_messages(
-                        chat_id=parsed_message.chat.id,
-                        pinned=True,
-                        replies=0
-                    )
-
-                except (MessageIdsEmpty, ChannelPrivate):
-                    pass
-
-        if message.reply_to and message.reply_to.forum_topic:
-            parsed_message.topic_message = True
-            if message.reply_to.reply_to_top_id:
-                parsed_message.message_thread_id = message.reply_to.reply_to_top_id
-            elif message.reply_to.reply_to_msg_id:
-                parsed_message.message_thread_id = message.reply_to.reply_to_msg_id
-            else:
-                parsed_message.message_thread_id = 1
+            parsed_message.pinned_message = parsed_message.reply_to_message # Why...
 
         client.message_cache[(parsed_message.chat.id, parsed_message.id)] = parsed_message
 
@@ -1576,6 +1589,7 @@ class Message(Object, Update):
                 client,
                 users.get(getattr(message, "via_business_bot_id", None))
             ),
+            sender_tag=message.from_rank,
             text=(
                 Str(message.message).init(entities) or None
                 if media is None or web_page is not None
@@ -1672,74 +1686,16 @@ class Message(Object, Update):
                 parsed_message.automatic_forward = True
 
         if message.reply_to:
-            parsed_message.external_reply = await types.ExternalReplyInfo._parse(
-                client,
-                message.reply_to,
-                users,
-                chats
+            parsed_message = await types.Message.__parse_reply(
+                client=client,
+                parsed_message=parsed_message,
+                message=message,
+                users=users,
+                chats=chats,
+                replies=replies,
+                business_connection_id=business_connection_id,
+                raw_reply_to_message=raw_reply_to_message,
             )
-
-            if isinstance(message.reply_to, raw.types.MessageReplyHeader):
-                parsed_message.reply_to_message_id = message.reply_to.reply_to_msg_id
-                parsed_message.reply_to_top_message_id = message.reply_to.reply_to_top_id
-                parsed_message.reply_to_checklist_task_id = message.reply_to.todo_item_id
-
-                if message.reply_to.forum_topic:
-                    parsed_message.topic_message = True
-
-                    if message.reply_to.reply_to_top_id:
-                        parsed_message.message_thread_id = message.reply_to.reply_to_top_id
-                    elif message.reply_to.reply_to_msg_id:
-                        parsed_message.message_thread_id = message.reply_to.reply_to_msg_id
-                    else:
-                        parsed_message.message_thread_id = 1
-
-                if message.reply_to.quote:
-                    parsed_message.quote = types.TextQuote._parse(
-                        client,
-                        users,
-                        message.reply_to
-                    )
-            elif isinstance(message.reply_to, raw.types.MessageReplyStoryHeader):
-                parsed_message.reply_to_story_id = message.reply_to.story_id
-                parsed_message.reply_to_story_user_id = utils.get_peer_id(message.reply_to.peer)
-
-                if client.fetch_stories and client.me and not client.me.is_bot:
-                    parsed_message.reply_to_story = await client.get_stories(
-                        utils.get_peer_id(message.reply_to.peer),
-                        message.reply_to.story_id
-                    )
-
-            if raw_reply_to_message:
-                parsed_message.reply_to_message = await types.Message._parse(
-                    client,
-                    raw_reply_to_message,
-                    users,
-                    chats,
-                    business_connection_id=business_connection_id,
-                    replies=0
-                )
-            elif replies:
-                if isinstance(message.reply_to, raw.types.MessageReplyHeader):
-                    if message.reply_to.reply_to_peer_id:
-                        key = (utils.get_peer_id(message.reply_to.reply_to_peer_id), message.reply_to.reply_to_msg_id)
-                        reply_to_params = {"chat_id": key[0], 'message_ids': key[1]}
-                    else:
-                        key = (parsed_message.chat.id, parsed_message.reply_to_message_id)
-                        reply_to_params = {'chat_id': key[0], 'message_ids': message.id, 'reply': True}
-
-                    reply_to_message = client.message_cache[key]
-
-                    if not reply_to_message and client.fetch_replies:
-                        try:
-                            reply_to_message = await client.get_messages(
-                                replies=replies - 1,
-                                **reply_to_params
-                            )
-                        except (ChannelPrivate, ChannelInvalid, MessageIdsEmpty):
-                            pass
-
-                    parsed_message.reply_to_message = reply_to_message
 
         if topics:
             parsed_message.topic = types.ForumTopic._parse(
@@ -1792,6 +1748,84 @@ class Message(Object, Update):
         return parsed_message
 
     @staticmethod
+    async def __parse_reply(
+        client: "pyrogram.Client",
+        parsed_message: "Message",
+        message: "raw.base.Message",
+        users: Dict[int, "raw.base.User"],
+        chats: Dict[int, "raw.base.Chat"],
+        replies: int = 1,
+        business_connection_id: Optional[str] = None,
+        raw_reply_to_message: Optional["raw.base.Message"] = None
+    ):
+        if isinstance(message.reply_to, raw.types.MessageReplyHeader):
+            parsed_message.reply_to_message_id = message.reply_to.reply_to_msg_id
+            parsed_message.reply_to_top_message_id = message.reply_to.reply_to_top_id
+            parsed_message.reply_to_checklist_task_id = message.reply_to.todo_item_id
+
+            if replies:
+                if message.reply_to.reply_to_peer_id:
+                    key = (utils.get_peer_id(message.reply_to.reply_to_peer_id), message.reply_to.reply_to_msg_id)
+                    reply_to_params = {"chat_id": key[0], 'message_ids': key[1]}
+                else:
+                    key = (parsed_message.chat.id, parsed_message.reply_to_message_id)
+                    reply_to_params = {'chat_id': key[0], 'message_ids': message.id, 'reply': True}
+
+                parsed_message.reply_to_message = client.message_cache[key]
+
+                if raw_reply_to_message: # For business bots only
+                    parsed_message.reply_to_message = await types.Message._parse(
+                        client,
+                        raw_reply_to_message,
+                        users,
+                        chats,
+                        business_connection_id=business_connection_id,
+                        replies=0
+                    )
+                elif client.fetch_replies and not parsed_message.reply_to_message:
+                    with contextlib.suppress(ChannelPrivate, ChannelInvalid, MessageIdsEmpty):
+                        parsed_message.reply_to_message = await client.get_messages(
+                            replies=replies - 1,
+                            **reply_to_params
+                        )
+
+            if message.reply_to.forum_topic:
+                parsed_message.topic_message = True
+
+                if message.reply_to.reply_to_top_id:
+                    parsed_message.message_thread_id = message.reply_to.reply_to_top_id
+                elif message.reply_to.reply_to_msg_id:
+                    parsed_message.message_thread_id = message.reply_to.reply_to_msg_id
+                else:
+                    parsed_message.message_thread_id = 1
+
+            if message.reply_to.quote:
+                parsed_message.quote = types.TextQuote._parse(
+                    client,
+                    users,
+                    message.reply_to
+                )
+
+            if message.reply_to.reply_from:
+                parsed_message.external_reply = await types.ExternalReplyInfo._parse(
+                    client,
+                    message.reply_to,
+                    users,
+                    chats
+                )
+        elif isinstance(message.reply_to, raw.types.MessageReplyStoryHeader):
+            parsed_message.reply_to_story_id = message.reply_to.story_id
+            parsed_message.reply_to_story_user_id = utils.get_peer_id(message.reply_to.peer)
+
+            if client.fetch_stories and client.me and not client.me.is_bot:
+                parsed_message.reply_to_story = await client.get_stories(
+                    utils.get_peer_id(message.reply_to.peer),
+                    message.reply_to.story_id
+                )
+
+        return parsed_message
+
+    @staticmethod
     async def _parse(
         client: "pyrogram.Client",
         message: "raw.base.Message",
@@ -1819,7 +1853,8 @@ class Message(Object, Update):
                 users=users,
                 chats=chats,
                 replies=replies,
-                business_connection_id=business_connection_id
+                business_connection_id=business_connection_id,
+                raw_reply_to_message=raw_reply_to_message
             )
 
         if isinstance(message, raw.types.Message):

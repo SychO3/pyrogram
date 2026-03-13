@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import re
 from typing import Optional
 
 import pyrogram
@@ -54,6 +55,12 @@ class MessageEntity(Object):
 
         expandable (``bool``, *optional*):
             For :obj:`~pyrogram.enums.MessageEntityType.BLOCKQUOTE` only, whether the blockquote is expandable or not.
+
+        unix_time (``int``, *optional*):
+            For "date_time" only, the Unix time associated with the entity.
+
+        date_time_format (``str``, *optional*):
+            For "date_time" only, the string that defines the formatting of the date and time.
     """
 
     def __init__(
@@ -67,7 +74,9 @@ class MessageEntity(Object):
         user: "types.User" = None,
         language: str = None,
         custom_emoji_id: int = None,
-        expandable: bool = None
+        expandable: bool = None,
+        unix_time: int = None,
+        date_time_format: str = None
     ):
         super().__init__(client)
 
@@ -79,14 +88,43 @@ class MessageEntity(Object):
         self.language = language
         self.custom_emoji_id = custom_emoji_id
         self.expandable = expandable
+        self.unix_time = unix_time
+        self.date_time_format = date_time_format
 
     @staticmethod
     def _parse(client, entity: "raw.base.MessageEntity", users: dict) -> Optional["MessageEntity"]:
+        user_id = None
+        unix_time = None
+        date_time_format = None
+
         # Special case for InputMessageEntityMentionName -> MessageEntityType.TEXT_MENTION
         # This happens in case of UpdateShortSentMessage inside send_message() where entities are parsed from the input
         if isinstance(entity, raw.types.InputMessageEntityMentionName):
             entity_type = enums.MessageEntityType.TEXT_MENTION
             user_id = entity.user_id.user_id
+        elif isinstance(entity, raw.types.MessageEntityFormattedDate):
+            entity_type = enums.MessageEntityType.DATE_TIME
+            unix_time = entity.date
+
+            if entity.relative:
+                date_time_format = "r"
+            else:
+                date_time_format = ""
+
+                if entity.day_of_week:
+                    date_time_format += "w"
+
+                if entity.short_date or entity.long_date:
+                    if entity.short_date:
+                        date_time_format += "d"
+                    elif entity.long_date:
+                        date_time_format += "D"
+
+                if entity.short_time or entity.long_time:
+                    if entity.short_time:
+                        date_time_format += "t"
+                    elif entity.long_time:
+                        date_time_format += "T"
         else:
             entity_type = enums.MessageEntityType(entity.__class__)
             user_id = getattr(entity, "user_id", None)
@@ -100,6 +138,8 @@ class MessageEntity(Object):
             language=getattr(entity, "language", None),
             custom_emoji_id=getattr(entity, "document_id", None),
             expandable=getattr(entity, "collapsed", None),
+            unix_time=unix_time,
+            date_time_format=date_time_format or None,
             client=client
         )
 
@@ -128,7 +168,38 @@ class MessageEntity(Object):
 
         entity = self.type.value
 
+        unix_time = args.pop("unix_time")
+        date_time_format = args.pop("date_time_format")
+
         if entity is raw.types.MessageEntityMentionName:
             entity = raw.types.InputMessageEntityMentionName
+        elif entity is raw.types.MessageEntityFormattedDate:
+            args["date"] = unix_time
+            args["relative"] = False
+            args["short_time"] = False
+            args["long_time"] = False
+            args["short_date"] = False
+            args["long_date"] = False
+            args["day_of_week"] = False
+
+            if date_time_format:
+                if not re.fullmatch(r"r|w?[dD]?[tT]?", date_time_format):
+                    raise ValueError(f"Invalid date-time format string: '{date_time_format}'")
+
+                if date_time_format == "r":
+                    args["relative"] = True
+                else:
+                    if "w" in date_time_format:
+                        args["day_of_week"] = True
+
+                    if "d" in date_time_format:
+                        args["short_date"] = True
+                    elif "D" in date_time_format:
+                        args["long_date"] = True
+
+                    if "t" in date_time_format:
+                        args["short_time"] = True
+                    elif "T" in date_time_format:
+                        args["long_time"] = True
 
         return entity(**args)
