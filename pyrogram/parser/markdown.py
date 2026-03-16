@@ -190,6 +190,7 @@ class Markdown:
                 parsed = urllib.parse.urlparse(url)
                 params = urllib.parse.parse_qs(parsed.query)
                 emoji_date = text_url
+                markup = None
 
                 if parsed.netloc == "time":
                     unix_time = params.get("unix", [""])[0]
@@ -202,6 +203,12 @@ class Markdown:
                 elif parsed.netloc == "emoji":
                     emoji_id = params.get("id", [""])[0]
                     markup = EMOJI_MARKUP.format(emoji_id, emoji_date)
+
+                elif url.isdigit():
+                    markup = EMOJI_MARKUP.format(url, emoji_date)
+
+                if markup is None:
+                    continue
 
                 text = utils.replace_once(text, full, markup, start)
 
