@@ -36,7 +36,7 @@ class ToggleParticipantsHidden(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6A6E7854``
 
     Parameters:

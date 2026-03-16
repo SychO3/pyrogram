@@ -36,7 +36,7 @@ class MessageActionSetChatWallPaper(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5060A3F4``
 
     Parameters:

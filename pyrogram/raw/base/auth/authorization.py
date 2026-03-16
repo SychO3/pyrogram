@@ -43,7 +43,7 @@ else:
             - :obj:`auth.AuthorizationSignUpRequired <pyrogram.raw.types.auth.AuthorizationSignUpRequired>`
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 8 methods:
 
         .. hlist::
             :columns: 2
@@ -55,6 +55,7 @@ else:
             - :obj:`auth.CheckPassword <pyrogram.raw.functions.auth.CheckPassword>`
             - :obj:`auth.RecoverPassword <pyrogram.raw.functions.auth.RecoverPassword>`
             - :obj:`auth.ImportWebTokenAuthorization <pyrogram.raw.functions.auth.ImportWebTokenAuthorization>`
+            - :obj:`auth.FinishPasskeyLogin <pyrogram.raw.functions.auth.FinishPasskeyLogin>`
         """
 
         QUALNAME = "pyrogram.raw.base.auth.Authorization"
@@ -64,4 +65,4 @@ else:
             raise TypeError("Base types can only be used for type checking purposes: "
                             "you tried to use a base type instance as argument, "
                             "but you need to instantiate one of its constructors instead. "
-                            "More info: https://docs.kurigram.live/telegram/base/authorization")
+                            "More info: https://docs.kurigram.icu/telegram/base/authorization")

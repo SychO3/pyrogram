@@ -36,7 +36,7 @@ class GetDifference(TLObject["raw.base.updates.Difference"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``19C2F763``
 
     Parameters:

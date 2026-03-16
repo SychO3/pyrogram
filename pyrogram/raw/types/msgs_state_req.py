@@ -36,7 +36,7 @@ class MsgsStateReq(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MsgsStateReq`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DA69FB52``
 
     Parameters:

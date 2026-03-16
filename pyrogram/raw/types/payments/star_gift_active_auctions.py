@@ -36,12 +36,13 @@ class StarGiftActiveAuctions(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftActiveAuctions`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``97F187D8``
+        - Layer: ``223``
+        - ID: ``AEF6ABBC``
 
     Parameters:
         auctions: List of :obj:`StarGiftActiveAuctionState <pyrogram.raw.base.StarGiftActiveAuctionState>`
         users: List of :obj:`User <pyrogram.raw.base.User>`
+        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
 
     See Also:
         This object can be returned by 1 method:
@@ -52,14 +53,15 @@ class StarGiftActiveAuctions(TLObject):
             - :obj:`payments.GetStarGiftActiveAuctions <pyrogram.raw.functions.payments.GetStarGiftActiveAuctions>`
     """
 
-    __slots__: List[str] = ["auctions", "users"]
+    __slots__: List[str] = ["auctions", "users", "chats"]
 
-    ID = 0x97f187d8
+    ID = 0xaef6abbc
     QUALNAME = "types.payments.StarGiftActiveAuctions"
 
-    def __init__(self, *, auctions: List["raw.base.StarGiftActiveAuctionState"], users: List["raw.base.User"]) -> None:
+    def __init__(self, *, auctions: List["raw.base.StarGiftActiveAuctionState"], users: List["raw.base.User"], chats: List["raw.base.Chat"]) -> None:
         self.auctions = auctions  # Vector<StarGiftActiveAuctionState>
         self.users = users  # Vector<User>
+        self.chats = chats  # Vector<Chat>
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftActiveAuctions":
@@ -69,7 +71,9 @@ class StarGiftActiveAuctions(TLObject):
         
         users = TLObject.read(b)
         
-        return StarGiftActiveAuctions(auctions=auctions, users=users)
+        chats = TLObject.read(b)
+        
+        return StarGiftActiveAuctions(auctions=auctions, users=users, chats=chats)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -80,5 +84,7 @@ class StarGiftActiveAuctions(TLObject):
         b.write(Vector(self.auctions))
         
         b.write(Vector(self.users))
+        
+        b.write(Vector(self.chats))
         
         return b.getvalue()

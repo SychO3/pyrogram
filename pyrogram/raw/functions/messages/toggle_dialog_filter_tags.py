@@ -36,7 +36,7 @@ class ToggleDialogFilterTags(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FD2DDA49``
 
     Parameters:

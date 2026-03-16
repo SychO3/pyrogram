@@ -36,7 +36,7 @@ class SendMessageRecordVideoAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A187D66F``
 
     **No parameters required.**

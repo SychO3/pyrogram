@@ -36,7 +36,7 @@ class StarGiftWithdrawalUrl(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftWithdrawalUrl`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``84AA3A9C``
 
     Parameters:

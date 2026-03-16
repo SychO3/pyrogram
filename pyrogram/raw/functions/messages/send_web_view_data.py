@@ -36,7 +36,7 @@ class SendWebViewData(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DC0242C8``
 
     Parameters:

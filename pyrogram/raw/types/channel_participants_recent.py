@@ -36,7 +36,7 @@ class ChannelParticipantsRecent(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelParticipantsFilter`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DE3F3C79``
 
     **No parameters required.**

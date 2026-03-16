@@ -36,7 +36,7 @@ class GetDialogUnreadMarks(TLObject["List[raw.base.DialogPeer]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``21202222``
 
     Parameters:

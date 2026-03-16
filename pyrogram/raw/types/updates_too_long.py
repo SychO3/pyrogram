@@ -36,13 +36,13 @@ class UpdatesTooLong(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Updates`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E317AF7E``
 
     **No parameters required.**
 
     See Also:
-        This object can be returned by 124 methods:
+        This object can be returned by 128 methods:
 
         .. hlist::
             :columns: 2
@@ -102,6 +102,8 @@ class UpdatesTooLong(TLObject):
             - :obj:`messages.UpdatePinnedForumTopic <pyrogram.raw.functions.messages.UpdatePinnedForumTopic>`
             - :obj:`messages.ReorderPinnedForumTopics <pyrogram.raw.functions.messages.ReorderPinnedForumTopics>`
             - :obj:`messages.CreateForumTopic <pyrogram.raw.functions.messages.CreateForumTopic>`
+            - :obj:`messages.EditChatCreator <pyrogram.raw.functions.messages.EditChatCreator>`
+            - :obj:`messages.EditChatParticipantRank <pyrogram.raw.functions.messages.EditChatParticipantRank>`
             - :obj:`channels.CreateChannel <pyrogram.raw.functions.channels.CreateChannel>`
             - :obj:`channels.EditAdmin <pyrogram.raw.functions.channels.EditAdmin>`
             - :obj:`channels.EditTitle <pyrogram.raw.functions.channels.EditTitle>`
@@ -113,7 +115,6 @@ class UpdatesTooLong(TLObject):
             - :obj:`channels.EditBanned <pyrogram.raw.functions.channels.EditBanned>`
             - :obj:`channels.DeleteHistory <pyrogram.raw.functions.channels.DeleteHistory>`
             - :obj:`channels.TogglePreHistoryHidden <pyrogram.raw.functions.channels.TogglePreHistoryHidden>`
-            - :obj:`channels.EditCreator <pyrogram.raw.functions.channels.EditCreator>`
             - :obj:`channels.ToggleSlowMode <pyrogram.raw.functions.channels.ToggleSlowMode>`
             - :obj:`channels.ConvertToGigagroup <pyrogram.raw.functions.channels.ConvertToGigagroup>`
             - :obj:`channels.ToggleJoinToSend <pyrogram.raw.functions.channels.ToggleJoinToSend>`
@@ -137,6 +138,9 @@ class UpdatesTooLong(TLObject):
             - :obj:`payments.UpgradeStarGift <pyrogram.raw.functions.payments.UpgradeStarGift>`
             - :obj:`payments.TransferStarGift <pyrogram.raw.functions.payments.TransferStarGift>`
             - :obj:`payments.UpdateStarGiftPrice <pyrogram.raw.functions.payments.UpdateStarGiftPrice>`
+            - :obj:`payments.ResolveStarGiftOffer <pyrogram.raw.functions.payments.ResolveStarGiftOffer>`
+            - :obj:`payments.SendStarGiftOffer <pyrogram.raw.functions.payments.SendStarGiftOffer>`
+            - :obj:`payments.CraftStarGift <pyrogram.raw.functions.payments.CraftStarGift>`
             - :obj:`phone.DiscardCall <pyrogram.raw.functions.phone.DiscardCall>`
             - :obj:`phone.SetCallRating <pyrogram.raw.functions.phone.SetCallRating>`
             - :obj:`phone.CreateGroupCall <pyrogram.raw.functions.phone.CreateGroupCall>`

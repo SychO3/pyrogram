@@ -36,7 +36,7 @@ class SecurePlainEmail(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecurePlainData`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``21EC5A5F``
 
     Parameters:

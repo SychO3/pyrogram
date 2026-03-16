@@ -36,7 +36,7 @@ class InputMessagesFilterRoundVoice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessagesFilter`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7A7C17A4``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class GetStarsRevenueWithdrawalUrl(TLObject["raw.base.payments.StarsRevenueWithd
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2433DC92``
 
     Parameters:

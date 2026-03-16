@@ -36,7 +36,7 @@ class GetMessageReadParticipants(TLObject["List[raw.base.ReadParticipantDate]"])
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``31C1C44F``
 
     Parameters:

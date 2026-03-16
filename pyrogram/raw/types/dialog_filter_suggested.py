@@ -36,7 +36,7 @@ class DialogFilterSuggested(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DialogFilterSuggested`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``77744D4A``
 
     Parameters:

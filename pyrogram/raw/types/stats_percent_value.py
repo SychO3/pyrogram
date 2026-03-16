@@ -36,7 +36,7 @@ class StatsPercentValue(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StatsPercentValue`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``CBCE2FE0``
 
     Parameters:

@@ -36,7 +36,7 @@ class CheckGroupCall(TLObject["List[raw.base.int]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B59CF977``
 
     Parameters:

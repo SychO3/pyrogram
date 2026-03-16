@@ -36,7 +36,7 @@ class PostInteractionCountersMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PostInteractionCounters`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E7058E7F``
 
     Parameters:

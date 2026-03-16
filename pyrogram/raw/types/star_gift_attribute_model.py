@@ -36,47 +36,53 @@ class StarGiftAttributeModel(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAttribute`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``39D99013``
+        - Layer: ``223``
+        - ID: ``565251E2``
 
     Parameters:
         name: ``str``
         document: :obj:`Document <pyrogram.raw.base.Document>`
-        rarity_permille: ``int`` ``32-bit``
+        rarity: :obj:`StarGiftAttributeRarity <pyrogram.raw.base.StarGiftAttributeRarity>`
+        crafted (optional): ``bool``
     """
 
-    __slots__: List[str] = ["name", "document", "rarity_permille"]
+    __slots__: List[str] = ["name", "document", "rarity", "crafted"]
 
-    ID = 0x39d99013
+    ID = 0x565251e2
     QUALNAME = "types.StarGiftAttributeModel"
 
-    def __init__(self, *, name: str, document: "raw.base.Document", rarity_permille: int) -> None:
+    def __init__(self, *, name: str, document: "raw.base.Document", rarity: "raw.base.StarGiftAttributeRarity", crafted: Optional[bool] = None) -> None:
         self.name = name  # string
         self.document = document  # Document
-        self.rarity_permille = rarity_permille  # int
+        self.rarity = rarity  # StarGiftAttributeRarity
+        self.crafted = crafted  # flags.0?true
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAttributeModel":
-        # No flags
         
+        flags = Int.read(b)
+        
+        crafted = True if flags & (1 << 0) else False
         name = String.read(b)
         
         document = TLObject.read(b)
         
-        rarity_permille = Int.read(b)
+        rarity = TLObject.read(b)
         
-        return StarGiftAttributeModel(name=name, document=document, rarity_permille=rarity_permille)
+        return StarGiftAttributeModel(name=name, document=document, rarity=rarity, crafted=crafted)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.crafted else 0
+        b.write(Int(flags))
         
         b.write(String(self.name))
         
         b.write(self.document.write())
         
-        b.write(Int(self.rarity_permille))
+        b.write(self.rarity.write())
         
         return b.getvalue()

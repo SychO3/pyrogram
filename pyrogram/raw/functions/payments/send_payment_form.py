@@ -36,7 +36,7 @@ class SendPaymentForm(TLObject["raw.base.payments.PaymentResult"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2D03522F``
 
     Parameters:

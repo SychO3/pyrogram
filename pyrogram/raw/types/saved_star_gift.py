@@ -36,8 +36,8 @@ class SavedStarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SavedStarGift`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``8983A452``
+        - Layer: ``223``
+        - ID: ``41DF43FC``
 
     Parameters:
         date: ``int`` ``32-bit``
@@ -61,14 +61,16 @@ class SavedStarGift(TLObject):
         collection_id (optional): List of ``int`` ``32-bit``
         prepaid_upgrade_hash (optional): ``str``
         drop_original_details_stars (optional): ``int`` ``64-bit``
+        gift_num (optional): ``int`` ``32-bit``
+        can_craft_at (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["date", "gift", "name_hidden", "unsaved", "refunded", "can_upgrade", "pinned_to_top", "upgrade_separate", "from_id", "message", "msg_id", "saved_id", "convert_stars", "upgrade_stars", "can_export_at", "transfer_stars", "can_transfer_at", "can_resell_at", "collection_id", "prepaid_upgrade_hash", "drop_original_details_stars"]
+    __slots__: List[str] = ["date", "gift", "name_hidden", "unsaved", "refunded", "can_upgrade", "pinned_to_top", "upgrade_separate", "from_id", "message", "msg_id", "saved_id", "convert_stars", "upgrade_stars", "can_export_at", "transfer_stars", "can_transfer_at", "can_resell_at", "collection_id", "prepaid_upgrade_hash", "drop_original_details_stars", "gift_num", "can_craft_at"]
 
-    ID = 0x8983a452
+    ID = 0x41df43fc
     QUALNAME = "types.SavedStarGift"
 
-    def __init__(self, *, date: int, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, unsaved: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, pinned_to_top: Optional[bool] = None, upgrade_separate: Optional[bool] = None, from_id: "raw.base.Peer" = None, message: "raw.base.TextWithEntities" = None, msg_id: Optional[int] = None, saved_id: Optional[int] = None, convert_stars: Optional[int] = None, upgrade_stars: Optional[int] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, collection_id: Optional[List[int]] = None, prepaid_upgrade_hash: Optional[str] = None, drop_original_details_stars: Optional[int] = None) -> None:
+    def __init__(self, *, date: int, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, unsaved: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, pinned_to_top: Optional[bool] = None, upgrade_separate: Optional[bool] = None, from_id: "raw.base.Peer" = None, message: "raw.base.TextWithEntities" = None, msg_id: Optional[int] = None, saved_id: Optional[int] = None, convert_stars: Optional[int] = None, upgrade_stars: Optional[int] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, collection_id: Optional[List[int]] = None, prepaid_upgrade_hash: Optional[str] = None, drop_original_details_stars: Optional[int] = None, gift_num: Optional[int] = None, can_craft_at: Optional[int] = None) -> None:
         self.date = date  # int
         self.gift = gift  # StarGift
         self.name_hidden = name_hidden  # flags.0?true
@@ -90,6 +92,8 @@ class SavedStarGift(TLObject):
         self.collection_id = collection_id  # flags.15?Vector<int>
         self.prepaid_upgrade_hash = prepaid_upgrade_hash  # flags.16?string
         self.drop_original_details_stars = drop_original_details_stars  # flags.18?long
+        self.gift_num = gift_num  # flags.19?int
+        self.can_craft_at = can_craft_at  # flags.20?int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SavedStarGift":
@@ -122,7 +126,9 @@ class SavedStarGift(TLObject):
         
         prepaid_upgrade_hash = String.read(b) if flags & (1 << 16) else None
         drop_original_details_stars = Long.read(b) if flags & (1 << 18) else None
-        return SavedStarGift(date=date, gift=gift, name_hidden=name_hidden, unsaved=unsaved, refunded=refunded, can_upgrade=can_upgrade, pinned_to_top=pinned_to_top, upgrade_separate=upgrade_separate, from_id=from_id, message=message, msg_id=msg_id, saved_id=saved_id, convert_stars=convert_stars, upgrade_stars=upgrade_stars, can_export_at=can_export_at, transfer_stars=transfer_stars, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, collection_id=collection_id, prepaid_upgrade_hash=prepaid_upgrade_hash, drop_original_details_stars=drop_original_details_stars)
+        gift_num = Int.read(b) if flags & (1 << 19) else None
+        can_craft_at = Int.read(b) if flags & (1 << 20) else None
+        return SavedStarGift(date=date, gift=gift, name_hidden=name_hidden, unsaved=unsaved, refunded=refunded, can_upgrade=can_upgrade, pinned_to_top=pinned_to_top, upgrade_separate=upgrade_separate, from_id=from_id, message=message, msg_id=msg_id, saved_id=saved_id, convert_stars=convert_stars, upgrade_stars=upgrade_stars, can_export_at=can_export_at, transfer_stars=transfer_stars, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, collection_id=collection_id, prepaid_upgrade_hash=prepaid_upgrade_hash, drop_original_details_stars=drop_original_details_stars, gift_num=gift_num, can_craft_at=can_craft_at)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -148,6 +154,8 @@ class SavedStarGift(TLObject):
         flags |= (1 << 15) if self.collection_id else 0
         flags |= (1 << 16) if self.prepaid_upgrade_hash is not None else 0
         flags |= (1 << 18) if self.drop_original_details_stars is not None else 0
+        flags |= (1 << 19) if self.gift_num is not None else 0
+        flags |= (1 << 20) if self.can_craft_at is not None else 0
         b.write(Int(flags))
         
         if self.from_id is not None:
@@ -192,5 +200,11 @@ class SavedStarGift(TLObject):
         
         if self.drop_original_details_stars is not None:
             b.write(Long(self.drop_original_details_stars))
+        
+        if self.gift_num is not None:
+            b.write(Int(self.gift_num))
+        
+        if self.can_craft_at is not None:
+            b.write(Int(self.can_craft_at))
         
         return b.getvalue()

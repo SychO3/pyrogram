@@ -36,7 +36,7 @@ class EmojiGroupGreeting(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmojiGroup`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``80D26CC7``
 
     Parameters:

@@ -36,7 +36,7 @@ class ExportAuthorization(TLObject["raw.base.auth.ExportedAuthorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E5BFFFCD``
 
     Parameters:

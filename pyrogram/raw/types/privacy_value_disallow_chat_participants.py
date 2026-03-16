@@ -36,7 +36,7 @@ class PrivacyValueDisallowChatParticipants(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PrivacyRule`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``41C87565``
 
     Parameters:

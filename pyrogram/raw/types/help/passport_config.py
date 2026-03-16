@@ -36,7 +36,7 @@ class PassportConfig(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.PassportConfig`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A098D6AF``
 
     Parameters:

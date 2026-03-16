@@ -36,7 +36,7 @@ class GetSplitRanges(TLObject["List[raw.base.MessageRange]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1CFF7E08``
 
     **No parameters required.**

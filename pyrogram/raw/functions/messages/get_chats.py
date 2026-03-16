@@ -36,7 +36,7 @@ class GetChats(TLObject["raw.base.messages.Chats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``49E9528F``
 
     Parameters:

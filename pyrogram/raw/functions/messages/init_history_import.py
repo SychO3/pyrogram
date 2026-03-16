@@ -36,7 +36,7 @@ class InitHistoryImport(TLObject["raw.base.messages.HistoryImport"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``34090C3B``
 
     Parameters:

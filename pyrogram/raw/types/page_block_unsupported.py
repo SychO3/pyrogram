@@ -36,7 +36,7 @@ class PageBlockUnsupported(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``13567E8A``
 
     **No parameters required.**

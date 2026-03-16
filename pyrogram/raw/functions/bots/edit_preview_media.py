@@ -36,7 +36,7 @@ class EditPreviewMedia(TLObject["raw.base.BotPreviewMedia"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8525606F``
 
     Parameters:

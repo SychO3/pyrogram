@@ -36,7 +36,7 @@ class ToggleBotInAttachMenu(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``69F59D69``
 
     Parameters:

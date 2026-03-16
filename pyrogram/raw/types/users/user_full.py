@@ -36,7 +36,7 @@ class UserFull(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.users.UserFull`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``3B6D152E``
 
     Parameters:

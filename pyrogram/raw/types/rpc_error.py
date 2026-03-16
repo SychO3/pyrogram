@@ -36,7 +36,7 @@ class RpcError(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RpcError`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2144CA19``
 
     Parameters:

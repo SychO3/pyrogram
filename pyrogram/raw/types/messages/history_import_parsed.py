@@ -36,7 +36,7 @@ class HistoryImportParsed(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.HistoryImportParsed`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5E0FB7B9``
 
     Parameters:

@@ -36,7 +36,7 @@ class ToggleGroupCallSettings(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``974392F2``
 
     Parameters:

@@ -36,8 +36,8 @@ class StarGiftAuctionState(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAuctionState`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``5DB04F4B``
+        - Layer: ``223``
+        - ID: ``771A4E66``
 
     Parameters:
         version: ``int`` ``32-bit``
@@ -47,17 +47,19 @@ class StarGiftAuctionState(TLObject):
         bid_levels: List of :obj:`AuctionBidLevel <pyrogram.raw.base.AuctionBidLevel>`
         top_bidders: List of ``int`` ``64-bit``
         next_round_at: ``int`` ``32-bit``
+        last_gift_num: ``int`` ``32-bit``
         gifts_left: ``int`` ``32-bit``
         current_round: ``int`` ``32-bit``
         total_rounds: ``int`` ``32-bit``
+        rounds: List of :obj:`StarGiftAuctionRound <pyrogram.raw.base.StarGiftAuctionRound>`
     """
 
-    __slots__: List[str] = ["version", "start_date", "end_date", "min_bid_amount", "bid_levels", "top_bidders", "next_round_at", "gifts_left", "current_round", "total_rounds"]
+    __slots__: List[str] = ["version", "start_date", "end_date", "min_bid_amount", "bid_levels", "top_bidders", "next_round_at", "last_gift_num", "gifts_left", "current_round", "total_rounds", "rounds"]
 
-    ID = 0x5db04f4b
+    ID = 0x771a4e66
     QUALNAME = "types.StarGiftAuctionState"
 
-    def __init__(self, *, version: int, start_date: int, end_date: int, min_bid_amount: int, bid_levels: List["raw.base.AuctionBidLevel"], top_bidders: List[int], next_round_at: int, gifts_left: int, current_round: int, total_rounds: int) -> None:
+    def __init__(self, *, version: int, start_date: int, end_date: int, min_bid_amount: int, bid_levels: List["raw.base.AuctionBidLevel"], top_bidders: List[int], next_round_at: int, last_gift_num: int, gifts_left: int, current_round: int, total_rounds: int, rounds: List["raw.base.StarGiftAuctionRound"]) -> None:
         self.version = version  # int
         self.start_date = start_date  # int
         self.end_date = end_date  # int
@@ -65,9 +67,11 @@ class StarGiftAuctionState(TLObject):
         self.bid_levels = bid_levels  # Vector<AuctionBidLevel>
         self.top_bidders = top_bidders  # Vector<long>
         self.next_round_at = next_round_at  # int
+        self.last_gift_num = last_gift_num  # int
         self.gifts_left = gifts_left  # int
         self.current_round = current_round  # int
         self.total_rounds = total_rounds  # int
+        self.rounds = rounds  # Vector<StarGiftAuctionRound>
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAuctionState":
@@ -87,13 +91,17 @@ class StarGiftAuctionState(TLObject):
         
         next_round_at = Int.read(b)
         
+        last_gift_num = Int.read(b)
+        
         gifts_left = Int.read(b)
         
         current_round = Int.read(b)
         
         total_rounds = Int.read(b)
         
-        return StarGiftAuctionState(version=version, start_date=start_date, end_date=end_date, min_bid_amount=min_bid_amount, bid_levels=bid_levels, top_bidders=top_bidders, next_round_at=next_round_at, gifts_left=gifts_left, current_round=current_round, total_rounds=total_rounds)
+        rounds = TLObject.read(b)
+        
+        return StarGiftAuctionState(version=version, start_date=start_date, end_date=end_date, min_bid_amount=min_bid_amount, bid_levels=bid_levels, top_bidders=top_bidders, next_round_at=next_round_at, last_gift_num=last_gift_num, gifts_left=gifts_left, current_round=current_round, total_rounds=total_rounds, rounds=rounds)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -115,10 +123,14 @@ class StarGiftAuctionState(TLObject):
         
         b.write(Int(self.next_round_at))
         
+        b.write(Int(self.last_gift_num))
+        
         b.write(Int(self.gifts_left))
         
         b.write(Int(self.current_round))
         
         b.write(Int(self.total_rounds))
+        
+        b.write(Vector(self.rounds))
         
         return b.getvalue()

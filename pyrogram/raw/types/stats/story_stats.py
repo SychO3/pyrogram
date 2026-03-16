@@ -36,7 +36,7 @@ class StoryStats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stats.StoryStats`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``50CD067C``
 
     Parameters:

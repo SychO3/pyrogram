@@ -95,6 +95,7 @@ from .input_media_story import InputMediaStory
 from .input_media_web_page import InputMediaWebPage
 from .input_media_paid_media import InputMediaPaidMedia
 from .input_media_todo import InputMediaTodo
+from .input_media_stake_dice import InputMediaStakeDice
 from .input_chat_photo_empty import InputChatPhotoEmpty
 from .input_chat_uploaded_photo import InputChatUploadedPhoto
 from .input_chat_photo import InputChatPhoto
@@ -219,6 +220,12 @@ from .message_action_suggested_post_success import MessageActionSuggestedPostSuc
 from .message_action_suggested_post_refund import MessageActionSuggestedPostRefund
 from .message_action_gift_ton import MessageActionGiftTon
 from .message_action_suggest_birthday import MessageActionSuggestBirthday
+from .message_action_star_gift_purchase_offer import MessageActionStarGiftPurchaseOffer
+from .message_action_star_gift_purchase_offer_declined import MessageActionStarGiftPurchaseOfferDeclined
+from .message_action_new_creator_pending import MessageActionNewCreatorPending
+from .message_action_change_creator import MessageActionChangeCreator
+from .message_action_no_forwards_toggle import MessageActionNoForwardsToggle
+from .message_action_no_forwards_request import MessageActionNoForwardsRequest
 from .dialog import Dialog
 from .dialog_folder import DialogFolder
 from .photo_empty import PhotoEmpty
@@ -422,6 +429,9 @@ from .update_pinned_forum_topics import UpdatePinnedForumTopics
 from .update_delete_group_call_messages import UpdateDeleteGroupCallMessages
 from .update_star_gift_auction_state import UpdateStarGiftAuctionState
 from .update_star_gift_auction_user_state import UpdateStarGiftAuctionUserState
+from .update_emoji_game_info import UpdateEmojiGameInfo
+from .update_star_gift_craft_fail import UpdateStarGiftCraftFail
+from .update_chat_participant_rank import UpdateChatParticipantRank
 from .updates_too_long import UpdatesTooLong
 from .update_short_message import UpdateShortMessage
 from .update_short_chat_message import UpdateShortChatMessage
@@ -606,6 +616,7 @@ from .message_entity_bank_card import MessageEntityBankCard
 from .message_entity_spoiler import MessageEntitySpoiler
 from .message_entity_custom_emoji import MessageEntityCustomEmoji
 from .message_entity_blockquote import MessageEntityBlockquote
+from .message_entity_formatted_date import MessageEntityFormattedDate
 from .input_channel_empty import InputChannelEmpty
 from .input_channel import InputChannel
 from .input_channel_from_message import InputChannelFromMessage
@@ -813,6 +824,7 @@ from .channel_admin_log_event_action_change_emoji_sticker_set import ChannelAdmi
 from .channel_admin_log_event_action_toggle_signature_profiles import ChannelAdminLogEventActionToggleSignatureProfiles
 from .channel_admin_log_event_action_participant_sub_extend import ChannelAdminLogEventActionParticipantSubExtend
 from .channel_admin_log_event_action_toggle_autotranslation import ChannelAdminLogEventActionToggleAutotranslation
+from .channel_admin_log_event_action_participant_edit_rank import ChannelAdminLogEventActionParticipantEditRank
 from .channel_admin_log_event import ChannelAdminLogEvent
 from .channel_admin_log_events_filter import ChannelAdminLogEventsFilter
 from .popular_contact import PopularContact
@@ -1259,4 +1271,18 @@ from .star_gift_auction_acquired_gift import StarGiftAuctionAcquiredGift
 from .star_gift_active_auction_state import StarGiftActiveAuctionState
 from .input_star_gift_auction import InputStarGiftAuction
 from .input_star_gift_auction_slug import InputStarGiftAuctionSlug
+from .passkey import Passkey
+from .input_passkey_response_register import InputPasskeyResponseRegister
+from .input_passkey_response_login import InputPasskeyResponseLogin
+from .input_passkey_credential_public_key import InputPasskeyCredentialPublicKey
+from .input_passkey_credential_firebase_pnv import InputPasskeyCredentialFirebasePNV
+from .star_gift_background import StarGiftBackground
+from .star_gift_auction_round import StarGiftAuctionRound
+from .star_gift_auction_round_extendable import StarGiftAuctionRoundExtendable
+from .star_gift_attribute_rarity import StarGiftAttributeRarity
+from .star_gift_attribute_rarity_uncommon import StarGiftAttributeRarityUncommon
+from .star_gift_attribute_rarity_rare import StarGiftAttributeRarityRare
+from .star_gift_attribute_rarity_epic import StarGiftAttributeRarityEpic
+from .star_gift_attribute_rarity_legendary import StarGiftAttributeRarityLegendary
+from .keyboard_button_style import KeyboardButtonStyle
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

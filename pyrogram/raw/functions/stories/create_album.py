@@ -36,7 +36,7 @@ class CreateAlbum(TLObject["raw.base.StoryAlbum"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A36396E5``
 
     Parameters:

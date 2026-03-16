@@ -36,7 +36,7 @@ class GetMessageAuthor(TLObject["raw.base.User"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``ECE2A0E6``
 
     Parameters:

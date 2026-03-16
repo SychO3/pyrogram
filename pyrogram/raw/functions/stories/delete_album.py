@@ -36,7 +36,7 @@ class DeleteAlbum(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8D3456D0``
 
     Parameters:

@@ -36,7 +36,7 @@ class SendMessageCancelAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FD5EC8F5``
 
     **No parameters required.**

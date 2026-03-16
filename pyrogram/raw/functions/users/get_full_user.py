@@ -36,7 +36,7 @@ class GetFullUser(TLObject["raw.base.users.UserFull"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B60F5918``
 
     Parameters:

@@ -36,8 +36,8 @@ class StarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGift`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``1B9A4D7F``
+        - Layer: ``223``
+        - ID: ``313A9547``
 
     Parameters:
         id: ``int`` ``64-bit``
@@ -65,14 +65,17 @@ class StarGift(TLObject):
         locked_until_date (optional): ``int`` ``32-bit``
         auction_slug (optional): ``str``
         gifts_per_round (optional): ``int`` ``32-bit``
+        auction_start_date (optional): ``int`` ``32-bit``
+        upgrade_variants (optional): ``int`` ``32-bit``
+        background (optional): :obj:`StarGiftBackground <pyrogram.raw.base.StarGiftBackground>`
     """
 
-    __slots__: List[str] = ["id", "sticker", "stars", "convert_stars", "limited", "sold_out", "birthday", "require_premium", "limited_per_user", "peer_color_available", "auction", "availability_remains", "availability_total", "availability_resale", "first_sale_date", "last_sale_date", "upgrade_stars", "resell_min_stars", "title", "released_by", "per_user_total", "per_user_remains", "locked_until_date", "auction_slug", "gifts_per_round"]
+    __slots__: List[str] = ["id", "sticker", "stars", "convert_stars", "limited", "sold_out", "birthday", "require_premium", "limited_per_user", "peer_color_available", "auction", "availability_remains", "availability_total", "availability_resale", "first_sale_date", "last_sale_date", "upgrade_stars", "resell_min_stars", "title", "released_by", "per_user_total", "per_user_remains", "locked_until_date", "auction_slug", "gifts_per_round", "auction_start_date", "upgrade_variants", "background"]
 
-    ID = 0x1b9a4d7f
+    ID = 0x313a9547
     QUALNAME = "types.StarGift"
 
-    def __init__(self, *, id: int, sticker: "raw.base.Document", stars: int, convert_stars: int, limited: Optional[bool] = None, sold_out: Optional[bool] = None, birthday: Optional[bool] = None, require_premium: Optional[bool] = None, limited_per_user: Optional[bool] = None, peer_color_available: Optional[bool] = None, auction: Optional[bool] = None, availability_remains: Optional[int] = None, availability_total: Optional[int] = None, availability_resale: Optional[int] = None, first_sale_date: Optional[int] = None, last_sale_date: Optional[int] = None, upgrade_stars: Optional[int] = None, resell_min_stars: Optional[int] = None, title: Optional[str] = None, released_by: "raw.base.Peer" = None, per_user_total: Optional[int] = None, per_user_remains: Optional[int] = None, locked_until_date: Optional[int] = None, auction_slug: Optional[str] = None, gifts_per_round: Optional[int] = None) -> None:
+    def __init__(self, *, id: int, sticker: "raw.base.Document", stars: int, convert_stars: int, limited: Optional[bool] = None, sold_out: Optional[bool] = None, birthday: Optional[bool] = None, require_premium: Optional[bool] = None, limited_per_user: Optional[bool] = None, peer_color_available: Optional[bool] = None, auction: Optional[bool] = None, availability_remains: Optional[int] = None, availability_total: Optional[int] = None, availability_resale: Optional[int] = None, first_sale_date: Optional[int] = None, last_sale_date: Optional[int] = None, upgrade_stars: Optional[int] = None, resell_min_stars: Optional[int] = None, title: Optional[str] = None, released_by: "raw.base.Peer" = None, per_user_total: Optional[int] = None, per_user_remains: Optional[int] = None, locked_until_date: Optional[int] = None, auction_slug: Optional[str] = None, gifts_per_round: Optional[int] = None, auction_start_date: Optional[int] = None, upgrade_variants: Optional[int] = None, background: "raw.base.StarGiftBackground" = None) -> None:
         self.id = id  # long
         self.sticker = sticker  # Document
         self.stars = stars  # long
@@ -98,6 +101,9 @@ class StarGift(TLObject):
         self.locked_until_date = locked_until_date  # flags.9?int
         self.auction_slug = auction_slug  # flags.11?string
         self.gifts_per_round = gifts_per_round  # flags.11?int
+        self.auction_start_date = auction_start_date  # flags.11?int
+        self.upgrade_variants = upgrade_variants  # flags.12?int
+        self.background = background  # flags.13?StarGiftBackground
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGift":
@@ -134,7 +140,11 @@ class StarGift(TLObject):
         locked_until_date = Int.read(b) if flags & (1 << 9) else None
         auction_slug = String.read(b) if flags & (1 << 11) else None
         gifts_per_round = Int.read(b) if flags & (1 << 11) else None
-        return StarGift(id=id, sticker=sticker, stars=stars, convert_stars=convert_stars, limited=limited, sold_out=sold_out, birthday=birthday, require_premium=require_premium, limited_per_user=limited_per_user, peer_color_available=peer_color_available, auction=auction, availability_remains=availability_remains, availability_total=availability_total, availability_resale=availability_resale, first_sale_date=first_sale_date, last_sale_date=last_sale_date, upgrade_stars=upgrade_stars, resell_min_stars=resell_min_stars, title=title, released_by=released_by, per_user_total=per_user_total, per_user_remains=per_user_remains, locked_until_date=locked_until_date, auction_slug=auction_slug, gifts_per_round=gifts_per_round)
+        auction_start_date = Int.read(b) if flags & (1 << 11) else None
+        upgrade_variants = Int.read(b) if flags & (1 << 12) else None
+        background = TLObject.read(b) if flags & (1 << 13) else None
+        
+        return StarGift(id=id, sticker=sticker, stars=stars, convert_stars=convert_stars, limited=limited, sold_out=sold_out, birthday=birthday, require_premium=require_premium, limited_per_user=limited_per_user, peer_color_available=peer_color_available, auction=auction, availability_remains=availability_remains, availability_total=availability_total, availability_resale=availability_resale, first_sale_date=first_sale_date, last_sale_date=last_sale_date, upgrade_stars=upgrade_stars, resell_min_stars=resell_min_stars, title=title, released_by=released_by, per_user_total=per_user_total, per_user_remains=per_user_remains, locked_until_date=locked_until_date, auction_slug=auction_slug, gifts_per_round=gifts_per_round, auction_start_date=auction_start_date, upgrade_variants=upgrade_variants, background=background)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -162,6 +172,9 @@ class StarGift(TLObject):
         flags |= (1 << 9) if self.locked_until_date is not None else 0
         flags |= (1 << 11) if self.auction_slug is not None else 0
         flags |= (1 << 11) if self.gifts_per_round is not None else 0
+        flags |= (1 << 11) if self.auction_start_date is not None else 0
+        flags |= (1 << 12) if self.upgrade_variants is not None else 0
+        flags |= (1 << 13) if self.background is not None else 0
         b.write(Int(flags))
         
         b.write(Long(self.id))
@@ -213,5 +226,14 @@ class StarGift(TLObject):
         
         if self.gifts_per_round is not None:
             b.write(Int(self.gifts_per_round))
+        
+        if self.auction_start_date is not None:
+            b.write(Int(self.auction_start_date))
+        
+        if self.upgrade_variants is not None:
+            b.write(Int(self.upgrade_variants))
+        
+        if self.background is not None:
+            b.write(self.background.write())
         
         return b.getvalue()

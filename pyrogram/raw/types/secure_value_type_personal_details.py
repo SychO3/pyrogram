@@ -36,7 +36,7 @@ class SecureValueTypePersonalDetails(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``9D2A81E3``
 
     **No parameters required.**

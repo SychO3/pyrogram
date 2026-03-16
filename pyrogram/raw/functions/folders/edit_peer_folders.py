@@ -36,7 +36,7 @@ class EditPeerFolders(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6847D0AB``
 
     Parameters:

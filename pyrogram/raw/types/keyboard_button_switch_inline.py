@@ -36,25 +36,27 @@ class KeyboardButtonSwitchInline(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``93B9FBB5``
+        - Layer: ``223``
+        - ID: ``991399FC``
 
     Parameters:
         text: ``str``
         query: ``str``
         same_peer (optional): ``bool``
+        style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
         peer_types (optional): List of :obj:`InlineQueryPeerType <pyrogram.raw.base.InlineQueryPeerType>`
     """
 
-    __slots__: List[str] = ["text", "query", "same_peer", "peer_types"]
+    __slots__: List[str] = ["text", "query", "same_peer", "style", "peer_types"]
 
-    ID = 0x93b9fbb5
+    ID = 0x991399fc
     QUALNAME = "types.KeyboardButtonSwitchInline"
 
-    def __init__(self, *, text: str, query: str, same_peer: Optional[bool] = None, peer_types: Optional[List["raw.base.InlineQueryPeerType"]] = None) -> None:
+    def __init__(self, *, text: str, query: str, same_peer: Optional[bool] = None, style: "raw.base.KeyboardButtonStyle" = None, peer_types: Optional[List["raw.base.InlineQueryPeerType"]] = None) -> None:
         self.text = text  # string
         self.query = query  # string
         self.same_peer = same_peer  # flags.0?true
+        self.style = style  # flags.10?KeyboardButtonStyle
         self.peer_types = peer_types  # flags.1?Vector<InlineQueryPeerType>
 
     @staticmethod
@@ -63,13 +65,15 @@ class KeyboardButtonSwitchInline(TLObject):
         flags = Int.read(b)
         
         same_peer = True if flags & (1 << 0) else False
+        style = TLObject.read(b) if flags & (1 << 10) else None
+        
         text = String.read(b)
         
         query = String.read(b)
         
         peer_types = TLObject.read(b) if flags & (1 << 1) else []
         
-        return KeyboardButtonSwitchInline(text=text, query=query, same_peer=same_peer, peer_types=peer_types)
+        return KeyboardButtonSwitchInline(text=text, query=query, same_peer=same_peer, style=style, peer_types=peer_types)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -77,8 +81,12 @@ class KeyboardButtonSwitchInline(TLObject):
 
         flags = 0
         flags |= (1 << 0) if self.same_peer else 0
+        flags |= (1 << 10) if self.style is not None else 0
         flags |= (1 << 1) if self.peer_types else 0
         b.write(Int(flags))
+        
+        if self.style is not None:
+            b.write(self.style.write())
         
         b.write(String(self.text))
         

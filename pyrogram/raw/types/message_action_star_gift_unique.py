@@ -36,8 +36,8 @@ class MessageActionStarGiftUnique(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``95728543``
+        - Layer: ``223``
+        - ID: ``E6C31522``
 
     Parameters:
         gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
@@ -47,6 +47,8 @@ class MessageActionStarGiftUnique(TLObject):
         refunded (optional): ``bool``
         prepaid_upgrade (optional): ``bool``
         assigned (optional): ``bool``
+        from_offer (optional): ``bool``
+        craft (optional): ``bool``
         can_export_at (optional): ``int`` ``32-bit``
         transfer_stars (optional): ``int`` ``64-bit``
         from_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
@@ -56,14 +58,15 @@ class MessageActionStarGiftUnique(TLObject):
         can_transfer_at (optional): ``int`` ``32-bit``
         can_resell_at (optional): ``int`` ``32-bit``
         drop_original_details_stars (optional): ``int`` ``64-bit``
+        can_craft_at (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["gift", "upgrade", "transferred", "saved", "refunded", "prepaid_upgrade", "assigned", "can_export_at", "transfer_stars", "from_id", "peer", "saved_id", "resale_amount", "can_transfer_at", "can_resell_at", "drop_original_details_stars"]
+    __slots__: List[str] = ["gift", "upgrade", "transferred", "saved", "refunded", "prepaid_upgrade", "assigned", "from_offer", "craft", "can_export_at", "transfer_stars", "from_id", "peer", "saved_id", "resale_amount", "can_transfer_at", "can_resell_at", "drop_original_details_stars", "can_craft_at"]
 
-    ID = 0x95728543
+    ID = 0xe6c31522
     QUALNAME = "types.MessageActionStarGiftUnique"
 
-    def __init__(self, *, gift: "raw.base.StarGift", upgrade: Optional[bool] = None, transferred: Optional[bool] = None, saved: Optional[bool] = None, refunded: Optional[bool] = None, prepaid_upgrade: Optional[bool] = None, assigned: Optional[bool] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, from_id: "raw.base.Peer" = None, peer: "raw.base.Peer" = None, saved_id: Optional[int] = None, resale_amount: "raw.base.StarsAmount" = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, drop_original_details_stars: Optional[int] = None) -> None:
+    def __init__(self, *, gift: "raw.base.StarGift", upgrade: Optional[bool] = None, transferred: Optional[bool] = None, saved: Optional[bool] = None, refunded: Optional[bool] = None, prepaid_upgrade: Optional[bool] = None, assigned: Optional[bool] = None, from_offer: Optional[bool] = None, craft: Optional[bool] = None, can_export_at: Optional[int] = None, transfer_stars: Optional[int] = None, from_id: "raw.base.Peer" = None, peer: "raw.base.Peer" = None, saved_id: Optional[int] = None, resale_amount: "raw.base.StarsAmount" = None, can_transfer_at: Optional[int] = None, can_resell_at: Optional[int] = None, drop_original_details_stars: Optional[int] = None, can_craft_at: Optional[int] = None) -> None:
         self.gift = gift  # StarGift
         self.upgrade = upgrade  # flags.0?true
         self.transferred = transferred  # flags.1?true
@@ -71,6 +74,8 @@ class MessageActionStarGiftUnique(TLObject):
         self.refunded = refunded  # flags.5?true
         self.prepaid_upgrade = prepaid_upgrade  # flags.11?true
         self.assigned = assigned  # flags.13?true
+        self.from_offer = from_offer  # flags.14?true
+        self.craft = craft  # flags.16?true
         self.can_export_at = can_export_at  # flags.3?int
         self.transfer_stars = transfer_stars  # flags.4?long
         self.from_id = from_id  # flags.6?Peer
@@ -80,6 +85,7 @@ class MessageActionStarGiftUnique(TLObject):
         self.can_transfer_at = can_transfer_at  # flags.9?int
         self.can_resell_at = can_resell_at  # flags.10?int
         self.drop_original_details_stars = drop_original_details_stars  # flags.12?long
+        self.can_craft_at = can_craft_at  # flags.15?int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "MessageActionStarGiftUnique":
@@ -92,6 +98,8 @@ class MessageActionStarGiftUnique(TLObject):
         refunded = True if flags & (1 << 5) else False
         prepaid_upgrade = True if flags & (1 << 11) else False
         assigned = True if flags & (1 << 13) else False
+        from_offer = True if flags & (1 << 14) else False
+        craft = True if flags & (1 << 16) else False
         gift = TLObject.read(b)
         
         can_export_at = Int.read(b) if flags & (1 << 3) else None
@@ -106,7 +114,8 @@ class MessageActionStarGiftUnique(TLObject):
         can_transfer_at = Int.read(b) if flags & (1 << 9) else None
         can_resell_at = Int.read(b) if flags & (1 << 10) else None
         drop_original_details_stars = Long.read(b) if flags & (1 << 12) else None
-        return MessageActionStarGiftUnique(gift=gift, upgrade=upgrade, transferred=transferred, saved=saved, refunded=refunded, prepaid_upgrade=prepaid_upgrade, assigned=assigned, can_export_at=can_export_at, transfer_stars=transfer_stars, from_id=from_id, peer=peer, saved_id=saved_id, resale_amount=resale_amount, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, drop_original_details_stars=drop_original_details_stars)
+        can_craft_at = Int.read(b) if flags & (1 << 15) else None
+        return MessageActionStarGiftUnique(gift=gift, upgrade=upgrade, transferred=transferred, saved=saved, refunded=refunded, prepaid_upgrade=prepaid_upgrade, assigned=assigned, from_offer=from_offer, craft=craft, can_export_at=can_export_at, transfer_stars=transfer_stars, from_id=from_id, peer=peer, saved_id=saved_id, resale_amount=resale_amount, can_transfer_at=can_transfer_at, can_resell_at=can_resell_at, drop_original_details_stars=drop_original_details_stars, can_craft_at=can_craft_at)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -119,6 +128,8 @@ class MessageActionStarGiftUnique(TLObject):
         flags |= (1 << 5) if self.refunded else 0
         flags |= (1 << 11) if self.prepaid_upgrade else 0
         flags |= (1 << 13) if self.assigned else 0
+        flags |= (1 << 14) if self.from_offer else 0
+        flags |= (1 << 16) if self.craft else 0
         flags |= (1 << 3) if self.can_export_at is not None else 0
         flags |= (1 << 4) if self.transfer_stars is not None else 0
         flags |= (1 << 6) if self.from_id is not None else 0
@@ -128,6 +139,7 @@ class MessageActionStarGiftUnique(TLObject):
         flags |= (1 << 9) if self.can_transfer_at is not None else 0
         flags |= (1 << 10) if self.can_resell_at is not None else 0
         flags |= (1 << 12) if self.drop_original_details_stars is not None else 0
+        flags |= (1 << 15) if self.can_craft_at is not None else 0
         b.write(Int(flags))
         
         b.write(self.gift.write())
@@ -158,5 +170,8 @@ class MessageActionStarGiftUnique(TLObject):
         
         if self.drop_original_details_stars is not None:
             b.write(Long(self.drop_original_details_stars))
+        
+        if self.can_craft_at is not None:
+            b.write(Int(self.can_craft_at))
         
         return b.getvalue()

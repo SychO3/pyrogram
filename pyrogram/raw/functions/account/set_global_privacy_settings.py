@@ -36,7 +36,7 @@ class SetGlobalPrivacySettings(TLObject["raw.base.GlobalPrivacySettings"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1EDAAAC2``
 
     Parameters:

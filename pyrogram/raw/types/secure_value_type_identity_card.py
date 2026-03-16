@@ -36,7 +36,7 @@ class SecureValueTypeIdentityCard(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A0D0744B``
 
     **No parameters required.**

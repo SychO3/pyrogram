@@ -36,7 +36,7 @@ class SecureFileEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureFile`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``64199744``
 
     **No parameters required.**

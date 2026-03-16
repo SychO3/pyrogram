@@ -36,7 +36,7 @@ class PrivacyValueDisallowBots(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PrivacyRule`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F6A5F82F``
 
     **No parameters required.**

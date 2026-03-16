@@ -36,7 +36,7 @@ class InputReplyToMonoForum(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputReplyTo`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``69D66C45``
 
     Parameters:

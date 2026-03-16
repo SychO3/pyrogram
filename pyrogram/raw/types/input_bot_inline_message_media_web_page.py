@@ -36,7 +36,7 @@ class InputBotInlineMessageMediaWebPage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputBotInlineMessage`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``BDDCC510``
 
     Parameters:

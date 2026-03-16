@@ -36,7 +36,7 @@ class GetSavedReactionTags(TLObject["raw.base.messages.SavedReactionTags"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``3637E05B``
 
     Parameters:

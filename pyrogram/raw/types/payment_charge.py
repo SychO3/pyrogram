@@ -36,7 +36,7 @@ class PaymentCharge(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PaymentCharge`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EA02C27E``
 
     Parameters:

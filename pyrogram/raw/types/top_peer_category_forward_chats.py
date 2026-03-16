@@ -36,7 +36,7 @@ class TopPeerCategoryForwardChats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TopPeerCategory`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FBEEC0F0``
 
     **No parameters required.**

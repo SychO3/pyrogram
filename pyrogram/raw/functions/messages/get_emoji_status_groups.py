@@ -36,7 +36,7 @@ class GetEmojiStatusGroups(TLObject["raw.base.messages.EmojiGroups"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2ECD56CD``
 
     Parameters:

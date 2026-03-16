@@ -36,7 +36,7 @@ class PeerChannel(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Peer`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A2A5371E``
 
     Parameters:

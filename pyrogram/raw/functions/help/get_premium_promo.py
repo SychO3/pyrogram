@@ -36,7 +36,7 @@ class GetPremiumPromo(TLObject["raw.base.help.PremiumPromo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B81B93D4``
 
     **No parameters required.**

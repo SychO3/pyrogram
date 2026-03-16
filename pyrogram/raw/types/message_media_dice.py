@@ -36,12 +36,13 @@ class MessageMediaDice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageMedia`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``3F7EE58B``
+        - Layer: ``223``
+        - ID: ``8CBEC07``
 
     Parameters:
         value: ``int`` ``32-bit``
         emoticon: ``str``
+        game_outcome (optional): :obj:`messages.EmojiGameOutcome <pyrogram.raw.base.messages.EmojiGameOutcome>`
 
     See Also:
         This object can be returned by 2 methods:
@@ -53,33 +54,42 @@ class MessageMediaDice(TLObject):
             - :obj:`messages.UploadImportedMedia <pyrogram.raw.functions.messages.UploadImportedMedia>`
     """
 
-    __slots__: List[str] = ["value", "emoticon"]
+    __slots__: List[str] = ["value", "emoticon", "game_outcome"]
 
-    ID = 0x3f7ee58b
+    ID = 0x8cbec07
     QUALNAME = "types.MessageMediaDice"
 
-    def __init__(self, *, value: int, emoticon: str) -> None:
+    def __init__(self, *, value: int, emoticon: str, game_outcome: "raw.base.messages.EmojiGameOutcome" = None) -> None:
         self.value = value  # int
         self.emoticon = emoticon  # string
+        self.game_outcome = game_outcome  # flags.0?messages.EmojiGameOutcome
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "MessageMediaDice":
-        # No flags
+        
+        flags = Int.read(b)
         
         value = Int.read(b)
         
         emoticon = String.read(b)
         
-        return MessageMediaDice(value=value, emoticon=emoticon)
+        game_outcome = TLObject.read(b) if flags & (1 << 0) else None
+        
+        return MessageMediaDice(value=value, emoticon=emoticon, game_outcome=game_outcome)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.game_outcome is not None else 0
+        b.write(Int(flags))
         
         b.write(Int(self.value))
         
         b.write(String(self.emoticon))
+        
+        if self.game_outcome is not None:
+            b.write(self.game_outcome.write())
         
         return b.getvalue()

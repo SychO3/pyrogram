@@ -36,28 +36,31 @@ class ChatParticipant(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatParticipant`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``C02D4007``
+        - Layer: ``223``
+        - ID: ``38E79FDE``
 
     Parameters:
         user_id: ``int`` ``64-bit``
         inviter_id: ``int`` ``64-bit``
         date: ``int`` ``32-bit``
+        rank (optional): ``str``
     """
 
-    __slots__: List[str] = ["user_id", "inviter_id", "date"]
+    __slots__: List[str] = ["user_id", "inviter_id", "date", "rank"]
 
-    ID = 0xc02d4007
+    ID = 0x38e79fde
     QUALNAME = "types.ChatParticipant"
 
-    def __init__(self, *, user_id: int, inviter_id: int, date: int) -> None:
+    def __init__(self, *, user_id: int, inviter_id: int, date: int, rank: Optional[str] = None) -> None:
         self.user_id = user_id  # long
         self.inviter_id = inviter_id  # long
         self.date = date  # int
+        self.rank = rank  # flags.0?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ChatParticipant":
-        # No flags
+        
+        flags = Int.read(b)
         
         user_id = Long.read(b)
         
@@ -65,18 +68,24 @@ class ChatParticipant(TLObject):
         
         date = Int.read(b)
         
-        return ChatParticipant(user_id=user_id, inviter_id=inviter_id, date=date)
+        rank = String.read(b) if flags & (1 << 0) else None
+        return ChatParticipant(user_id=user_id, inviter_id=inviter_id, date=date, rank=rank)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.rank is not None else 0
+        b.write(Int(flags))
         
         b.write(Long(self.user_id))
         
         b.write(Long(self.inviter_id))
         
         b.write(Int(self.date))
+        
+        if self.rank is not None:
+            b.write(String(self.rank))
         
         return b.getvalue()

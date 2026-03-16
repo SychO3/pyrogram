@@ -36,7 +36,7 @@ class InputStorePaymentStarsGiveaway(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStorePaymentPurpose`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``751F08FA``
 
     Parameters:

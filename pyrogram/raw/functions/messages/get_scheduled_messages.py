@@ -36,7 +36,7 @@ class GetScheduledMessages(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``BDBB0464``
 
     Parameters:

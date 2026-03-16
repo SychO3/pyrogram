@@ -36,7 +36,7 @@ class CanSendStoryCount(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stories.CanSendStoryCount`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C387C04E``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetGroupCallStreamChannels(TLObject["raw.base.phone.GroupCallStreamChannel
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1AB21940``
 
     Parameters:

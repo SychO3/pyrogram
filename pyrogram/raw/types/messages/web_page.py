@@ -36,7 +36,7 @@ class WebPage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.WebPage`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FD5E12BD``
 
     Parameters:

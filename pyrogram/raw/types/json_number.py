@@ -36,7 +36,7 @@ class JsonNumber(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.JSONValue`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2BE0DFA4``
 
     Parameters:

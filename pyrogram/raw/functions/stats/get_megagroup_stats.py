@@ -36,7 +36,7 @@ class GetMegagroupStats(TLObject["raw.base.stats.MegagroupStats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DCDF8607``
 
     Parameters:

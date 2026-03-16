@@ -36,7 +36,7 @@ class WallPaperSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.WallPaperSettings`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``372EFCD0``
 
     Parameters:

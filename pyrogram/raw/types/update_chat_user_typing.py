@@ -36,7 +36,7 @@ class UpdateChatUserTyping(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``83487AF0``
 
     Parameters:

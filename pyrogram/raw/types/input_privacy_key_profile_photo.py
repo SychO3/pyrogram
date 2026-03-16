@@ -36,7 +36,7 @@ class InputPrivacyKeyProfilePhoto(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPrivacyKey`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5719BACC``
 
     **No parameters required.**

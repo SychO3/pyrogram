@@ -36,7 +36,7 @@ class JoinChatlistUpdates(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E089F8F5``
 
     Parameters:

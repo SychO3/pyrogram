@@ -36,7 +36,7 @@ class PopularAppBots(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.bots.PopularAppBots`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1991B13B``
 
     Parameters:

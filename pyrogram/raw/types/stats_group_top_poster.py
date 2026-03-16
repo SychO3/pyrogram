@@ -36,7 +36,7 @@ class StatsGroupTopPoster(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StatsGroupTopPoster`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``9D04AF9B``
 
     Parameters:

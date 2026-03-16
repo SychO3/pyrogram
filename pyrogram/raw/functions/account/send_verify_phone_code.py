@@ -36,7 +36,7 @@ class SendVerifyPhoneCode(TLObject["raw.base.auth.SentCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A5A356F9``
 
     Parameters:

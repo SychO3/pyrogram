@@ -36,7 +36,7 @@ class ProfileTabVoice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ProfileTab`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E477092E``
 
     **No parameters required.**

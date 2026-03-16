@@ -36,7 +36,7 @@ class InputInvoiceBusinessBotTransferStars(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputInvoice`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F4997E42``
 
     Parameters:

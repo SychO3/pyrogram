@@ -36,7 +36,7 @@ class ChannelAdminLogEventsFilter(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventsFilter`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EA107AE4``
 
     Parameters:
@@ -59,14 +59,15 @@ class ChannelAdminLogEventsFilter(TLObject):
         send (optional): ``bool``
         forums (optional): ``bool``
         sub_extend (optional): ``bool``
+        edit_rank (optional): ``bool``
     """
 
-    __slots__: List[str] = ["join", "leave", "invite", "ban", "unban", "kick", "unkick", "promote", "demote", "info", "settings", "pinned", "edit", "delete", "group_call", "invites", "send", "forums", "sub_extend"]
+    __slots__: List[str] = ["join", "leave", "invite", "ban", "unban", "kick", "unkick", "promote", "demote", "info", "settings", "pinned", "edit", "delete", "group_call", "invites", "send", "forums", "sub_extend", "edit_rank"]
 
     ID = 0xea107ae4
     QUALNAME = "types.ChannelAdminLogEventsFilter"
 
-    def __init__(self, *, join: Optional[bool] = None, leave: Optional[bool] = None, invite: Optional[bool] = None, ban: Optional[bool] = None, unban: Optional[bool] = None, kick: Optional[bool] = None, unkick: Optional[bool] = None, promote: Optional[bool] = None, demote: Optional[bool] = None, info: Optional[bool] = None, settings: Optional[bool] = None, pinned: Optional[bool] = None, edit: Optional[bool] = None, delete: Optional[bool] = None, group_call: Optional[bool] = None, invites: Optional[bool] = None, send: Optional[bool] = None, forums: Optional[bool] = None, sub_extend: Optional[bool] = None) -> None:
+    def __init__(self, *, join: Optional[bool] = None, leave: Optional[bool] = None, invite: Optional[bool] = None, ban: Optional[bool] = None, unban: Optional[bool] = None, kick: Optional[bool] = None, unkick: Optional[bool] = None, promote: Optional[bool] = None, demote: Optional[bool] = None, info: Optional[bool] = None, settings: Optional[bool] = None, pinned: Optional[bool] = None, edit: Optional[bool] = None, delete: Optional[bool] = None, group_call: Optional[bool] = None, invites: Optional[bool] = None, send: Optional[bool] = None, forums: Optional[bool] = None, sub_extend: Optional[bool] = None, edit_rank: Optional[bool] = None) -> None:
         self.join = join  # flags.0?true
         self.leave = leave  # flags.1?true
         self.invite = invite  # flags.2?true
@@ -86,6 +87,7 @@ class ChannelAdminLogEventsFilter(TLObject):
         self.send = send  # flags.16?true
         self.forums = forums  # flags.17?true
         self.sub_extend = sub_extend  # flags.18?true
+        self.edit_rank = edit_rank  # flags.19?true
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ChannelAdminLogEventsFilter":
@@ -111,7 +113,8 @@ class ChannelAdminLogEventsFilter(TLObject):
         send = True if flags & (1 << 16) else False
         forums = True if flags & (1 << 17) else False
         sub_extend = True if flags & (1 << 18) else False
-        return ChannelAdminLogEventsFilter(join=join, leave=leave, invite=invite, ban=ban, unban=unban, kick=kick, unkick=unkick, promote=promote, demote=demote, info=info, settings=settings, pinned=pinned, edit=edit, delete=delete, group_call=group_call, invites=invites, send=send, forums=forums, sub_extend=sub_extend)
+        edit_rank = True if flags & (1 << 19) else False
+        return ChannelAdminLogEventsFilter(join=join, leave=leave, invite=invite, ban=ban, unban=unban, kick=kick, unkick=unkick, promote=promote, demote=demote, info=info, settings=settings, pinned=pinned, edit=edit, delete=delete, group_call=group_call, invites=invites, send=send, forums=forums, sub_extend=sub_extend, edit_rank=edit_rank)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -137,6 +140,7 @@ class ChannelAdminLogEventsFilter(TLObject):
         flags |= (1 << 16) if self.send else 0
         flags |= (1 << 17) if self.forums else 0
         flags |= (1 << 18) if self.sub_extend else 0
+        flags |= (1 << 19) if self.edit_rank else 0
         b.write(Int(flags))
         
         return b.getvalue()

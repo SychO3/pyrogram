@@ -36,7 +36,7 @@ class BoostsList(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.premium.BoostsList`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``86F8613C``
 
     Parameters:

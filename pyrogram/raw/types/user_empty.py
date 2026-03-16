@@ -36,14 +36,14 @@ class UserEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.User`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``D3BC4B7A``
 
     Parameters:
         id: ``int`` ``64-bit``
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 8 methods:
 
         .. hlist::
             :columns: 2
@@ -53,6 +53,7 @@ class UserEmpty(TLObject):
             - :obj:`account.ChangePhone <pyrogram.raw.functions.account.ChangePhone>`
             - :obj:`users.GetUsers <pyrogram.raw.functions.users.GetUsers>`
             - :obj:`contacts.ImportContactToken <pyrogram.raw.functions.contacts.ImportContactToken>`
+            - :obj:`messages.GetFutureChatCreatorAfterLeave <pyrogram.raw.functions.messages.GetFutureChatCreatorAfterLeave>`
             - :obj:`channels.GetMessageAuthor <pyrogram.raw.functions.channels.GetMessageAuthor>`
             - :obj:`bots.GetAdminedBots <pyrogram.raw.functions.bots.GetAdminedBots>`
     """

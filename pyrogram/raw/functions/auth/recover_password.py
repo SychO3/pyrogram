@@ -36,7 +36,7 @@ class RecoverPassword(TLObject["raw.base.auth.Authorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``37096C70``
 
     Parameters:

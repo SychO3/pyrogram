@@ -36,7 +36,7 @@ class SecureValueTypeRentalAgreement(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8B883488``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class TopPeerCategoryPeers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TopPeerCategoryPeers`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FB834291``
 
     Parameters:

@@ -36,7 +36,7 @@ class ChannelParticipantAdmin(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelParticipant`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``34C3BB53``
 
     Parameters:

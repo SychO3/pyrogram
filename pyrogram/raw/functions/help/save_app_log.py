@@ -36,7 +36,7 @@ class SaveAppLog(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6F02F748``
 
     Parameters:

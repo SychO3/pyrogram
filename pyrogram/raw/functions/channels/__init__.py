@@ -52,7 +52,6 @@ from .toggle_pre_history_hidden import TogglePreHistoryHidden
 from .get_left_channels import GetLeftChannels
 from .get_groups_for_discussion import GetGroupsForDiscussion
 from .set_discussion_group import SetDiscussionGroup
-from .edit_creator import EditCreator
 from .edit_location import EditLocation
 from .toggle_slow_mode import ToggleSlowMode
 from .get_inactive_channels import GetInactiveChannels

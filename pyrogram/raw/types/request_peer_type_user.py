@@ -36,7 +36,7 @@ class RequestPeerTypeUser(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RequestPeerType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5F3B8A00``
 
     Parameters:

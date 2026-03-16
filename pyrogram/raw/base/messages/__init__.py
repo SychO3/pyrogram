@@ -82,3 +82,5 @@ from .bot_prepared_inline_message import BotPreparedInlineMessage
 from .prepared_inline_message import PreparedInlineMessage
 from .found_stickers import FoundStickers
 from .web_page_preview import WebPagePreview
+from .emoji_game_outcome import EmojiGameOutcome
+from .emoji_game_info import EmojiGameInfo

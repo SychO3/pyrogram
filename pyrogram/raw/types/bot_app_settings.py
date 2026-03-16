@@ -36,7 +36,7 @@ class BotAppSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotAppSettings`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C99B1950``
 
     Parameters:

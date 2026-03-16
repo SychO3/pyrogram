@@ -36,7 +36,7 @@ class ToggleJoinToSend(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E4CB9580``
 
     Parameters:

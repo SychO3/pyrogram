@@ -36,7 +36,7 @@ class GetAvailableReactions(TLObject["raw.base.messages.AvailableReactions"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``18DEA0AC``
 
     Parameters:

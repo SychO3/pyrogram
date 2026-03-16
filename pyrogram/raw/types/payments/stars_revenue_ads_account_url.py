@@ -36,7 +36,7 @@ class StarsRevenueAdsAccountUrl(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarsRevenueAdsAccountUrl`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``394E7F21``
 
     Parameters:

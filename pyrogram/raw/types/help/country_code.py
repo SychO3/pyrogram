@@ -36,7 +36,7 @@ class CountryCode(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.CountryCode`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4203C5EF``
 
     Parameters:

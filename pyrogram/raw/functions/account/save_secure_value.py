@@ -36,7 +36,7 @@ class SaveSecureValue(TLObject["raw.base.SecureValue"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``899FE31D``
 
     Parameters:

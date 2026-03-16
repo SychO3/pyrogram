@@ -36,7 +36,7 @@ class RecentMeUrlChatInvite(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RecentMeUrl`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EB49081D``
 
     Parameters:

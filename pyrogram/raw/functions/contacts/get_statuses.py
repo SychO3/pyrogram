@@ -36,7 +36,7 @@ class GetStatuses(TLObject["List[raw.base.ContactStatus]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C4A353EE``
 
     **No parameters required.**

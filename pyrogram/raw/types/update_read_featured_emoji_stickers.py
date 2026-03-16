@@ -36,7 +36,7 @@ class UpdateReadFeaturedEmojiStickers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FB4C496C``
 
     **No parameters required.**

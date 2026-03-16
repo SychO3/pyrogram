@@ -36,7 +36,7 @@ class BotCommandScopeChats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotCommandScope`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6FE1A881``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class StarsRevenueStats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarsRevenueStats`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6C207376``
 
     Parameters:

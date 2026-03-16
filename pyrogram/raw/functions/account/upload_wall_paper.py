@@ -36,7 +36,7 @@ class UploadWallPaper(TLObject["raw.base.WallPaper"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E39A8F03``
 
     Parameters:

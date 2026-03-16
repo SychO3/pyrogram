@@ -36,7 +36,7 @@ class ToggleAntiSpam(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``68F3E4EB``
 
     Parameters:

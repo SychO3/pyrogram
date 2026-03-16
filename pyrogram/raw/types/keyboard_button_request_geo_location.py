@@ -36,34 +36,44 @@ class KeyboardButtonRequestGeoLocation(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``FC796B3F``
+        - Layer: ``223``
+        - ID: ``AA40F94D``
 
     Parameters:
         text: ``str``
+        style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
     """
 
-    __slots__: List[str] = ["text"]
+    __slots__: List[str] = ["text", "style"]
 
-    ID = 0xfc796b3f
+    ID = 0xaa40f94d
     QUALNAME = "types.KeyboardButtonRequestGeoLocation"
 
-    def __init__(self, *, text: str) -> None:
+    def __init__(self, *, text: str, style: "raw.base.KeyboardButtonStyle" = None) -> None:
         self.text = text  # string
+        self.style = style  # flags.10?KeyboardButtonStyle
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "KeyboardButtonRequestGeoLocation":
-        # No flags
+        
+        flags = Int.read(b)
+        
+        style = TLObject.read(b) if flags & (1 << 10) else None
         
         text = String.read(b)
         
-        return KeyboardButtonRequestGeoLocation(text=text)
+        return KeyboardButtonRequestGeoLocation(text=text, style=style)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 10) if self.style is not None else 0
+        b.write(Int(flags))
+        
+        if self.style is not None:
+            b.write(self.style.write())
         
         b.write(String(self.text))
         

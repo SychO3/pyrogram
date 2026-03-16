@@ -36,28 +36,35 @@ class StarGiftAuctionStateFinished(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAuctionState`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``7D967C3A``
+        - Layer: ``223``
+        - ID: ``972DABBF``
 
     Parameters:
         start_date: ``int`` ``32-bit``
         end_date: ``int`` ``32-bit``
         average_price: ``int`` ``64-bit``
+        listed_count (optional): ``int`` ``32-bit``
+        fragment_listed_count (optional): ``int`` ``32-bit``
+        fragment_listed_url (optional): ``str``
     """
 
-    __slots__: List[str] = ["start_date", "end_date", "average_price"]
+    __slots__: List[str] = ["start_date", "end_date", "average_price", "listed_count", "fragment_listed_count", "fragment_listed_url"]
 
-    ID = 0x7d967c3a
+    ID = 0x972dabbf
     QUALNAME = "types.StarGiftAuctionStateFinished"
 
-    def __init__(self, *, start_date: int, end_date: int, average_price: int) -> None:
+    def __init__(self, *, start_date: int, end_date: int, average_price: int, listed_count: Optional[int] = None, fragment_listed_count: Optional[int] = None, fragment_listed_url: Optional[str] = None) -> None:
         self.start_date = start_date  # int
         self.end_date = end_date  # int
         self.average_price = average_price  # long
+        self.listed_count = listed_count  # flags.0?int
+        self.fragment_listed_count = fragment_listed_count  # flags.1?int
+        self.fragment_listed_url = fragment_listed_url  # flags.1?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAuctionStateFinished":
-        # No flags
+        
+        flags = Int.read(b)
         
         start_date = Int.read(b)
         
@@ -65,18 +72,34 @@ class StarGiftAuctionStateFinished(TLObject):
         
         average_price = Long.read(b)
         
-        return StarGiftAuctionStateFinished(start_date=start_date, end_date=end_date, average_price=average_price)
+        listed_count = Int.read(b) if flags & (1 << 0) else None
+        fragment_listed_count = Int.read(b) if flags & (1 << 1) else None
+        fragment_listed_url = String.read(b) if flags & (1 << 1) else None
+        return StarGiftAuctionStateFinished(start_date=start_date, end_date=end_date, average_price=average_price, listed_count=listed_count, fragment_listed_count=fragment_listed_count, fragment_listed_url=fragment_listed_url)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.listed_count is not None else 0
+        flags |= (1 << 1) if self.fragment_listed_count is not None else 0
+        flags |= (1 << 1) if self.fragment_listed_url is not None else 0
+        b.write(Int(flags))
         
         b.write(Int(self.start_date))
         
         b.write(Int(self.end_date))
         
         b.write(Long(self.average_price))
+        
+        if self.listed_count is not None:
+            b.write(Int(self.listed_count))
+        
+        if self.fragment_listed_count is not None:
+            b.write(Int(self.fragment_listed_count))
+        
+        if self.fragment_listed_url is not None:
+            b.write(String(self.fragment_listed_url))
         
         return b.getvalue()

@@ -36,7 +36,7 @@ class GetEmojiStickers(TLObject["raw.base.messages.AllStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FBFCA18F``
 
     Parameters:

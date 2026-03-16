@@ -49,3 +49,4 @@ from .check_can_send_gift_result import CheckCanSendGiftResult
 from .star_gift_auction_state import StarGiftAuctionState
 from .star_gift_auction_acquired_gifts import StarGiftAuctionAcquiredGifts
 from .star_gift_active_auctions import StarGiftActiveAuctions
+from .star_gift_upgrade_attributes import StarGiftUpgradeAttributes

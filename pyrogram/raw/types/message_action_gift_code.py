@@ -36,7 +36,7 @@ class MessageActionGiftCode(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``31C48347``
 
     Parameters:

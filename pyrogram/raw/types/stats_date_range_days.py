@@ -36,7 +36,7 @@ class StatsDateRangeDays(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StatsDateRangeDays`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B637EDAF``
 
     Parameters:

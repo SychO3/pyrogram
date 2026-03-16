@@ -36,7 +36,7 @@ class ToggleForum(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``3FF75734``
 
     Parameters:

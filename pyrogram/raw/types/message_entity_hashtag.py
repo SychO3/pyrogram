@@ -36,7 +36,7 @@ class MessageEntityHashtag(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageEntity`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6F635B0D``
 
     Parameters:

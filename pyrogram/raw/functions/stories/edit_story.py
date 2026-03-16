@@ -36,7 +36,7 @@ class EditStory(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B583BA46``
 
     Parameters:

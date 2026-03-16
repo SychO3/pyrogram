@@ -36,7 +36,7 @@ class StarsTransactionPeerUnsupported(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsTransactionPeer`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``95F2BFE4``
 
     **No parameters required.**

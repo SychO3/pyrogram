@@ -36,7 +36,7 @@ class GetStarGiftUpgradePreview(TLObject["raw.base.payments.StarGiftUpgradePrevi
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``9C9ABCB1``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputGroupCallInviteMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputGroupCall`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8C10603F``
 
     Parameters:

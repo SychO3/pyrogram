@@ -36,7 +36,7 @@ class UpdateUserEmojiStatus(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``ED9F30C5``
 
     Parameters:

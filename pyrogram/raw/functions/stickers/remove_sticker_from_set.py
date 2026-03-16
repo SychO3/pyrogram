@@ -36,7 +36,7 @@ class RemoveStickerFromSet(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F7760F51``
 
     Parameters:

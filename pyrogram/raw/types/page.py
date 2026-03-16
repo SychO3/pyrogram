@@ -36,7 +36,7 @@ class Page(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Page`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``98657F0D``
 
     Parameters:

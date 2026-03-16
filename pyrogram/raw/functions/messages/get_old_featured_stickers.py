@@ -36,7 +36,7 @@ class GetOldFeaturedStickers(TLObject["raw.base.messages.FeaturedStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7ED094A1``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputDialogPeerFolder(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputDialogPeer`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``64600527``
 
     Parameters:

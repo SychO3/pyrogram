@@ -36,7 +36,7 @@ class DeleteStarGiftCollection(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``AD5648E8``
 
     Parameters:

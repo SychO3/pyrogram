@@ -36,7 +36,7 @@ class ReportMissingCode(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``CB9DEFF6``
 
     Parameters:

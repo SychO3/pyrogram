@@ -36,7 +36,7 @@ class GetCollectibleInfo(TLObject["raw.base.fragment.CollectibleInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``BE1E85BA``
 
     Parameters:

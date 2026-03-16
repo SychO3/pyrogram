@@ -36,7 +36,7 @@ class EditUserInfo(TLObject["raw.base.help.UserInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``66B91B70``
 
     Parameters:

@@ -58,3 +58,5 @@ from .resolved_business_chat_links import ResolvedBusinessChatLinks
 from .paid_messages_revenue import PaidMessagesRevenue
 from .saved_music_ids_not_modified import SavedMusicIdsNotModified
 from .saved_music_ids import SavedMusicIds
+from .passkeys import Passkeys
+from .passkey_registration_options import PasskeyRegistrationOptions

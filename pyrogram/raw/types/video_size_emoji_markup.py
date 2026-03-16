@@ -36,7 +36,7 @@ class VideoSizeEmojiMarkup(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.VideoSize`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F85C413C``
 
     Parameters:

@@ -36,7 +36,7 @@ class ReceivedMessages(TLObject["List[raw.base.ReceivedNotifyMessage]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5A954C0``
 
     Parameters:

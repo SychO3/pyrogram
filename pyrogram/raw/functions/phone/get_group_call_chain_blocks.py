@@ -36,7 +36,7 @@ class GetGroupCallChainBlocks(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EE9F88A6``
 
     Parameters:

@@ -36,7 +36,7 @@ class StartScheduledGroupCall(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5680E342``
 
     Parameters:

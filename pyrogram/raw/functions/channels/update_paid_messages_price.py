@@ -36,7 +36,7 @@ class UpdatePaidMessagesPrice(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4B12327B``
 
     Parameters:

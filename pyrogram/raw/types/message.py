@@ -36,8 +36,8 @@ class Message(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Message`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``B92F76CF``
+        - Layer: ``223``
+        - ID: ``3AE56482``
 
     Parameters:
         id: ``int`` ``32-bit``
@@ -61,6 +61,7 @@ class Message(TLObject):
         paid_suggested_post_ton (optional): ``bool``
         from_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
         from_boosts_applied (optional): ``int`` ``32-bit``
+        from_rank (optional): ``str``
         saved_peer_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
         fwd_from (optional): :obj:`MessageFwdHeader <pyrogram.raw.base.MessageFwdHeader>`
         via_bot_id (optional): ``int`` ``64-bit``
@@ -85,14 +86,15 @@ class Message(TLObject):
         paid_message_stars (optional): ``int`` ``64-bit``
         suggested_post (optional): :obj:`SuggestedPost <pyrogram.raw.base.SuggestedPost>`
         schedule_repeat_period (optional): ``int`` ``32-bit``
+        summary_from_language (optional): ``str``
     """
 
-    __slots__: List[str] = ["id", "peer_id", "date", "message", "out", "mentioned", "media_unread", "silent", "post", "from_scheduled", "legacy", "edit_hide", "pinned", "noforwards", "invert_media", "offline", "video_processing_pending", "paid_suggested_post_stars", "paid_suggested_post_ton", "from_id", "from_boosts_applied", "saved_peer_id", "fwd_from", "via_bot_id", "via_business_bot_id", "reply_to", "media", "reply_markup", "entities", "views", "forwards", "replies", "edit_date", "post_author", "grouped_id", "reactions", "restriction_reason", "ttl_period", "quick_reply_shortcut_id", "effect", "factcheck", "report_delivery_until_date", "paid_message_stars", "suggested_post", "schedule_repeat_period"]
+    __slots__: List[str] = ["id", "peer_id", "date", "message", "out", "mentioned", "media_unread", "silent", "post", "from_scheduled", "legacy", "edit_hide", "pinned", "noforwards", "invert_media", "offline", "video_processing_pending", "paid_suggested_post_stars", "paid_suggested_post_ton", "from_id", "from_boosts_applied", "from_rank", "saved_peer_id", "fwd_from", "via_bot_id", "via_business_bot_id", "reply_to", "media", "reply_markup", "entities", "views", "forwards", "replies", "edit_date", "post_author", "grouped_id", "reactions", "restriction_reason", "ttl_period", "quick_reply_shortcut_id", "effect", "factcheck", "report_delivery_until_date", "paid_message_stars", "suggested_post", "schedule_repeat_period", "summary_from_language"]
 
-    ID = 0xb92f76cf
+    ID = 0x3ae56482
     QUALNAME = "types.Message"
 
-    def __init__(self, *, id: int, peer_id: "raw.base.Peer", date: int, message: str, out: Optional[bool] = None, mentioned: Optional[bool] = None, media_unread: Optional[bool] = None, silent: Optional[bool] = None, post: Optional[bool] = None, from_scheduled: Optional[bool] = None, legacy: Optional[bool] = None, edit_hide: Optional[bool] = None, pinned: Optional[bool] = None, noforwards: Optional[bool] = None, invert_media: Optional[bool] = None, offline: Optional[bool] = None, video_processing_pending: Optional[bool] = None, paid_suggested_post_stars: Optional[bool] = None, paid_suggested_post_ton: Optional[bool] = None, from_id: "raw.base.Peer" = None, from_boosts_applied: Optional[int] = None, saved_peer_id: "raw.base.Peer" = None, fwd_from: "raw.base.MessageFwdHeader" = None, via_bot_id: Optional[int] = None, via_business_bot_id: Optional[int] = None, reply_to: "raw.base.MessageReplyHeader" = None, media: "raw.base.MessageMedia" = None, reply_markup: "raw.base.ReplyMarkup" = None, entities: Optional[List["raw.base.MessageEntity"]] = None, views: Optional[int] = None, forwards: Optional[int] = None, replies: "raw.base.MessageReplies" = None, edit_date: Optional[int] = None, post_author: Optional[str] = None, grouped_id: Optional[int] = None, reactions: "raw.base.MessageReactions" = None, restriction_reason: Optional[List["raw.base.RestrictionReason"]] = None, ttl_period: Optional[int] = None, quick_reply_shortcut_id: Optional[int] = None, effect: Optional[int] = None, factcheck: "raw.base.FactCheck" = None, report_delivery_until_date: Optional[int] = None, paid_message_stars: Optional[int] = None, suggested_post: "raw.base.SuggestedPost" = None, schedule_repeat_period: Optional[int] = None) -> None:
+    def __init__(self, *, id: int, peer_id: "raw.base.Peer", date: int, message: str, out: Optional[bool] = None, mentioned: Optional[bool] = None, media_unread: Optional[bool] = None, silent: Optional[bool] = None, post: Optional[bool] = None, from_scheduled: Optional[bool] = None, legacy: Optional[bool] = None, edit_hide: Optional[bool] = None, pinned: Optional[bool] = None, noforwards: Optional[bool] = None, invert_media: Optional[bool] = None, offline: Optional[bool] = None, video_processing_pending: Optional[bool] = None, paid_suggested_post_stars: Optional[bool] = None, paid_suggested_post_ton: Optional[bool] = None, from_id: "raw.base.Peer" = None, from_boosts_applied: Optional[int] = None, from_rank: Optional[str] = None, saved_peer_id: "raw.base.Peer" = None, fwd_from: "raw.base.MessageFwdHeader" = None, via_bot_id: Optional[int] = None, via_business_bot_id: Optional[int] = None, reply_to: "raw.base.MessageReplyHeader" = None, media: "raw.base.MessageMedia" = None, reply_markup: "raw.base.ReplyMarkup" = None, entities: Optional[List["raw.base.MessageEntity"]] = None, views: Optional[int] = None, forwards: Optional[int] = None, replies: "raw.base.MessageReplies" = None, edit_date: Optional[int] = None, post_author: Optional[str] = None, grouped_id: Optional[int] = None, reactions: "raw.base.MessageReactions" = None, restriction_reason: Optional[List["raw.base.RestrictionReason"]] = None, ttl_period: Optional[int] = None, quick_reply_shortcut_id: Optional[int] = None, effect: Optional[int] = None, factcheck: "raw.base.FactCheck" = None, report_delivery_until_date: Optional[int] = None, paid_message_stars: Optional[int] = None, suggested_post: "raw.base.SuggestedPost" = None, schedule_repeat_period: Optional[int] = None, summary_from_language: Optional[str] = None) -> None:
         self.id = id  # int
         self.peer_id = peer_id  # Peer
         self.date = date  # int
@@ -114,6 +116,7 @@ class Message(TLObject):
         self.paid_suggested_post_ton = paid_suggested_post_ton  # flags2.9?true
         self.from_id = from_id  # flags.8?Peer
         self.from_boosts_applied = from_boosts_applied  # flags.29?int
+        self.from_rank = from_rank  # flags2.12?string
         self.saved_peer_id = saved_peer_id  # flags.28?Peer
         self.fwd_from = fwd_from  # flags.2?MessageFwdHeader
         self.via_bot_id = via_bot_id  # flags.11?long
@@ -138,6 +141,7 @@ class Message(TLObject):
         self.paid_message_stars = paid_message_stars  # flags2.6?long
         self.suggested_post = suggested_post  # flags2.7?SuggestedPost
         self.schedule_repeat_period = schedule_repeat_period  # flags2.10?int
+        self.summary_from_language = summary_from_language  # flags2.11?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "Message":
@@ -166,6 +170,7 @@ class Message(TLObject):
         from_id = TLObject.read(b) if flags & (1 << 8) else None
         
         from_boosts_applied = Int.read(b) if flags & (1 << 29) else None
+        from_rank = String.read(b) if flags2 & (1 << 12) else None
         peer_id = TLObject.read(b)
         
         saved_peer_id = TLObject.read(b) if flags & (1 << 28) else None
@@ -207,7 +212,8 @@ class Message(TLObject):
         suggested_post = TLObject.read(b) if flags2 & (1 << 7) else None
         
         schedule_repeat_period = Int.read(b) if flags2 & (1 << 10) else None
-        return Message(id=id, peer_id=peer_id, date=date, message=message, out=out, mentioned=mentioned, media_unread=media_unread, silent=silent, post=post, from_scheduled=from_scheduled, legacy=legacy, edit_hide=edit_hide, pinned=pinned, noforwards=noforwards, invert_media=invert_media, offline=offline, video_processing_pending=video_processing_pending, paid_suggested_post_stars=paid_suggested_post_stars, paid_suggested_post_ton=paid_suggested_post_ton, from_id=from_id, from_boosts_applied=from_boosts_applied, saved_peer_id=saved_peer_id, fwd_from=fwd_from, via_bot_id=via_bot_id, via_business_bot_id=via_business_bot_id, reply_to=reply_to, media=media, reply_markup=reply_markup, entities=entities, views=views, forwards=forwards, replies=replies, edit_date=edit_date, post_author=post_author, grouped_id=grouped_id, reactions=reactions, restriction_reason=restriction_reason, ttl_period=ttl_period, quick_reply_shortcut_id=quick_reply_shortcut_id, effect=effect, factcheck=factcheck, report_delivery_until_date=report_delivery_until_date, paid_message_stars=paid_message_stars, suggested_post=suggested_post, schedule_repeat_period=schedule_repeat_period)
+        summary_from_language = String.read(b) if flags2 & (1 << 11) else None
+        return Message(id=id, peer_id=peer_id, date=date, message=message, out=out, mentioned=mentioned, media_unread=media_unread, silent=silent, post=post, from_scheduled=from_scheduled, legacy=legacy, edit_hide=edit_hide, pinned=pinned, noforwards=noforwards, invert_media=invert_media, offline=offline, video_processing_pending=video_processing_pending, paid_suggested_post_stars=paid_suggested_post_stars, paid_suggested_post_ton=paid_suggested_post_ton, from_id=from_id, from_boosts_applied=from_boosts_applied, from_rank=from_rank, saved_peer_id=saved_peer_id, fwd_from=fwd_from, via_bot_id=via_bot_id, via_business_bot_id=via_business_bot_id, reply_to=reply_to, media=media, reply_markup=reply_markup, entities=entities, views=views, forwards=forwards, replies=replies, edit_date=edit_date, post_author=post_author, grouped_id=grouped_id, reactions=reactions, restriction_reason=restriction_reason, ttl_period=ttl_period, quick_reply_shortcut_id=quick_reply_shortcut_id, effect=effect, factcheck=factcheck, report_delivery_until_date=report_delivery_until_date, paid_message_stars=paid_message_stars, suggested_post=suggested_post, schedule_repeat_period=schedule_repeat_period, summary_from_language=summary_from_language)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -250,6 +256,7 @@ class Message(TLObject):
         flags2 |= (1 << 4) if self.video_processing_pending else 0
         flags2 |= (1 << 8) if self.paid_suggested_post_stars else 0
         flags2 |= (1 << 9) if self.paid_suggested_post_ton else 0
+        flags2 |= (1 << 12) if self.from_rank is not None else 0
         flags2 |= (1 << 0) if self.via_business_bot_id is not None else 0
         flags2 |= (1 << 2) if self.effect is not None else 0
         flags2 |= (1 << 3) if self.factcheck is not None else 0
@@ -257,6 +264,7 @@ class Message(TLObject):
         flags2 |= (1 << 6) if self.paid_message_stars is not None else 0
         flags2 |= (1 << 7) if self.suggested_post is not None else 0
         flags2 |= (1 << 10) if self.schedule_repeat_period is not None else 0
+        flags2 |= (1 << 11) if self.summary_from_language is not None else 0
         b.write(Int(flags2))
         
         b.write(Int(self.id))
@@ -266,6 +274,9 @@ class Message(TLObject):
         
         if self.from_boosts_applied is not None:
             b.write(Int(self.from_boosts_applied))
+        
+        if self.from_rank is not None:
+            b.write(String(self.from_rank))
         
         b.write(self.peer_id.write())
         
@@ -344,5 +355,8 @@ class Message(TLObject):
         
         if self.schedule_repeat_period is not None:
             b.write(Int(self.schedule_repeat_period))
+        
+        if self.summary_from_language is not None:
+            b.write(String(self.summary_from_language))
         
         return b.getvalue()

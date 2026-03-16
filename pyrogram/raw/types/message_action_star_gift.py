@@ -36,8 +36,8 @@ class MessageActionStarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``DB596550``
+        - Layer: ``223``
+        - ID: ``EA2C31D3``
 
     Parameters:
         gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
@@ -60,14 +60,15 @@ class MessageActionStarGift(TLObject):
         prepaid_upgrade_hash (optional): ``str``
         gift_msg_id (optional): ``int`` ``32-bit``
         to_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
+        gift_num (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["gift", "name_hidden", "saved", "converted", "upgraded", "refunded", "can_upgrade", "prepaid_upgrade", "upgrade_separate", "auction_acquired", "message", "convert_stars", "upgrade_msg_id", "upgrade_stars", "from_id", "peer", "saved_id", "prepaid_upgrade_hash", "gift_msg_id", "to_id"]
+    __slots__: List[str] = ["gift", "name_hidden", "saved", "converted", "upgraded", "refunded", "can_upgrade", "prepaid_upgrade", "upgrade_separate", "auction_acquired", "message", "convert_stars", "upgrade_msg_id", "upgrade_stars", "from_id", "peer", "saved_id", "prepaid_upgrade_hash", "gift_msg_id", "to_id", "gift_num"]
 
-    ID = 0xdb596550
+    ID = 0xea2c31d3
     QUALNAME = "types.MessageActionStarGift"
 
-    def __init__(self, *, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, saved: Optional[bool] = None, converted: Optional[bool] = None, upgraded: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, prepaid_upgrade: Optional[bool] = None, upgrade_separate: Optional[bool] = None, auction_acquired: Optional[bool] = None, message: "raw.base.TextWithEntities" = None, convert_stars: Optional[int] = None, upgrade_msg_id: Optional[int] = None, upgrade_stars: Optional[int] = None, from_id: "raw.base.Peer" = None, peer: "raw.base.Peer" = None, saved_id: Optional[int] = None, prepaid_upgrade_hash: Optional[str] = None, gift_msg_id: Optional[int] = None, to_id: "raw.base.Peer" = None) -> None:
+    def __init__(self, *, gift: "raw.base.StarGift", name_hidden: Optional[bool] = None, saved: Optional[bool] = None, converted: Optional[bool] = None, upgraded: Optional[bool] = None, refunded: Optional[bool] = None, can_upgrade: Optional[bool] = None, prepaid_upgrade: Optional[bool] = None, upgrade_separate: Optional[bool] = None, auction_acquired: Optional[bool] = None, message: "raw.base.TextWithEntities" = None, convert_stars: Optional[int] = None, upgrade_msg_id: Optional[int] = None, upgrade_stars: Optional[int] = None, from_id: "raw.base.Peer" = None, peer: "raw.base.Peer" = None, saved_id: Optional[int] = None, prepaid_upgrade_hash: Optional[str] = None, gift_msg_id: Optional[int] = None, to_id: "raw.base.Peer" = None, gift_num: Optional[int] = None) -> None:
         self.gift = gift  # StarGift
         self.name_hidden = name_hidden  # flags.0?true
         self.saved = saved  # flags.2?true
@@ -88,6 +89,7 @@ class MessageActionStarGift(TLObject):
         self.prepaid_upgrade_hash = prepaid_upgrade_hash  # flags.14?string
         self.gift_msg_id = gift_msg_id  # flags.15?int
         self.to_id = to_id  # flags.18?Peer
+        self.gift_num = gift_num  # flags.19?int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "MessageActionStarGift":
@@ -119,7 +121,8 @@ class MessageActionStarGift(TLObject):
         gift_msg_id = Int.read(b) if flags & (1 << 15) else None
         to_id = TLObject.read(b) if flags & (1 << 18) else None
         
-        return MessageActionStarGift(gift=gift, name_hidden=name_hidden, saved=saved, converted=converted, upgraded=upgraded, refunded=refunded, can_upgrade=can_upgrade, prepaid_upgrade=prepaid_upgrade, upgrade_separate=upgrade_separate, auction_acquired=auction_acquired, message=message, convert_stars=convert_stars, upgrade_msg_id=upgrade_msg_id, upgrade_stars=upgrade_stars, from_id=from_id, peer=peer, saved_id=saved_id, prepaid_upgrade_hash=prepaid_upgrade_hash, gift_msg_id=gift_msg_id, to_id=to_id)
+        gift_num = Int.read(b) if flags & (1 << 19) else None
+        return MessageActionStarGift(gift=gift, name_hidden=name_hidden, saved=saved, converted=converted, upgraded=upgraded, refunded=refunded, can_upgrade=can_upgrade, prepaid_upgrade=prepaid_upgrade, upgrade_separate=upgrade_separate, auction_acquired=auction_acquired, message=message, convert_stars=convert_stars, upgrade_msg_id=upgrade_msg_id, upgrade_stars=upgrade_stars, from_id=from_id, peer=peer, saved_id=saved_id, prepaid_upgrade_hash=prepaid_upgrade_hash, gift_msg_id=gift_msg_id, to_id=to_id, gift_num=gift_num)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -145,6 +148,7 @@ class MessageActionStarGift(TLObject):
         flags |= (1 << 14) if self.prepaid_upgrade_hash is not None else 0
         flags |= (1 << 15) if self.gift_msg_id is not None else 0
         flags |= (1 << 18) if self.to_id is not None else 0
+        flags |= (1 << 19) if self.gift_num is not None else 0
         b.write(Int(flags))
         
         b.write(self.gift.write())
@@ -178,5 +182,8 @@ class MessageActionStarGift(TLObject):
         
         if self.to_id is not None:
             b.write(self.to_id.write())
+        
+        if self.gift_num is not None:
+            b.write(Int(self.gift_num))
         
         return b.getvalue()

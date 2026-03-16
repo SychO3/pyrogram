@@ -36,7 +36,7 @@ class GetNotifySettings(TLObject["raw.base.PeerNotifySettings"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``12B3AD31``
 
     Parameters:

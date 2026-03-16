@@ -36,7 +36,7 @@ class BotPreviewMedia(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotPreviewMedia`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``23E91BA3``
 
     Parameters:

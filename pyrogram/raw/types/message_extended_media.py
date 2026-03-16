@@ -36,7 +36,7 @@ class MessageExtendedMedia(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageExtendedMedia`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EE479C64``
 
     Parameters:

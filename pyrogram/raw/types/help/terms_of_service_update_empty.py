@@ -36,7 +36,7 @@ class TermsOfServiceUpdateEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.TermsOfServiceUpdate`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E3309F7F``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputMessagesFilterChatPhotos(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessagesFilter`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``3A20ECB8``
 
     **No parameters required.**

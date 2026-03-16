@@ -36,7 +36,7 @@ class StoryItemDeleted(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StoryItem`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``51E6EE4F``
 
     Parameters:

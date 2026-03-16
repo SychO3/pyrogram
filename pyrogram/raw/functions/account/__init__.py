@@ -141,3 +141,7 @@ from .set_main_profile_tab import SetMainProfileTab
 from .save_music import SaveMusic
 from .get_saved_music_ids import GetSavedMusicIds
 from .get_unique_gift_chat_themes import GetUniqueGiftChatThemes
+from .init_passkey_registration import InitPasskeyRegistration
+from .register_passkey import RegisterPasskey
+from .get_passkeys import GetPasskeys
+from .delete_passkey import DeletePasskey

@@ -36,7 +36,7 @@ class StickerSetMultiCovered(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StickerSetCovered`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``3407E51B``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetThemes(TLObject["raw.base.account.Themes"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7206E458``
 
     Parameters:

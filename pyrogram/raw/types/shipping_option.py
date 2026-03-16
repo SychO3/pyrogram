@@ -36,7 +36,7 @@ class ShippingOption(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ShippingOption`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B6213CDF``
 
     Parameters:

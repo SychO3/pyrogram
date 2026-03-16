@@ -36,7 +36,7 @@ class CreateGroupCall(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``48CDC6D8``
 
     Parameters:

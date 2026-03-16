@@ -36,7 +36,7 @@ class PhoneCallDiscardReasonBusy(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PhoneCallDiscardReason`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FAF7E8C9``
 
     **No parameters required.**

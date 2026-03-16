@@ -36,8 +36,8 @@ class StarGiftAuctionAcquiredGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAuctionAcquiredGift`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``AB60E20B``
+        - Layer: ``223``
+        - ID: ``42B00348``
 
     Parameters:
         peer: :obj:`Peer <pyrogram.raw.base.Peer>`
@@ -47,14 +47,15 @@ class StarGiftAuctionAcquiredGift(TLObject):
         pos: ``int`` ``32-bit``
         name_hidden (optional): ``bool``
         message (optional): :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
+        gift_num (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["peer", "date", "bid_amount", "round", "pos", "name_hidden", "message"]
+    __slots__: List[str] = ["peer", "date", "bid_amount", "round", "pos", "name_hidden", "message", "gift_num"]
 
-    ID = 0xab60e20b
+    ID = 0x42b00348
     QUALNAME = "types.StarGiftAuctionAcquiredGift"
 
-    def __init__(self, *, peer: "raw.base.Peer", date: int, bid_amount: int, round: int, pos: int, name_hidden: Optional[bool] = None, message: "raw.base.TextWithEntities" = None) -> None:
+    def __init__(self, *, peer: "raw.base.Peer", date: int, bid_amount: int, round: int, pos: int, name_hidden: Optional[bool] = None, message: "raw.base.TextWithEntities" = None, gift_num: Optional[int] = None) -> None:
         self.peer = peer  # Peer
         self.date = date  # int
         self.bid_amount = bid_amount  # long
@@ -62,6 +63,7 @@ class StarGiftAuctionAcquiredGift(TLObject):
         self.pos = pos  # int
         self.name_hidden = name_hidden  # flags.0?true
         self.message = message  # flags.1?TextWithEntities
+        self.gift_num = gift_num  # flags.2?int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAuctionAcquiredGift":
@@ -81,7 +83,8 @@ class StarGiftAuctionAcquiredGift(TLObject):
         
         message = TLObject.read(b) if flags & (1 << 1) else None
         
-        return StarGiftAuctionAcquiredGift(peer=peer, date=date, bid_amount=bid_amount, round=round, pos=pos, name_hidden=name_hidden, message=message)
+        gift_num = Int.read(b) if flags & (1 << 2) else None
+        return StarGiftAuctionAcquiredGift(peer=peer, date=date, bid_amount=bid_amount, round=round, pos=pos, name_hidden=name_hidden, message=message, gift_num=gift_num)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -90,6 +93,7 @@ class StarGiftAuctionAcquiredGift(TLObject):
         flags = 0
         flags |= (1 << 0) if self.name_hidden else 0
         flags |= (1 << 1) if self.message is not None else 0
+        flags |= (1 << 2) if self.gift_num is not None else 0
         b.write(Int(flags))
         
         b.write(self.peer.write())
@@ -104,5 +108,8 @@ class StarGiftAuctionAcquiredGift(TLObject):
         
         if self.message is not None:
             b.write(self.message.write())
+        
+        if self.gift_num is not None:
+            b.write(Int(self.gift_num))
         
         return b.getvalue()

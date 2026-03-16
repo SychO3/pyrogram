@@ -36,7 +36,7 @@ class DeleteChannel(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C0111FE3``
 
     Parameters:

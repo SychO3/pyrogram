@@ -36,7 +36,7 @@ class DeleteQuickReplyMessages(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E105E910``
 
     Parameters:

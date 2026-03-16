@@ -36,7 +36,7 @@ class PageBlockMap(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A44F3EF6``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetPeerProfileColors(TLObject["raw.base.help.PeerColors"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``ABCFA9FD``
 
     Parameters:

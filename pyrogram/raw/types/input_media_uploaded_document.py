@@ -36,7 +36,7 @@ class InputMediaUploadedDocument(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputMedia`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``37C9330``
 
     Parameters:

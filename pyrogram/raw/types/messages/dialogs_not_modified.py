@@ -36,7 +36,7 @@ class DialogsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Dialogs`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F0E3E596``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetStarGiftWithdrawalUrl(TLObject["raw.base.payments.StarGiftWithdrawalUrl
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``D06E93A8``
 
     Parameters:

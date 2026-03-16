@@ -36,7 +36,7 @@ class AppUpdate(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.AppUpdate`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``CCBBCE30``
 
     Parameters:

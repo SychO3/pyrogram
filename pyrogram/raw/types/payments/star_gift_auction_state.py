@@ -36,8 +36,8 @@ class StarGiftAuctionState(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftAuctionState`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``E98E474``
+        - Layer: ``223``
+        - ID: ``6B39F4EC``
 
     Parameters:
         gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
@@ -45,6 +45,7 @@ class StarGiftAuctionState(TLObject):
         user_state: :obj:`StarGiftAuctionUserState <pyrogram.raw.base.StarGiftAuctionUserState>`
         timeout: ``int`` ``32-bit``
         users: List of :obj:`User <pyrogram.raw.base.User>`
+        chats: List of :obj:`Chat <pyrogram.raw.base.Chat>`
 
     See Also:
         This object can be returned by 1 method:
@@ -55,17 +56,18 @@ class StarGiftAuctionState(TLObject):
             - :obj:`payments.GetStarGiftAuctionState <pyrogram.raw.functions.payments.GetStarGiftAuctionState>`
     """
 
-    __slots__: List[str] = ["gift", "state", "user_state", "timeout", "users"]
+    __slots__: List[str] = ["gift", "state", "user_state", "timeout", "users", "chats"]
 
-    ID = 0xe98e474
+    ID = 0x6b39f4ec
     QUALNAME = "types.payments.StarGiftAuctionState"
 
-    def __init__(self, *, gift: "raw.base.StarGift", state: "raw.base.StarGiftAuctionState", user_state: "raw.base.StarGiftAuctionUserState", timeout: int, users: List["raw.base.User"]) -> None:
+    def __init__(self, *, gift: "raw.base.StarGift", state: "raw.base.StarGiftAuctionState", user_state: "raw.base.StarGiftAuctionUserState", timeout: int, users: List["raw.base.User"], chats: List["raw.base.Chat"]) -> None:
         self.gift = gift  # StarGift
         self.state = state  # StarGiftAuctionState
         self.user_state = user_state  # StarGiftAuctionUserState
         self.timeout = timeout  # int
         self.users = users  # Vector<User>
+        self.chats = chats  # Vector<Chat>
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAuctionState":
@@ -81,7 +83,9 @@ class StarGiftAuctionState(TLObject):
         
         users = TLObject.read(b)
         
-        return StarGiftAuctionState(gift=gift, state=state, user_state=user_state, timeout=timeout, users=users)
+        chats = TLObject.read(b)
+        
+        return StarGiftAuctionState(gift=gift, state=state, user_state=user_state, timeout=timeout, users=users, chats=chats)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -98,5 +102,7 @@ class StarGiftAuctionState(TLObject):
         b.write(Int(self.timeout))
         
         b.write(Vector(self.users))
+        
+        b.write(Vector(self.chats))
         
         return b.getvalue()

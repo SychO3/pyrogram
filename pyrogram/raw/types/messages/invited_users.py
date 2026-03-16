@@ -36,7 +36,7 @@ class InvitedUsers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.InvitedUsers`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7F5DEFA6``
 
     Parameters:

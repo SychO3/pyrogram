@@ -36,7 +36,7 @@ class AllStoriesNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stories.AllStories`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1158FE3E``
 
     Parameters:

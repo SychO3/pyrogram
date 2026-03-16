@@ -36,7 +36,7 @@ class GetUsers(TLObject["List[raw.base.User]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``D91A548``
 
     Parameters:

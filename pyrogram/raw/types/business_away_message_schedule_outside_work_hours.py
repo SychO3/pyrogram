@@ -36,7 +36,7 @@ class BusinessAwayMessageScheduleOutsideWorkHours(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessAwayMessageSchedule`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C3F2F501``
 
     **No parameters required.**

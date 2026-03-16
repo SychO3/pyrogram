@@ -36,7 +36,7 @@ class SecureData(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureData`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8AEABEC3``
 
     Parameters:

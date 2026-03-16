@@ -36,7 +36,7 @@ class SendEncryptedFile(TLObject["raw.base.messages.SentEncryptedMessage"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5559481D``
 
     Parameters:

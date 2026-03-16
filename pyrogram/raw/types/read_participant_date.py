@@ -36,7 +36,7 @@ class ReadParticipantDate(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReadParticipantDate`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4A4FF172``
 
     Parameters:

@@ -36,7 +36,7 @@ class MediaAreaCoordinates(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MediaAreaCoordinates`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``CFC9E002``
 
     Parameters:

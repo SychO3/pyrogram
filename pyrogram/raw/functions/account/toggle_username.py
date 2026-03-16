@@ -36,7 +36,7 @@ class ToggleUsername(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``58D6B376``
 
     Parameters:

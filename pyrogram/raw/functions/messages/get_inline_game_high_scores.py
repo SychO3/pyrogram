@@ -36,7 +36,7 @@ class GetInlineGameHighScores(TLObject["raw.base.messages.HighScores"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F635E1B``
 
     Parameters:

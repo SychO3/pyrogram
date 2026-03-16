@@ -1895,6 +1895,13 @@ class InputRequestTooLong(BadRequest):
     MESSAGE = __doc__
 
 
+class InputStarsNanosInvalid(BadRequest):
+    """The specified stars nano amount is invalid."""
+    ID = "INPUT_STARS_NANOS_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class InputTextEmpty(BadRequest):
     """The specified text is empty."""
     ID = "INPUT_TEXT_EMPTY"
@@ -2827,7 +2834,7 @@ class PollVoteRequired(BadRequest):
 
 
 class PrecheckoutFailed(BadRequest):
-    """Precheckout failed."""
+    """Precheckout failed. Probably you don't have enough funds to complete the purchase."""
     ID = "PRECHECKOUT_FAILED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2990,6 +2997,13 @@ class RandomLengthInvalid(BadRequest):
 class RangesInvalid(BadRequest):
     """Invalid range provided."""
     ID = "RANGES_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class RankInvalid(BadRequest):
+    """The specified member tag is invalid."""
+    ID = "RANK_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 

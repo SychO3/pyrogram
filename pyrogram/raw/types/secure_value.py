@@ -36,7 +36,7 @@ class SecureValue(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValue`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``187FA0CA``
 
     Parameters:

@@ -36,7 +36,7 @@ class StarsTransactionPeerFragment(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsTransactionPeer`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E92FD902``
 
     **No parameters required.**

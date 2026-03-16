@@ -36,7 +36,7 @@ class ChangeSticker(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F5537EBC``
 
     Parameters:

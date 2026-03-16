@@ -36,7 +36,7 @@ class SavedStarGifts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.SavedStarGifts`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``95F389B1``
 
     Parameters:
@@ -48,13 +48,14 @@ class SavedStarGifts(TLObject):
         next_offset (optional): ``str``
 
     See Also:
-        This object can be returned by 2 methods:
+        This object can be returned by 3 methods:
 
         .. hlist::
             :columns: 2
 
             - :obj:`payments.GetSavedStarGifts <pyrogram.raw.functions.payments.GetSavedStarGifts>`
             - :obj:`payments.GetSavedStarGift <pyrogram.raw.functions.payments.GetSavedStarGift>`
+            - :obj:`payments.GetCraftStarGifts <pyrogram.raw.functions.payments.GetCraftStarGifts>`
     """
 
     __slots__: List[str] = ["count", "gifts", "chats", "users", "chat_notifications_enabled", "next_offset"]

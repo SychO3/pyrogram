@@ -58,3 +58,4 @@ from .star_gift_auction_state import StarGiftAuctionState
 from .star_gift_auction_acquired_gifts import StarGiftAuctionAcquiredGifts
 from .star_gift_active_auctions_not_modified import StarGiftActiveAuctionsNotModified
 from .star_gift_active_auctions import StarGiftActiveAuctions
+from .star_gift_upgrade_attributes import StarGiftUpgradeAttributes

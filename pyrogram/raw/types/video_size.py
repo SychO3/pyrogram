@@ -36,7 +36,7 @@ class VideoSize(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.VideoSize`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DE33B094``
 
     Parameters:

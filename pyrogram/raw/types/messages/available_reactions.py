@@ -36,7 +36,7 @@ class AvailableReactions(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.AvailableReactions`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``768E3AAD``
 
     Parameters:

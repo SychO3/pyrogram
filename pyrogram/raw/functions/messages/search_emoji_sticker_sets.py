@@ -36,7 +36,7 @@ class SearchEmojiStickerSets(TLObject["raw.base.messages.FoundStickerSets"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``92B4494C``
 
     Parameters:

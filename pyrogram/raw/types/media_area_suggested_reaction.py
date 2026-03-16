@@ -36,7 +36,7 @@ class MediaAreaSuggestedReaction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MediaArea`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``14455871``
 
     Parameters:

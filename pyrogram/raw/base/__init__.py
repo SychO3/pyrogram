@@ -411,4 +411,11 @@ from .star_gift_auction_user_state import StarGiftAuctionUserState
 from .star_gift_auction_acquired_gift import StarGiftAuctionAcquiredGift
 from .star_gift_active_auction_state import StarGiftActiveAuctionState
 from .input_star_gift_auction import InputStarGiftAuction
+from .passkey import Passkey
+from .input_passkey_response import InputPasskeyResponse
+from .input_passkey_credential import InputPasskeyCredential
+from .star_gift_background import StarGiftBackground
+from .star_gift_auction_round import StarGiftAuctionRound
+from .star_gift_attribute_rarity import StarGiftAttributeRarity
+from .keyboard_button_style import KeyboardButtonStyle
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

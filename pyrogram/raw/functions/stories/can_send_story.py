@@ -36,7 +36,7 @@ class CanSendStory(TLObject["raw.base.stories.CanSendStoryCount"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``30EB63F0``
 
     Parameters:

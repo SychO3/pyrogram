@@ -36,7 +36,7 @@ class TextSuperscript(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RichText`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C7FB5E01``
 
     Parameters:

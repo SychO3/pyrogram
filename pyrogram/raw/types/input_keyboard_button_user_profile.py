@@ -36,38 +36,48 @@ class InputKeyboardButtonUserProfile(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``E988037B``
+        - Layer: ``223``
+        - ID: ``7D5E07C7``
 
     Parameters:
         text: ``str``
         user_id: :obj:`InputUser <pyrogram.raw.base.InputUser>`
+        style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
     """
 
-    __slots__: List[str] = ["text", "user_id"]
+    __slots__: List[str] = ["text", "user_id", "style"]
 
-    ID = 0xe988037b
+    ID = 0x7d5e07c7
     QUALNAME = "types.InputKeyboardButtonUserProfile"
 
-    def __init__(self, *, text: str, user_id: "raw.base.InputUser") -> None:
+    def __init__(self, *, text: str, user_id: "raw.base.InputUser", style: "raw.base.KeyboardButtonStyle" = None) -> None:
         self.text = text  # string
         self.user_id = user_id  # InputUser
+        self.style = style  # flags.10?KeyboardButtonStyle
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "InputKeyboardButtonUserProfile":
-        # No flags
+        
+        flags = Int.read(b)
+        
+        style = TLObject.read(b) if flags & (1 << 10) else None
         
         text = String.read(b)
         
         user_id = TLObject.read(b)
         
-        return InputKeyboardButtonUserProfile(text=text, user_id=user_id)
+        return InputKeyboardButtonUserProfile(text=text, user_id=user_id, style=style)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 10) if self.style is not None else 0
+        b.write(Int(flags))
+        
+        if self.style is not None:
+            b.write(self.style.write())
         
         b.write(String(self.text))
         

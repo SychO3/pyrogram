@@ -36,7 +36,7 @@ class BotMenuButtonCommands(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotMenuButton`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4258C205``
 
     **No parameters required.**

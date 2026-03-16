@@ -36,7 +36,7 @@ class PrepaidStarsGiveaway(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PrepaidGiveaway`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``9A9D77E0``
 
     Parameters:

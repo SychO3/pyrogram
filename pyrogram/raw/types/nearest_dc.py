@@ -36,7 +36,7 @@ class NearestDc(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.NearestDc`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8E1A1775``
 
     Parameters:

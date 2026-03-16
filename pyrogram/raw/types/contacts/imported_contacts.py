@@ -36,7 +36,7 @@ class ImportedContacts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.contacts.ImportedContacts`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``77D01C3B``
 
     Parameters:

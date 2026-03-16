@@ -36,7 +36,7 @@ class CheckSearchPostsFlood(TLObject["raw.base.SearchPostsFlood"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``22567115``
 
     Parameters:

@@ -36,7 +36,7 @@ class PublicForwardMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PublicForward`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1F2BF4A``
 
     Parameters:

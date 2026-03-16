@@ -36,7 +36,7 @@ class GetConfig(TLObject["raw.base.Config"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C4F9186B``
 
     **No parameters required.**

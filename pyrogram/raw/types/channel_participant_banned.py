@@ -36,8 +36,8 @@ class ChannelParticipantBanned(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelParticipant`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``6DF8014E``
+        - Layer: ``223``
+        - ID: ``D5F0AD91``
 
     Parameters:
         peer: :obj:`Peer <pyrogram.raw.base.Peer>`
@@ -45,19 +45,21 @@ class ChannelParticipantBanned(TLObject):
         date: ``int`` ``32-bit``
         banned_rights: :obj:`ChatBannedRights <pyrogram.raw.base.ChatBannedRights>`
         left (optional): ``bool``
+        rank (optional): ``str``
     """
 
-    __slots__: List[str] = ["peer", "kicked_by", "date", "banned_rights", "left"]
+    __slots__: List[str] = ["peer", "kicked_by", "date", "banned_rights", "left", "rank"]
 
-    ID = 0x6df8014e
+    ID = 0xd5f0ad91
     QUALNAME = "types.ChannelParticipantBanned"
 
-    def __init__(self, *, peer: "raw.base.Peer", kicked_by: int, date: int, banned_rights: "raw.base.ChatBannedRights", left: Optional[bool] = None) -> None:
+    def __init__(self, *, peer: "raw.base.Peer", kicked_by: int, date: int, banned_rights: "raw.base.ChatBannedRights", left: Optional[bool] = None, rank: Optional[str] = None) -> None:
         self.peer = peer  # Peer
         self.kicked_by = kicked_by  # long
         self.date = date  # int
         self.banned_rights = banned_rights  # ChatBannedRights
         self.left = left  # flags.0?true
+        self.rank = rank  # flags.2?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ChannelParticipantBanned":
@@ -73,7 +75,8 @@ class ChannelParticipantBanned(TLObject):
         
         banned_rights = TLObject.read(b)
         
-        return ChannelParticipantBanned(peer=peer, kicked_by=kicked_by, date=date, banned_rights=banned_rights, left=left)
+        rank = String.read(b) if flags & (1 << 2) else None
+        return ChannelParticipantBanned(peer=peer, kicked_by=kicked_by, date=date, banned_rights=banned_rights, left=left, rank=rank)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -81,6 +84,7 @@ class ChannelParticipantBanned(TLObject):
 
         flags = 0
         flags |= (1 << 0) if self.left else 0
+        flags |= (1 << 2) if self.rank is not None else 0
         b.write(Int(flags))
         
         b.write(self.peer.write())
@@ -90,5 +94,8 @@ class ChannelParticipantBanned(TLObject):
         b.write(Int(self.date))
         
         b.write(self.banned_rights.write())
+        
+        if self.rank is not None:
+            b.write(String(self.rank))
         
         return b.getvalue()

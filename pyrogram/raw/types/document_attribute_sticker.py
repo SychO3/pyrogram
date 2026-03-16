@@ -36,7 +36,7 @@ class DocumentAttributeSticker(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DocumentAttribute`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6319D612``
 
     Parameters:

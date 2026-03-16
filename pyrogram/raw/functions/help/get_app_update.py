@@ -36,7 +36,7 @@ class GetAppUpdate(TLObject["raw.base.help.AppUpdate"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``522D5A7D``
 
     Parameters:

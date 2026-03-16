@@ -110,3 +110,6 @@ from .prepared_inline_message import PreparedInlineMessage
 from .found_stickers_not_modified import FoundStickersNotModified
 from .found_stickers import FoundStickers
 from .web_page_preview import WebPagePreview
+from .emoji_game_outcome import EmojiGameOutcome
+from .emoji_game_unavailable import EmojiGameUnavailable
+from .emoji_game_dice_info import EmojiGameDiceInfo

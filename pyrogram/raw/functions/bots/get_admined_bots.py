@@ -36,7 +36,7 @@ class GetAdminedBots(TLObject["List[raw.base.User]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B0711D83``
 
     **No parameters required.**

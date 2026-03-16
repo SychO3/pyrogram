@@ -40,6 +40,14 @@ else:
             :columns: 2
 
             - :obj:`TextWithEntities <pyrogram.raw.types.TextWithEntities>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`messages.SummarizeText <pyrogram.raw.functions.messages.SummarizeText>`
         """
 
         QUALNAME = "pyrogram.raw.base.TextWithEntities"
@@ -49,4 +57,4 @@ else:
             raise TypeError("Base types can only be used for type checking purposes: "
                             "you tried to use a base type instance as argument, "
                             "but you need to instantiate one of its constructors instead. "
-                            "More info: https://docs.kurigram.live/telegram/base/text-with-entities")
+                            "More info: https://docs.kurigram.icu/telegram/base/text-with-entities")

@@ -36,7 +36,7 @@ class GetSavedInfo(TLObject["raw.base.payments.SavedInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``227D824B``
 
     **No parameters required.**

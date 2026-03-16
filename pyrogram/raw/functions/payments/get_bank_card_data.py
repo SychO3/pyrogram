@@ -36,7 +36,7 @@ class GetBankCardData(TLObject["raw.base.payments.BankCardData"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2E79D779``
 
     Parameters:

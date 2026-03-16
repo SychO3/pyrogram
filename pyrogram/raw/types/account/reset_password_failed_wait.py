@@ -36,7 +36,7 @@ class ResetPasswordFailedWait(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.ResetPasswordResult`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E3779861``
 
     Parameters:

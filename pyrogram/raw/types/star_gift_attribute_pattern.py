@@ -36,24 +36,24 @@ class StarGiftAttributePattern(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAttribute`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``13ACFF19``
+        - Layer: ``223``
+        - ID: ``4E7085EA``
 
     Parameters:
         name: ``str``
         document: :obj:`Document <pyrogram.raw.base.Document>`
-        rarity_permille: ``int`` ``32-bit``
+        rarity: :obj:`StarGiftAttributeRarity <pyrogram.raw.base.StarGiftAttributeRarity>`
     """
 
-    __slots__: List[str] = ["name", "document", "rarity_permille"]
+    __slots__: List[str] = ["name", "document", "rarity"]
 
-    ID = 0x13acff19
+    ID = 0x4e7085ea
     QUALNAME = "types.StarGiftAttributePattern"
 
-    def __init__(self, *, name: str, document: "raw.base.Document", rarity_permille: int) -> None:
+    def __init__(self, *, name: str, document: "raw.base.Document", rarity: "raw.base.StarGiftAttributeRarity") -> None:
         self.name = name  # string
         self.document = document  # Document
-        self.rarity_permille = rarity_permille  # int
+        self.rarity = rarity  # StarGiftAttributeRarity
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAttributePattern":
@@ -63,9 +63,9 @@ class StarGiftAttributePattern(TLObject):
         
         document = TLObject.read(b)
         
-        rarity_permille = Int.read(b)
+        rarity = TLObject.read(b)
         
-        return StarGiftAttributePattern(name=name, document=document, rarity_permille=rarity_permille)
+        return StarGiftAttributePattern(name=name, document=document, rarity=rarity)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -77,6 +77,6 @@ class StarGiftAttributePattern(TLObject):
         
         b.write(self.document.write())
         
-        b.write(Int(self.rarity_permille))
+        b.write(self.rarity.write())
         
         return b.getvalue()

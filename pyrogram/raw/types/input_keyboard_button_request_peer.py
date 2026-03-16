@@ -36,8 +36,8 @@ class InputKeyboardButtonRequestPeer(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``C9662D05``
+        - Layer: ``223``
+        - ID: ``2B78156``
 
     Parameters:
         text: ``str``
@@ -47,14 +47,15 @@ class InputKeyboardButtonRequestPeer(TLObject):
         name_requested (optional): ``bool``
         username_requested (optional): ``bool``
         photo_requested (optional): ``bool``
+        style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
     """
 
-    __slots__: List[str] = ["text", "button_id", "peer_type", "max_quantity", "name_requested", "username_requested", "photo_requested"]
+    __slots__: List[str] = ["text", "button_id", "peer_type", "max_quantity", "name_requested", "username_requested", "photo_requested", "style"]
 
-    ID = 0xc9662d05
+    ID = 0x2b78156
     QUALNAME = "types.InputKeyboardButtonRequestPeer"
 
-    def __init__(self, *, text: str, button_id: int, peer_type: "raw.base.RequestPeerType", max_quantity: int, name_requested: Optional[bool] = None, username_requested: Optional[bool] = None, photo_requested: Optional[bool] = None) -> None:
+    def __init__(self, *, text: str, button_id: int, peer_type: "raw.base.RequestPeerType", max_quantity: int, name_requested: Optional[bool] = None, username_requested: Optional[bool] = None, photo_requested: Optional[bool] = None, style: "raw.base.KeyboardButtonStyle" = None) -> None:
         self.text = text  # string
         self.button_id = button_id  # int
         self.peer_type = peer_type  # RequestPeerType
@@ -62,6 +63,7 @@ class InputKeyboardButtonRequestPeer(TLObject):
         self.name_requested = name_requested  # flags.0?true
         self.username_requested = username_requested  # flags.1?true
         self.photo_requested = photo_requested  # flags.2?true
+        self.style = style  # flags.10?KeyboardButtonStyle
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "InputKeyboardButtonRequestPeer":
@@ -71,6 +73,8 @@ class InputKeyboardButtonRequestPeer(TLObject):
         name_requested = True if flags & (1 << 0) else False
         username_requested = True if flags & (1 << 1) else False
         photo_requested = True if flags & (1 << 2) else False
+        style = TLObject.read(b) if flags & (1 << 10) else None
+        
         text = String.read(b)
         
         button_id = Int.read(b)
@@ -79,7 +83,7 @@ class InputKeyboardButtonRequestPeer(TLObject):
         
         max_quantity = Int.read(b)
         
-        return InputKeyboardButtonRequestPeer(text=text, button_id=button_id, peer_type=peer_type, max_quantity=max_quantity, name_requested=name_requested, username_requested=username_requested, photo_requested=photo_requested)
+        return InputKeyboardButtonRequestPeer(text=text, button_id=button_id, peer_type=peer_type, max_quantity=max_quantity, name_requested=name_requested, username_requested=username_requested, photo_requested=photo_requested, style=style)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -89,7 +93,11 @@ class InputKeyboardButtonRequestPeer(TLObject):
         flags |= (1 << 0) if self.name_requested else 0
         flags |= (1 << 1) if self.username_requested else 0
         flags |= (1 << 2) if self.photo_requested else 0
+        flags |= (1 << 10) if self.style is not None else 0
         b.write(Int(flags))
+        
+        if self.style is not None:
+            b.write(self.style.write())
         
         b.write(String(self.text))
         

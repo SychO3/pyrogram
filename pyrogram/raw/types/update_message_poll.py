@@ -36,7 +36,7 @@ class UpdateMessagePoll(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``ACA1657B``
 
     Parameters:

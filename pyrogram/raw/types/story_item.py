@@ -36,7 +36,7 @@ class StoryItem(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StoryItem`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EDF164F1``
 
     Parameters:

@@ -36,7 +36,7 @@ class StickerSetInstallResultArchive(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.StickerSetInstallResult`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``35E410A8``
 
     Parameters:

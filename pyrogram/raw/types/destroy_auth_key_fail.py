@@ -36,7 +36,7 @@ class DestroyAuthKeyFail(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DestroyAuthKeyRes`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EA109B13``
 
     **No parameters required.**

@@ -82,3 +82,8 @@ from .check_can_send_gift import CheckCanSendGift
 from .get_star_gift_auction_state import GetStarGiftAuctionState
 from .get_star_gift_auction_acquired_gifts import GetStarGiftAuctionAcquiredGifts
 from .get_star_gift_active_auctions import GetStarGiftActiveAuctions
+from .resolve_star_gift_offer import ResolveStarGiftOffer
+from .send_star_gift_offer import SendStarGiftOffer
+from .get_star_gift_upgrade_attributes import GetStarGiftUpgradeAttributes
+from .get_craft_star_gifts import GetCraftStarGifts
+from .craft_star_gift import CraftStarGift

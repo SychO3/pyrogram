@@ -36,7 +36,7 @@ class GetSavedHistory(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``998AB009``
 
     Parameters:

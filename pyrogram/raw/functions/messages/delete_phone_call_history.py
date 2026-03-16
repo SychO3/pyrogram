@@ -36,7 +36,7 @@ class DeletePhoneCallHistory(TLObject["raw.base.messages.AffectedFoundMessages"]
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F9CBE409``
 
     Parameters:

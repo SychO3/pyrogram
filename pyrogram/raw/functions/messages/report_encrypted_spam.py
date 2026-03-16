@@ -36,7 +36,7 @@ class ReportEncryptedSpam(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4B0C8C0F``
 
     Parameters:

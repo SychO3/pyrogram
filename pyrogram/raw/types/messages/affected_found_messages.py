@@ -36,7 +36,7 @@ class AffectedFoundMessages(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.AffectedFoundMessages`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EF8D3E6C``
 
     Parameters:

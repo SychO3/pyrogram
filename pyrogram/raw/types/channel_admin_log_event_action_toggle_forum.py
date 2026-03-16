@@ -36,7 +36,7 @@ class ChannelAdminLogEventActionToggleForum(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2CC6383``
 
     Parameters:

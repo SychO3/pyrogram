@@ -36,24 +36,26 @@ class ChannelParticipant(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelParticipant`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``CB397619``
+        - Layer: ``223``
+        - ID: ``1BD54456``
 
     Parameters:
         user_id: ``int`` ``64-bit``
         date: ``int`` ``32-bit``
         subscription_until_date (optional): ``int`` ``32-bit``
+        rank (optional): ``str``
     """
 
-    __slots__: List[str] = ["user_id", "date", "subscription_until_date"]
+    __slots__: List[str] = ["user_id", "date", "subscription_until_date", "rank"]
 
-    ID = 0xcb397619
+    ID = 0x1bd54456
     QUALNAME = "types.ChannelParticipant"
 
-    def __init__(self, *, user_id: int, date: int, subscription_until_date: Optional[int] = None) -> None:
+    def __init__(self, *, user_id: int, date: int, subscription_until_date: Optional[int] = None, rank: Optional[str] = None) -> None:
         self.user_id = user_id  # long
         self.date = date  # int
         self.subscription_until_date = subscription_until_date  # flags.0?int
+        self.rank = rank  # flags.2?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ChannelParticipant":
@@ -65,7 +67,8 @@ class ChannelParticipant(TLObject):
         date = Int.read(b)
         
         subscription_until_date = Int.read(b) if flags & (1 << 0) else None
-        return ChannelParticipant(user_id=user_id, date=date, subscription_until_date=subscription_until_date)
+        rank = String.read(b) if flags & (1 << 2) else None
+        return ChannelParticipant(user_id=user_id, date=date, subscription_until_date=subscription_until_date, rank=rank)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -73,6 +76,7 @@ class ChannelParticipant(TLObject):
 
         flags = 0
         flags |= (1 << 0) if self.subscription_until_date is not None else 0
+        flags |= (1 << 2) if self.rank is not None else 0
         b.write(Int(flags))
         
         b.write(Long(self.user_id))
@@ -81,5 +85,8 @@ class ChannelParticipant(TLObject):
         
         if self.subscription_until_date is not None:
             b.write(Int(self.subscription_until_date))
+        
+        if self.rank is not None:
+            b.write(String(self.rank))
         
         return b.getvalue()

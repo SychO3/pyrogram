@@ -36,7 +36,7 @@ class TextConcat(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RichText`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7E6260D7``
 
     Parameters:

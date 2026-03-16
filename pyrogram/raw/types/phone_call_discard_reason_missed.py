@@ -36,7 +36,7 @@ class PhoneCallDiscardReasonMissed(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PhoneCallDiscardReason`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``85E42301``
 
     **No parameters required.**

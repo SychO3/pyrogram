@@ -36,7 +36,7 @@ class MessageActionWebViewDataSent(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B4C38CB5``
 
     Parameters:

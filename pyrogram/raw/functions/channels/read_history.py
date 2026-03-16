@@ -36,7 +36,7 @@ class ReadHistory(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``CC104937``
 
     Parameters:

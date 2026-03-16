@@ -36,7 +36,7 @@ class SendMessageUploadRoundAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``243E1C66``
 
     Parameters:

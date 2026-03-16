@@ -36,7 +36,7 @@ class StarGiftAuctionAcquiredGifts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftAuctionAcquiredGifts`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7D5BD1F0``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputBusinessBotRecipients(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputBusinessBotRecipients`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C4E5921E``
 
     Parameters:

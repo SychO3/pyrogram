@@ -36,7 +36,7 @@ class MessageActionGiveawayResults(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``87E2F155``
 
     Parameters:

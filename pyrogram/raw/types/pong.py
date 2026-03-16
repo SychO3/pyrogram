@@ -36,7 +36,7 @@ class Pong(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Pong`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``347773C5``
 
     Parameters:

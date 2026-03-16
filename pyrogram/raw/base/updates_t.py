@@ -48,7 +48,7 @@ else:
             - :obj:`UpdatesTooLong <pyrogram.raw.types.UpdatesTooLong>`
 
     See Also:
-        This object can be returned by 124 methods:
+        This object can be returned by 128 methods:
 
         .. hlist::
             :columns: 2
@@ -108,6 +108,8 @@ else:
             - :obj:`messages.UpdatePinnedForumTopic <pyrogram.raw.functions.messages.UpdatePinnedForumTopic>`
             - :obj:`messages.ReorderPinnedForumTopics <pyrogram.raw.functions.messages.ReorderPinnedForumTopics>`
             - :obj:`messages.CreateForumTopic <pyrogram.raw.functions.messages.CreateForumTopic>`
+            - :obj:`messages.EditChatCreator <pyrogram.raw.functions.messages.EditChatCreator>`
+            - :obj:`messages.EditChatParticipantRank <pyrogram.raw.functions.messages.EditChatParticipantRank>`
             - :obj:`channels.CreateChannel <pyrogram.raw.functions.channels.CreateChannel>`
             - :obj:`channels.EditAdmin <pyrogram.raw.functions.channels.EditAdmin>`
             - :obj:`channels.EditTitle <pyrogram.raw.functions.channels.EditTitle>`
@@ -119,7 +121,6 @@ else:
             - :obj:`channels.EditBanned <pyrogram.raw.functions.channels.EditBanned>`
             - :obj:`channels.DeleteHistory <pyrogram.raw.functions.channels.DeleteHistory>`
             - :obj:`channels.TogglePreHistoryHidden <pyrogram.raw.functions.channels.TogglePreHistoryHidden>`
-            - :obj:`channels.EditCreator <pyrogram.raw.functions.channels.EditCreator>`
             - :obj:`channels.ToggleSlowMode <pyrogram.raw.functions.channels.ToggleSlowMode>`
             - :obj:`channels.ConvertToGigagroup <pyrogram.raw.functions.channels.ConvertToGigagroup>`
             - :obj:`channels.ToggleJoinToSend <pyrogram.raw.functions.channels.ToggleJoinToSend>`
@@ -143,6 +144,9 @@ else:
             - :obj:`payments.UpgradeStarGift <pyrogram.raw.functions.payments.UpgradeStarGift>`
             - :obj:`payments.TransferStarGift <pyrogram.raw.functions.payments.TransferStarGift>`
             - :obj:`payments.UpdateStarGiftPrice <pyrogram.raw.functions.payments.UpdateStarGiftPrice>`
+            - :obj:`payments.ResolveStarGiftOffer <pyrogram.raw.functions.payments.ResolveStarGiftOffer>`
+            - :obj:`payments.SendStarGiftOffer <pyrogram.raw.functions.payments.SendStarGiftOffer>`
+            - :obj:`payments.CraftStarGift <pyrogram.raw.functions.payments.CraftStarGift>`
             - :obj:`phone.DiscardCall <pyrogram.raw.functions.phone.DiscardCall>`
             - :obj:`phone.SetCallRating <pyrogram.raw.functions.phone.SetCallRating>`
             - :obj:`phone.CreateGroupCall <pyrogram.raw.functions.phone.CreateGroupCall>`
@@ -186,4 +190,4 @@ else:
             raise TypeError("Base types can only be used for type checking purposes: "
                             "you tried to use a base type instance as argument, "
                             "but you need to instantiate one of its constructors instead. "
-                            "More info: https://docs.kurigram.live/telegram/base/updates")
+                            "More info: https://docs.kurigram.icu/telegram/base/updates")

@@ -36,7 +36,7 @@ class GetCdnFileHashes(TLObject["List[raw.base.FileHash]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``91DC3F31``
 
     Parameters:

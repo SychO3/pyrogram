@@ -36,31 +36,35 @@ class KeyboardButtonUrlAuth(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``10B78D29``
+        - Layer: ``223``
+        - ID: ``F51006F9``
 
     Parameters:
         text: ``str``
         url: ``str``
         button_id: ``int`` ``32-bit``
+        style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
         fwd_text (optional): ``str``
     """
 
-    __slots__: List[str] = ["text", "url", "button_id", "fwd_text"]
+    __slots__: List[str] = ["text", "url", "button_id", "style", "fwd_text"]
 
-    ID = 0x10b78d29
+    ID = 0xf51006f9
     QUALNAME = "types.KeyboardButtonUrlAuth"
 
-    def __init__(self, *, text: str, url: str, button_id: int, fwd_text: Optional[str] = None) -> None:
+    def __init__(self, *, text: str, url: str, button_id: int, style: "raw.base.KeyboardButtonStyle" = None, fwd_text: Optional[str] = None) -> None:
         self.text = text  # string
         self.url = url  # string
         self.button_id = button_id  # int
+        self.style = style  # flags.10?KeyboardButtonStyle
         self.fwd_text = fwd_text  # flags.0?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "KeyboardButtonUrlAuth":
         
         flags = Int.read(b)
+        
+        style = TLObject.read(b) if flags & (1 << 10) else None
         
         text = String.read(b)
         
@@ -69,15 +73,19 @@ class KeyboardButtonUrlAuth(TLObject):
         
         button_id = Int.read(b)
         
-        return KeyboardButtonUrlAuth(text=text, url=url, button_id=button_id, fwd_text=fwd_text)
+        return KeyboardButtonUrlAuth(text=text, url=url, button_id=button_id, style=style, fwd_text=fwd_text)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         flags = 0
+        flags |= (1 << 10) if self.style is not None else 0
         flags |= (1 << 0) if self.fwd_text is not None else 0
         b.write(Int(flags))
+        
+        if self.style is not None:
+            b.write(self.style.write())
         
         b.write(String(self.text))
         

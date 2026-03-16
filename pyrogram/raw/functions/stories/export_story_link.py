@@ -36,7 +36,7 @@ class ExportStoryLink(TLObject["raw.base.ExportedStoryLink"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7B8DEF20``
 
     Parameters:

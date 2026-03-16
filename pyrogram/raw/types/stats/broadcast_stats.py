@@ -36,7 +36,7 @@ class BroadcastStats(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stats.BroadcastStats`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``396CA5FC``
 
     Parameters:

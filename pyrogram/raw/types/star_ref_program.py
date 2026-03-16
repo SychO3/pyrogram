@@ -36,7 +36,7 @@ class StarRefProgram(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarRefProgram`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DD0C66F2``
 
     Parameters:

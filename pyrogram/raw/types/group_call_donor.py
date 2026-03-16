@@ -36,27 +36,25 @@ class GroupCallDonor(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GroupCallDonor`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EE430C85``
 
     Parameters:
         stars: ``int`` ``64-bit``
         top (optional): ``bool``
         my (optional): ``bool``
-        anonymous (optional): ``bool``
         peer_id (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
     """
 
-    __slots__: List[str] = ["stars", "top", "my", "anonymous", "peer_id"]
+    __slots__: List[str] = ["stars", "top", "my", "peer_id"]
 
     ID = 0xee430c85
     QUALNAME = "types.GroupCallDonor"
 
-    def __init__(self, *, stars: int, top: Optional[bool] = None, my: Optional[bool] = None, anonymous: Optional[bool] = None, peer_id: "raw.base.Peer" = None) -> None:
+    def __init__(self, *, stars: int, top: Optional[bool] = None, my: Optional[bool] = None, peer_id: "raw.base.Peer" = None) -> None:
         self.stars = stars  # long
         self.top = top  # flags.0?true
         self.my = my  # flags.1?true
-        self.anonymous = anonymous  # flags.2?true
         self.peer_id = peer_id  # flags.3?Peer
 
     @staticmethod
@@ -66,12 +64,11 @@ class GroupCallDonor(TLObject):
         
         top = True if flags & (1 << 0) else False
         my = True if flags & (1 << 1) else False
-        anonymous = True if flags & (1 << 2) else False
         peer_id = TLObject.read(b) if flags & (1 << 3) else None
         
         stars = Long.read(b)
         
-        return GroupCallDonor(stars=stars, top=top, my=my, anonymous=anonymous, peer_id=peer_id)
+        return GroupCallDonor(stars=stars, top=top, my=my, peer_id=peer_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -80,7 +77,6 @@ class GroupCallDonor(TLObject):
         flags = 0
         flags |= (1 << 0) if self.top else 0
         flags |= (1 << 1) if self.my else 0
-        flags |= (1 << 2) if self.anonymous else 0
         flags |= (1 << 3) if self.peer_id is not None else 0
         b.write(Int(flags))
         

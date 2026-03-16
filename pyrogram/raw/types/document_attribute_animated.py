@@ -36,7 +36,7 @@ class DocumentAttributeAnimated(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DocumentAttribute`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``11B58939``
 
     **No parameters required.**

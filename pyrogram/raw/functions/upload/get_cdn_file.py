@@ -36,7 +36,7 @@ class GetCdnFile(TLObject["raw.base.upload.CdnFile"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``395F69DA``
 
     Parameters:

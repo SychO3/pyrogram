@@ -36,7 +36,7 @@ class GetCountriesList(TLObject["raw.base.help.CountriesList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``735787A8``
 
     Parameters:

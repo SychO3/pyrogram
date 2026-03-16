@@ -36,7 +36,7 @@ class GetStarGiftAuctionState(TLObject["raw.base.payments.StarGiftAuctionState"]
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5C9FF4D6``
 
     Parameters:

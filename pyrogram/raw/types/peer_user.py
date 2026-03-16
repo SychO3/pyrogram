@@ -36,7 +36,7 @@ class PeerUser(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Peer`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``59511722``
 
     Parameters:

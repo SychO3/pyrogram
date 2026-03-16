@@ -36,7 +36,7 @@ class UpdateDeviceLocked(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``38DF3532``
 
     Parameters:

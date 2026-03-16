@@ -36,7 +36,7 @@ class MessageReactionsList(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.MessageReactionsList`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``31BD492D``
 
     Parameters:

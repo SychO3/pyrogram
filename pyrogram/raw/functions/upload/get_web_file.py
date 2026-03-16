@@ -36,7 +36,7 @@ class GetWebFile(TLObject["raw.base.upload.WebFile"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``24E6818D``
 
     Parameters:

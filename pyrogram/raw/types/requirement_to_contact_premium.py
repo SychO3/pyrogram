@@ -36,7 +36,7 @@ class RequirementToContactPremium(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RequirementToContact`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E581E4E9``
 
     **No parameters required.**

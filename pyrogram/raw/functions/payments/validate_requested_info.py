@@ -36,7 +36,7 @@ class ValidateRequestedInfo(TLObject["raw.base.payments.ValidatedRequestedInfo"]
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B6C8F12B``
 
     Parameters:

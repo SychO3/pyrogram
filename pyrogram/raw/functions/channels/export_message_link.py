@@ -36,7 +36,7 @@ class ExportMessageLink(TLObject["raw.base.ExportedMessageLink"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E63FADEB``
 
     Parameters:

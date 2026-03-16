@@ -36,7 +36,7 @@ class DiscardGroupCall(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7A777135``
 
     Parameters:

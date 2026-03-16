@@ -36,7 +36,7 @@ class GetEmojiProfilePhotoGroups(TLObject["raw.base.messages.EmojiGroups"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``21A548F3``
 
     Parameters:

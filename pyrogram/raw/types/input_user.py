@@ -36,7 +36,7 @@ class InputUser(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputUser`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F21158C6``
 
     Parameters:

@@ -36,7 +36,7 @@ class PhoneCallWaiting(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PhoneCall`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C5226F17``
 
     Parameters:

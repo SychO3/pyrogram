@@ -36,8 +36,8 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
-        - ID: ``41D41ADE``
+        - Layer: ``223``
+        - ID: ``13704A7C``
 
     Parameters:
         from_peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
@@ -57,6 +57,7 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
         schedule_repeat_period (optional): ``int`` ``32-bit``
         send_as (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         quick_reply_shortcut (optional): :obj:`InputQuickReplyShortcut <pyrogram.raw.base.InputQuickReplyShortcut>`
+        effect (optional): ``int`` ``64-bit``
         video_timestamp (optional): ``int`` ``32-bit``
         allow_paid_stars (optional): ``int`` ``64-bit``
         suggested_post (optional): :obj:`SuggestedPost <pyrogram.raw.base.SuggestedPost>`
@@ -65,12 +66,12 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["from_peer", "id", "random_id", "to_peer", "silent", "background", "with_my_score", "drop_author", "drop_media_captions", "noforwards", "allow_paid_floodskip", "top_msg_id", "reply_to", "schedule_date", "schedule_repeat_period", "send_as", "quick_reply_shortcut", "video_timestamp", "allow_paid_stars", "suggested_post"]
+    __slots__: List[str] = ["from_peer", "id", "random_id", "to_peer", "silent", "background", "with_my_score", "drop_author", "drop_media_captions", "noforwards", "allow_paid_floodskip", "top_msg_id", "reply_to", "schedule_date", "schedule_repeat_period", "send_as", "quick_reply_shortcut", "effect", "video_timestamp", "allow_paid_stars", "suggested_post"]
 
-    ID = 0x41d41ade
+    ID = 0x13704a7c
     QUALNAME = "functions.messages.ForwardMessages"
 
-    def __init__(self, *, from_peer: "raw.base.InputPeer", id: List[int], random_id: List[int], to_peer: "raw.base.InputPeer", silent: Optional[bool] = None, background: Optional[bool] = None, with_my_score: Optional[bool] = None, drop_author: Optional[bool] = None, drop_media_captions: Optional[bool] = None, noforwards: Optional[bool] = None, allow_paid_floodskip: Optional[bool] = None, top_msg_id: Optional[int] = None, reply_to: "raw.base.InputReplyTo" = None, schedule_date: Optional[int] = None, schedule_repeat_period: Optional[int] = None, send_as: "raw.base.InputPeer" = None, quick_reply_shortcut: "raw.base.InputQuickReplyShortcut" = None, video_timestamp: Optional[int] = None, allow_paid_stars: Optional[int] = None, suggested_post: "raw.base.SuggestedPost" = None) -> None:
+    def __init__(self, *, from_peer: "raw.base.InputPeer", id: List[int], random_id: List[int], to_peer: "raw.base.InputPeer", silent: Optional[bool] = None, background: Optional[bool] = None, with_my_score: Optional[bool] = None, drop_author: Optional[bool] = None, drop_media_captions: Optional[bool] = None, noforwards: Optional[bool] = None, allow_paid_floodskip: Optional[bool] = None, top_msg_id: Optional[int] = None, reply_to: "raw.base.InputReplyTo" = None, schedule_date: Optional[int] = None, schedule_repeat_period: Optional[int] = None, send_as: "raw.base.InputPeer" = None, quick_reply_shortcut: "raw.base.InputQuickReplyShortcut" = None, effect: Optional[int] = None, video_timestamp: Optional[int] = None, allow_paid_stars: Optional[int] = None, suggested_post: "raw.base.SuggestedPost" = None) -> None:
         self.from_peer = from_peer  # InputPeer
         self.id = id  # Vector<int>
         self.random_id = random_id  # Vector<long>
@@ -88,6 +89,7 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
         self.schedule_repeat_period = schedule_repeat_period  # flags.24?int
         self.send_as = send_as  # flags.13?InputPeer
         self.quick_reply_shortcut = quick_reply_shortcut  # flags.17?InputQuickReplyShortcut
+        self.effect = effect  # flags.18?long
         self.video_timestamp = video_timestamp  # flags.20?int
         self.allow_paid_stars = allow_paid_stars  # flags.21?long
         self.suggested_post = suggested_post  # flags.23?SuggestedPost
@@ -121,11 +123,12 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
         
         quick_reply_shortcut = TLObject.read(b) if flags & (1 << 17) else None
         
+        effect = Long.read(b) if flags & (1 << 18) else None
         video_timestamp = Int.read(b) if flags & (1 << 20) else None
         allow_paid_stars = Long.read(b) if flags & (1 << 21) else None
         suggested_post = TLObject.read(b) if flags & (1 << 23) else None
         
-        return ForwardMessages(from_peer=from_peer, id=id, random_id=random_id, to_peer=to_peer, silent=silent, background=background, with_my_score=with_my_score, drop_author=drop_author, drop_media_captions=drop_media_captions, noforwards=noforwards, allow_paid_floodskip=allow_paid_floodskip, top_msg_id=top_msg_id, reply_to=reply_to, schedule_date=schedule_date, schedule_repeat_period=schedule_repeat_period, send_as=send_as, quick_reply_shortcut=quick_reply_shortcut, video_timestamp=video_timestamp, allow_paid_stars=allow_paid_stars, suggested_post=suggested_post)
+        return ForwardMessages(from_peer=from_peer, id=id, random_id=random_id, to_peer=to_peer, silent=silent, background=background, with_my_score=with_my_score, drop_author=drop_author, drop_media_captions=drop_media_captions, noforwards=noforwards, allow_paid_floodskip=allow_paid_floodskip, top_msg_id=top_msg_id, reply_to=reply_to, schedule_date=schedule_date, schedule_repeat_period=schedule_repeat_period, send_as=send_as, quick_reply_shortcut=quick_reply_shortcut, effect=effect, video_timestamp=video_timestamp, allow_paid_stars=allow_paid_stars, suggested_post=suggested_post)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -145,6 +148,7 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
         flags |= (1 << 24) if self.schedule_repeat_period is not None else 0
         flags |= (1 << 13) if self.send_as is not None else 0
         flags |= (1 << 17) if self.quick_reply_shortcut is not None else 0
+        flags |= (1 << 18) if self.effect is not None else 0
         flags |= (1 << 20) if self.video_timestamp is not None else 0
         flags |= (1 << 21) if self.allow_paid_stars is not None else 0
         flags |= (1 << 23) if self.suggested_post is not None else 0
@@ -175,6 +179,9 @@ class ForwardMessages(TLObject["raw.base.Updates"]):
         
         if self.quick_reply_shortcut is not None:
             b.write(self.quick_reply_shortcut.write())
+        
+        if self.effect is not None:
+            b.write(Long(self.effect))
         
         if self.video_timestamp is not None:
             b.write(Int(self.video_timestamp))

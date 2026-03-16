@@ -36,7 +36,7 @@ class DeclinePasswordReset(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4C9409F6``
 
     **No parameters required.**

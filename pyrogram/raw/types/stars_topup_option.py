@@ -36,7 +36,7 @@ class StarsTopupOption(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsTopupOption`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``BD915C0``
 
     Parameters:

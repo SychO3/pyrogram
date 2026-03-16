@@ -36,7 +36,7 @@ class MessageActionPaidMessagesRefunded(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``AC1F1FCD``
 
     Parameters:

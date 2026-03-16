@@ -36,7 +36,7 @@ class GetUniqueGiftChatThemes(TLObject["raw.base.account.ChatThemes"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E42CE9C9``
 
     Parameters:

@@ -36,7 +36,7 @@ class PageBlockBlockquote(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``263D7C26``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetInlineBotResults(TLObject["raw.base.messages.BotResults"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``514E999D``
 
     Parameters:

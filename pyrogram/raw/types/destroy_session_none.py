@@ -36,7 +36,7 @@ class DestroySessionNone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DestroySessionRes`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``62D350C9``
 
     Parameters:

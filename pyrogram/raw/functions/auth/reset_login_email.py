@@ -36,7 +36,7 @@ class ResetLoginEmail(TLObject["raw.base.auth.SentCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7E960193``
 
     Parameters:

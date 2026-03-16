@@ -36,7 +36,7 @@ class BusinessWeeklyOpen(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessWeeklyOpen`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``120B1AB9``
 
     Parameters:

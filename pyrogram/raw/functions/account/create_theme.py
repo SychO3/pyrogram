@@ -36,7 +36,7 @@ class CreateTheme(TLObject["raw.base.Theme"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``652E4400``
 
     Parameters:

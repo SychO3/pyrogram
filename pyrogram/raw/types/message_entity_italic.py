@@ -36,7 +36,7 @@ class MessageEntityItalic(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageEntity`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``826F8B60``
 
     Parameters:

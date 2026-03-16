@@ -36,7 +36,7 @@ class SearchResultsPositions(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.SearchResultsPositions`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``53B22BAF``
 
     Parameters:

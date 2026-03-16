@@ -36,7 +36,7 @@ class MessageActionGroupCall(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7A0D7F42``
 
     Parameters:

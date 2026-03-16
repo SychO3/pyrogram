@@ -36,7 +36,7 @@ class ApplyBoost(TLObject["raw.base.premium.MyBoosts"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6B7DA746``
 
     Parameters:

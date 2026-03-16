@@ -36,7 +36,7 @@ class GetMessageEditData(TLObject["raw.base.messages.MessageEditData"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FDA68D36``
 
     Parameters:

@@ -36,7 +36,7 @@ class PrivacyRules(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.PrivacyRules`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``50A04E45``
 
     Parameters:

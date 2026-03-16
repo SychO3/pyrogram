@@ -36,7 +36,7 @@ class SecureValueErrorFile(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueError`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7A700873``
 
     Parameters:

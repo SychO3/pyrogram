@@ -36,7 +36,7 @@ class PrivacyValueAllowCloseFriends(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PrivacyRule`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F7E8D89B``
 
     **No parameters required.**

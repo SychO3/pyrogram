@@ -36,7 +36,7 @@ class ExportInvoice(TLObject["raw.base.payments.ExportedInvoice"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F91B065``
 
     Parameters:

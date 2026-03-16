@@ -36,7 +36,7 @@ class AuctionBidLevel(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.AuctionBidLevel`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``310240CC``
 
     Parameters:

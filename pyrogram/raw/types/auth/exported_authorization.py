@@ -36,7 +36,7 @@ class ExportedAuthorization(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.ExportedAuthorization`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B434E2B8``
 
     Parameters:

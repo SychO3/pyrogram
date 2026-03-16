@@ -36,7 +36,7 @@ class GetPinnedStories(TLObject["raw.base.stories.Stories"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5821A5DC``
 
     Parameters:

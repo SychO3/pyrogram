@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-count = 769
+count = 771
 
 exceptions = {
     420: {
@@ -371,6 +371,7 @@ exceptions = {
         "INPUT_METHOD_INVALID": "InputMethodInvalid",
         "INPUT_PEERS_EMPTY": "InputPeersEmpty",
         "INPUT_REQUEST_TOO_LONG": "InputRequestTooLong",
+        "INPUT_STARS_NANOS_INVALID": "InputStarsNanosInvalid",
         "INPUT_TEXT_EMPTY": "InputTextEmpty",
         "INPUT_TEXT_TOO_LONG": "InputTextTooLong",
         "INPUT_USER_DEACTIVATED": "InputUserDeactivated",
@@ -528,6 +529,7 @@ exceptions = {
         "RANDOM_ID_INVALID": "RandomIdInvalid",
         "RANDOM_LENGTH_INVALID": "RandomLengthInvalid",
         "RANGES_INVALID": "RangesInvalid",
+        "RANK_INVALID": "RankInvalid",
         "REACTIONS_COUNT_INVALID": "ReactionsCountInvalid",
         "REACTIONS_TOO_MANY": "ReactionsTooMany",
         "REACTION_EMPTY": "ReactionEmpty",

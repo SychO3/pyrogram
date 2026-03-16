@@ -36,7 +36,7 @@ class GetOnlines(TLObject["raw.base.ChatOnlines"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``6E2BE050``
 
     Parameters:

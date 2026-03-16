@@ -36,7 +36,7 @@ class DeleteContacts(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``96A0E00``
 
     Parameters:

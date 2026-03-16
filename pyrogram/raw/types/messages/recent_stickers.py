@@ -36,7 +36,7 @@ class RecentStickers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.RecentStickers`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``88D37C56``
 
     Parameters:

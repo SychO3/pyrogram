@@ -36,7 +36,7 @@ class BotInfo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotInfo`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4D8A0299``
 
     Parameters:

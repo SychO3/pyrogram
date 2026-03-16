@@ -36,7 +36,7 @@ class GetStoryViewsList(TLObject["raw.base.stories.StoryViewsList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7ED23C57``
 
     Parameters:

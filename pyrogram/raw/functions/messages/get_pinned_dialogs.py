@@ -36,7 +36,7 @@ class GetPinnedDialogs(TLObject["raw.base.messages.PeerDialogs"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``D6B94DF2``
 
     Parameters:

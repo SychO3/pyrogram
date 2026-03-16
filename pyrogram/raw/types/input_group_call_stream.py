@@ -36,7 +36,7 @@ class InputGroupCallStream(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``598A92A``
 
     Parameters:

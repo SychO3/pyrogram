@@ -36,7 +36,7 @@ class ChannelLocation(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelLocation`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``209B82DB``
 
     Parameters:

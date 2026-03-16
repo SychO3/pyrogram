@@ -36,7 +36,7 @@ class ImportWebTokenAuthorization(TLObject["raw.base.auth.Authorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2DB873A9``
 
     Parameters:

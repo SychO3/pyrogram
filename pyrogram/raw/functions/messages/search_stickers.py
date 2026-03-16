@@ -36,7 +36,7 @@ class SearchStickers(TLObject["raw.base.messages.FoundStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``29B1C66A``
 
     Parameters:

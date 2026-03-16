@@ -36,7 +36,7 @@ class GetFavedStickers(TLObject["raw.base.messages.FavedStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4F1AAA9``
 
     Parameters:

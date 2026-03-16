@@ -36,7 +36,7 @@ class PeerColorCollectible(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PeerColor`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B9C0639A``
 
     Parameters:

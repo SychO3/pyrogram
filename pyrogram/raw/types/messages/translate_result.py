@@ -36,7 +36,7 @@ class TranslateResult(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.TranslatedText`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``33DB32F8``
 
     Parameters:

@@ -36,28 +36,22 @@ class WebPageAttributeStarGiftAuction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.WebPageAttribute`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``34986AB``
+        - Layer: ``223``
+        - ID: ``1C641C2``
 
     Parameters:
         gift: :obj:`StarGift <pyrogram.raw.base.StarGift>`
         end_date: ``int`` ``32-bit``
-        center_color: ``int`` ``32-bit``
-        edge_color: ``int`` ``32-bit``
-        text_color: ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["gift", "end_date", "center_color", "edge_color", "text_color"]
+    __slots__: List[str] = ["gift", "end_date"]
 
-    ID = 0x34986ab
+    ID = 0x1c641c2
     QUALNAME = "types.WebPageAttributeStarGiftAuction"
 
-    def __init__(self, *, gift: "raw.base.StarGift", end_date: int, center_color: int, edge_color: int, text_color: int) -> None:
+    def __init__(self, *, gift: "raw.base.StarGift", end_date: int) -> None:
         self.gift = gift  # StarGift
         self.end_date = end_date  # int
-        self.center_color = center_color  # int
-        self.edge_color = edge_color  # int
-        self.text_color = text_color  # int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "WebPageAttributeStarGiftAuction":
@@ -67,13 +61,7 @@ class WebPageAttributeStarGiftAuction(TLObject):
         
         end_date = Int.read(b)
         
-        center_color = Int.read(b)
-        
-        edge_color = Int.read(b)
-        
-        text_color = Int.read(b)
-        
-        return WebPageAttributeStarGiftAuction(gift=gift, end_date=end_date, center_color=center_color, edge_color=edge_color, text_color=text_color)
+        return WebPageAttributeStarGiftAuction(gift=gift, end_date=end_date)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -84,11 +72,5 @@ class WebPageAttributeStarGiftAuction(TLObject):
         b.write(self.gift.write())
         
         b.write(Int(self.end_date))
-        
-        b.write(Int(self.center_color))
-        
-        b.write(Int(self.edge_color))
-        
-        b.write(Int(self.text_color))
         
         return b.getvalue()

@@ -36,7 +36,7 @@ class ToggleAllStoriesHidden(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7C2557C4``
 
     Parameters:

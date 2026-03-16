@@ -36,7 +36,7 @@ class GetLeaveChatlistSuggestions(TLObject["List[raw.base.Peer]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FDBCD714``
 
     Parameters:

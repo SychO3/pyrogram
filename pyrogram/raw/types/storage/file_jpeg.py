@@ -36,7 +36,7 @@ class FileJpeg(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.storage.FileType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``7EFE0E``
 
     **No parameters required.**

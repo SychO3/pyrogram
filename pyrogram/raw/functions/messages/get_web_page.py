@@ -36,7 +36,7 @@ class GetWebPage(TLObject["raw.base.messages.WebPage"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8D9692A3``
 
     Parameters:

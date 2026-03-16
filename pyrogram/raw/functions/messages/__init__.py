@@ -259,3 +259,10 @@ from .update_pinned_forum_topic import UpdatePinnedForumTopic
 from .reorder_pinned_forum_topics import ReorderPinnedForumTopics
 from .create_forum_topic import CreateForumTopic
 from .delete_topic_history import DeleteTopicHistory
+from .get_emoji_game_info import GetEmojiGameInfo
+from .summarize_text import SummarizeText
+from .edit_chat_creator import EditChatCreator
+from .get_future_chat_creator_after_leave import GetFutureChatCreatorAfterLeave
+from .edit_chat_participant_rank import EditChatParticipantRank
+from .decline_url_auth import DeclineUrlAuth
+from .check_url_auth_match_code import CheckUrlAuthMatchCode

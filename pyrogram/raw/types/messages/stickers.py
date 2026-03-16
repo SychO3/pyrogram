@@ -36,7 +36,7 @@ class Stickers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Stickers`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``30A6EC7E``
 
     Parameters:

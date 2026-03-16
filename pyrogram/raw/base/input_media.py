@@ -29,11 +29,11 @@ from pyrogram.raw.core import BaseTypeMeta
 
 
 if TYPE_CHECKING:
-    InputMedia = Union[raw.types.InputMediaContact, raw.types.InputMediaDice, raw.types.InputMediaDocument, raw.types.InputMediaDocumentExternal, raw.types.InputMediaEmpty, raw.types.InputMediaGame, raw.types.InputMediaGeoLive, raw.types.InputMediaGeoPoint, raw.types.InputMediaInvoice, raw.types.InputMediaPaidMedia, raw.types.InputMediaPhoto, raw.types.InputMediaPhotoExternal, raw.types.InputMediaPoll, raw.types.InputMediaStory, raw.types.InputMediaTodo, raw.types.InputMediaUploadedDocument, raw.types.InputMediaUploadedPhoto, raw.types.InputMediaVenue, raw.types.InputMediaWebPage]
+    InputMedia = Union[raw.types.InputMediaContact, raw.types.InputMediaDice, raw.types.InputMediaDocument, raw.types.InputMediaDocumentExternal, raw.types.InputMediaEmpty, raw.types.InputMediaGame, raw.types.InputMediaGeoLive, raw.types.InputMediaGeoPoint, raw.types.InputMediaInvoice, raw.types.InputMediaPaidMedia, raw.types.InputMediaPhoto, raw.types.InputMediaPhotoExternal, raw.types.InputMediaPoll, raw.types.InputMediaStakeDice, raw.types.InputMediaStory, raw.types.InputMediaTodo, raw.types.InputMediaUploadedDocument, raw.types.InputMediaUploadedPhoto, raw.types.InputMediaVenue, raw.types.InputMediaWebPage]
 else:
     # noinspection PyRedeclaration
     class InputMedia(metaclass=BaseTypeMeta):  # type: ignore
-        """This base type has 19 constructors available.
+        """This base type has 20 constructors available.
 
     Constructors:
         .. hlist::
@@ -52,6 +52,7 @@ else:
             - :obj:`InputMediaPhoto <pyrogram.raw.types.InputMediaPhoto>`
             - :obj:`InputMediaPhotoExternal <pyrogram.raw.types.InputMediaPhotoExternal>`
             - :obj:`InputMediaPoll <pyrogram.raw.types.InputMediaPoll>`
+            - :obj:`InputMediaStakeDice <pyrogram.raw.types.InputMediaStakeDice>`
             - :obj:`InputMediaStory <pyrogram.raw.types.InputMediaStory>`
             - :obj:`InputMediaTodo <pyrogram.raw.types.InputMediaTodo>`
             - :obj:`InputMediaUploadedDocument <pyrogram.raw.types.InputMediaUploadedDocument>`
@@ -61,10 +62,10 @@ else:
         """
 
         QUALNAME = "pyrogram.raw.base.InputMedia"
-        __union_types__ = Union[raw.types.InputMediaContact, raw.types.InputMediaDice, raw.types.InputMediaDocument, raw.types.InputMediaDocumentExternal, raw.types.InputMediaEmpty, raw.types.InputMediaGame, raw.types.InputMediaGeoLive, raw.types.InputMediaGeoPoint, raw.types.InputMediaInvoice, raw.types.InputMediaPaidMedia, raw.types.InputMediaPhoto, raw.types.InputMediaPhotoExternal, raw.types.InputMediaPoll, raw.types.InputMediaStory, raw.types.InputMediaTodo, raw.types.InputMediaUploadedDocument, raw.types.InputMediaUploadedPhoto, raw.types.InputMediaVenue, raw.types.InputMediaWebPage]
+        __union_types__ = Union[raw.types.InputMediaContact, raw.types.InputMediaDice, raw.types.InputMediaDocument, raw.types.InputMediaDocumentExternal, raw.types.InputMediaEmpty, raw.types.InputMediaGame, raw.types.InputMediaGeoLive, raw.types.InputMediaGeoPoint, raw.types.InputMediaInvoice, raw.types.InputMediaPaidMedia, raw.types.InputMediaPhoto, raw.types.InputMediaPhotoExternal, raw.types.InputMediaPoll, raw.types.InputMediaStakeDice, raw.types.InputMediaStory, raw.types.InputMediaTodo, raw.types.InputMediaUploadedDocument, raw.types.InputMediaUploadedPhoto, raw.types.InputMediaVenue, raw.types.InputMediaWebPage]
 
         def __init__(self):
             raise TypeError("Base types can only be used for type checking purposes: "
                             "you tried to use a base type instance as argument, "
                             "but you need to instantiate one of its constructors instead. "
-                            "More info: https://docs.kurigram.live/telegram/base/input-media")
+                            "More info: https://docs.kurigram.icu/telegram/base/input-media")

@@ -36,7 +36,7 @@ class GetSavedStarGifts(TLObject["raw.base.payments.SavedStarGifts"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A319E569``
 
     Parameters:

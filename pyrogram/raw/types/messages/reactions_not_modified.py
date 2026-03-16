@@ -36,7 +36,7 @@ class ReactionsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Reactions`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B06FDBDF``
 
     **No parameters required.**

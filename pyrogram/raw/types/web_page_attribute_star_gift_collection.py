@@ -36,7 +36,7 @@ class WebPageAttributeStarGiftCollection(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.WebPageAttribute`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``31CAD303``
 
     Parameters:

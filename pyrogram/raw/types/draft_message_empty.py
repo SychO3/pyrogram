@@ -36,7 +36,7 @@ class DraftMessageEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DraftMessage`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1B0C841A``
 
     Parameters:

@@ -36,7 +36,7 @@ class NewSessionCreated(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.NewSession`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``9EC20908``
 
     Parameters:

@@ -36,7 +36,7 @@ class SuggestedPost(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SuggestedPost`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E8E37E5``
 
     Parameters:

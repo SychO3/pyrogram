@@ -36,7 +36,7 @@ class GetDialogs(TLObject["raw.base.messages.Dialogs"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A0F4CB4F``
 
     Parameters:

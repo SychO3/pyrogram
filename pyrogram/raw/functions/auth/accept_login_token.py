@@ -36,7 +36,7 @@ class AcceptLoginToken(TLObject["raw.base.Authorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E894AD4D``
 
     Parameters:

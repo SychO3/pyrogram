@@ -36,7 +36,7 @@ class GetOutboxReadDate(TLObject["raw.base.OutboxReadDate"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8C4BFE5D``
 
     Parameters:

@@ -36,7 +36,7 @@ class ToggleDialogPin(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A731E257``
 
     Parameters:

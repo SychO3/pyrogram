@@ -36,7 +36,7 @@ class GetGroupCallJoinAs(TLObject["raw.base.phone.JoinAsPeers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EF7C213A``
 
     Parameters:

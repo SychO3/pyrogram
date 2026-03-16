@@ -36,7 +36,7 @@ class EmojiLanguage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmojiLanguage`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B3FB5361``
 
     Parameters:

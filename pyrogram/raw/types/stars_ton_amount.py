@@ -36,7 +36,7 @@ class StarsTonAmount(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsAmount`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``74AEE3E0``
 
     Parameters:

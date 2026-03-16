@@ -36,7 +36,7 @@ class StickerKeyword(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StickerKeyword`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``FCFEB29C``
 
     Parameters:

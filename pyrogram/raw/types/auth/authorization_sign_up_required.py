@@ -36,14 +36,14 @@ class AuthorizationSignUpRequired(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.Authorization`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``44747E9A``
 
     Parameters:
         terms_of_service (optional): :obj:`help.TermsOfService <pyrogram.raw.base.help.TermsOfService>`
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 8 methods:
 
         .. hlist::
             :columns: 2
@@ -55,6 +55,7 @@ class AuthorizationSignUpRequired(TLObject):
             - :obj:`auth.CheckPassword <pyrogram.raw.functions.auth.CheckPassword>`
             - :obj:`auth.RecoverPassword <pyrogram.raw.functions.auth.RecoverPassword>`
             - :obj:`auth.ImportWebTokenAuthorization <pyrogram.raw.functions.auth.ImportWebTokenAuthorization>`
+            - :obj:`auth.FinishPasskeyLogin <pyrogram.raw.functions.auth.FinishPasskeyLogin>`
     """
 
     __slots__: List[str] = ["terms_of_service"]

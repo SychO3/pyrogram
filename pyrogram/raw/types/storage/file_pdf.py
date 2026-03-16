@@ -36,7 +36,7 @@ class FilePdf(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.storage.FileType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``AE1E508D``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class BusinessRecipients(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessRecipients`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``21108FF7``
 
     Parameters:

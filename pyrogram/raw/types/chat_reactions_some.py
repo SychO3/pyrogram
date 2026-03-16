@@ -36,7 +36,7 @@ class ChatReactionsSome(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatReactions`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``661D4037``
 
     Parameters:

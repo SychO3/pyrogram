@@ -36,7 +36,7 @@ class ResetNotifySettings(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DB7E1747``
 
     **No parameters required.**

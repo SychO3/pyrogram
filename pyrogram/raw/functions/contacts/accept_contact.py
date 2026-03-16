@@ -36,7 +36,7 @@ class AcceptContact(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F831A20F``
 
     Parameters:

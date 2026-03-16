@@ -36,7 +36,7 @@ class SendWebViewResultMessage(TLObject["raw.base.WebViewMessageSent"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``A4314F5``
 
     Parameters:

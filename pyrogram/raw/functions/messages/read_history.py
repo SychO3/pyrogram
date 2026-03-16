@@ -36,7 +36,7 @@ class ReadHistory(TLObject["raw.base.messages.AffectedMessages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``E306D3A``
 
     Parameters:

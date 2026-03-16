@@ -36,7 +36,7 @@ class ConfigSimple(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.ConfigSimple`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5A592A6C``
 
     Parameters:

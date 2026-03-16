@@ -36,7 +36,7 @@ class RequestPeerTypeChat(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RequestPeerType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C9F06E1B``
 
     Parameters:

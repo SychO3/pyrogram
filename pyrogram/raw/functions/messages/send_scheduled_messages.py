@@ -36,7 +36,7 @@ class SendScheduledMessages(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``BD38850A``
 
     Parameters:

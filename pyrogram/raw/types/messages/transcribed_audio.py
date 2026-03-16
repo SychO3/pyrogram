@@ -36,7 +36,7 @@ class TranscribedAudio(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.TranscribedAudio`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``CFB9D957``
 
     Parameters:

@@ -36,7 +36,7 @@ class DeepLinkInfoEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.DeepLinkInfo`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``66AFA166``
 
     **No parameters required.**

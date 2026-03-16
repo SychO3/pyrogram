@@ -32,43 +32,43 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class EditCreator(TLObject["raw.base.Updates"]):
+class EditChatParticipantRank(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
-        - ID: ``8F38CD1F``
+        - Layer: ``223``
+        - ID: ``A00F32B0``
 
     Parameters:
-        channel: :obj:`InputChannel <pyrogram.raw.base.InputChannel>`
-        user_id: :obj:`InputUser <pyrogram.raw.base.InputUser>`
-        password: :obj:`InputCheckPasswordSRP <pyrogram.raw.base.InputCheckPasswordSRP>`
+        peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
+        participant: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
+        rank: ``str``
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["channel", "user_id", "password"]
+    __slots__: List[str] = ["peer", "participant", "rank"]
 
-    ID = 0x8f38cd1f
-    QUALNAME = "functions.channels.EditCreator"
+    ID = 0xa00f32b0
+    QUALNAME = "functions.messages.EditChatParticipantRank"
 
-    def __init__(self, *, channel: "raw.base.InputChannel", user_id: "raw.base.InputUser", password: "raw.base.InputCheckPasswordSRP") -> None:
-        self.channel = channel  # InputChannel
-        self.user_id = user_id  # InputUser
-        self.password = password  # InputCheckPasswordSRP
+    def __init__(self, *, peer: "raw.base.InputPeer", participant: "raw.base.InputPeer", rank: str) -> None:
+        self.peer = peer  # InputPeer
+        self.participant = participant  # InputPeer
+        self.rank = rank  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "EditCreator":
+    def read(b: BytesIO, *args: Any) -> "EditChatParticipantRank":
         # No flags
         
-        channel = TLObject.read(b)
+        peer = TLObject.read(b)
         
-        user_id = TLObject.read(b)
+        participant = TLObject.read(b)
         
-        password = TLObject.read(b)
+        rank = String.read(b)
         
-        return EditCreator(channel=channel, user_id=user_id, password=password)
+        return EditChatParticipantRank(peer=peer, participant=participant, rank=rank)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -76,10 +76,10 @@ class EditCreator(TLObject["raw.base.Updates"]):
 
         # No flags
         
-        b.write(self.channel.write())
+        b.write(self.peer.write())
         
-        b.write(self.user_id.write())
+        b.write(self.participant.write())
         
-        b.write(self.password.write())
+        b.write(String(self.rank))
         
         return b.getvalue()

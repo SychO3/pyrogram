@@ -36,7 +36,7 @@ class InputBotInlineMessageMediaGeo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputBotInlineMessage`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``96929A85``
 
     Parameters:

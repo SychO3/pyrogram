@@ -36,7 +36,7 @@ class SetClientDHParams(TLObject["raw.base.SetClientDHParamsAnswer"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F5045F1F``
 
     Parameters:

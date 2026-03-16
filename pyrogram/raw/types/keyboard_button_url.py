@@ -36,38 +36,48 @@ class KeyboardButtonUrl(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``258AFF05``
+        - Layer: ``223``
+        - ID: ``D80C25EC``
 
     Parameters:
         text: ``str``
         url: ``str``
+        style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
     """
 
-    __slots__: List[str] = ["text", "url"]
+    __slots__: List[str] = ["text", "url", "style"]
 
-    ID = 0x258aff05
+    ID = 0xd80c25ec
     QUALNAME = "types.KeyboardButtonUrl"
 
-    def __init__(self, *, text: str, url: str) -> None:
+    def __init__(self, *, text: str, url: str, style: "raw.base.KeyboardButtonStyle" = None) -> None:
         self.text = text  # string
         self.url = url  # string
+        self.style = style  # flags.10?KeyboardButtonStyle
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "KeyboardButtonUrl":
-        # No flags
+        
+        flags = Int.read(b)
+        
+        style = TLObject.read(b) if flags & (1 << 10) else None
         
         text = String.read(b)
         
         url = String.read(b)
         
-        return KeyboardButtonUrl(text=text, url=url)
+        return KeyboardButtonUrl(text=text, url=url, style=style)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 10) if self.style is not None else 0
+        b.write(Int(flags))
+        
+        if self.style is not None:
+            b.write(self.style.write())
         
         b.write(String(self.text))
         

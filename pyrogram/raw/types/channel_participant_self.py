@@ -36,8 +36,8 @@ class ChannelParticipantSelf(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelParticipant`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``4F607BEF``
+        - Layer: ``223``
+        - ID: ``A9478A1A``
 
     Parameters:
         user_id: ``int`` ``64-bit``
@@ -45,19 +45,21 @@ class ChannelParticipantSelf(TLObject):
         date: ``int`` ``32-bit``
         via_request (optional): ``bool``
         subscription_until_date (optional): ``int`` ``32-bit``
+        rank (optional): ``str``
     """
 
-    __slots__: List[str] = ["user_id", "inviter_id", "date", "via_request", "subscription_until_date"]
+    __slots__: List[str] = ["user_id", "inviter_id", "date", "via_request", "subscription_until_date", "rank"]
 
-    ID = 0x4f607bef
+    ID = 0xa9478a1a
     QUALNAME = "types.ChannelParticipantSelf"
 
-    def __init__(self, *, user_id: int, inviter_id: int, date: int, via_request: Optional[bool] = None, subscription_until_date: Optional[int] = None) -> None:
+    def __init__(self, *, user_id: int, inviter_id: int, date: int, via_request: Optional[bool] = None, subscription_until_date: Optional[int] = None, rank: Optional[str] = None) -> None:
         self.user_id = user_id  # long
         self.inviter_id = inviter_id  # long
         self.date = date  # int
         self.via_request = via_request  # flags.0?true
         self.subscription_until_date = subscription_until_date  # flags.1?int
+        self.rank = rank  # flags.2?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ChannelParticipantSelf":
@@ -72,7 +74,8 @@ class ChannelParticipantSelf(TLObject):
         date = Int.read(b)
         
         subscription_until_date = Int.read(b) if flags & (1 << 1) else None
-        return ChannelParticipantSelf(user_id=user_id, inviter_id=inviter_id, date=date, via_request=via_request, subscription_until_date=subscription_until_date)
+        rank = String.read(b) if flags & (1 << 2) else None
+        return ChannelParticipantSelf(user_id=user_id, inviter_id=inviter_id, date=date, via_request=via_request, subscription_until_date=subscription_until_date, rank=rank)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -81,6 +84,7 @@ class ChannelParticipantSelf(TLObject):
         flags = 0
         flags |= (1 << 0) if self.via_request else 0
         flags |= (1 << 1) if self.subscription_until_date is not None else 0
+        flags |= (1 << 2) if self.rank is not None else 0
         b.write(Int(flags))
         
         b.write(Long(self.user_id))
@@ -91,5 +95,8 @@ class ChannelParticipantSelf(TLObject):
         
         if self.subscription_until_date is not None:
             b.write(Int(self.subscription_until_date))
+        
+        if self.rank is not None:
+            b.write(String(self.rank))
         
         return b.getvalue()

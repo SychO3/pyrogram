@@ -36,7 +36,7 @@ class DeleteHistory(TLObject["raw.base.messages.AffectedHistory"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B08F922A``
 
     Parameters:

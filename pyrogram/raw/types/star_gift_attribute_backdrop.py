@@ -36,8 +36,8 @@ class StarGiftAttributeBackdrop(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAttribute`.
 
     Details:
-        - Layer: ``218``
-        - ID: ``D93D859C``
+        - Layer: ``223``
+        - ID: ``9F2504E4``
 
     Parameters:
         name: ``str``
@@ -46,22 +46,22 @@ class StarGiftAttributeBackdrop(TLObject):
         edge_color: ``int`` ``32-bit``
         pattern_color: ``int`` ``32-bit``
         text_color: ``int`` ``32-bit``
-        rarity_permille: ``int`` ``32-bit``
+        rarity: :obj:`StarGiftAttributeRarity <pyrogram.raw.base.StarGiftAttributeRarity>`
     """
 
-    __slots__: List[str] = ["name", "backdrop_id", "center_color", "edge_color", "pattern_color", "text_color", "rarity_permille"]
+    __slots__: List[str] = ["name", "backdrop_id", "center_color", "edge_color", "pattern_color", "text_color", "rarity"]
 
-    ID = 0xd93d859c
+    ID = 0x9f2504e4
     QUALNAME = "types.StarGiftAttributeBackdrop"
 
-    def __init__(self, *, name: str, backdrop_id: int, center_color: int, edge_color: int, pattern_color: int, text_color: int, rarity_permille: int) -> None:
+    def __init__(self, *, name: str, backdrop_id: int, center_color: int, edge_color: int, pattern_color: int, text_color: int, rarity: "raw.base.StarGiftAttributeRarity") -> None:
         self.name = name  # string
         self.backdrop_id = backdrop_id  # int
         self.center_color = center_color  # int
         self.edge_color = edge_color  # int
         self.pattern_color = pattern_color  # int
         self.text_color = text_color  # int
-        self.rarity_permille = rarity_permille  # int
+        self.rarity = rarity  # StarGiftAttributeRarity
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StarGiftAttributeBackdrop":
@@ -79,9 +79,9 @@ class StarGiftAttributeBackdrop(TLObject):
         
         text_color = Int.read(b)
         
-        rarity_permille = Int.read(b)
+        rarity = TLObject.read(b)
         
-        return StarGiftAttributeBackdrop(name=name, backdrop_id=backdrop_id, center_color=center_color, edge_color=edge_color, pattern_color=pattern_color, text_color=text_color, rarity_permille=rarity_permille)
+        return StarGiftAttributeBackdrop(name=name, backdrop_id=backdrop_id, center_color=center_color, edge_color=edge_color, pattern_color=pattern_color, text_color=text_color, rarity=rarity)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -101,6 +101,6 @@ class StarGiftAttributeBackdrop(TLObject):
         
         b.write(Int(self.text_color))
         
-        b.write(Int(self.rarity_permille))
+        b.write(self.rarity.write())
         
         return b.getvalue()

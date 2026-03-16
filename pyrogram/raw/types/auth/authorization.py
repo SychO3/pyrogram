@@ -36,7 +36,7 @@ class Authorization(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.Authorization`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2EA2C0D4``
 
     Parameters:
@@ -47,7 +47,7 @@ class Authorization(TLObject):
         future_auth_token (optional): ``bytes``
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 8 methods:
 
         .. hlist::
             :columns: 2
@@ -59,6 +59,7 @@ class Authorization(TLObject):
             - :obj:`auth.CheckPassword <pyrogram.raw.functions.auth.CheckPassword>`
             - :obj:`auth.RecoverPassword <pyrogram.raw.functions.auth.RecoverPassword>`
             - :obj:`auth.ImportWebTokenAuthorization <pyrogram.raw.functions.auth.ImportWebTokenAuthorization>`
+            - :obj:`auth.FinishPasskeyLogin <pyrogram.raw.functions.auth.FinishPasskeyLogin>`
     """
 
     __slots__: List[str] = ["user", "setup_password_required", "otherwise_relogin_days", "tmp_sessions", "future_auth_token"]

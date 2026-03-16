@@ -36,12 +36,20 @@ class TextWithEntities(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TextWithEntities`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``751F3146``
 
     Parameters:
         text: ``str``
         entities: List of :obj:`MessageEntity <pyrogram.raw.base.MessageEntity>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`messages.SummarizeText <pyrogram.raw.functions.messages.SummarizeText>`
     """
 
     __slots__: List[str] = ["text", "entities"]

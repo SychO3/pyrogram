@@ -36,7 +36,7 @@ class ReportResultReported(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReportResult`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8DB33C4B``
 
     **No parameters required.**

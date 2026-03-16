@@ -36,7 +36,7 @@ class FinishJob(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``4F1EBF24``
 
     Parameters:

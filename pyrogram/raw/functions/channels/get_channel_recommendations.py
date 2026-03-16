@@ -36,7 +36,7 @@ class GetChannelRecommendations(TLObject["raw.base.messages.Chats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``25A71742``
 
     Parameters:

@@ -36,7 +36,7 @@ class SearchPosts(TLObject["raw.base.stories.FoundStories"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``D1810907``
 
     Parameters:

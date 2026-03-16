@@ -36,7 +36,7 @@ class SetHistoryTTL(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B80E5FE4``
 
     Parameters:

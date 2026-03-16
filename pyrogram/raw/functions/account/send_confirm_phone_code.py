@@ -36,7 +36,7 @@ class SendConfirmPhoneCode(TLObject["raw.base.auth.SentCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``1B3FAA88``
 
     Parameters:

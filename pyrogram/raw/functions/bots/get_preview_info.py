@@ -36,7 +36,7 @@ class GetPreviewInfo(TLObject["raw.base.bots.PreviewInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``423AB3AD``
 
     Parameters:

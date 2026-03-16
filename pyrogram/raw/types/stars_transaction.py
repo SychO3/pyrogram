@@ -36,7 +36,7 @@ class StarsTransaction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsTransaction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``13659EB0``
 
     Parameters:
@@ -57,6 +57,7 @@ class StarsTransaction(TLObject):
         stargift_drop_original_details (optional): ``bool``
         phonegroup_message (optional): ``bool``
         stargift_auction_bid (optional): ``bool``
+        offer (optional): ``bool``
         title (optional): ``str``
         description (optional): ``str``
         photo (optional): :obj:`WebDocument <pyrogram.raw.base.WebDocument>`
@@ -78,12 +79,12 @@ class StarsTransaction(TLObject):
         ads_proceeds_to_date (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["id", "amount", "date", "peer", "refund", "pending", "failed", "gift", "reaction", "stargift_upgrade", "business_transfer", "stargift_resale", "posts_search", "stargift_prepaid_upgrade", "stargift_drop_original_details", "phonegroup_message", "stargift_auction_bid", "title", "description", "photo", "transaction_date", "transaction_url", "bot_payload", "msg_id", "extended_media", "subscription_period", "giveaway_post_id", "stargift", "floodskip_number", "starref_commission_permille", "starref_peer", "starref_amount", "paid_messages", "premium_gift_months", "ads_proceeds_from_date", "ads_proceeds_to_date"]
+    __slots__: List[str] = ["id", "amount", "date", "peer", "refund", "pending", "failed", "gift", "reaction", "stargift_upgrade", "business_transfer", "stargift_resale", "posts_search", "stargift_prepaid_upgrade", "stargift_drop_original_details", "phonegroup_message", "stargift_auction_bid", "offer", "title", "description", "photo", "transaction_date", "transaction_url", "bot_payload", "msg_id", "extended_media", "subscription_period", "giveaway_post_id", "stargift", "floodskip_number", "starref_commission_permille", "starref_peer", "starref_amount", "paid_messages", "premium_gift_months", "ads_proceeds_from_date", "ads_proceeds_to_date"]
 
     ID = 0x13659eb0
     QUALNAME = "types.StarsTransaction"
 
-    def __init__(self, *, id: str, amount: "raw.base.StarsAmount", date: int, peer: "raw.base.StarsTransactionPeer", refund: Optional[bool] = None, pending: Optional[bool] = None, failed: Optional[bool] = None, gift: Optional[bool] = None, reaction: Optional[bool] = None, stargift_upgrade: Optional[bool] = None, business_transfer: Optional[bool] = None, stargift_resale: Optional[bool] = None, posts_search: Optional[bool] = None, stargift_prepaid_upgrade: Optional[bool] = None, stargift_drop_original_details: Optional[bool] = None, phonegroup_message: Optional[bool] = None, stargift_auction_bid: Optional[bool] = None, title: Optional[str] = None, description: Optional[str] = None, photo: "raw.base.WebDocument" = None, transaction_date: Optional[int] = None, transaction_url: Optional[str] = None, bot_payload: Optional[bytes] = None, msg_id: Optional[int] = None, extended_media: Optional[List["raw.base.MessageMedia"]] = None, subscription_period: Optional[int] = None, giveaway_post_id: Optional[int] = None, stargift: "raw.base.StarGift" = None, floodskip_number: Optional[int] = None, starref_commission_permille: Optional[int] = None, starref_peer: "raw.base.Peer" = None, starref_amount: "raw.base.StarsAmount" = None, paid_messages: Optional[int] = None, premium_gift_months: Optional[int] = None, ads_proceeds_from_date: Optional[int] = None, ads_proceeds_to_date: Optional[int] = None) -> None:
+    def __init__(self, *, id: str, amount: "raw.base.StarsAmount", date: int, peer: "raw.base.StarsTransactionPeer", refund: Optional[bool] = None, pending: Optional[bool] = None, failed: Optional[bool] = None, gift: Optional[bool] = None, reaction: Optional[bool] = None, stargift_upgrade: Optional[bool] = None, business_transfer: Optional[bool] = None, stargift_resale: Optional[bool] = None, posts_search: Optional[bool] = None, stargift_prepaid_upgrade: Optional[bool] = None, stargift_drop_original_details: Optional[bool] = None, phonegroup_message: Optional[bool] = None, stargift_auction_bid: Optional[bool] = None, offer: Optional[bool] = None, title: Optional[str] = None, description: Optional[str] = None, photo: "raw.base.WebDocument" = None, transaction_date: Optional[int] = None, transaction_url: Optional[str] = None, bot_payload: Optional[bytes] = None, msg_id: Optional[int] = None, extended_media: Optional[List["raw.base.MessageMedia"]] = None, subscription_period: Optional[int] = None, giveaway_post_id: Optional[int] = None, stargift: "raw.base.StarGift" = None, floodskip_number: Optional[int] = None, starref_commission_permille: Optional[int] = None, starref_peer: "raw.base.Peer" = None, starref_amount: "raw.base.StarsAmount" = None, paid_messages: Optional[int] = None, premium_gift_months: Optional[int] = None, ads_proceeds_from_date: Optional[int] = None, ads_proceeds_to_date: Optional[int] = None) -> None:
         self.id = id  # string
         self.amount = amount  # StarsAmount
         self.date = date  # int
@@ -101,6 +102,7 @@ class StarsTransaction(TLObject):
         self.stargift_drop_original_details = stargift_drop_original_details  # flags.26?true
         self.phonegroup_message = phonegroup_message  # flags.27?true
         self.stargift_auction_bid = stargift_auction_bid  # flags.28?true
+        self.offer = offer  # flags.29?true
         self.title = title  # flags.0?string
         self.description = description  # flags.1?string
         self.photo = photo  # flags.2?WebDocument
@@ -139,6 +141,7 @@ class StarsTransaction(TLObject):
         stargift_drop_original_details = True if flags & (1 << 26) else False
         phonegroup_message = True if flags & (1 << 27) else False
         stargift_auction_bid = True if flags & (1 << 28) else False
+        offer = True if flags & (1 << 29) else False
         id = String.read(b)
         
         amount = TLObject.read(b)
@@ -171,7 +174,7 @@ class StarsTransaction(TLObject):
         premium_gift_months = Int.read(b) if flags & (1 << 20) else None
         ads_proceeds_from_date = Int.read(b) if flags & (1 << 23) else None
         ads_proceeds_to_date = Int.read(b) if flags & (1 << 23) else None
-        return StarsTransaction(id=id, amount=amount, date=date, peer=peer, refund=refund, pending=pending, failed=failed, gift=gift, reaction=reaction, stargift_upgrade=stargift_upgrade, business_transfer=business_transfer, stargift_resale=stargift_resale, posts_search=posts_search, stargift_prepaid_upgrade=stargift_prepaid_upgrade, stargift_drop_original_details=stargift_drop_original_details, phonegroup_message=phonegroup_message, stargift_auction_bid=stargift_auction_bid, title=title, description=description, photo=photo, transaction_date=transaction_date, transaction_url=transaction_url, bot_payload=bot_payload, msg_id=msg_id, extended_media=extended_media, subscription_period=subscription_period, giveaway_post_id=giveaway_post_id, stargift=stargift, floodskip_number=floodskip_number, starref_commission_permille=starref_commission_permille, starref_peer=starref_peer, starref_amount=starref_amount, paid_messages=paid_messages, premium_gift_months=premium_gift_months, ads_proceeds_from_date=ads_proceeds_from_date, ads_proceeds_to_date=ads_proceeds_to_date)
+        return StarsTransaction(id=id, amount=amount, date=date, peer=peer, refund=refund, pending=pending, failed=failed, gift=gift, reaction=reaction, stargift_upgrade=stargift_upgrade, business_transfer=business_transfer, stargift_resale=stargift_resale, posts_search=posts_search, stargift_prepaid_upgrade=stargift_prepaid_upgrade, stargift_drop_original_details=stargift_drop_original_details, phonegroup_message=phonegroup_message, stargift_auction_bid=stargift_auction_bid, offer=offer, title=title, description=description, photo=photo, transaction_date=transaction_date, transaction_url=transaction_url, bot_payload=bot_payload, msg_id=msg_id, extended_media=extended_media, subscription_period=subscription_period, giveaway_post_id=giveaway_post_id, stargift=stargift, floodskip_number=floodskip_number, starref_commission_permille=starref_commission_permille, starref_peer=starref_peer, starref_amount=starref_amount, paid_messages=paid_messages, premium_gift_months=premium_gift_months, ads_proceeds_from_date=ads_proceeds_from_date, ads_proceeds_to_date=ads_proceeds_to_date)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -191,6 +194,7 @@ class StarsTransaction(TLObject):
         flags |= (1 << 26) if self.stargift_drop_original_details else 0
         flags |= (1 << 27) if self.phonegroup_message else 0
         flags |= (1 << 28) if self.stargift_auction_bid else 0
+        flags |= (1 << 29) if self.offer else 0
         flags |= (1 << 0) if self.title is not None else 0
         flags |= (1 << 1) if self.description is not None else 0
         flags |= (1 << 2) if self.photo is not None else 0

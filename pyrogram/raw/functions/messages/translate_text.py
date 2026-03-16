@@ -36,7 +36,7 @@ class TranslateText(TLObject["raw.base.messages.TranslatedText"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``63183030``
 
     Parameters:

@@ -36,7 +36,7 @@ class SendMessageEmojiInteractionSeen(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``B665902E``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetAvailableEffects(TLObject["raw.base.messages.AvailableEffects"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DEA20A39``
 
     Parameters:

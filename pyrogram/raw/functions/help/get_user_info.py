@@ -36,7 +36,7 @@ class GetUserInfo(TLObject["raw.base.help.UserInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``38A08D3``
 
     Parameters:

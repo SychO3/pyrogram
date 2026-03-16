@@ -36,7 +36,7 @@ class ResetPassword(TLObject["raw.base.account.ResetPasswordResult"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``9308CE1B``
 
     **No parameters required.**

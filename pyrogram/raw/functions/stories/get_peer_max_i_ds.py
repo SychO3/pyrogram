@@ -36,7 +36,7 @@ class GetPeerMaxIDs(TLObject["List[raw.base.RecentStory]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``78499170``
 
     Parameters:

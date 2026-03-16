@@ -36,7 +36,7 @@ class DeleteGroupCallMessages(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``F64F54F7``
 
     Parameters:

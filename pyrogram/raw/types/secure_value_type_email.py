@@ -36,7 +36,7 @@ class SecureValueTypeEmail(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureValueType`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8E3CA7EE``
 
     **No parameters required.**

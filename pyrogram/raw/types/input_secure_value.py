@@ -36,7 +36,7 @@ class InputSecureValue(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputSecureValue`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``DB21D0A7``
 
     Parameters:

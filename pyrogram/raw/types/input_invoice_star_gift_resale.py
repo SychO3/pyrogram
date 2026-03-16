@@ -36,7 +36,7 @@ class InputInvoiceStarGiftResale(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputInvoice`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``C39F5324``
 
     Parameters:

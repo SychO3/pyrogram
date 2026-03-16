@@ -36,7 +36,7 @@ class ConfirmCall(TLObject["raw.base.phone.PhoneCall"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2EFE1722``
 
     Parameters:

@@ -36,7 +36,7 @@ class Status(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.smsjobs.Status`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``2AEE9191``
 
     Parameters:

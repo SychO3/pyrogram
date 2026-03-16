@@ -36,7 +36,7 @@ class BotBusinessConnection(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotBusinessConnection`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8F34B2F5``
 
     Parameters:

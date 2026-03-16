@@ -36,7 +36,7 @@ class SignIn(TLObject["raw.base.auth.Authorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``8D52A951``
 
     Parameters:

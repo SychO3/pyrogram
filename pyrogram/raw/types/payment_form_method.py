@@ -36,7 +36,7 @@ class PaymentFormMethod(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PaymentFormMethod`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``88F8F21B``
 
     Parameters:

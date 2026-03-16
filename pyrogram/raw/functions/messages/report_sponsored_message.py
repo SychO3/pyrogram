@@ -36,7 +36,7 @@ class ReportSponsoredMessage(TLObject["raw.base.channels.SponsoredMessageReportR
     """Telegram API method.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``12CBF0C4``
 
     Parameters:

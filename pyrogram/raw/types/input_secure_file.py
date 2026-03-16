@@ -36,7 +36,7 @@ class InputSecureFile(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputSecureFile`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``5367E5BE``
 
     Parameters:

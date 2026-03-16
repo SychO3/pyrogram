@@ -36,7 +36,7 @@ class InputChannelEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChannel`.
 
     Details:
-        - Layer: ``218``
+        - Layer: ``223``
         - ID: ``EE8C1E86``
 
     **No parameters required.**
