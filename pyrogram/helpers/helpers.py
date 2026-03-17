@@ -68,10 +68,10 @@ def ikb(
             elif isinstance(button, dict):
                 if "text" not in button:
                     raise ValueError("Inline button dict must include 'text'")
-                # Validate exactly one optional field
-                opt_keys = [k for k in button.keys() if k != "text"]
-                if len(opt_keys) != 1:
-                    raise ValueError("Inline button dict must include exactly one optional field")
+                # # Validate exactly one optional field
+                # opt_keys = [k for k in button.keys() if k != "text"]
+                # if len(opt_keys) != 1:
+                #     raise ValueError("Inline button dict must include exactly one optional field")
                 built = InlineKeyboardButton(**button)
             elif isinstance(button, tuple):
                 if len(button) == 2:
