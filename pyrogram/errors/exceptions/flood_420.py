@@ -54,6 +54,13 @@ class FloodWaitX(Flood):
     MESSAGE = __doc__
 
 
+class FrozenMethodInvalid(Flood):
+    """"""
+    ID = "FROZEN_METHOD_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class PremiumSubActiveUntilX(Flood):
     """You already have a premium subscription active until unixtime {value} ."""
     ID = "PREMIUM_SUB_ACTIVE_UNTIL_X"

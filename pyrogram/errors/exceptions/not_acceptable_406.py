@@ -26,6 +26,13 @@ class NotAcceptable(RPCError):
     NAME = __doc__
 
 
+class AllowPaymentRequired(NotAcceptable):
+    """"""
+    ID = "ALLOW_PAYMENT_REQUIRED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class AuthKeyDuplicated(NotAcceptable):
     """Concurrent usage of the current session from multiple connections was detected, the current session was invalidated by the server for security reasons!"""
     ID = "AUTH_KEY_DUPLICATED"
@@ -138,6 +145,13 @@ class PhonePasswordFlood(NotAcceptable):
     MESSAGE = __doc__
 
 
+class PrecheckoutFailed(NotAcceptable):
+    """"""
+    ID = "PRECHECKOUT_FAILED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class PremiumCurrentlyUnavailable(NotAcceptable):
     """You cannot currently purchase a Premium subscription."""
     ID = "PREMIUM_CURRENTLY_UNAVAILABLE"
@@ -166,6 +180,13 @@ class SendCodeUnavailable(NotAcceptable):
     MESSAGE = __doc__
 
 
+class StarsFormAmountMismatch(NotAcceptable):
+    """"""
+    ID = "STARS_FORM_AMOUNT_MISMATCH"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class StickersetInvalid(NotAcceptable):
     """The provided sticker set is invalid."""
     ID = "STICKERSET_INVALID"
@@ -190,6 +211,13 @@ class TopicClosed(NotAcceptable):
 class TopicDeleted(NotAcceptable):
     """The specified topic was deleted."""
     ID = "TOPIC_DELETED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class TranslationsDisabled(NotAcceptable):
+    """"""
+    ID = "TRANSLATIONS_DISABLED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 

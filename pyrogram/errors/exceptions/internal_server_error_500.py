@@ -89,6 +89,13 @@ class MsgWaitFailed(InternalServerError):
     MESSAGE = __doc__
 
 
+class ParticipantCallFailed(InternalServerError):
+    """"""
+    ID = "PARTICIPANT_CALL_FAILED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class PersistentTimestampOutdated(InternalServerError):
     """Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL)."""
     ID = "PERSISTENT_TIMESTAMP_OUTDATED"
@@ -120,6 +127,13 @@ class SignInFailed(InternalServerError):
 class TranslateReqFailed(InternalServerError):
     """Translation failed, please try again later."""
     ID = "TRANSLATE_REQ_FAILED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class TranslationTimeout(InternalServerError):
+    """"""
+    ID = "TRANSLATION_TIMEOUT"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
