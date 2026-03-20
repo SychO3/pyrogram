@@ -544,13 +544,14 @@ def pyrogram_api():
             disconnect
             initialize
             terminate
-            send_code
-            resend_code
+            send_phone_number_code
+            resend_phone_number_code
             sign_in
             sign_in_bot
             sign_up
             get_password_hint
             check_password
+            change_phone_number
             send_recovery_code
             recover_password
             accept_terms_of_service
@@ -949,6 +950,10 @@ def pyrogram_api():
         Authorization
             ActiveSession
             ActiveSessions
+            FirebaseAuthenticationSettings
+            FirebaseAuthenticationSettingsAndroid
+            FirebaseAuthenticationSettingsIos
+            PhoneNumberAuthenticationSettings
             SentCode
             TermsOfService
         """
@@ -1226,6 +1231,7 @@ def pyrogram_api():
             PaidReactionPrivacy
             ParseMode
             PhoneCallDiscardReason
+            PhoneNumberCodeType
             PollType
             PrivacyKey
             ProfileColor

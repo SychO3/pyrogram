@@ -49,7 +49,7 @@ class MessageEntity(Object):
         language (``str``, *optional*):
             For "pre" only, the programming language of the entity text.
 
-        custom_emoji_id (``int``, *optional*):
+        custom_emoji_id (``str``, *optional*):
             For :obj:`~pyrogram.enums.MessageEntityType.CUSTOM_EMOJI` only, unique identifier of the custom emoji.
             Use :meth:`~pyrogram.Client.get_custom_emoji_stickers` to get full information about the sticker.
 
@@ -73,7 +73,7 @@ class MessageEntity(Object):
         url: str = None,
         user: "types.User" = None,
         language: str = None,
-        custom_emoji_id: int = None,
+        custom_emoji_id: str = None,
         expandable: bool = None,
         unix_time: int = None,
         date_time_format: str = None
@@ -114,20 +114,20 @@ class MessageEntity(Object):
                 if entity.day_of_week:
                     date_time_format += "w"
 
-                if entity.short_date or entity.long_date:
-                    if entity.short_date:
-                        date_time_format += "d"
-                    elif entity.long_date:
-                        date_time_format += "D"
+                if entity.short_date:
+                    date_time_format += "d"
+                elif entity.long_date:
+                    date_time_format += "D"
 
-                if entity.short_time or entity.long_time:
-                    if entity.short_time:
-                        date_time_format += "t"
-                    elif entity.long_time:
-                        date_time_format += "T"
+                if entity.short_time:
+                    date_time_format += "t"
+                elif entity.long_time:
+                    date_time_format += "T"
         else:
             entity_type = enums.MessageEntityType(entity.__class__)
             user_id = getattr(entity, "user_id", None)
+
+        custom_emoji_id = getattr(entity, "document_id", None)
 
         return MessageEntity(
             type=entity_type,
@@ -136,7 +136,7 @@ class MessageEntity(Object):
             url=getattr(entity, "url", None),
             user=types.User._parse(client, users.get(user_id, None)),
             language=getattr(entity, "language", None),
-            custom_emoji_id=getattr(entity, "document_id", None),
+            custom_emoji_id=str(custom_emoji_id) if custom_emoji_id else None,
             expandable=getattr(entity, "collapsed", None),
             unix_time=unix_time,
             date_time_format=date_time_format or None,
@@ -160,7 +160,7 @@ class MessageEntity(Object):
 
         args.pop("custom_emoji_id")
         if self.custom_emoji_id is not None:
-            args["document_id"] = self.custom_emoji_id
+            args["document_id"] = int(self.custom_emoji_id)
 
         args.pop("expandable")
         if self.expandable is not None:

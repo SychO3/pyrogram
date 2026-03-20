@@ -663,7 +663,7 @@ class Message(Object, Update):
         migrate_to_chat_id: Optional[int] = None,
         migrate_from_chat_id: Optional[int] = None,
         pinned_message: Optional["Message"] = None,
-        game_high_score: Optional[int] = None,
+        game_high_score: Optional["types.GameHighScore"] = None,
         views: Optional[int] = None,
         forwards: Optional[int] = None,
         via_bot: Optional["types.User"] = None,

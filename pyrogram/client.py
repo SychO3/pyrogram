@@ -501,7 +501,7 @@ class Client(Methods):
                     else:
                         self.phone_number = value
 
-                sent_code = await self.send_code(self.phone_number)
+                sent_code = await self.send_phone_number_code(self.phone_number)
             except BadRequest as e:
                 print(e.MESSAGE)
                 self.phone_number = None

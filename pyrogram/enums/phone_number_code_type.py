@@ -16,24 +16,19 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .active_session import ActiveSession
-from .active_sessions import ActiveSessions
-from .firebase_authentication_settings import (
-    FirebaseAuthenticationSettings,
-    FirebaseAuthenticationSettingsAndroid,
-    FirebaseAuthenticationSettingsIos,
-)
-from .phone_number_authentication_settings import PhoneNumberAuthenticationSettings
-from .sent_code import SentCode
-from .terms_of_service import TermsOfService
+from enum import auto
 
-__all__ = [
-    "ActiveSession",
-    "ActiveSessions",
-    "FirebaseAuthenticationSettings",
-    "FirebaseAuthenticationSettingsAndroid",
-    "FirebaseAuthenticationSettingsIos",
-    "PhoneNumberAuthenticationSettings",
-    "SentCode",
-    "TermsOfService",
-]
+from .auto_name import AutoName
+
+
+class PhoneNumberCodeType(AutoName):
+    """Describes type of the request for which a code is sent to a phone number"""
+
+    AUTHENTICATION = auto()
+    "Default authentication process."
+
+    CHANGE = auto()
+    "Checks ownership of a new phone number to change the user's authentication phone number. For official Android and iOS applications only."
+
+    VERIFY = auto()
+    "Verifies ownership of a phone number to be added to the user's Telegram Passport."

@@ -17,23 +17,19 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import re
 
 import pyrogram
-from pyrogram import raw
-from pyrogram import types
+from pyrogram import raw, types
 
 log = logging.getLogger(__name__)
 
 
-class SignUp:
-    async def sign_up(
-        self: "pyrogram.Client",
-        phone_number: str,
-        phone_code_hash: str,
-        first_name: str,
-        last_name: str = ""
+class ChangePhoneNumber:
+    async def change_phone_number(
+        self: "pyrogram.Client", phone_number: str, phone_code_hash: str, phone_code: str
     ) -> "types.User":
-        """Register a new user in Telegram.
+        """Change a user phone number in Telegram with a valid confirmation code.
 
         .. include:: /_includes/usable-by/users.rst
 
@@ -44,30 +40,20 @@ class SignUp:
             phone_code_hash (``str``):
                 Code identifier taken from the result of :meth:`~pyrogram.Client.send_phone_number_code`.
 
-            first_name (``str``):
-                New user first name.
-
-            last_name (``str``, *optional*):
-                New user last name. Defaults to "" (empty string, no last name).
+            phone_code (``str``):
+                The valid confirmation code you received from SMS in your phone number.
 
         Returns:
-            :obj:`~pyrogram.types.User`: On success, the new registered user is returned.
-
-        Raises:
-            BadRequest: In case the arguments are invalid.
+            :obj:`~pyrogram.types.User`: On success, in case the change completed, the user is returned.
         """
-        phone_number = phone_number.strip(" +")
+        phone_number = re.sub(r"\D", "", phone_number)
 
         r = await self.invoke(
-            raw.functions.auth.SignUp(
+            raw.functions.account.ChangePhone(
                 phone_number=phone_number,
-                first_name=first_name,
-                last_name=last_name,
-                phone_code_hash=phone_code_hash
+                phone_code_hash=phone_code_hash,
+                phone_code=phone_code
             )
         )
 
-        await self.storage.user_id(r.user.id)
-        await self.storage.is_bot(False)
-
-        return types.User._parse(self, r.user)
+        return types.User._parse(self, r)
