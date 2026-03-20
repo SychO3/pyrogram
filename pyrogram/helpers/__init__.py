@@ -16,7 +16,16 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .helpers import ikb, bki, ntb, btn, kb, kbtn, array_chunk, force_reply
+from .helpers import (
+    array_chunk,
+    bki,
+    btn,
+    force_reply,
+    ikb,
+    kb,
+    kbtn,
+    ntb,
+)
 
 __all__ = [
     "ikb",
