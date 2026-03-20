@@ -140,6 +140,7 @@ class Session:
 
         self.is_started = asyncio.Event()
         self.restart_lock = asyncio.Lock()
+        self.fatal_error: Optional[BaseException] = None
 
     @property
     def state(self) -> SessionState:
@@ -160,6 +161,7 @@ class Session:
             return
 
         await self._set_state(SessionState.STARTING)
+        self.fatal_error = None
 
         self.connection = self.client.connection_factory(
             dc_id=self.dc_id,
@@ -289,6 +291,16 @@ class Session:
             await self.stop()
             await self.start()
 
+    def _fail_pending_results(self, error: BaseException) -> None:
+        for result in self.results.values():
+            if result.value is None:
+                result.value = error
+                result.event.set()
+
+    def _set_fatal_error(self, error: BaseException) -> None:
+        self.fatal_error = error
+        self._fail_pending_results(error)
+
     async def handle_packet(self, packet):
         try:
             data = await self.client.loop.run_in_executor(
@@ -299,7 +311,7 @@ class Session:
                 self.auth_key,
                 self.auth_key_id
             )
-        except ValueError as e:
+        except (ConnectionError, SecurityCheckMismatch, ValueError) as e:
             log.debug(e)
             log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
             self.client.loop.create_task(self.restart())
@@ -443,9 +455,10 @@ class Session:
                 if packet:
                     error_code = -Int.read(BytesIO(packet))
                     error_msg = "unknown error"
+                    transport_error = None
 
                     if error_code == 404:
-                        raise AuthKeyNotFound(
+                        transport_error = AuthKeyNotFound(
                             "Auth key not found in the system. Try again or delete your session file "
                             "and log in again with your phone number or bot token."
                         )
@@ -460,9 +473,18 @@ class Session:
                                 "Invalid data center. Please check your configuration."
                             )
                     except TransportError as e:
+                        transport_error = e
                         error_msg = str(e)
+                    else:
+                        if transport_error is not None:
+                            error_msg = str(transport_error)
 
                     log.warning("Server sent transport error: %s (%s)", error_code, error_msg)
+
+                    if isinstance(transport_error, AuthKeyNotFound):
+                        self._set_fatal_error(transport_error)
+                        self.client.loop.create_task(self.stop())
+                        break
 
 
                 if self.is_started.is_set():
@@ -483,6 +505,9 @@ class Session:
     async def send(
         self, data: TLObject, wait_response: bool = True, timeout: float = WAIT_TIMEOUT
     ):
+        if self.fatal_error is not None:
+            raise self.fatal_error
+
         message = await self.msg_factory.create(data)
         msg_id = message.msg_id
 
@@ -517,6 +542,9 @@ class Session:
 
             if result is None:
                 raise TimeoutError("Request timed out")
+
+            if isinstance(result, BaseException):
+                raise result
 
             if isinstance(result, raw.types.RpcError):
                 if isinstance(

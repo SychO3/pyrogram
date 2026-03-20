@@ -17,6 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
+from contextlib import suppress
 import functools
 import inspect
 import logging
@@ -395,6 +396,7 @@ class Client(Methods):
         self.sessions = {}
         self.media_sessions = {}
         self.sessions_lock = asyncio.Lock()
+        self._session_futures = {}
 
         self.save_file_semaphore = asyncio.Semaphore(self.max_concurrent_transmissions)
         self.get_file_semaphore = asyncio.Semaphore(self.max_concurrent_transmissions)
@@ -1371,67 +1373,121 @@ class Client(Methods):
             return self.session
 
         sessions = self.media_sessions if is_media else self.sessions
+        session_key = (dc_id, is_media)
 
-        if not temporary and sessions.get(dc_id):
-            return sessions[dc_id]
-
-        if not server_address or not port:
-            dc_option = await self.get_dc_option(dc_id, is_media=is_media, ipv6=self.ipv6, is_cdn=is_cdn)
-
-            server_address = server_address or dc_option.ip_address
-            port = port or dc_option.port
-
-        if is_media:
-            auth_key = (await self.get_session(dc_id)).auth_key
-        else:
-            if not is_current_dc:
-                auth_key = await Auth(
-                    self,
-                    dc_id,
-                    server_address,
-                    port,
-                    await self.storage.test_mode()
-                ).create()
-            else:
-                auth_key = await self.storage.auth_key()
-
-        session = Session(
-            self,
-            dc_id,
-            server_address,
-            port,
-            auth_key,
-            await self.storage.test_mode(),
-            is_media=is_media
-        )
+        creator = False
 
         if not temporary:
-            sessions[dc_id] = session
+            async with self.sessions_lock:
+                if sessions.get(dc_id):
+                    return sessions[dc_id]
 
-        await session.start()
+                pending_session = self._session_futures.get(session_key)
 
-        if not is_current_dc and export_authorization:
-            for _ in range(3):
-                exported_auth = await self.invoke(
-                    raw.functions.auth.ExportAuthorization(
-                        dc_id=dc_id
+                if pending_session is None:
+                    pending_session = self.loop.create_future()
+                    pending_session.add_done_callback(
+                        lambda future: None if future.cancelled() else future.exception()
                     )
-                )
+                    self._session_futures[session_key] = pending_session
+                    creator = True
 
-                try:
-                    await session.invoke(
-                        raw.functions.auth.ImportAuthorization(
-                            id=exported_auth.id,
-                            bytes=exported_auth.bytes
+            if not creator:
+                return await pending_session
+
+        session = None
+
+        try:
+            if not server_address or not port:
+                dc_option = await self.get_dc_option(dc_id, is_media=is_media, ipv6=self.ipv6, is_cdn=is_cdn)
+
+                server_address = server_address or dc_option.ip_address
+                port = port or dc_option.port
+
+            if is_media:
+                auth_key = (await self.get_session(dc_id)).auth_key
+            else:
+                if not is_current_dc:
+                    auth_key = await Auth(
+                        self,
+                        dc_id,
+                        server_address,
+                        port,
+                        await self.storage.test_mode()
+                    ).create()
+                else:
+                    auth_key = await self.storage.auth_key()
+
+            session = Session(
+                self,
+                dc_id,
+                server_address,
+                port,
+                auth_key,
+                await self.storage.test_mode(),
+                is_media=is_media
+            )
+
+            await session.start()
+
+            try:
+                await asyncio.wait_for(session.is_started.wait(), Session.WAIT_TIMEOUT)
+            except asyncio.TimeoutError as e:
+                with suppress(Exception):
+                    await session.stop()
+                session = None
+                raise ConnectionError(f"Failed to start session for DC{dc_id}") from e
+
+            if not is_current_dc and export_authorization:
+                for _ in range(3):
+                    exported_auth = await self.invoke(
+                        raw.functions.auth.ExportAuthorization(
+                            dc_id=dc_id
                         )
                     )
-                except AuthBytesInvalid:
-                    continue
+
+                    try:
+                        await session.invoke(
+                            raw.functions.auth.ImportAuthorization(
+                                id=exported_auth.id,
+                                bytes=exported_auth.bytes
+                            )
+                        )
+                    except AuthBytesInvalid:
+                        continue
+                    else:
+                        break
                 else:
-                    break
-            else:
-                await session.stop()
-                raise AuthBytesInvalid
+                    await session.stop()
+                    session = None
+                    raise AuthBytesInvalid
+
+            if not temporary:
+                async with self.sessions_lock:
+                    cached_session = sessions.get(dc_id)
+
+                    if cached_session is None:
+                        sessions[dc_id] = session
+                    else:
+                        session = cached_session
+
+                    pending_session = self._session_futures.pop(session_key, None)
+
+                    if pending_session is not None and not pending_session.done():
+                        pending_session.set_result(session)
+        except Exception as e:
+            if session is not None:
+                with suppress(Exception):
+                    await session.stop()
+
+            if not temporary:
+                async with self.sessions_lock:
+                    pending_session = self._session_futures.pop(session_key, None)
+
+                    if pending_session is not None and not pending_session.done():
+                        pending_session.set_exception(e)
+
+            raise
 
         return session
 

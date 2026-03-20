@@ -22,7 +22,7 @@ from typing import List, Optional
 
 import pyrogram
 from pyrogram import enums, raw, types
-from pyrogram.errors import NetworkMigrate, PhoneMigrate
+from pyrogram.errors import NetworkMigrateX, PhoneMigrateX  
 
 log = logging.getLogger(__name__)
 
@@ -165,7 +165,7 @@ class SendPhoneNumberCode:
                     )
 
                 r = await self.invoke(rpc, recaptcha_token=recaptcha_token)
-            except (PhoneMigrate, NetworkMigrate) as e:
+            except (PhoneMigrateX, NetworkMigrateX) as e:
                 dc_option = await self.get_dc_option(e.value, ipv6=self.ipv6)
                 await self.session.stop()
 
