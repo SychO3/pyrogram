@@ -126,3 +126,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+*.session-shm
+*.session-wal
+*.session-journal
