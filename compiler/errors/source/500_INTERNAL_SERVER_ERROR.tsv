@@ -8,8 +8,10 @@ CHAT_ID_GENERATE_FAILED	Failure while generating the chat ID.
 CHAT_INVALID	Invalid chat.
 FIRSTNAME_INVALID	The first name is invalid.
 MSG_WAIT_FAILED	A waiting call returned an error.
+PARTICIPANT_CALL_FAILED	
 PERSISTENT_TIMESTAMP_OUTDATED	Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).
 RANDOM_ID_DUPLICATE	You provided a random ID that was already used.
 SEND_MEDIA_INVALID	The specified media is invalid.
 SIGN_IN_FAILED	Failure while signing in.
 TRANSLATE_REQ_FAILED	Translation failed, please try again later.
+TRANSLATION_TIMEOUT	
