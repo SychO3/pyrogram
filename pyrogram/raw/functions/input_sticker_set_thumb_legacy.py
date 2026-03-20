@@ -32,61 +32,43 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputPhotoLegacyFileLocation(TLObject):
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
+class InputStickerSetThumbLegacy(TLObject["raw.base.InputFileLocation"]):
+    """Telegram API method.
 
     Details:
         - Layer: ``223``
-        - ID: ``D83466F3``
+        - ID: ``DBAEAE9``
 
     Parameters:
-        id: ``int`` ``64-bit``
-        access_hash: ``int`` ``64-bit``
-        file_reference: ``bytes``
+        stickerset: :obj:`InputStickerSet <pyrogram.raw.base.InputStickerSet>`
         volume_id: ``int`` ``64-bit``
         local_id: ``int`` ``32-bit``
-        secret: ``int`` ``64-bit``
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
+    Returns:
+        :obj:`InputFileLocation <pyrogram.raw.base.InputFileLocation>`
     """
 
-    __slots__: List[str] = ["id", "access_hash", "file_reference", "volume_id", "local_id", "secret"]
+    __slots__: List[str] = ["stickerset", "volume_id", "local_id"]
 
-    ID = 0xd83466f3
-    QUALNAME = "types.InputPhotoLegacyFileLocation"
+    ID = 0xdbaeae9
+    QUALNAME = "functions.InputStickerSetThumbLegacy"
 
-    def __init__(self, *, id: int, access_hash: int, file_reference: bytes, volume_id: int, local_id: int, secret: int) -> None:
-        self.id = id  # long
-        self.access_hash = access_hash  # long
-        self.file_reference = file_reference  # bytes
+    def __init__(self, *, stickerset: "raw.base.InputStickerSet", volume_id: int, local_id: int) -> None:
+        self.stickerset = stickerset  # InputStickerSet
         self.volume_id = volume_id  # long
         self.local_id = local_id  # int
-        self.secret = secret  # long
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputPhotoLegacyFileLocation":
+    def read(b: BytesIO, *args: Any) -> "InputStickerSetThumbLegacy":
         # No flags
         
-        id = Long.read(b)
-        
-        access_hash = Long.read(b)
-        
-        file_reference = Bytes.read(b)
+        stickerset = TLObject.read(b)
         
         volume_id = Long.read(b)
         
         local_id = Int.read(b)
         
-        secret = Long.read(b)
-        
-        return InputPhotoLegacyFileLocation(id=id, access_hash=access_hash, file_reference=file_reference, volume_id=volume_id, local_id=local_id, secret=secret)
+        return InputStickerSetThumbLegacy(stickerset=stickerset, volume_id=volume_id, local_id=local_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -94,16 +76,10 @@ class InputPhotoLegacyFileLocation(TLObject):
 
         # No flags
         
-        b.write(Long(self.id))
-        
-        b.write(Long(self.access_hash))
-        
-        b.write(Bytes(self.file_reference))
+        b.write(self.stickerset.write())
         
         b.write(Long(self.volume_id))
         
         b.write(Int(self.local_id))
-        
-        b.write(Long(self.secret))
         
         return b.getvalue()

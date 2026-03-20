@@ -3407,6 +3407,13 @@ class SrpPasswordChanged(BadRequest):
     MESSAGE = __doc__
 
 
+class StargiftAlreadyBurned(BadRequest):
+    """The provided gift is already burned."""
+    ID = "STARGIFT_ALREADY_BURNED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class StargiftAlreadyConverted(BadRequest):
     """The provided star gift already converted to stars."""
     ID = "STARGIFT_ALREADY_CONVERTED"
@@ -3424,6 +3431,13 @@ class StargiftAlreadyTransferred(BadRequest):
 class StargiftAlreadyUpgraded(BadRequest):
     """This star gift was already upgraded before."""
     ID = "STARGIFT_ALREADY_UPGRADED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftAttributeInvalid(BadRequest):
+    """The provided gift attribute is invalid."""
+    ID = "STARGIFT_ATTRIBUTE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -4299,6 +4313,13 @@ class UserCreator(BadRequest):
 class UserGiftUnavailable(BadRequest):
     """Gifts are not available in the current region ([stars_gifts_enabled](https://core.telegram.org/api/config#stars-gifts-enabled) is equal to false)."""
     ID = "USER_GIFT_UNAVAILABLE"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class UserHandleMismatch(BadRequest):
+    """The user handle mismatch."""
+    ID = "USER_HANDLE_MISMATCH"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 

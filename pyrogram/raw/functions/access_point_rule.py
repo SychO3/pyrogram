@@ -32,53 +32,43 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputFileLocation(TLObject):
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
+class AccessPointRule(TLObject["raw.base.AccessPointRule"]):
+    """Telegram API method.
 
     Details:
         - Layer: ``223``
-        - ID: ``DFDAABE1``
+        - ID: ``4679B65F``
 
     Parameters:
-        volume_id: ``int`` ``64-bit``
-        local_id: ``int`` ``32-bit``
-        secret: ``int`` ``64-bit``
-        file_reference: ``bytes``
+        phone_prefix_rules: ``str``
+        dc_id: ``int`` ``32-bit``
+        ips: List of :obj:`IpPort <pyrogram.raw.base.IpPort>`
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
+    Returns:
+        :obj:`AccessPointRule <pyrogram.raw.base.AccessPointRule>`
     """
 
-    __slots__: List[str] = ["volume_id", "local_id", "secret", "file_reference"]
+    __slots__: List[str] = ["phone_prefix_rules", "dc_id", "ips"]
 
-    ID = 0xdfdaabe1
-    QUALNAME = "types.InputFileLocation"
+    ID = 0x4679b65f
+    QUALNAME = "functions.AccessPointRule"
 
-    def __init__(self, *, volume_id: int, local_id: int, secret: int, file_reference: bytes) -> None:
-        self.volume_id = volume_id  # long
-        self.local_id = local_id  # int
-        self.secret = secret  # long
-        self.file_reference = file_reference  # bytes
+    def __init__(self, *, phone_prefix_rules: str, dc_id: int, ips: List["raw.base.IpPort"]) -> None:
+        self.phone_prefix_rules = phone_prefix_rules  # string
+        self.dc_id = dc_id  # int
+        self.ips = ips  # vector<IpPort>
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputFileLocation":
+    def read(b: BytesIO, *args: Any) -> "AccessPointRule":
         # No flags
         
-        volume_id = Long.read(b)
+        phone_prefix_rules = String.read(b)
         
-        local_id = Int.read(b)
+        dc_id = Int.read(b)
         
-        secret = Long.read(b)
+        ips = TLObject.read(b)
         
-        file_reference = Bytes.read(b)
-        
-        return InputFileLocation(volume_id=volume_id, local_id=local_id, secret=secret, file_reference=file_reference)
+        return AccessPointRule(phone_prefix_rules=phone_prefix_rules, dc_id=dc_id, ips=ips)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -86,12 +76,10 @@ class InputFileLocation(TLObject):
 
         # No flags
         
-        b.write(Long(self.volume_id))
+        b.write(String(self.phone_prefix_rules))
         
-        b.write(Int(self.local_id))
+        b.write(Int(self.dc_id))
         
-        b.write(Long(self.secret))
-        
-        b.write(Bytes(self.file_reference))
+        b.write(Vector(self.ips))
         
         return b.getvalue()

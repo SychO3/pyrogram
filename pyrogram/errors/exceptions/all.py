@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-count = 771
+count = 774
 
 exceptions = {
     420: {
@@ -587,9 +587,11 @@ exceptions = {
         "SRP_A_INVALID": "SrpAInvalid",
         "SRP_ID_INVALID": "SrpIdInvalid",
         "SRP_PASSWORD_CHANGED": "SrpPasswordChanged",
+        "STARGIFT_ALREADY_BURNED": "StargiftAlreadyBurned",
         "STARGIFT_ALREADY_CONVERTED": "StargiftAlreadyConverted",
         "STARGIFT_ALREADY_TRANSFERRED": "StargiftAlreadyTransferred",
         "STARGIFT_ALREADY_UPGRADED": "StargiftAlreadyUpgraded",
+        "STARGIFT_ATTRIBUTE_INVALID": "StargiftAttributeInvalid",
         "STARGIFT_CONVERT_TOO_OLD": "StargiftConvertTooOld",
         "STARGIFT_EXPORT_UNAVAILABLE": "StargiftExportUnavailable",
         "STARGIFT_INVALID": "StargiftInvalid",
@@ -715,6 +717,7 @@ exceptions = {
         "USER_CHANNELS_TOO_MUCH": "UserChannelsTooMuch",
         "USER_CREATOR": "UserCreator",
         "USER_GIFT_UNAVAILABLE": "UserGiftUnavailable",
+        "USER_HANDLE_MISMATCH": "UserHandleMismatch",
         "USER_ID_INVALID": "UserIdInvalid",
         "USER_INVALID": "UserInvalid",
         "USER_IS_BLOCKED": "UserIsBlocked",

@@ -32,78 +32,60 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputPhotoLegacyFileLocation(TLObject):
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
+class InputPeerPhotoFileLocationLegacy(TLObject["raw.base.InputFileLocation"]):
+    """Telegram API method.
 
     Details:
         - Layer: ``223``
-        - ID: ``D83466F3``
+        - ID: ``27D69997``
 
     Parameters:
-        id: ``int`` ``64-bit``
-        access_hash: ``int`` ``64-bit``
-        file_reference: ``bytes``
+        peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         volume_id: ``int`` ``64-bit``
         local_id: ``int`` ``32-bit``
-        secret: ``int`` ``64-bit``
+        big (optional): ``bool``
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
+    Returns:
+        :obj:`InputFileLocation <pyrogram.raw.base.InputFileLocation>`
     """
 
-    __slots__: List[str] = ["id", "access_hash", "file_reference", "volume_id", "local_id", "secret"]
+    __slots__: List[str] = ["peer", "volume_id", "local_id", "big"]
 
-    ID = 0xd83466f3
-    QUALNAME = "types.InputPhotoLegacyFileLocation"
+    ID = 0x27d69997
+    QUALNAME = "functions.InputPeerPhotoFileLocationLegacy"
 
-    def __init__(self, *, id: int, access_hash: int, file_reference: bytes, volume_id: int, local_id: int, secret: int) -> None:
-        self.id = id  # long
-        self.access_hash = access_hash  # long
-        self.file_reference = file_reference  # bytes
+    def __init__(self, *, peer: "raw.base.InputPeer", volume_id: int, local_id: int, big: Optional[bool] = None) -> None:
+        self.peer = peer  # InputPeer
         self.volume_id = volume_id  # long
         self.local_id = local_id  # int
-        self.secret = secret  # long
+        self.big = big  # flags.0?true
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputPhotoLegacyFileLocation":
-        # No flags
+    def read(b: BytesIO, *args: Any) -> "InputPeerPhotoFileLocationLegacy":
         
-        id = Long.read(b)
+        flags = Int.read(b)
         
-        access_hash = Long.read(b)
-        
-        file_reference = Bytes.read(b)
+        big = True if flags & (1 << 0) else False
+        peer = TLObject.read(b)
         
         volume_id = Long.read(b)
         
         local_id = Int.read(b)
         
-        secret = Long.read(b)
-        
-        return InputPhotoLegacyFileLocation(id=id, access_hash=access_hash, file_reference=file_reference, volume_id=volume_id, local_id=local_id, secret=secret)
+        return InputPeerPhotoFileLocationLegacy(peer=peer, volume_id=volume_id, local_id=local_id, big=big)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.big else 0
+        b.write(Int(flags))
         
-        b.write(Long(self.id))
-        
-        b.write(Long(self.access_hash))
-        
-        b.write(Bytes(self.file_reference))
+        b.write(self.peer.write())
         
         b.write(Long(self.volume_id))
         
         b.write(Int(self.local_id))
-        
-        b.write(Long(self.secret))
         
         return b.getvalue()

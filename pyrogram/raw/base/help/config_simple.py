@@ -40,6 +40,14 @@ else:
             :columns: 2
 
             - :obj:`help.ConfigSimple <pyrogram.raw.types.help.ConfigSimple>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`help.ConfigSimple <pyrogram.raw.functions.help.ConfigSimple>`
         """
 
         QUALNAME = "pyrogram.raw.base.help.ConfigSimple"

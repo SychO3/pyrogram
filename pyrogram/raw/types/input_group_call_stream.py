@@ -45,6 +45,15 @@ class InputGroupCallStream(TLObject):
         scale: ``int`` ``32-bit``
         video_channel (optional): ``int`` ``32-bit``
         video_quality (optional): ``int`` ``32-bit``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
+            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
     """
 
     __slots__: List[str] = ["call", "time_ms", "scale", "video_channel", "video_quality"]

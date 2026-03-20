@@ -44,6 +44,15 @@ class InputDocumentFileLocation(TLObject):
         access_hash: ``int`` ``64-bit``
         file_reference: ``bytes``
         thumb_size: ``str``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
+            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
     """
 
     __slots__: List[str] = ["id", "access_hash", "file_reference", "thumb_size"]

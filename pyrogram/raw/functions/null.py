@@ -32,54 +32,37 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputEncryptedFileLocation(TLObject):
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
+class Null(TLObject["raw.base.Null"]):
+    """Telegram API method.
 
     Details:
         - Layer: ``223``
-        - ID: ``F5235D55``
+        - ID: ``56730BCC``
 
-    Parameters:
-        id: ``int`` ``64-bit``
-        access_hash: ``int`` ``64-bit``
+    **No parameters required.**
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
+    Returns:
+        :obj:`Null <pyrogram.raw.base.Null>`
     """
 
-    __slots__: List[str] = ["id", "access_hash"]
+    __slots__: List[str] = []
 
-    ID = 0xf5235d55
-    QUALNAME = "types.InputEncryptedFileLocation"
+    ID = 0x56730bcc
+    QUALNAME = "functions.Null"
 
-    def __init__(self, *, id: int, access_hash: int) -> None:
-        self.id = id  # long
-        self.access_hash = access_hash  # long
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputEncryptedFileLocation":
+    def read(b: BytesIO, *args: Any) -> "Null":
         # No flags
         
-        id = Long.read(b)
-        
-        access_hash = Long.read(b)
-        
-        return InputEncryptedFileLocation(id=id, access_hash=access_hash)
+        return Null()
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
         # No flags
-        
-        b.write(Long(self.id))
-        
-        b.write(Long(self.access_hash))
         
         return b.getvalue()

@@ -43,6 +43,15 @@ class InputPeerPhotoFileLocation(TLObject):
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         photo_id: ``int`` ``64-bit``
         big (optional): ``bool``
+
+    See Also:
+        This object can be returned by 2 methods:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
+            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
     """
 
     __slots__: List[str] = ["peer", "photo_id", "big"]

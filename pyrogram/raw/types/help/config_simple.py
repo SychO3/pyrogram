@@ -43,6 +43,14 @@ class ConfigSimple(TLObject):
         date: ``int`` ``32-bit``
         expires: ``int`` ``32-bit``
         rules: List of :obj:`AccessPointRule <pyrogram.raw.base.AccessPointRule>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`help.ConfigSimple <pyrogram.raw.functions.help.ConfigSimple>`
     """
 
     __slots__: List[str] = ["date", "expires", "rules"]

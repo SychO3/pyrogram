@@ -32,53 +32,39 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputFileLocation(TLObject):
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
+class IpPort(TLObject["raw.base.IpPort"]):
+    """Telegram API method.
 
     Details:
         - Layer: ``223``
-        - ID: ``DFDAABE1``
+        - ID: ``D433AD73``
 
     Parameters:
-        volume_id: ``int`` ``64-bit``
-        local_id: ``int`` ``32-bit``
-        secret: ``int`` ``64-bit``
-        file_reference: ``bytes``
+        ipv4: ``int`` ``32-bit``
+        port: ``int`` ``32-bit``
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
+    Returns:
+        :obj:`IpPort <pyrogram.raw.base.IpPort>`
     """
 
-    __slots__: List[str] = ["volume_id", "local_id", "secret", "file_reference"]
+    __slots__: List[str] = ["ipv4", "port"]
 
-    ID = 0xdfdaabe1
-    QUALNAME = "types.InputFileLocation"
+    ID = 0xd433ad73
+    QUALNAME = "functions.IpPort"
 
-    def __init__(self, *, volume_id: int, local_id: int, secret: int, file_reference: bytes) -> None:
-        self.volume_id = volume_id  # long
-        self.local_id = local_id  # int
-        self.secret = secret  # long
-        self.file_reference = file_reference  # bytes
+    def __init__(self, *, ipv4: int, port: int) -> None:
+        self.ipv4 = ipv4  # int
+        self.port = port  # int
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputFileLocation":
+    def read(b: BytesIO, *args: Any) -> "IpPort":
         # No flags
         
-        volume_id = Long.read(b)
+        ipv4 = Int.read(b)
         
-        local_id = Int.read(b)
+        port = Int.read(b)
         
-        secret = Long.read(b)
-        
-        file_reference = Bytes.read(b)
-        
-        return InputFileLocation(volume_id=volume_id, local_id=local_id, secret=secret, file_reference=file_reference)
+        return IpPort(ipv4=ipv4, port=port)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -86,12 +72,8 @@ class InputFileLocation(TLObject):
 
         # No flags
         
-        b.write(Long(self.volume_id))
+        b.write(Int(self.ipv4))
         
-        b.write(Int(self.local_id))
-        
-        b.write(Long(self.secret))
-        
-        b.write(Bytes(self.file_reference))
+        b.write(Int(self.port))
         
         return b.getvalue()

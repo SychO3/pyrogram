@@ -43,6 +43,14 @@ class AccessPointRule(TLObject):
         phone_prefix_rules: ``str``
         dc_id: ``int`` ``32-bit``
         ips: List of :obj:`IpPort <pyrogram.raw.base.IpPort>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`AccessPointRule <pyrogram.raw.functions.AccessPointRule>`
     """
 
     __slots__: List[str] = ["phone_prefix_rules", "dc_id", "ips"]

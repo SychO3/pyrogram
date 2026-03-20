@@ -32,53 +32,35 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputFileLocation(TLObject):
-    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFileLocation`.
+class InvokeWithReCaptchaPrefix(TLObject["raw.base.Error"]):
+    """Telegram API method.
 
     Details:
         - Layer: ``223``
-        - ID: ``DFDAABE1``
+        - ID: ``ADBB0F94``
 
     Parameters:
-        volume_id: ``int`` ``64-bit``
-        local_id: ``int`` ``32-bit``
-        secret: ``int`` ``64-bit``
-        file_reference: ``bytes``
+        token: ``str``
 
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
+    Returns:
+        :obj:`Error <pyrogram.raw.base.Error>`
     """
 
-    __slots__: List[str] = ["volume_id", "local_id", "secret", "file_reference"]
+    __slots__: List[str] = ["token"]
 
-    ID = 0xdfdaabe1
-    QUALNAME = "types.InputFileLocation"
+    ID = 0xadbb0f94
+    QUALNAME = "functions.InvokeWithReCaptchaPrefix"
 
-    def __init__(self, *, volume_id: int, local_id: int, secret: int, file_reference: bytes) -> None:
-        self.volume_id = volume_id  # long
-        self.local_id = local_id  # int
-        self.secret = secret  # long
-        self.file_reference = file_reference  # bytes
+    def __init__(self, *, token: str) -> None:
+        self.token = token  # string
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputFileLocation":
+    def read(b: BytesIO, *args: Any) -> "InvokeWithReCaptchaPrefix":
         # No flags
         
-        volume_id = Long.read(b)
+        token = String.read(b)
         
-        local_id = Int.read(b)
-        
-        secret = Long.read(b)
-        
-        file_reference = Bytes.read(b)
-        
-        return InputFileLocation(volume_id=volume_id, local_id=local_id, secret=secret, file_reference=file_reference)
+        return InvokeWithReCaptchaPrefix(token=token)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -86,12 +68,6 @@ class InputFileLocation(TLObject):
 
         # No flags
         
-        b.write(Long(self.volume_id))
-        
-        b.write(Int(self.local_id))
-        
-        b.write(Long(self.secret))
-        
-        b.write(Bytes(self.file_reference))
+        b.write(String(self.token))
         
         return b.getvalue()
