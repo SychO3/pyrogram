@@ -22,7 +22,6 @@
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
-from .config_simple import ConfigSimple
 from .get_config import GetConfig
 from .get_nearest_dc import GetNearestDc
 from .get_app_update import GetAppUpdate

@@ -41,15 +41,6 @@ else:
 
             - :obj:`IpPort <pyrogram.raw.types.IpPort>`
             - :obj:`IpPortSecret <pyrogram.raw.types.IpPortSecret>`
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`IpPort <pyrogram.raw.functions.IpPort>`
-            - :obj:`IpPortSecret <pyrogram.raw.functions.IpPortSecret>`
         """
 
         QUALNAME = "pyrogram.raw.base.IpPort"

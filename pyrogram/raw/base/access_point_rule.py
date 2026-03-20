@@ -40,14 +40,6 @@ else:
             :columns: 2
 
             - :obj:`AccessPointRule <pyrogram.raw.types.AccessPointRule>`
-
-    See Also:
-        This object can be returned by 1 method:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`AccessPointRule <pyrogram.raw.functions.AccessPointRule>`
         """
 
         QUALNAME = "pyrogram.raw.base.AccessPointRule"

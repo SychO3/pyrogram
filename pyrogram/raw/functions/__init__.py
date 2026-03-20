@@ -32,9 +32,6 @@ from .get_future_salts import GetFutureSalts
 from .ping import Ping
 from .ping_delay_disconnect import PingDelayDisconnect
 from .destroy_session import DestroySession
-from .ip_port import IpPort
-from .ip_port_secret import IpPortSecret
-from .access_point_rule import AccessPointRule
 from .input_peer_photo_file_location_legacy import InputPeerPhotoFileLocationLegacy
 from .input_sticker_set_thumb_legacy import InputStickerSetThumbLegacy
 from .invoke_with_business_connection_prefix import InvokeWithBusinessConnectionPrefix
@@ -53,4 +50,4 @@ from .invoke_with_google_play_integrity import InvokeWithGooglePlayIntegrity
 from .invoke_with_apns_secret import InvokeWithApnsSecret
 from .invoke_with_re_captcha import InvokeWithReCaptcha
 from .null import Null
-from . import contest, help, auth, account, users, contacts, messages, updates, photos, upload, channels, bots, payments, stickers, phone, langpack, folders, stats, chatlists, stories, premium, smsjobs, fragment
+from . import contest, auth, account, users, contacts, messages, updates, photos, upload, help, channels, bots, payments, stickers, phone, langpack, folders, stats, chatlists, stories, premium, smsjobs, fragment
