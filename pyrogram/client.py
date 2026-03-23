@@ -169,6 +169,8 @@ class Client(Methods):
 
         plugins (``dict``, *optional*):
             Smart Plugins settings as dict, e.g.: *dict(root="plugins")*.
+            The ``root`` key can be a single string or a list of strings to load plugins from multiple directories,
+            e.g.: *dict(root=["plugins", "extra_plugins"])*.
 
         parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
             Set the global parse mode of the client. By default, texts are parsed using both Markdown and HTML styles.
@@ -991,101 +993,107 @@ class Client(Methods):
             include = plugins.get("include", [])
             exclude = plugins.get("exclude", [])
 
+            if isinstance(root, list):
+                roots = root
+            else:
+                roots = [root]
+
             count = 0
 
-            if not include:
-                for path in sorted(Path(root.replace(".", "/")).rglob("*.py")):
-                    module_path = '.'.join(path.parent.parts + (path.stem,))
-                    module = import_module(module_path)
-
-                    for name in vars(module).keys():
-                        # noinspection PyBroadException
-                        try:
-                            for handler, group in getattr(module, name).handlers:
-                                if isinstance(handler, Handler) and isinstance(group, int):
-                                    self.add_handler(handler, group)
-
-                                    log.info('[{}] [LOAD] {}("{}") in group {} from "{}"'.format(
-                                        self.name, type(handler).__name__, name, group, module_path))
-
-                                    count += 1
-                        except Exception:
-                            pass
-            else:
-                for path, handlers in include:
-                    module_path = root + "." + path
-                    warn_non_existent_functions = True
-
-                    try:
+            for root in roots:
+                if not include:
+                    for path in sorted(Path(root.replace(".", "/")).rglob("*.py")):
+                        module_path = '.'.join(path.parent.parts + (path.stem,))
                         module = import_module(module_path)
-                    except ImportError:
-                        log.warning('[%s] [LOAD] Ignoring non-existent module "%s"', self.name, module_path)
-                        continue
 
-                    if "__path__" in dir(module):
-                        log.warning('[%s] [LOAD] Ignoring namespace "%s"', self.name, module_path)
-                        continue
+                        for name in vars(module).keys():
+                            # noinspection PyBroadException
+                            try:
+                                for handler, group in getattr(module, name).handlers:
+                                    if isinstance(handler, Handler) and isinstance(group, int):
+                                        self.add_handler(handler, group)
 
-                    if handlers is None:
-                        handlers = vars(module).keys()
-                        warn_non_existent_functions = False
+                                        log.info('[{}] [LOAD] {}("{}") in group {} from "{}"'.format(
+                                            self.name, type(handler).__name__, name, group, module_path))
 
-                    for name in handlers:
-                        # noinspection PyBroadException
+                                        count += 1
+                            except Exception:
+                                pass
+                else:
+                    for path, handlers in include:
+                        module_path = root + "." + path
+                        warn_non_existent_functions = True
+
                         try:
-                            for handler, group in getattr(module, name).handlers:
-                                if isinstance(handler, Handler) and isinstance(group, int):
-                                    self.add_handler(handler, group)
+                            module = import_module(module_path)
+                        except ImportError:
+                            log.warning('[%s] [LOAD] Ignoring non-existent module "%s"', self.name, module_path)
+                            continue
 
-                                    log.info('[{}] [LOAD] {}("{}") in group {} from "{}"'.format(
-                                        self.name, type(handler).__name__, name, group, module_path))
+                        if "__path__" in dir(module):
+                            log.warning('[%s] [LOAD] Ignoring namespace "%s"', self.name, module_path)
+                            continue
 
-                                    count += 1
-                        except Exception:
-                            if warn_non_existent_functions:
-                                log.warning('[{}] [LOAD] Ignoring non-existent function "{}" from "{}"'.format(
-                                    self.name, name, module_path))
+                        if handlers is None:
+                            handlers = vars(module).keys()
+                            warn_non_existent_functions = False
 
-            if exclude:
-                for path, handlers in exclude:
-                    module_path = root + "." + path
-                    warn_non_existent_functions = True
+                        for name in handlers:
+                            # noinspection PyBroadException
+                            try:
+                                for handler, group in getattr(module, name).handlers:
+                                    if isinstance(handler, Handler) and isinstance(group, int):
+                                        self.add_handler(handler, group)
 
-                    try:
-                        module = import_module(module_path)
-                    except ImportError:
-                        log.warning('[%s] [UNLOAD] Ignoring non-existent module "%s"', self.name, module_path)
-                        continue
+                                        log.info('[{}] [LOAD] {}("{}") in group {} from "{}"'.format(
+                                            self.name, type(handler).__name__, name, group, module_path))
 
-                    if "__path__" in dir(module):
-                        log.warning('[%s] [UNLOAD] Ignoring namespace "%s"', self.name, module_path)
-                        continue
+                                        count += 1
+                            except Exception:
+                                if warn_non_existent_functions:
+                                    log.warning('[{}] [LOAD] Ignoring non-existent function "{}" from "{}"'.format(
+                                        self.name, name, module_path))
 
-                    if handlers is None:
-                        handlers = vars(module).keys()
-                        warn_non_existent_functions = False
+                if exclude:
+                    for path, handlers in exclude:
+                        module_path = root + "." + path
+                        warn_non_existent_functions = True
 
-                    for name in handlers:
-                        # noinspection PyBroadException
                         try:
-                            for handler, group in getattr(module, name).handlers:
-                                if isinstance(handler, Handler) and isinstance(group, int):
-                                    self.remove_handler(handler, group)
+                            module = import_module(module_path)
+                        except ImportError:
+                            log.warning('[%s] [UNLOAD] Ignoring non-existent module "%s"', self.name, module_path)
+                            continue
 
-                                    log.info('[{}] [UNLOAD] {}("{}") from group {} in "{}"'.format(
-                                        self.name, type(handler).__name__, name, group, module_path))
+                        if "__path__" in dir(module):
+                            log.warning('[%s] [UNLOAD] Ignoring namespace "%s"', self.name, module_path)
+                            continue
 
-                                    count -= 1
-                        except Exception:
-                            if warn_non_existent_functions:
-                                log.warning('[{}] [UNLOAD] Ignoring non-existent function "{}" from "{}"'.format(
-                                    self.name, name, module_path))
+                        if handlers is None:
+                            handlers = vars(module).keys()
+                            warn_non_existent_functions = False
+
+                        for name in handlers:
+                            # noinspection PyBroadException
+                            try:
+                                for handler, group in getattr(module, name).handlers:
+                                    if isinstance(handler, Handler) and isinstance(group, int):
+                                        self.remove_handler(handler, group)
+
+                                        log.info('[{}] [UNLOAD] {}("{}") from group {} in "{}"'.format(
+                                            self.name, type(handler).__name__, name, group, module_path))
+
+                                        count -= 1
+                            except Exception:
+                                if warn_non_existent_functions:
+                                    log.warning('[{}] [UNLOAD] Ignoring non-existent function "{}" from "{}"'.format(
+                                        self.name, name, module_path))
 
             if count > 0:
                 log.info('[{}] Successfully loaded {} plugin{} from "{}"'.format(
-                    self.name, count, "s" if count > 1 else "", root))
+                    self.name, count, "s" if count > 1 else "", ", ".join(roots)))
             else:
-                log.warning('[%s] No plugin loaded from "%s"', self.name, root)
+                log.warning('[%s] No plugin loaded from "%s"', self.name, ", ".join(roots))
 
     async def handle_download(self, packet):
         file_id, directory, file_name, in_memory, file_size, progress, progress_args = packet
