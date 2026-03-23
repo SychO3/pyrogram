@@ -33,7 +33,6 @@ import contextlib
 
 log = logging.getLogger(__name__)
 
-
 class Str(str):
     def __init__(self, *args):
         super().__init__()
@@ -2108,11 +2107,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -2490,11 +2484,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -2800,11 +2789,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -3095,11 +3079,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -3387,11 +3366,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -3658,11 +3632,6 @@ class Message(Object, Update):
         Returns:
             :obj:`~pyrogram.types.Message`: On success, the sent invoice message is returned.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if message_thread_id is None:
             message_thread_id = self.message_thread_id
 
@@ -4013,11 +3982,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -4239,11 +4203,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -4463,11 +4422,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -4792,11 +4746,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -5177,11 +5126,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -5493,11 +5437,6 @@ class Message(Object, Update):
         Returns:
             :obj:`~pyrogram.types.Message`: On success, the sent dice message is returned.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if message_thread_id is None:
             message_thread_id = self.message_thread_id
 
@@ -5751,11 +5690,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -6049,11 +5983,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -6394,11 +6323,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -6813,11 +6737,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -7162,11 +7081,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -7442,11 +7356,6 @@ class Message(Object, Update):
         Returns:
             List of :obj:`~pyrogram.types.Message`: On success, a list of messages is returned.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if direct_messages_topic_id is None:
             direct_messages_topic_id = self.direct_messages_topic_id
 
@@ -7647,11 +7556,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -7889,11 +7793,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
@@ -8067,11 +7966,6 @@ class Message(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        if reply_parameters is None:
-            reply_parameters = types.ReplyParameters(
-                message_id=self.id
-            )
-
         if quote is not None:
             log.warning(
                 "`quote` parameter is deprecated and will be removed in future updates."
