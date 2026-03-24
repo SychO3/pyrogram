@@ -68,7 +68,7 @@ dev = [
 
 docs = [
     "Sphinx",
-    "furo",
+    "shibuya",
     "sphinx-autobuild",
     "sphinx-copybutton",
     "pygments",

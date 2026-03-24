@@ -33,7 +33,7 @@ from .get_story_views import GetStoryViews
 from .hide_chat_stories import HideChatStories
 from .pin_chat_stories import PinChatStories
 from .read_chat_stories import ReadChatStories
-from .send_story import SendStory
+from .post_story import PostStory
 from .show_chat_stories import ShowChatStories
 from .unpin_chat_stories import UnpinChatStories
 from .view_stories import ViewStories
@@ -56,7 +56,7 @@ class Stories(
     HideChatStories,
     PinChatStories,
     ReadChatStories,
-    SendStory,
+    PostStory,
     ShowChatStories,
     UnpinChatStories,
     ViewStories,

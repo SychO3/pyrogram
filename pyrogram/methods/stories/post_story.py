@@ -24,8 +24,8 @@ from pyrogram import StopTransmission, enums, raw, types, utils
 from pyrogram.errors import FilePartXMissing
 
 
-class SendStory:
-    async def send_story(
+class PostStory:
+    async def post_story(
         self: "pyrogram.Client",
         chat_id: Union[int, str],
         media: Union[str, BinaryIO],
@@ -143,10 +143,10 @@ class SendStory:
             .. code-block:: python
 
                 # Post story to your profile
-                await app.send_story("me", "story.png", caption='My new story!')
+                await app.post_story("me", "story.png", caption='My new story!')
 
                 # Post story to channel
-                await app.send_story(123456, "story.png", caption='My new story!')
+                await app.post_story(123456, "story.png", caption='My new story!')
 
         Raises:
             ValueError: In case of invalid arguments.

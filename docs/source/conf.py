@@ -23,13 +23,9 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 from pyrogram import __version__
 
-from pygments.styles.friendly import FriendlyStyle
-
-FriendlyStyle.background_color = "#f3f2f1"
-
-project = "Pyrogram"
-copyright = f"2017-present, Dan"
-author = "Dan"
+project = "Kurigram"
+copyright = "2017-present, Dan & KurimuzonAkuma"
+author = "KurimuzonAkuma"
 
 version = ".".join(__version__.split(".")[:-1])
 
@@ -38,7 +34,9 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
-    "sphinx_copybutton"
+    "sphinx_copybutton",
+    "sphinx_design",
+    "sphinx_iconify",
 ]
 
 intersphinx_mapping = {
@@ -49,37 +47,48 @@ master_doc = "index"
 source_suffix = ".rst"
 autodoc_member_order = "bysource"
 
-templates_path = ["../resources/templates"]
+templates_path = ["_templates"]
 html_copy_source = False
 
 napoleon_use_rtype = False
 napoleon_use_param = False
 
 pygments_style = "friendly"
+pygments_dark_style = "monokai"
 
 copybutton_prompt_text = "$ "
 
 suppress_warnings = ["image.not_readable"]
 
-html_title = "Pyrogram Documentation"
-html_theme = "sphinx_rtd_theme"
-html_static_path = ["../resources/static"]
+html_title = "Kurigram"
+html_theme = "shibuya"
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 html_show_sourcelink = True
 html_show_copyright = False
 html_theme_options = {
-    "canonical_url": "https://docs.pyrogram.org/",
-    "collapse_navigation": True,
-    "sticky_navigation": False,
-    "logo_only": True,
-    "display_version": False,
-    "style_external_links": True
+    "accent_color": "violet",
+    "dark_code": True,
+    "globaltoc_expand_depth": 1,
+    "github_url": "https://github.com/KurimuzonAkuma/pyrogram",
+    "nav_links": [
+        {
+            "title": "Quick Start",
+            "url": "intro/quickstart",
+        },
+        {
+            "title": "API Reference",
+            "url": "api/methods/index",
+        },
+        {
+            "title": "Community",
+            "url": "https://t.me/kurigram_chat",
+            "external": True,
+        },
+    ],
 }
 
-html_logo = "../resources/static/img/pyrogram.png"
-html_favicon = "../resources/static/img/favicon.ico"
-
 latex_engine = "xelatex"
-latex_logo = "../resources/static/img/pyrogram.png"
 
 latex_elements = {
     "pointsize": "12pt",

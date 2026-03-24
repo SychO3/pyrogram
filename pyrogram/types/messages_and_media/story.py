@@ -1762,7 +1762,7 @@ class Story(Object, Update):
             caption = self.caption or ""
             caption_entities = self.caption_entities
 
-        return await self._client.send_story(
+        return await self._client.post_story(
             chat_id=chat_id,
             media=await self.download(in_memory=True),
             caption=caption,

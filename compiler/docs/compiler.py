@@ -249,6 +249,7 @@ def pyrogram_api():
             send_contact
             send_cached_media
             send_reaction
+            send_web_page
             edit_message_text
             edit_message_caption
             edit_message_checklist
@@ -347,6 +348,7 @@ def pyrogram_api():
             create_supergroup
             delete_channel
             delete_folder_invite_link
+            edit_folder_invite_link
             get_folder_invite_links
             delete_supergroup
             delete_user_history
@@ -563,6 +565,7 @@ def pyrogram_api():
         advanced="""
         Advanced
             invoke
+            get_config
             recover_gaps
             resolve_peer
             save_file
@@ -587,7 +590,7 @@ def pyrogram_api():
             pin_chat_stories
             unpin_chat_stories
             read_chat_stories
-            send_story
+            post_story
             enable_stealth_mode
             get_story_views
         """,
@@ -665,8 +668,10 @@ def pyrogram_api():
             ChatMember
             ChatPermissions
             ChatAdministratorRights
+            ChatPrivileges
             ChatInviteLink
             ChatAdminWithInviteLinks
+            InviteLinkImporter
             ChatEvent
             ChatEventFilter
             ChatMemberUpdated
@@ -677,6 +682,7 @@ def pyrogram_api():
             EmojiStatus
             FailedToAddMember
             Folder
+            FolderInviteLink
             GroupCallMember
             ChatColor
             FoundContacts
@@ -787,6 +793,9 @@ def pyrogram_api():
             SuggestedPostDeclined
             SuggestedPostRefunded
             TextQuote
+            PaidMedia
+            PaidMediaPhoto
+            PaidMediaVideo
             PaidMediaInfo
             PaidMediaPreview
             PaidMessagesRefunded
@@ -868,6 +877,7 @@ def pyrogram_api():
             MessageReactionUpdated
             MessageReactionCountUpdated
             ChatBoostUpdated
+            LabeledPrice
             ShippingOption
             PurchasedPaidMedia
             ChatShared
@@ -929,7 +939,8 @@ def pyrogram_api():
             InlineQueryResult
             InlineQueryResultCachedAudio
             InlineQueryResultCachedDocument
-            InlineQueryResultCachedAnimation
+            InlineQueryResultCachedGif
+            InlineQueryResultCachedMpeg4Gif
             InlineQueryResultCachedPhoto
             InlineQueryResultCachedSticker
             InlineQueryResultCachedVideo
@@ -938,8 +949,10 @@ def pyrogram_api():
             InlineQueryResultAudio
             InlineQueryResultContact
             InlineQueryResultDocument
-            InlineQueryResultAnimation
+            InlineQueryResultGame
+            InlineQueryResultGif
             InlineQueryResultLocation
+            InlineQueryResultMpeg4Gif
             InlineQueryResultPhoto
             InlineQueryResultVenue
             InlineQueryResultVideo

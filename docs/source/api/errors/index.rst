@@ -21,9 +21,12 @@ follow the usual *PascalCase* convention.
     - :doc:`bad-request`
     - :doc:`unauthorized`
     - :doc:`forbidden`
+    - :doc:`not-found`
     - :doc:`not-acceptable`
     - :doc:`flood`
     - :doc:`internal-server-error`
+    - :doc:`service-unavailable`
+    - :doc:`unknown`
 
 .. toctree::
     :hidden:
@@ -32,6 +35,9 @@ follow the usual *PascalCase* convention.
     bad-request
     unauthorized
     forbidden
+    not-found
     not-acceptable
     flood
     internal-server-error
+    service-unavailable
+    unknown

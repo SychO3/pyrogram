@@ -21,7 +21,7 @@ from .auto_name import AutoName
 
 
 class StoriesPrivacyRules(AutoName):
-    """Stories privacy rules type enumeration used in :meth:`~pyrogram.Client.send_story`."""
+    """Stories privacy rules type enumeration used in :meth:`~pyrogram.Client.post_story`."""
 
     PUBLIC = auto()
     "Public stories"

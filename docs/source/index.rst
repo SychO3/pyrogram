@@ -1,35 +1,19 @@
-Welcome to Pyrogram
-===================
+:layout: landing
+:description: Kurigram — Elegant, modern and asynchronous Telegram MTProto API framework in Python.
 
-.. raw:: html
+Kurigram
+========
 
-    <div align="center">
-        <a href="/">
-            <div class="pyrogram-logo-index"><img src="_static/pyrogram.png" alt="Pyrogram"></div>
-            <div class="pyrogram-text pyrogram-text-index">Pyrogram</div>
-        </a>
-    </div>
+.. rst-class:: lead
 
-    <p align="center">
-        <b>Telegram MTProto API Framework for Python</b>
+    Elegant, modern and asynchronous **Telegram MTProto API** framework for Python.
+    Build user clients and bots with a clean, Pythonic interface.
 
-        <br>
-        <a href="https://pyrogram.org">
-            Homepage
-        </a>
-        •
-        <a href="https://github.com/pyrogram/pyrogram">
-            Development
-        </a>
-        •
-        <a href="https://docs.pyrogram.org/releases">
-            Releases
-        </a>
-        •
-        <a href="https://t.me/pyrogram">
-            News
-        </a>
-    </p>
+.. container:: buttons
+
+    `Get Started <intro/quickstart>`_
+    `API Reference <api/methods/index>`_
+    `GitHub <https://github.com/KurimuzonAkuma/pyrogram>`_
 
 .. code-block:: python
 
@@ -40,66 +24,135 @@ Welcome to Pyrogram
 
     @app.on_message(filters.private)
     async def hello(client, message):
-        await message.reply("Hello from Pyrogram!")
+        await message.reply("Hello from Kurigram!")
 
 
     app.run()
 
-**Pyrogram** is a modern, elegant and asynchronous :doc:`MTProto API <topics/mtproto-vs-botapi>` framework.
-It enables you to easily interact with the main Telegram API through a user account (custom client) or a bot identity
-(bot API alternative) using Python.
+-----
 
-Support
--------
+.. grid:: 1 1 2 3
+    :gutter: 2
+    :padding: 0
+    :class-row: surface
 
-If you'd like to support Pyrogram, you can consider:
+    .. grid-item-card:: :iconify:`mdi:server-network` MTProto API
+        :link: topics/mtproto-vs-botapi
+        :link-type: doc
 
-- `Become a GitHub sponsor <https://github.com/sponsors/delivrance>`_.
-- `Become a LiberaPay patron <https://liberapay.com/delivrance>`_.
-- `Become an OpenCollective backer <https://opencollective.com/pyrogram>`_.
+        Direct access to Telegram's MTProto protocol.
+        No middleman, no limitations — full API power.
 
-How the Documentation is Organized
-----------------------------------
+    .. grid-item-card:: :iconify:`mdi:lightning-bolt` Async & Fast
+        :link: topics/speedups
+        :link-type: doc
 
-Contents are organized into sections composed of self-contained topics which can be all accessed from the sidebar, or by
-following them in order using the :guilabel:`Next` button at the end of each page.
-You can also switch to Dark or Light theme or leave on Auto (follows system preferences) by using the dedicated button
-in the top left corner.
+        Built on top of ``asyncio`` for high-performance
+        concurrent I/O. Optional TgCrypto & uvloop support.
 
-Here below you can, instead, find a list of the most relevant pages for a quick access.
+    .. grid-item-card:: :iconify:`mdi:language-python` Pythonic API
+        :link: start/invoking
+        :link-type: doc
+
+        Elegant, intuitive methods and types.
+        Write less boilerplate, get more done.
+
+    .. grid-item-card:: :iconify:`mdi:account-multiple` Users & Bots
+        :link: start/auth
+        :link-type: doc
+
+        First-class support for both user accounts
+        and bot identities. One framework, all use cases.
+
+    .. grid-item-card:: :iconify:`mdi:filter-variant` Smart Filters
+        :link: topics/use-filters
+        :link-type: doc
+
+        Powerful, composable update filters.
+        Chain, combine and create custom ones with ease.
+
+    .. grid-item-card:: :iconify:`mdi:puzzle` Plugin System
+        :link: topics/smart-plugins
+        :link-type: doc
+
+        Modular smart plugin architecture.
+        Organize handlers across files cleanly.
+
+-----
 
 First Steps
-^^^^^^^^^^^
+-----------
 
-.. hlist::
-    :columns: 1
+.. grid:: 1 1 2 2
+    :gutter: 2
+    :padding: 0
 
-    - :doc:`Quick Start <intro/quickstart>`: Overview to get you started quickly.
-    - :doc:`Invoking Methods <start/invoking>`: How to call Pyrogram's methods.
-    - :doc:`Handling Updates <start/updates>`: How to handle Telegram updates.
-    - :doc:`Error Handling <start/errors>`: How to handle API errors correctly.
+    .. grid-item-card:: :iconify:`mdi:rocket-launch` Quick Start
+        :link: intro/quickstart
+        :link-type: doc
+
+        Overview to get you started quickly.
+
+    .. grid-item-card:: :iconify:`mdi:function-variant` Invoking Methods
+        :link: start/invoking
+        :link-type: doc
+
+        How to call Kurigram's methods.
+
+    .. grid-item-card:: :iconify:`mdi:bell-ring` Handling Updates
+        :link: start/updates
+        :link-type: doc
+
+        How to handle Telegram updates.
+
+    .. grid-item-card:: :iconify:`mdi:alert-circle` Error Handling
+        :link: start/errors
+        :link-type: doc
+
+        How to handle API errors correctly.
 
 API Reference
-^^^^^^^^^^^^^
+-------------
 
-.. hlist::
-    :columns: 1
+.. grid:: 1 1 2 3
+    :gutter: 2
+    :padding: 0
 
-    - :doc:`Pyrogram Client <api/client>`: Reference details about the Client class.
-    - :doc:`Available Methods <api/methods/index>`: List of available high-level methods.
-    - :doc:`Available Types <api/types/index>`: List of available high-level types.
-    - :doc:`Enumerations <api/enums/index>`: List of available enumerations.
-    - :doc:`Bound Methods <api/bound-methods/index>`: List of convenient bound methods.
+    .. grid-item-card:: :iconify:`mdi:cube` Client
+        :link: api/client
+        :link-type: doc
 
-Meta
-^^^^
+        The Client class reference.
 
-.. hlist::
-    :columns: 1
+    .. grid-item-card:: :iconify:`mdi:format-list-bulleted` Methods
+        :link: api/methods/index
+        :link-type: doc
 
-    - :doc:`Pyrogram FAQ <faq/index>`: Answers to common Pyrogram questions.
-    - :doc:`Support Pyrogram <support>`: Ways to show your appreciation.
-    - :doc:`Release Notes <releases/index>`: Release notes for Pyrogram releases.
+        All available high-level methods.
+
+    .. grid-item-card:: :iconify:`mdi:shape` Types
+        :link: api/types/index
+        :link-type: doc
+
+        All available high-level types.
+
+    .. grid-item-card:: :iconify:`mdi:format-list-numbered` Enumerations
+        :link: api/enums/index
+        :link-type: doc
+
+        Available enumerations.
+
+    .. grid-item-card:: :iconify:`mdi:link-variant` Bound Methods
+        :link: api/bound-methods/index
+        :link-type: doc
+
+        Convenient bound methods.
+
+    .. grid-item-card:: :iconify:`mdi:funnel` Filters
+        :link: api/filters
+        :link-type: doc
+
+        Update filter reference.
 
 .. toctree::
     :hidden:
@@ -161,7 +214,6 @@ Meta
 
     faq/index
     support
-    releases/index
 
 .. toctree::
     :hidden:
