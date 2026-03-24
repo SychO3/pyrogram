@@ -18,6 +18,7 @@
 
 import asyncio
 import logging
+import random
 from typing import Optional, Type, Union
 
 from pyrogram import utils
@@ -29,6 +30,8 @@ log = logging.getLogger(__name__)
 
 class Connection:
     MAX_CONNECTION_ATTEMPTS = -1
+    INITIAL_BACKOFF = 1
+    MAX_BACKOFF = 30
 
     def __init__(
         self,
@@ -62,6 +65,7 @@ class Connection:
     async def connect(self) -> None:
         attempts = Connection.MAX_CONNECTION_ATTEMPTS
         attempt_index = 0
+        backoff = Connection.INITIAL_BACKOFF
 
         while True:
             self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers, loop=self.loop)
@@ -72,7 +76,11 @@ class Connection:
             except OSError as e:
                 log.warning("Unable to connect due to network issues: %s", e)
                 await self.protocol.close()
-                await asyncio.sleep(1)
+
+                jittered = backoff * (0.5 + random.random())
+                log.info("Retrying connection in %.1fs (attempt #%d)", jittered, attempt_index + 1)
+                await asyncio.sleep(jittered)
+                backoff = min(backoff * 2, Connection.MAX_BACKOFF)
             else:
                 log.info("Connected! %s DC%s%s - IPv%s",
                          "Test" if self.test_mode else "Production",
@@ -83,7 +91,7 @@ class Connection:
 
             attempt_index += 1
             if attempts > 0 and attempt_index >= attempts:
-                log.warning("Connection failed! Trying again...")
+                log.warning("Connection failed after %d attempts", attempt_index)
                 raise ConnectionError
 
     async def close(self) -> None:

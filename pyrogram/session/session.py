@@ -88,6 +88,7 @@ class Session:
     ACKS_THRESHOLD = 10
     PING_INTERVAL = 5
     RETRY_DELAY = 1
+    MAX_RESTART_DELAY = 30
     STORED_MSG_IDS_MAX_SIZE = 1000 * 2
     CRYPTO_EXECUTOR_WORKERS = 1
     MAX_CONSECUTIVE_IGNORED = 30
@@ -142,25 +143,31 @@ class Session:
         self.restart_lock = asyncio.Lock()
         self.fatal_error: Optional[BaseException] = None
 
+        self._consecutive_restarts: int = 0
+
+    @property
+    def _log_prefix(self) -> str:
+        kind = "media" if self.is_media else ("cdn" if self.is_cdn else "main")
+        return f"DC{self.dc_id}-{kind}"
+
     @property
     def state(self) -> SessionState:
         """Get current session state"""
         return self._state
 
     async def _set_state(self, new_state: SessionState) -> None:
-        """Set session state"""
         async with self._state_lock:
             old_state = self._state
             self._state = new_state
+            log.debug("[%s] Session state: %s -> %s", self._log_prefix, old_state.name, new_state.name)
 
-            log.debug("Session state changed: %s -> %s", old_state.name, new_state.name)
+    async def start(self) -> None:
+        async with self._state_lock:
+            if self._state in (SessionState.STARTED, SessionState.STARTING):
+                log.debug("[%s] Session already started", self._log_prefix)
+                return
+            self._state = SessionState.STARTING
 
-    async def start(self):
-        if self._state in (SessionState.STARTED, SessionState.STARTING):
-            log.debug("Session already started")
-            return
-
-        await self._set_state(SessionState.STARTING)
         self.fatal_error = None
 
         self.connection = self.client.connection_factory(
@@ -209,15 +216,17 @@ class Session:
             self.ping_task = self.client.loop.create_task(self.ping_worker())
 
             log.info(
-                "Session initialized: Pyrogram v%s (Layer %s)", pyrogram.__version__, layer
+                "[%s] Session initialized: Pyrogram v%s (Layer %s)",
+                self._log_prefix, pyrogram.__version__, layer
             )
-            log.info("Device: %s - %s", self.client.device_model, self.client.app_version)
-            log.info("System: %s (%s)", self.client.system_version, self.client.lang_code)
+            log.info("[%s] Device: %s - %s", self._log_prefix, self.client.device_model, self.client.app_version)
+            log.info("[%s] System: %s (%s)", self._log_prefix, self.client.system_version, self.client.lang_code)
         except (AuthKeyDuplicated, Unauthorized):
             await self.stop()
             raise
         except (OSError, RPCError, ConnectionError) as e:
-            log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
+            log.info("[%s] Session start failed: %s - %s", self._log_prefix, e.__class__.__name__, e)
+            await self.stop()
             self.client.loop.create_task(self.restart())
             return
         except Exception:
@@ -226,73 +235,69 @@ class Session:
 
         await self._set_state(SessionState.STARTED)
         self.is_started.set()
+        self._consecutive_restarts = 0
 
-        log.info("Session started")
+        log.info("[%s] Session started", self._log_prefix)
 
-        if callable(self.client.connect_handler):
-            try:
-                handler = self.client.connect_handler
-                if inspect.iscoroutinefunction(handler):
-                    await handler(self.client, self)
-                else:
-                    result = handler(self.client, self)
-                    if inspect.isawaitable(result):
-                        await result
-            except Exception as e:
-                log.exception(e)
+        await self._invoke_handler(self.client.connect_handler)
 
-    async def stop(self):
-        if self._state in (SessionState.STOPPED, SessionState.STOPPING):
-            log.debug("Session already stopped")
-            return
-
-        await self._set_state(SessionState.STOPPING)
-
-        self.ignore_count = 0
+    async def stop(self) -> None:
+        async with self._state_lock:
+            if self._state in (SessionState.STOPPED, SessionState.STOPPING):
+                log.debug("[%s] Session already stopped", self._log_prefix)
+                return
+            self._state = SessionState.STOPPING
 
         self.is_started.clear()
-
         self._fail_pending_results(ConnectionError("Session stopped"))
 
-        self.stored_msg_ids.clear()
-        self.pending_acks.clear()
-
-        self.ping_task_event.set()
-
-        if self.ping_task is not None:
-            await self.ping_task
-
-        self.ping_task_event.clear()
-
+        # Close connection FIRST to break any stuck I/O (e.g. drain() in ping_worker)
         if self.connection is not None:
             await self.connection.close()
 
-        if self.recv_task:
-            await self.recv_task
-            self.recv_task = None
+        # Cancel tasks after connection is closed so stuck I/O fails immediately
+        self.ping_task_event.set()
+        await self._cancel_task(self.ping_task)
+        self.ping_task = None
+        self.ping_task_event.clear()
+
+        await self._cancel_task(self.recv_task)
+        self.recv_task = None
+
+        self.ignore_count = 0
+        self.stored_msg_ids.clear()
+        self.pending_acks.clear()
 
         await self._set_state(SessionState.STOPPED)
 
-        log.info("Session stopped")
+        log.info("[%s] Session stopped", self._log_prefix)
 
-        if callable(self.client.disconnect_handler):
-            try:
-                handler = self.client.disconnect_handler
-                if inspect.iscoroutinefunction(handler):
-                    await handler(self.client, self)
-                else:
-                    result = handler(self.client, self)
-                    if inspect.isawaitable(result):
-                        await result
-            except Exception as e:
-                log.exception(e)
+        await self._invoke_handler(self.client.disconnect_handler)
 
-    async def restart(self):
+    async def restart(self) -> None:
         async with self.restart_lock:
+            # Skip if another restart already completed while we waited for the lock
+            if self._state == SessionState.STARTED:
+                log.debug("[%s] Session already restarted, skipping redundant restart", self._log_prefix)
+                return
+
             if self.stored_msg_ids:
-               self.recent_msg_ids = self.stored_msg_ids[:30]
+                self.recent_msg_ids = self.stored_msg_ids[:30]
 
             await self.stop()
+
+            if self._consecutive_restarts > 0:
+                delay = min(
+                    self.RETRY_DELAY * (2 ** min(self._consecutive_restarts - 1, 5)),
+                    self.MAX_RESTART_DELAY
+                )
+                log.info(
+                    "[%s] Restart backoff: %.1fs (attempt #%d)",
+                    self._log_prefix, delay, self._consecutive_restarts + 1
+                )
+                await asyncio.sleep(delay)
+
+            self._consecutive_restarts += 1
 
             self.session_id = os.urandom(8)
             self.msg_factory = MsgFactory(self.client)
@@ -309,7 +314,47 @@ class Session:
         self.fatal_error = error
         self._fail_pending_results(error)
 
-    async def handle_packet(self, packet):
+    @staticmethod
+    async def _cancel_task(task: Optional[asyncio.Task]) -> None:
+        if task is None or task.done():
+            return
+        task.cancel()
+        try:
+            await task
+        except (asyncio.CancelledError, Exception):
+            pass
+
+    @staticmethod
+    def _parse_transport_error(error_code: int) -> Optional[TransportError]:
+        if error_code == 404:
+            return AuthKeyNotFound(
+                "Auth key not found in the system. Try again or delete your session file "
+                "and log in again with your phone number or bot token."
+            )
+        elif error_code == 429:
+            return TransportFlood(
+                "Transport flood. Please slow down your requests."
+            )
+        elif error_code == 444:
+            return InvalidDC(
+                "Invalid data center. Please check your configuration."
+            )
+        return None
+
+    async def _invoke_handler(self, handler: Any) -> None:
+        if not callable(handler):
+            return
+        try:
+            if inspect.iscoroutinefunction(handler):
+                await handler(self.client, self)
+            else:
+                result = handler(self.client, self)
+                if inspect.isawaitable(result):
+                    await result
+        except Exception as e:
+            log.exception(e)
+
+    async def handle_packet(self, packet: bytes) -> None:
         try:
             data = await self.client.loop.run_in_executor(
                 self.connection.protocol.crypto_executor,
@@ -427,8 +472,8 @@ class Session:
             else:
                 self.pending_acks.clear()
 
-    async def ping_worker(self):
-        log.info("PingTask started")
+    async def ping_worker(self) -> None:
+        log.info("[%s] PingTask started", self._log_prefix)
 
         while True:
             try:
@@ -446,23 +491,23 @@ class Session:
                     ),
                     wait_response=False
                 )
-            except OSError as e:
-                log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
+            except (OSError, ConnectionError, TimeoutError) as e:
+                log.info("[%s] PingTask triggering restart: %s - %s", self._log_prefix, e.__class__.__name__, e)
                 self.client.loop.create_task(self.restart())
                 break
             except RPCError:
                 pass
 
-        log.info("PingTask stopped")
+        log.info("[%s] PingTask stopped", self._log_prefix)
 
-    async def recv_worker(self):
-        log.info("NetworkTask started")
+    async def recv_worker(self) -> None:
+        log.info("[%s] NetworkTask started", self._log_prefix)
 
         while True:
             try:
                 packet = await self.connection.recv()
             except Exception as e:
-                log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
+                log.info("[%s] NetworkTask recv error: %s - %s", self._log_prefix, e.__class__.__name__, e)
                 if self.is_started.is_set():
                     self.client.loop.create_task(self.restart())
                 break
@@ -470,32 +515,13 @@ class Session:
             if packet is None or len(packet) == 4:
                 if packet:
                     error_code = -Int.read(BytesIO(packet))
-                    error_msg = "unknown error"
-                    transport_error = None
+                    transport_error = self._parse_transport_error(error_code)
 
-                    if error_code == 404:
-                        transport_error = AuthKeyNotFound(
-                            "Auth key not found in the system. Try again or delete your session file "
-                            "and log in again with your phone number or bot token."
-                        )
-
-                    try:
-                        if error_code == 429:
-                            raise TransportFlood(
-                                "Transport flood. Please slow down your requests."
-                            )
-                        elif error_code == 444:
-                            raise InvalidDC(
-                                "Invalid data center. Please check your configuration."
-                            )
-                    except TransportError as e:
-                        transport_error = e
-                        error_msg = str(e)
-                    else:
-                        if transport_error is not None:
-                            error_msg = str(transport_error)
-
-                    log.warning("Server sent transport error: %s (%s)", error_code, error_msg)
+                    log.warning(
+                        "[%s] Transport error: %s (%s)",
+                        self._log_prefix, error_code,
+                        transport_error or "unknown error"
+                    )
 
                     if isinstance(transport_error, (AuthKeyNotFound, InvalidDC)):
                         self._set_fatal_error(transport_error)
@@ -506,24 +532,20 @@ class Session:
                         await asyncio.sleep(5)
 
                 if self.is_started.is_set():
-                    if packet:
-                        error = f"Server sent transport error."
-                    else:
-                        error = "Server sent a null packet."
-
-                    log.info("Restarting session due to - %s", error)
+                    reason = "transport error" if packet else "null packet"
+                    log.info("[%s] NetworkTask triggering restart: %s", self._log_prefix, reason)
                     self.client.loop.create_task(self.restart())
 
                 break
 
             self.client.loop.create_task(self.handle_packet(packet))
 
-        log.info("NetworkTask stopped")
+        log.info("[%s] NetworkTask stopped", self._log_prefix)
 
     async def send(
         self, data: TLObject, wait_response: bool = True, timeout: float = WAIT_TIMEOUT,
         _salt_retries: int = 3
-    ):
+    ) -> Any:
         if self.fatal_error is not None:
             raise self.fatal_error
 
@@ -602,7 +624,7 @@ class Session:
         timeout: float = WAIT_TIMEOUT,
         sleep_threshold: float = SLEEP_THRESHOLD,
         retry_delay: float = RETRY_DELAY
-    ):
+    ) -> Any:
         try:
             await asyncio.wait_for(self.is_started.wait(), self.WAIT_TIMEOUT)
         except asyncio.TimeoutError:

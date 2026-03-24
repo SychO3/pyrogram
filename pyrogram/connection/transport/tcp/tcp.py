@@ -187,7 +187,9 @@ class TCP:
             log.debug("Sending %d bytes", len(data))
             try:
                 self.writer.write(data)
-                await self.writer.drain()
+                await asyncio.wait_for(self.writer.drain(), timeout=TCP.TIMEOUT)
+            except asyncio.TimeoutError:
+                raise OSError("Send drain timed out")
             except OSError:
                 raise
             except Exception as e:
