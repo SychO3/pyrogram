@@ -16,9 +16,13 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 import pyrogram
-from pyrogram.handlers import StartHandler, StopHandler, ConnectHandler, DisconnectHandler
 from pyrogram.handlers.handler import Handler
+from pyrogram.methods.utilities.add_handler import _LIFECYCLE_HANDLER_MAP
+
+log = logging.getLogger(__name__)
 
 
 class RemoveHandler:
@@ -57,13 +61,17 @@ class RemoveHandler:
 
                 app.run()
         """
-        if isinstance(handler, StartHandler):
-            self.start_handler = None
-        elif isinstance(handler, StopHandler):
-            self.stop_handler = None
-        elif isinstance(handler, ConnectHandler):
-            self.connect_handler = None
-        elif isinstance(handler, DisconnectHandler):
-            self.disconnect_handler = None
+        attr = _LIFECYCLE_HANDLER_MAP.get(type(handler))
+
+        if attr is not None:
+            current = getattr(self, attr)
+            if current is not handler.callback:
+                log.warning(
+                    "Removing %s whose callback (%r) differs from the registered one (%r)",
+                    type(handler).__name__,
+                    handler.callback,
+                    current,
+                )
+            setattr(self, attr, None)
         else:
             self.dispatcher.remove_handler(handler, group)

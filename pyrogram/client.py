@@ -17,10 +17,6 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-from collections import OrderedDict
-from contextlib import suppress
-import functools
-import inspect
 import logging
 import os
 import platform
@@ -28,7 +24,9 @@ import re
 import shutil
 import sys
 import time
+from collections import OrderedDict
 from concurrent.futures.thread import ThreadPoolExecutor
+from contextlib import suppress
 from datetime import datetime
 from hashlib import sha256
 from importlib import import_module
@@ -391,7 +389,11 @@ class Client(Methods):
             )
         elif self.in_memory:
             self.storage = SQLiteStorage(self.name, workdir=self.workdir, in_memory=True)
-        elif isinstance(storage_engine, Storage):
+        elif storage_engine is not None:
+            if not isinstance(storage_engine, Storage):
+                raise TypeError(
+                    f"storage_engine must be a Storage instance, got {type(storage_engine).__name__}"
+                )
             self.storage = storage_engine
         else:
             self.storage = SQLiteStorage(self.name, workdir=self.workdir)
@@ -438,12 +440,14 @@ class Client(Methods):
         self.last_update_time = datetime.now()
         self._last_update_monotonic = time.monotonic()
 
+        self.listeners = {listener_type: [] for listener_type in pyrogram.enums.ListenerTypes}
+
         if isinstance(loop, asyncio.AbstractEventLoop):
             self.loop = loop
         else:
             self.loop = None
 
-        self.__config: "raw.types.Config" = None
+        self.__config: Optional["raw.types.Config"] = None
 
     @property
     def loop(self) -> asyncio.AbstractEventLoop:
@@ -454,9 +458,6 @@ class Client(Methods):
     @loop.setter
     def loop(self, value: asyncio.AbstractEventLoop):
         self._loop = value
-
-        if not hasattr(self, "listeners"):
-            self.listeners = {listener_type: [] for listener_type in pyrogram.enums.ListenerTypes}
 
     def __enter__(self):
         return utils.get_event_loop().run_until_complete(self.start())
@@ -598,7 +599,7 @@ class Client(Methods):
                 self.phone_code = await ainput("Enter confirmation code: ", loop=self.loop)
 
             try:
-                signed_in = await self.sign_in(self.phone_number, sent_code.phone_code_hash, self.phone_code)
+                sign_in_result = await self.sign_in(self.phone_number, sent_code.phone_code_hash, self.phone_code)
             except BadRequest as e:
                 print(e.MESSAGE)
                 self.phone_code = None
@@ -608,8 +609,10 @@ class Client(Methods):
             else:
                 break
 
-        if isinstance(signed_in, User):
-            return signed_in
+        if isinstance(sign_in_result, User):
+            return sign_in_result
+
+        terms_of_service = sign_in_result if isinstance(sign_in_result, TermsOfService) else None
 
         while True:
             first_name = await ainput("Enter first name: ", loop=self.loop)
@@ -627,13 +630,13 @@ class Client(Methods):
             else:
                 break
 
-        if isinstance(signed_in, TermsOfService):
-            print("\n" + signed_in.text + "\n")
-            await self.accept_terms_of_service(signed_in.id)
+        if terms_of_service:
+            print("\n" + terms_of_service.text + "\n")
+            await self.accept_terms_of_service(terms_of_service.id)
 
         return signed_up
 
-    async def authorize_qr(self, except_ids: List[int] = None) -> "User":
+    async def authorize_qr(self, except_ids: Optional[List[int]] = None) -> "User":
         from qrcode import QRCode
 
         qr_login = QRLogin(self, except_ids or [])
@@ -770,10 +773,10 @@ class Client(Methods):
                 phone_number = peer.phone
                 peer_type = "bot" if peer.bot else "user"
 
-                if peer.username:
+                if peer.usernames:
+                    usernames.extend(u.username.lower() for u in peer.usernames)
+                elif peer.username:
                     usernames.append(peer.username.lower())
-                elif peer.usernames:
-                    usernames.extend(username.username.lower() for username in peer.usernames)
             elif isinstance(peer, (raw.types.Chat, raw.types.ChatForbidden)):
                 peer_id = -peer.id
                 access_hash = 0
@@ -783,10 +786,10 @@ class Client(Methods):
                 access_hash = peer.access_hash
                 peer_type = "direct" if peer.monoforum else "channel" if peer.broadcast else "forum" if peer.forum else "supergroup"
 
-                if peer.username:
+                if peer.usernames:
+                    usernames.extend(u.username.lower() for u in peer.usernames)
+                elif peer.username:
                     usernames.append(peer.username.lower())
-                elif peer.usernames:
-                    usernames.extend(username.username.lower() for username in peer.usernames)
             elif isinstance(peer, raw.types.ChannelForbidden):
                 peer_id = utils.get_channel_id(peer.id)
                 access_hash = peer.access_hash
@@ -811,10 +814,23 @@ class Client(Methods):
         self._last_update_monotonic = time.monotonic()
 
         if isinstance(updates, (raw.types.Updates, raw.types.UpdatesCombined)):
-            is_min = any((
-                await self.fetch_peers(updates.users),
-                await self.fetch_peers(updates.chats),
-            ))
+            is_min_users = await self.fetch_peers(updates.users)
+            is_min_chats = await self.fetch_peers(updates.chats)
+            is_min = is_min_users or is_min_chats
+
+            if isinstance(updates, raw.types.UpdatesCombined):
+                seq_start = getattr(updates, "seq_start", updates.seq)
+                stored_states = await self.storage.update_state()
+                if stored_states:
+                    global_state = next((s for s in stored_states if s[0] == 0), None)
+                    if global_state and global_state[4] is not None:
+                        stored_seq = global_state[4]
+                        if seq_start > stored_seq + 1:
+                            log.warning(
+                                "Seq gap detected: stored=%s, seq_start=%s. Triggering recovery.",
+                                stored_seq, seq_start
+                            )
+                            await self.recover_gaps()
 
             users = {u.id: u for u in updates.users}
             chats = {c.id: c for c in updates.chats}
@@ -848,7 +864,7 @@ class Client(Methods):
                 if isinstance(update, raw.types.UpdateNewChannelMessage) and is_min:
                     message = update.message
 
-                    if not isinstance(message, raw.types.MessageEmpty):
+                    if not isinstance(message, raw.types.MessageEmpty) and pts and pts_count:
                         try:
                             diff = await self.invoke(
                                 raw.functions.updates.GetChannelDifference(
@@ -1023,6 +1039,10 @@ class Client(Methods):
                                 pass
                 else:
                     for path, handlers in include:
+                        if ".." in path.split("."):
+                            log.warning('[%s] [LOAD] Skipping suspicious include path "%s"', self.name, path)
+                            continue
+
                         module_path = root + "." + path
                         warn_non_existent_functions = True
 
@@ -1058,6 +1078,10 @@ class Client(Methods):
 
                 if exclude:
                     for path, handlers in exclude:
+                        if ".." in path.split("."):
+                            log.warning('[%s] [UNLOAD] Skipping suspicious exclude path "%s"', self.name, path)
+                            continue
+
                         module_path = root + "." + path
                         warn_non_existent_functions = True
 
@@ -1476,6 +1500,8 @@ class Client(Methods):
                     if cached_session is None:
                         sessions[dc_id] = session
                     else:
+                        with suppress(Exception):
+                            await session.stop()
                         session = cached_session
 
                     pending_session = self._session_futures.pop(session_key, None)
@@ -1597,6 +1623,9 @@ class Client(Methods):
         await self.storage.server_address(server_address)
         await self.storage.port(port)
 
+        if self.session is None:
+            return
+
         if self.session.server_address != server_address or self.session.port != port:
             self.session.server_address = server_address
             self.session.port = port
@@ -1626,22 +1655,34 @@ class Client(Methods):
 
 
 class Cache:
+    """LRU cache backed by OrderedDict.
+
+    Note: ``__getitem__`` returns ``None`` for missing keys instead of raising
+    ``KeyError``.  All existing call-sites rely on this behaviour.
+    """
+
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.store = OrderedDict()
 
-    def __getitem__(self, key):
+    def get(self, key, default=None):
         try:
             self.store.move_to_end(key)
             return self.store[key]
         except KeyError:
-            return None
+            return default
+
+    def __getitem__(self, key):
+        return self.get(key)
 
     def __setitem__(self, key, value):
+        if self.capacity == 0:
+            return
+
         try:
             self.store.move_to_end(key)
         except KeyError:
-            if self.capacity > 0 and len(self.store) >= self.capacity:
+            if len(self.store) >= self.capacity:
                 self.store.popitem(last=False)
         self.store[key] = value
 

@@ -69,10 +69,10 @@ class Restart:
         async def do_it():
             await self.stop(clear_handlers=clear_handlers)
             await self.start()
+            return self
 
         if block:
             await do_it()
+            return self
         else:
-            self.loop.create_task(do_it())
-
-        return self
+            return self.loop.create_task(do_it())

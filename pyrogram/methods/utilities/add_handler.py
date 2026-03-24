@@ -16,9 +16,20 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 import pyrogram
 from pyrogram.handlers import StartHandler, StopHandler, ConnectHandler, DisconnectHandler
 from pyrogram.handlers.handler import Handler
+
+log = logging.getLogger(__name__)
+
+_LIFECYCLE_HANDLER_MAP = {
+    StartHandler: "start_handler",
+    StopHandler: "stop_handler",
+    ConnectHandler: "connect_handler",
+    DisconnectHandler: "disconnect_handler",
+}
 
 
 class AddHandler:
@@ -59,14 +70,17 @@ class AddHandler:
 
                 app.run()
         """
-        if isinstance(handler, StartHandler):
-            self.start_handler = handler.callback
-        elif isinstance(handler, StopHandler):
-            self.stop_handler = handler.callback
-        elif isinstance(handler, ConnectHandler):
-            self.connect_handler = handler.callback
-        elif isinstance(handler, DisconnectHandler):
-            self.disconnect_handler = handler.callback
+        attr = _LIFECYCLE_HANDLER_MAP.get(type(handler))
+
+        if attr is not None:
+            if getattr(self, attr) is not None:
+                log.warning(
+                    "Replacing existing %s (was %r, now %r)",
+                    type(handler).__name__,
+                    getattr(self, attr),
+                    handler.callback,
+                )
+            setattr(self, attr, handler.callback)
         else:
             self.dispatcher.add_handler(handler, group)
 

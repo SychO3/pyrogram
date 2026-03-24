@@ -75,13 +75,19 @@ async def idle():
         log.info(f"Stop signal received ({signals[signum]}). Exiting...")
         task.cancel()
 
+    original_handlers = {}
+
     for s in (SIGINT, SIGTERM, SIGABRT):
-        signal_fn(s, signal_handler)
+        original_handlers[s] = signal_fn(s, signal_handler)
 
-    while True:
-        task = asyncio.create_task(asyncio.sleep(600))
+    try:
+        while True:
+            task = asyncio.create_task(asyncio.sleep(600))
 
-        try:
-            await task
-        except asyncio.CancelledError:
-            break
+            try:
+                await task
+            except asyncio.CancelledError:
+                break
+    finally:
+        for s, handler in original_handlers.items():
+            signal_fn(s, handler)

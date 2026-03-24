@@ -17,10 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
+import logging
 from typing import List
 
 import pyrogram
 from .idle import idle
+
+log = logging.getLogger(__name__)
 
 
 async def compose(
@@ -63,11 +66,23 @@ async def compose(
             asyncio.run(main())
 
     """
-    if sequential:
-        for c in clients:
-            await c.start()
-    else:
-        await asyncio.gather(*[c.start() for c in clients])
+    started = []
+
+    try:
+        if sequential:
+            for c in clients:
+                await c.start()
+                started.append(c)
+        else:
+            await asyncio.gather(*[c.start() for c in clients])
+            started = list(clients)
+    except Exception:
+        for c in reversed(started):
+            try:
+                await c.stop()
+            except Exception as e:
+                log.warning("Failed to stop client %s during cleanup: %s", c.name, e)
+        raise
 
     await idle()
 

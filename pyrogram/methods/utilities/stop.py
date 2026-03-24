@@ -67,10 +67,10 @@ class Stop:
         async def do_it():
             await self.terminate(clear_handlers=clear_handlers)
             await self.disconnect()
+            return self
 
         if block:
             await do_it()
+            return self
         else:
-            self.loop.create_task(do_it())
-
-        return self
+            return self.loop.create_task(do_it())

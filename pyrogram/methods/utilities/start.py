@@ -17,7 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from typing import List
+from typing import List, Optional
 
 import pyrogram
 from pyrogram import raw
@@ -29,7 +29,7 @@ class Start:
     async def start(
         self: "pyrogram.Client", *,
         use_qr: bool = False,
-        except_ids: List[int] = [],
+        except_ids: Optional[List[int]] = None,
     ):
         """Start the client.
 
