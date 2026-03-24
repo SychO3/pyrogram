@@ -17,11 +17,11 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-from asyncio import iscoroutinefunction
 from typing import Callable, Tuple
 
 import pyrogram
 
+from pyrogram import utils
 from pyrogram.utils import PyromodConfig
 from pyrogram.types import CallbackQuery, Identifier, Listener
 
@@ -108,12 +108,10 @@ class CallbackQueryHandler(Handler):
         if listener:
             filters = listener.filters
             if callable(filters):
-                if iscoroutinefunction(filters.__call__):
-                    listener_does_match = await filters(client, query)
-                else:
-                    listener_does_match = await client.loop.run_in_executor(
-                        client.executor, filters, client, query
-                    )
+                listener_does_match = await utils.invoke_callable(
+                    filters, client, query,
+                    executor=client.executor, loop=client.loop
+                )
             else:
                 listener_does_match = True
 
@@ -135,12 +133,10 @@ class CallbackQueryHandler(Handler):
         query._matched_listener = listener if listener_does_match else None
 
         if callable(self.filters):
-            if iscoroutinefunction(self.filters.__call__):
-                handler_does_match = await self.filters(client, query)
-            else:
-                handler_does_match = await client.loop.run_in_executor(
-                    client.executor, self.filters, client, query
-                )
+            handler_does_match = await utils.invoke_callable(
+                self.filters, client, query,
+                executor=client.executor, loop=client.loop
+            )
         else:
             handler_does_match = True
 
@@ -198,12 +194,8 @@ class CallbackQueryHandler(Handler):
                 raise pyrogram.StopPropagation
             elif listener.callback:
                 try:
-                    if iscoroutinefunction(listener.callback):
-                        await listener.callback(client, query, *args)
-                    else:
-                        listener.callback(client, query, *args)
+                    await utils.invoke_callable(listener.callback, client, query, *args)
                 except asyncio.CancelledError:
-                    # Cancelled during shutdown/interruption
                     raise pyrogram.StopPropagation
 
                 raise pyrogram.StopPropagation

@@ -17,10 +17,10 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-from inspect import iscoroutinefunction
 from typing import Callable
 import pyrogram
 
+from pyrogram import utils
 from pyrogram.types import Message, Identifier
 
 from .handler import Handler
@@ -85,12 +85,10 @@ class MessageHandler(Handler):
         if listener:
             filters = listener.filters
             if callable(filters):
-                if iscoroutinefunction(filters.__call__):
-                    listener_does_match = await filters(client, message)
-                else:
-                    listener_does_match = await client.loop.run_in_executor(
-                        client.executor, filters, client, message
-                    )
+                listener_does_match = await utils.invoke_callable(
+                    filters, client, message,
+                    executor=client.executor, loop=client.loop
+                )
             else:
                 listener_does_match = True
 
@@ -109,12 +107,10 @@ class MessageHandler(Handler):
         message._matched_listener = listener if listener_does_match else None
 
         if callable(self.filters):
-            if iscoroutinefunction(self.filters.__call__):
-                handler_does_match = await self.filters(client, message)
-            else:
-                handler_does_match = await client.loop.run_in_executor(
-                    client.executor, self.filters, client, message
-                )
+            handler_does_match = await utils.invoke_callable(
+                self.filters, client, message,
+                executor=client.executor, loop=client.loop
+            )
         else:
             handler_does_match = True
 
@@ -146,10 +142,7 @@ class MessageHandler(Handler):
 
                 raise pyrogram.StopPropagation
             elif listener.callback:
-                if iscoroutinefunction(listener.callback):
-                    await listener.callback(client, message, *args)
-                else:
-                    listener.callback(client, message, *args)
+                await utils.invoke_callable(listener.callback, client, message, *args)
 
                 raise pyrogram.StopPropagation
             else:

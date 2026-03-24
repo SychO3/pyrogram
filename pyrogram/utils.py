@@ -18,6 +18,7 @@
 
 import asyncio
 import base64
+import inspect
 import logging
 import functools
 import hashlib
@@ -37,6 +38,12 @@ from pyrogram.file_id import DOCUMENT_TYPES, PHOTO_TYPES, FileId, FileType
 from pyrogram.types.messages_and_media.message import Str
 
 log = logging.getLogger(__name__)
+
+
+async def invoke_callable(func, *args, executor=None, loop=None):
+    if inspect.iscoroutinefunction(func) or inspect.iscoroutinefunction(getattr(func, "__call__", None)):
+        return await func(*args)
+    return await (loop or asyncio.get_running_loop()).run_in_executor(executor, func, *args)
 
 
 def get_event_loop() -> asyncio.AbstractEventLoop:

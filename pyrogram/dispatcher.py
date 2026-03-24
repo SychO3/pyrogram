@@ -18,7 +18,6 @@
 
 import asyncio
 from collections import OrderedDict
-import inspect
 import logging
 from typing import Dict
 
@@ -262,12 +261,7 @@ class Dispatcher:
     async def start(self):
         if callable(self.client.start_handler):
             try:
-                if inspect.iscoroutinefunction(self.client.start_handler):
-                    await self.client.start_handler(self.client)
-                else:
-                    result = self.client.start_handler(self.client)
-                    if inspect.isawaitable(result):
-                        await result
+                await utils.invoke_callable(self.client.start_handler, self.client)
             except Exception as e:
                 log.exception("start_handler raised: %s", e)
 
@@ -325,12 +319,7 @@ class Dispatcher:
 
         if callable(self.client.stop_handler):
             try:
-                if inspect.iscoroutinefunction(self.client.stop_handler):
-                    await self.client.stop_handler(self.client)
-                else:
-                    result = self.client.stop_handler(self.client)
-                    if inspect.isawaitable(result):
-                        await result
+                await utils.invoke_callable(self.client.stop_handler, self.client)
             except Exception as e:
                 log.exception("stop_handler raised: %s", e)
 
@@ -437,15 +426,10 @@ class Dispatcher:
                                 continue
 
                             try:
-                                if inspect.iscoroutinefunction(handler.callback):
-                                    await handler.callback(self.client, *args)
-                                else:
-                                    await self.client.loop.run_in_executor(
-                                        self.client.executor,
-                                        handler.callback,
-                                        self.client,
-                                        *args
-                                    )
+                                await utils.invoke_callable(
+                                    handler.callback, self.client, *args,
+                                    executor=self.client.executor, loop=self.client.loop
+                                )
                             except asyncio.CancelledError:
                                 raise
                             except pyrogram.StopPropagation:
@@ -482,15 +466,11 @@ class Dispatcher:
                         continue
 
                     try:
-                        if inspect.iscoroutinefunction(handler.callback):
-                            await handler.callback(
-                                self.client, exc, update_handler, update, users, chats
-                            )
-                        else:
-                            await self.client.loop.run_in_executor(
-                                self.client.executor, handler.callback,
-                                self.client, exc, update_handler, update, users, chats
-                            )
+                        await utils.invoke_callable(
+                            handler.callback,
+                            self.client, exc, update_handler, update, users, chats,
+                            executor=self.client.executor, loop=self.client.loop
+                        )
                     except pyrogram.StopPropagation:
                         handled = True
                         raise

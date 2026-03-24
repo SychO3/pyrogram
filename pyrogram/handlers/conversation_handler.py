@@ -16,10 +16,10 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import inspect
 from typing import Union
 
 import pyrogram
+from pyrogram import utils
 from pyrogram.types import Message, CallbackQuery
 from .message_handler import MessageHandler
 from .callback_query_handler import CallbackQueryHandler
@@ -57,20 +57,10 @@ class ConversationHandler(MessageHandler, CallbackQueryHandler):
 
         filters = waiter.get('filters')
         if callable(filters):
-            is_async = (
-                inspect.iscoroutinefunction(filters)
-                or inspect.iscoroutinefunction(getattr(filters, "__call__", None))
+            filtered = await utils.invoke_callable(
+                filters, client, update,
+                executor=client.executor, loop=client.loop
             )
-
-            if is_async:
-                result = filters(client, update)
-                filtered = await result if inspect.isawaitable(result) else result
-            else:
-                filtered = await client.loop.run_in_executor(
-                    client.executor,
-                    filters,
-                    client, update
-                )
 
             if not filtered or waiter['future'].done():
                 return False

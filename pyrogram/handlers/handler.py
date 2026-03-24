@@ -16,11 +16,11 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import inspect
 import logging
 from typing import Callable, Optional
 
 import pyrogram
+from pyrogram import utils
 from pyrogram.filters import Filter
 from pyrogram.types import Update
 
@@ -34,14 +34,10 @@ class Handler:
 
     async def check(self, client: "pyrogram.Client", update: Update):
         if callable(self.filters):
-            if inspect.iscoroutinefunction(self.filters.__call__):
-                return await self.filters(client, update)
-            else:
-                return await client.loop.run_in_executor(
-                    client.executor,
-                    self.filters,
-                    client, update
-                )
+            return await utils.invoke_callable(
+                self.filters, client, update,
+                executor=client.executor, loop=client.loop
+            )
 
         if self.filters is not None:
             log.warning("Non-callable filter %r treated as match-all", self.filters)
