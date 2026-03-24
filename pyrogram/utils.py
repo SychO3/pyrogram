@@ -751,7 +751,7 @@ def get_premium_duration_day_count(month_count: int) -> int:
 PyromodConfig = SimpleNamespace(
     timeout_handler=None,
     stopped_handler=None,
-    throw_exceptions=False,
+    throw_exceptions=True,
     unallowed_click_alert=True,
     unallowed_click_alert_text="You're not expected to click this button.",
 )
