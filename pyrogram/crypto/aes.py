@@ -20,6 +20,15 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
+def xor(a: bytes, b: bytes) -> bytes:
+    return int.to_bytes(
+        int.from_bytes(a, "big") ^ int.from_bytes(b, "big"),
+        len(a),
+        "big",
+    )
+
+
 try:
     import tgcrypto
 
@@ -41,13 +50,6 @@ try:
     def ctr256_decrypt(data: bytes, key: bytes, iv: bytearray, state: bytearray = None) -> bytes:
         return tgcrypto.ctr256_decrypt(data, key, iv, state or bytearray(1))
 
-
-    def xor(a: bytes, b: bytes) -> bytes:
-        return int.to_bytes(
-            int.from_bytes(a, "big") ^ int.from_bytes(b, "big"),
-            len(a),
-            "big",
-        )
 except ImportError:
     import pyaes
 
@@ -72,14 +74,6 @@ except ImportError:
 
     def ctr256_decrypt(data: bytes, key: bytes, iv: bytearray, state: bytearray = None) -> bytes:
         return ctr(data, key, iv, state or bytearray(1))
-
-
-    def xor(a: bytes, b: bytes) -> bytes:
-        return int.to_bytes(
-            int.from_bytes(a, "big") ^ int.from_bytes(b, "big"),
-            len(a),
-            "big",
-        )
 
 
     def ige(data: bytes, key: bytes, iv: bytes, encrypt: bool) -> bytes:

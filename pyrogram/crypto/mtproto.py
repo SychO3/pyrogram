@@ -19,6 +19,7 @@
 from hashlib import sha256
 from io import BytesIO
 from os import urandom
+from random import randint
 
 from pyrogram.errors import SecurityCheckMismatch
 from pyrogram.raw.core import Message, Long
@@ -40,7 +41,9 @@ def kdf(auth_key: bytes, msg_key: bytes, outgoing: bool) -> tuple:
 
 def pack(message: Message, salt: int, session_id: bytes, auth_key: bytes, auth_key_id: bytes) -> bytes:
     data = Long(salt) + session_id + message.write()
-    padding = urandom(-(len(data) + 12) % 16 + 12)
+    # Spec allows 12-1024 bytes; add extra random multiples of 16 for traffic analysis resistance
+    min_padding = -(len(data) + 12) % 16 + 12
+    padding = urandom(min_padding + 16 * randint(0, 4))
 
     # 88 = 88 + 0 (outgoing message)
     msg_key_large = sha256(auth_key[88: 88 + 32] + data + padding).digest()

@@ -252,8 +252,14 @@ server_public_keys = {
 
 
 def encrypt(data: bytes, fingerprint: int) -> bytes:
+    key = server_public_keys.get(fingerprint)
+    if key is None:
+        raise ValueError(
+            f"Unknown server public key fingerprint: {fingerprint:#018x}. "
+            f"Known fingerprints: {', '.join(f'{fp:#018x}' for fp in server_public_keys)}"
+        )
     return pow(
         int.from_bytes(data, "big"),
-        server_public_keys[fingerprint].e,
-        server_public_keys[fingerprint].m
+        key.e,
+        key.m
     ).to_bytes(256, "big")
