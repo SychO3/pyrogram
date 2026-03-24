@@ -16,9 +16,9 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import inspect
 import pyrogram
 
+from pyrogram import utils
 from pyrogram.errors import ListenerStopped
 from pyrogram.types import Listener
 from pyrogram.utils import PyromodConfig
@@ -41,20 +41,17 @@ class StopListener:
         """
         self.remove_listener(listener)
 
-        if listener.future.done():
+        if listener.future and listener.future.done():
             return
 
         if callable(PyromodConfig.stopped_handler):
-            handler = PyromodConfig.stopped_handler
+            await utils.invoke_callable(
+                PyromodConfig.stopped_handler, listener,
+                executor=self.executor, loop=self.loop
+            )
 
-            if (
-                inspect.iscoroutinefunction(handler)
-                or inspect.iscoroutinefunction(getattr(handler, "__call__", None))
-            ):
-                result = handler(None, listener)
-                if inspect.isawaitable(result):
-                    await result
+        if listener.future and not listener.future.done():
+            if PyromodConfig.throw_exceptions:
+                listener.future.set_exception(ListenerStopped())
             else:
-                await self.loop.run_in_executor(None, handler, None, listener)
-        elif PyromodConfig.throw_exceptions:
-            listener.future.set_exception(ListenerStopped())
+                listener.future.cancel()

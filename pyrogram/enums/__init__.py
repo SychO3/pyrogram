@@ -57,7 +57,7 @@ from .suggested_post_refund_reason import SuggestedPostRefundReason
 from .suggested_post_state import SuggestedPostState
 from .upgraded_gift_origin import UpgradedGiftOrigin
 from .user_status import UserStatus
-from .listerner_types import ListenerTypes
+from .listener_types import ListenerTypes
 
 __all__ = [
     'BlockList',

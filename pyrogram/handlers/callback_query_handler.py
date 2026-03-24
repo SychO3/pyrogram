@@ -140,18 +140,17 @@ class CallbackQueryHandler(Handler):
         else:
             handler_does_match = True
 
-        if PyromodConfig.unallowed_click_alert and listener:
+        if PyromodConfig.unallowed_click_alert and listener and not listener_does_match:
             data = self.compose_data_identifier(query)
             permissive_identifier = Identifier(
-                chat_id=data.chat_id,
-                message_id=data.message_id,
-                inline_message_id=data.inline_message_id,
+                chat_id=listener.identifier.chat_id,
+                message_id=listener.identifier.message_id,
+                inline_message_id=listener.identifier.inline_message_id,
                 from_user_id=None,
             )
 
             if (
                 permissive_identifier.matches(data)
-                and not listener_does_match
                 and listener.unallowed_click_alert
             ):
                 alert = (
@@ -188,18 +187,17 @@ class CallbackQueryHandler(Handler):
                 try:
                     listener.future.set_result(query)
                 except asyncio.CancelledError:
-                    # Future cancelled during shutdown; stop propagation silently
                     raise pyrogram.StopPropagation
-
                 raise pyrogram.StopPropagation
+            elif listener.future and listener.future.done():
+                await self.original_callback(client, query, *args)
             elif listener.callback:
                 try:
                     await utils.invoke_callable(listener.callback, client, query, *args)
                 except asyncio.CancelledError:
                     raise pyrogram.StopPropagation
-
                 raise pyrogram.StopPropagation
             else:
-                raise ValueError("Listener must have either a future or a callback")
+                await self.original_callback(client, query, *args)
         else:
             await self.original_callback(client, query, *args)

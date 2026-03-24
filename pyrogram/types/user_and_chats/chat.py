@@ -1940,3 +1940,30 @@ class Chat(Object):
             ``bool``: On success, True is returned.
         """
         return await self._client.update_chat_notifications(self.id, mute=False)
+
+    def listen(self, *args, **kwargs):
+        """Bound method *listen* of :obj:`~pyrogram.types.Chat`.
+
+        Listens for a message or callback query in this chat.
+        Uses the same parameters as :meth:`~pyrogram.Client.listen`,
+        with ``chat_id`` automatically set.
+        """
+        return self._client.listen(*args, chat_id=self.id, **kwargs)
+
+    def ask(self, text, *args, **kwargs):
+        """Bound method *ask* of :obj:`~pyrogram.types.Chat`.
+
+        Sends a message to this chat and waits for a response.
+        Uses the same parameters as :meth:`~pyrogram.Client.ask`,
+        with ``chat_id`` automatically set.
+        """
+        return self._client.ask(self.id, text, *args, **kwargs)
+
+    def stop_listening(self, *args, **kwargs):
+        """Bound method *stop_listening* of :obj:`~pyrogram.types.Chat`.
+
+        Stops listening for messages in this chat.
+        Uses the same parameters as :meth:`~pyrogram.Client.stop_listening`,
+        with ``chat_id`` automatically set.
+        """
+        return self._client.stop_listening(*args, chat_id=self.id, **kwargs)

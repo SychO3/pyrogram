@@ -9436,3 +9436,42 @@ class Message(Object, Update):
             message_id=self.id,
             translate_to_language_code=translate_to_language_code
         )
+
+    async def wait_for_click(
+        self,
+        from_user_id=None,
+        timeout=None,
+        filters=None,
+        alert=True,
+    ):
+        """Bound method *wait_for_click* of :obj:`~pyrogram.types.Message`.
+
+        Waits for a callback query (inline button click) on this message.
+
+        Parameters:
+            from_user_id (``int`` | ``str`` | Iterable, *optional*):
+                The user ID to listen for. If None, listens for any user.
+
+            timeout (``int``, *optional*):
+                Maximum time to wait in seconds.
+
+            filters (:obj:`~pyrogram.filters`, *optional*):
+                A filter to check the callback query against.
+
+            alert (``str`` | ``bool``, *optional*):
+                Alert text for unallowed clicks. True uses default text.
+
+        Returns:
+            :obj:`~pyrogram.types.CallbackQuery`: The received callback query.
+        """
+        message_id = getattr(self, "id", getattr(self, "message_id", None))
+
+        return await self._client.listen(
+            listener_type=pyrogram.enums.ListenerTypes.CALLBACK_QUERY,
+            timeout=timeout,
+            filters=filters,
+            unallowed_click_alert=alert,
+            chat_id=self.chat.id,
+            user_id=from_user_id,
+            message_id=message_id,
+        )

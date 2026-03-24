@@ -33,7 +33,7 @@ class GetListenerMatchingWithData:
 
         Parameters:
             data (:obj:`~pyrogram.types.Identifier`):
-                The Identifier to match agains.
+                The Identifier to match against.
 
             listener_type (:obj:`~pyrogram.enums.ListenerTypes`):
                 The type of listener to get.

@@ -17,9 +17,9 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-import inspect
 import pyrogram
 
+from pyrogram import utils
 from pyrogram.errors import ListenerTimeout
 from pyrogram.filters import Filter
 from typing import List, Optional, Union
@@ -108,24 +108,14 @@ class Listen:
 
         try:
             return await asyncio.wait_for(future, timeout)
-        except asyncio.exceptions.TimeoutError:
+        except asyncio.TimeoutError:
             if callable(PyromodConfig.timeout_handler):
-                handler = PyromodConfig.timeout_handler
-
-                if (
-                    inspect.iscoroutinefunction(handler)
-                    or inspect.iscoroutinefunction(getattr(handler, "__call__", None))
-                ):
-                    result = handler(pattern, listener, timeout)
-                    if inspect.isawaitable(result):
-                        await result
-                else:
-                    await self.loop.run_in_executor(
-                        None, handler, pattern, listener, timeout
-                    )
+                await utils.invoke_callable(
+                    PyromodConfig.timeout_handler, pattern, listener, timeout,
+                    executor=self.executor, loop=self.loop
+                )
             elif PyromodConfig.throw_exceptions:
                 raise ListenerTimeout(timeout)
-            # Cleanup listener on timeout to avoid zombie listeners
             try:
                 self.remove_listener(listener)
             except Exception:

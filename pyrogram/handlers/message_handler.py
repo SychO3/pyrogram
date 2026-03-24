@@ -139,13 +139,13 @@ class MessageHandler(Handler):
                     listener.future.set_result(message)
                 except asyncio.CancelledError:
                     raise pyrogram.StopPropagation
-
                 raise pyrogram.StopPropagation
+            elif listener.future and listener.future.done():
+                await self.original_callback(client, message, *args)
             elif listener.callback:
                 await utils.invoke_callable(listener.callback, client, message, *args)
-
                 raise pyrogram.StopPropagation
             else:
-                raise ValueError("Listener must have either a future or a callback")
+                await self.original_callback(client, message, *args)
         else:
             await self.original_callback(client, message, *args)

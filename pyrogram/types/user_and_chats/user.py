@@ -940,3 +940,30 @@ class User(Object, Update):
         """
 
         return await self._client.get_common_chats(self.id)
+
+    def listen(self, *args, **kwargs):
+        """Bound method *listen* of :obj:`~pyrogram.types.User`.
+
+        Listens for a message or callback query from this user.
+        Uses the same parameters as :meth:`~pyrogram.Client.listen`,
+        with ``user_id`` automatically set.
+        """
+        return self._client.listen(*args, user_id=self.id, **kwargs)
+
+    def ask(self, text, *args, **kwargs):
+        """Bound method *ask* of :obj:`~pyrogram.types.User`.
+
+        Sends a message to this user and waits for a response.
+        Uses the same parameters as :meth:`~pyrogram.Client.ask`,
+        with ``user_id`` automatically set.
+        """
+        return self._client.ask(self.id, text, *args, user_id=self.id, **kwargs)
+
+    def stop_listening(self, *args, **kwargs):
+        """Bound method *stop_listening* of :obj:`~pyrogram.types.User`.
+
+        Stops listening for messages from this user.
+        Uses the same parameters as :meth:`~pyrogram.Client.stop_listening`,
+        with ``user_id`` automatically set.
+        """
+        return self._client.stop_listening(*args, user_id=self.id, **kwargs)

@@ -82,3 +82,5 @@ class RegisterNextStepHandler:
         )
 
         self.listeners[listener_type].append(listener)
+
+        return listener
