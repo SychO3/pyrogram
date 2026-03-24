@@ -350,15 +350,25 @@ class Story(Object, Update):
             ] or None
             reactions_count = getattr(story.views, "reactions_count", None)
 
-        if isinstance(story.media, raw.types.MessageMediaPhoto):
-            photo = types.Photo._parse(client, story.media.photo, story.media.ttl_seconds)
-            media_type = enums.MessageMediaType.PHOTO
-        else:
-            doc = story.media.document
-            attributes = {type(i): i for i in doc.attributes}
-            video_attributes = attributes.get(raw.types.DocumentAttributeVideo, None)
-            video = types.Video._parse(client, doc, video_attributes, alternative_videos=getattr(story.media, "alt_documents", []))
-            media_type = enums.MessageMediaType.VIDEO
+        photo = None
+        video = None
+
+        media = story.media
+        media_type = None
+
+        if media:
+            if isinstance(media, raw.types.MessageMediaPhoto):
+                photo = types.Photo._parse(client, media.photo, media.ttl_seconds)
+                media_type = enums.MessageMediaType.PHOTO
+            elif isinstance(media, raw.types.MessageMediaDocument):
+                doc = media.document
+                attributes = {type(i): i for i in doc.attributes}
+                video_attributes = attributes.get(raw.types.DocumentAttributeVideo, None)
+                video = types.Video._parse(client, doc, video_attributes, alternative_videos=getattr(story.media, "alt_documents", []))
+                media_type = enums.MessageMediaType.VIDEO
+            else:
+                media_type = enums.MessageMediaType.UNSUPPORTED
+                media = None
 
         privacy_map = {
             raw.types.PrivacyValueAllowAll: enums.StoriesPrivacyRules.PUBLIC,
