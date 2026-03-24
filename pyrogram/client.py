@@ -366,6 +366,11 @@ class Client(Methods):
         self.connection_factory = connection_factory
         self.protocol_factory = protocol_factory
 
+        if self.workers < 1:
+            raise ValueError(f"workers must be >= 1, got {self.workers}")
+        if self.max_concurrent_transmissions < 1:
+            raise ValueError(f"max_concurrent_transmissions must be >= 1, got {self.max_concurrent_transmissions}")
+
         self.executor = ThreadPoolExecutor(self.workers, thread_name_prefix="Handler")
 
         self.storage: Storage
@@ -442,14 +447,15 @@ class Client(Methods):
     def loop(self, value: asyncio.AbstractEventLoop):
         self._loop = value
 
-        self.listeners = {listener_type: [] for listener_type in pyrogram.enums.ListenerTypes}
+        if not hasattr(self, "listeners"):
+            self.listeners = {listener_type: [] for listener_type in pyrogram.enums.ListenerTypes}
 
     def __enter__(self):
-        return self.start()
+        return utils.get_event_loop().run_until_complete(self.start())
 
     def __exit__(self, *args):
         try:
-            self.stop()
+            utils.get_event_loop().run_until_complete(self.stop())
         except ConnectionError:
             pass
 
@@ -646,10 +652,10 @@ class Client(Methods):
 
         return signed_up
 
-    async def authorize_qr(self, except_ids: List[int] = []) -> "User":
+    async def authorize_qr(self, except_ids: List[int] = None) -> "User":
         from qrcode import QRCode
 
-        qr_login = QRLogin(self, except_ids)
+        qr_login = QRLogin(self, except_ids or [])
         await qr_login.recreate()
 
         qr = QRCode(version=1)
@@ -896,7 +902,9 @@ class Client(Methods):
                 )
             )
 
-            if diff.new_messages:
+            if isinstance(diff, (raw.types.updates.DifferenceEmpty, raw.types.updates.DifferenceTooLong)):
+                pass
+            elif getattr(diff, "new_messages", None):
                 self.dispatcher.updates_queue.put_nowait((
                     raw.types.UpdateNewMessage(
                         message=diff.new_messages[0],
@@ -906,9 +914,8 @@ class Client(Methods):
                     {u.id: u for u in diff.users},
                     {c.id: c for c in diff.chats}
                 ))
-            else:
-                if diff.other_updates:  # The other_updates list can be empty
-                    self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
+            elif getattr(diff, "other_updates", None):
+                self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
         elif isinstance(updates, raw.types.UpdateShort):
             self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
@@ -1106,17 +1113,21 @@ class Client(Methods):
         try:
             async for chunk in self.get_file(file_id, file_size, 0, 0, progress, progress_args):
                 file.write(chunk)
-        except BaseException as e:
+        except (SystemExit, KeyboardInterrupt, GeneratorExit):
             if not in_memory:
                 file.close()
                 os.remove(temp_file_path)
-
-            if isinstance(e, asyncio.CancelledError):
-                raise e
-
-            if isinstance(e, (FloodWaitX, FloodPremiumWaitX)):
-                raise e
-
+            raise
+        except (asyncio.CancelledError, FloodWaitX, FloodPremiumWaitX):
+            if not in_memory:
+                file.close()
+                os.remove(temp_file_path)
+            raise
+        except Exception as e:
+            if not in_memory:
+                file.close()
+                os.remove(temp_file_path)
+            log.exception("Download failed: %s", e)
             return None
         else:
             if in_memory:
@@ -1279,8 +1290,8 @@ class Client(Methods):
 
                             # https://core.telegram.org/cdn#verifying-files
                             def _check_all_hashes():
-                                for i, h in enumerate(hashes):
-                                    cdn_chunk = decrypted_chunk[h.limit * i: h.limit * (i + 1)]
+                                for h in hashes:
+                                    cdn_chunk = decrypted_chunk[h.offset - offset_bytes: h.offset - offset_bytes + h.limit]
                                     CDNFileHashMismatch.check(
                                         h.hash == sha256(cdn_chunk).digest(),
                                         "h.hash == sha256(cdn_chunk).digest()"
@@ -1308,8 +1319,6 @@ class Client(Methods):
 
                             if len(chunk) < chunk_size or current >= total:
                                 break
-                    except Exception as e:
-                        raise e
                     finally:
                         await cdn_session.stop()
             except pyrogram.StopTransmission:
@@ -1317,7 +1326,8 @@ class Client(Methods):
             except (FloodWaitX, FloodPremiumWaitX):
                 raise
             except Exception as e:
-                log.exception(e)
+                log.exception("get_file error: %s", e)
+                raise
 
     async def get_session(
         self,
@@ -1507,7 +1517,8 @@ class Client(Methods):
         is_cdn: bool = False,
         ipv6: bool = False
     ) -> "raw.types.DcOption":
-        self.__config = await self.invoke(raw.functions.help.GetConfig())
+        if self.__config is None:
+            self.__config = await self.invoke(raw.functions.help.GetConfig())
 
         if dc_id is None:
             dc_id = self.__config.this_dc

@@ -57,11 +57,20 @@ class Terminate:
 
         self.media_sessions.clear()
 
+        for aux_session in self.sessions.values():
+            await aux_session.stop()
+
+        self.sessions.clear()
+        self._session_futures.clear()
+
         self.updates_watchdog_event.set()
 
         if self.updates_watchdog_task is not None:
             await self.updates_watchdog_task
 
         self.updates_watchdog_event.clear()
+
+        if hasattr(self, "executor") and self.executor:
+            self.executor.shutdown(wait=False)
 
         self.is_initialized = False

@@ -41,12 +41,17 @@ class Connect:
 
         await self.load_session()
 
-        self.session = await self.get_session(
-            server_address=await self.storage.server_address(),
-            port=await self.storage.port(),
-            export_authorization=False,
-            temporary=True
-        )
+        try:
+            self.session = await self.get_session(
+                server_address=await self.storage.server_address(),
+                port=await self.storage.port(),
+                export_authorization=False,
+                temporary=True
+            )
+        except Exception:
+            await self.storage.close()
+            raise
+
         self.is_connected = True
 
         is_ipv6_session = ":" in await self.storage.server_address()
