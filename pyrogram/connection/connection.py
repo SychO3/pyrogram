@@ -30,8 +30,8 @@ log = logging.getLogger(__name__)
 
 class Connection:
     MAX_CONNECTION_ATTEMPTS = -1
-    INITIAL_BACKOFF = 1
-    MAX_BACKOFF = 30
+    INITIAL_BACKOFF = 0.5
+    MAX_BACKOFF = 3
 
     def __init__(
         self,

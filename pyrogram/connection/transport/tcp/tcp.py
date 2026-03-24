@@ -39,7 +39,7 @@ class ProxyDict(TypedDict):
 
 
 class TCP:
-    TIMEOUT = 10
+    TIMEOUT = 6
 
     def __init__(
         self,
@@ -181,8 +181,7 @@ class TCP:
 
         async with self.lock:
             if self.writer is None or self.writer.is_closing():
-                log.debug("Send called but writer is None or closing")
-                return None
+                raise OSError("Connection is closed")
 
             log.debug("Sending %d bytes", len(data))
             try:

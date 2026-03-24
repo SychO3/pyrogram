@@ -88,7 +88,7 @@ class Session:
     ACKS_THRESHOLD = 10
     PING_INTERVAL = 5
     RETRY_DELAY = 1
-    MAX_RESTART_DELAY = 30
+    MAX_RESTART_DELAY = 10
     STORED_MSG_IDS_MAX_SIZE = 1000 * 2
     CRYPTO_EXECUTOR_WORKERS = 1
     MAX_CONSECUTIVE_IGNORED = 30
@@ -144,6 +144,7 @@ class Session:
         self.fatal_error: Optional[BaseException] = None
 
         self._consecutive_restarts: int = 0
+        self._restart_generation: int = 0
 
     @property
     def _log_prefix(self) -> str:
@@ -275,10 +276,15 @@ class Session:
         await self._invoke_handler(self.client.disconnect_handler)
 
     async def restart(self) -> None:
+        # Capture generation BEFORE acquiring the lock (no await in between, so
+        # no interleaving in asyncio).  If another restart completes while we
+        # wait for the lock, the generation will have advanced and we can skip.
+        expected_gen = self._restart_generation
+
         async with self.restart_lock:
-            # Skip if another restart already completed while we waited for the lock
-            if self._state == SessionState.STARTED:
-                log.debug("[%s] Session already restarted, skipping redundant restart", self._log_prefix)
+            if self._restart_generation != expected_gen:
+                log.debug("[%s] Skipping redundant restart (generation %d -> %d)",
+                          self._log_prefix, expected_gen, self._restart_generation)
                 return
 
             if self.stored_msg_ids:
@@ -298,11 +304,22 @@ class Session:
                 await asyncio.sleep(delay)
 
             self._consecutive_restarts += 1
+            self._restart_generation += 1
 
             self.session_id = os.urandom(8)
             self.msg_factory = MsgFactory(self.client)
 
             await self.start()
+
+        # After lock released: sync update state so the server resumes pushing
+        # updates on the new session.  Only needed for the main session.
+        if self.is_started.is_set() and not self.is_cdn and not self.is_media:
+            try:
+                await self.client.invoke(raw.functions.updates.GetState())
+                log.info("[%s] Post-restart update state synced", self._log_prefix)
+            except Exception as e:
+                log.warning("[%s] Post-restart update sync failed: %s - %s",
+                            self._log_prefix, type(e).__name__, e)
 
     def _fail_pending_results(self, error: BaseException) -> None:
         for result in self.results.values():
