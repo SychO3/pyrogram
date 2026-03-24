@@ -60,11 +60,12 @@ class Auth:
 
     @staticmethod
     def pack(data: TLObject, server_time: float) -> bytes:
+        payload = data.write()
         return (
             bytes(8)
             + Long(int(server_time * (2**32)) & ~0b11)
-            + Int(len(data.write()))
-            + data.write()
+            + Int(len(payload))
+            + payload
         )
 
     @staticmethod
@@ -150,7 +151,7 @@ class Auth:
 
                 log.debug("Done encrypt data with RSA")
 
-                # Step 5. TODO: Handle "server_DH_params_fail". Code assumes response is ok
+                # Step 5
                 log.debug("Send req_DH_params")
                 server_dh_params = await self.invoke(
                     raw.functions.ReqDHParams(
@@ -162,6 +163,9 @@ class Auth:
                         encrypted_data=encrypted_data
                     )
                 )
+
+                if isinstance(server_dh_params, raw.types.ServerDhParamsFail):
+                    raise Exception("Server DH params generation failed")
 
                 encrypted_answer = server_dh_params.encrypted_answer
 
@@ -189,13 +193,41 @@ class Auth:
 
                 dh_prime = int.from_bytes(server_dh_inner_data.dh_prime, "big")
                 delta_time = server_dh_inner_data.server_time - time.time()
-
                 log.debug("Delta time: %s", round(delta_time, 3))
 
-                # Step 6
                 g = server_dh_inner_data.g
+                g_a = int.from_bytes(server_dh_inner_data.g_a, "big")
+
+                # https://core.telegram.org/mtproto/security_guidelines#checking-sha1-hash-values
+                answer = server_dh_inner_data.write()
+                SecurityCheckMismatch.check(
+                    answer_with_hash[:20] == sha1(answer).digest(),
+                    "answer_with_hash[:20] == sha1(answer).digest()"
+                )
+                log.debug("SHA1 hash values check: OK")
+
+                # Validate DH parameters BEFORE expensive modular exponentiation
+                SecurityCheckMismatch.check(dh_prime == prime.CURRENT_DH_PRIME, "dh_prime == prime.CURRENT_DH_PRIME")
+                SecurityCheckMismatch.check(1 < g < dh_prime - 1, "1 < g < dh_prime - 1")
+                SecurityCheckMismatch.check(1 < g_a < dh_prime - 1, "1 < g_a < dh_prime - 1")
+                SecurityCheckMismatch.check(
+                    2 ** (2048 - 64) < g_a < dh_prime - 2 ** (2048 - 64),
+                    "2 ** (2048 - 64) < g_a < dh_prime - 2 ** (2048 - 64)"
+                )
+                log.debug("DH parameters and g_a validation: OK")
+
+                # Step 6 — now safe to compute
                 b = int.from_bytes(urandom(256), "big")
-                g_b = pow(g, b, dh_prime).to_bytes(256, "big")
+                g_b = pow(g, b, dh_prime)
+
+                SecurityCheckMismatch.check(1 < g_b < dh_prime - 1, "1 < g_b < dh_prime - 1")
+                SecurityCheckMismatch.check(
+                    2 ** (2048 - 64) < g_b < dh_prime - 2 ** (2048 - 64),
+                    "2 ** (2048 - 64) < g_b < dh_prime - 2 ** (2048 - 64)"
+                )
+                log.debug("g_b validation: OK")
+
+                g_b_bytes = g_b.to_bytes(256, "big")
 
                 retry_id = 0
 
@@ -203,7 +235,7 @@ class Auth:
                     nonce=nonce,
                     server_nonce=server_nonce,
                     retry_id=retry_id,
-                    g_b=g_b
+                    g_b=g_b_bytes
                 ).write()
 
                 sha = sha1(data).digest()
@@ -220,56 +252,25 @@ class Auth:
                     )
                 )
 
-                # TODO: Handle "auth_key_aux_hash" if the previous step fails
+                if isinstance(set_client_dh_params_answer, raw.types.DhGenFail):
+                    raise Exception("DH key generation failed (dh_gen_fail)")
+
+                if isinstance(set_client_dh_params_answer, raw.types.DhGenRetry):
+                    raise Exception("DH key generation requires retry (dh_gen_retry)")
 
                 # Step 7; Step 8
-                g_a = int.from_bytes(server_dh_inner_data.g_a, "big")
                 auth_key = pow(g_a, b, dh_prime).to_bytes(256, "big")
                 server_nonce = server_nonce.to_bytes(16, "little", signed=True)
 
-                # TODO: Handle errors
-
-                #######################
-                # Security checks
-                #######################
-
-                SecurityCheckMismatch.check(dh_prime == prime.CURRENT_DH_PRIME, "dh_prime == prime.CURRENT_DH_PRIME")
-                log.debug("DH parameters check: OK")
-
-                # https://core.telegram.org/mtproto/security_guidelines#g-a-and-g-b-validation
-                g_b = int.from_bytes(g_b, "big")
-                SecurityCheckMismatch.check(1 < g < dh_prime - 1, "1 < g < dh_prime - 1")
-                SecurityCheckMismatch.check(1 < g_a < dh_prime - 1, "1 < g_a < dh_prime - 1")
-                SecurityCheckMismatch.check(1 < g_b < dh_prime - 1, "1 < g_b < dh_prime - 1")
-                SecurityCheckMismatch.check(
-                    2 ** (2048 - 64) < g_a < dh_prime - 2 ** (2048 - 64),
-                    "2 ** (2048 - 64) < g_a < dh_prime - 2 ** (2048 - 64)"
-                )
-                SecurityCheckMismatch.check(
-                    2 ** (2048 - 64) < g_b < dh_prime - 2 ** (2048 - 64),
-                    "2 ** (2048 - 64) < g_b < dh_prime - 2 ** (2048 - 64)"
-                )
-                log.debug("g_a and g_b validation: OK")
-
-                # https://core.telegram.org/mtproto/security_guidelines#checking-sha1-hash-values
-                answer = server_dh_inner_data.write()  # Call .write() to remove padding
-                SecurityCheckMismatch.check(
-                    answer_with_hash[:20] == sha1(answer).digest(),
-                    "answer_with_hash[:20] == sha1(answer).digest()"
-                )
-                log.debug("SHA1 hash values check: OK")
-
                 # https://core.telegram.org/mtproto/security_guidelines#checking-nonce-server-nonce-and-new-nonce-fields
-                # 1st message
                 SecurityCheckMismatch.check(nonce == res_pq.nonce, "nonce == res_pq.nonce")
-                # 2nd message
+
                 server_nonce = int.from_bytes(server_nonce, "little", signed=True)
                 SecurityCheckMismatch.check(nonce == server_dh_params.nonce, "nonce == server_dh_params.nonce")
                 SecurityCheckMismatch.check(
                     server_nonce == server_dh_params.server_nonce,
                     "server_nonce == server_dh_params.server_nonce"
                 )
-                # 3rd message
                 SecurityCheckMismatch.check(
                     nonce == set_client_dh_params_answer.nonce,
                     "nonce == set_client_dh_params_answer.nonce"
@@ -287,13 +288,12 @@ class Auth:
                 log.debug("Server salt: %s", int.from_bytes(server_salt, "little"))
 
                 log.info("Done auth key exchange: %s", set_client_dh_params_answer.__class__.__name__)
-            except ConnectionError as e:
+            except ConnectionError:
                 log.info("Unable to connect due to network issues. Retrying...")
-                # Treat like transient network error: retry according to MAX_RETRIES
                 if retries_left:
                     retries_left -= 1
                 else:
-                    raise e
+                    raise
                 await asyncio.sleep(1)
                 continue
             except Exception as e:
@@ -302,7 +302,7 @@ class Auth:
                 if retries_left > 0:
                     retries_left -= 1
                 elif retries_left == 0:
-                    raise e
+                    raise
 
                 await asyncio.sleep(1)
                 continue

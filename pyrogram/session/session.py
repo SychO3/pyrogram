@@ -213,16 +213,16 @@ class Session:
             )
             log.info("Device: %s - %s", self.client.device_model, self.client.app_version)
             log.info("System: %s (%s)", self.client.system_version, self.client.lang_code)
-        except (AuthKeyDuplicated, Unauthorized) as e:
+        except (AuthKeyDuplicated, Unauthorized):
             await self.stop()
-            raise e
+            raise
         except (OSError, RPCError, ConnectionError) as e:
             log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
             self.client.loop.create_task(self.restart())
             return
-        except Exception as e:
+        except Exception:
             await self.stop()
-            raise e
+            raise
 
         await self._set_state(SessionState.STARTED)
         self.is_started.set()
@@ -252,7 +252,10 @@ class Session:
 
         self.is_started.clear()
 
+        self._fail_pending_results(ConnectionError("Session stopped"))
+
         self.stored_msg_ids.clear()
+        self.pending_acks.clear()
 
         self.ping_task_event.set()
 
@@ -261,7 +264,8 @@ class Session:
 
         self.ping_task_event.clear()
 
-        await self.connection.close()
+        if self.connection is not None:
+            await self.connection.close()
 
         if self.recv_task:
             await self.recv_task
@@ -289,6 +293,10 @@ class Session:
                self.recent_msg_ids = self.stored_msg_ids[:30]
 
             await self.stop()
+
+            self.session_id = os.urandom(8)
+            self.msg_factory = MsgFactory(self.client)
+
             await self.start()
 
     def _fail_pending_results(self, error: BaseException) -> None:
@@ -351,7 +359,8 @@ class Session:
                             "The msg_id is lower than all the stored values"
                         )
 
-                    if msg.msg_id in self.stored_msg_ids:
+                    idx = bisect.bisect_left(self.stored_msg_ids, msg.msg_id)
+                    if idx < len(self.stored_msg_ids) and self.stored_msg_ids[idx] == msg.msg_id:
                         raise SecurityCheckMismatch(
                             "The msg_id is equal to any of the stored values"
                         )
@@ -372,15 +381,16 @@ class Session:
 
                     self.ignore_count = 0
             except SecurityCheckMismatch as e:
-                log.info("Discarding packet: %s", e)
+                log.info("Discarding message: %s", e)
 
                 self.ignore_count += 1
 
                 if self.ignore_count >= self.MAX_CONSECUTIVE_IGNORED:
                     log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
                     self.client.loop.create_task(self.restart())
+                    return
 
-                return
+                continue
             else:
                 bisect.insort(self.stored_msg_ids, msg.msg_id)
 
@@ -449,7 +459,13 @@ class Session:
         log.info("NetworkTask started")
 
         while True:
-            packet = await self.connection.recv()
+            try:
+                packet = await self.connection.recv()
+            except Exception as e:
+                log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
+                if self.is_started.is_set():
+                    self.client.loop.create_task(self.restart())
+                break
 
             if packet is None or len(packet) == 4:
                 if packet:
@@ -481,11 +497,13 @@ class Session:
 
                     log.warning("Server sent transport error: %s (%s)", error_code, error_msg)
 
-                    if isinstance(transport_error, AuthKeyNotFound):
+                    if isinstance(transport_error, (AuthKeyNotFound, InvalidDC)):
                         self._set_fatal_error(transport_error)
                         self.client.loop.create_task(self.stop())
                         break
 
+                    if isinstance(transport_error, TransportFlood):
+                        await asyncio.sleep(5)
 
                 if self.is_started.is_set():
                     if packet:
@@ -503,7 +521,8 @@ class Session:
         log.info("NetworkTask stopped")
 
     async def send(
-        self, data: TLObject, wait_response: bool = True, timeout: float = WAIT_TIMEOUT
+        self, data: TLObject, wait_response: bool = True, timeout: float = WAIT_TIMEOUT,
+        _salt_retries: int = 3
     ):
         if self.fatal_error is not None:
             raise self.fatal_error
@@ -516,21 +535,21 @@ class Session:
 
         log.debug("Sent: %s", message)
 
-        payload = await self.client.loop.run_in_executor(
-            self.connection.protocol.crypto_executor,
-            mtproto.pack,
-            message,
-            self.salt,
-            self.session_id,
-            self.auth_key,
-            self.auth_key_id
-        )
-
         try:
+            payload = await self.client.loop.run_in_executor(
+                self.connection.protocol.crypto_executor,
+                mtproto.pack,
+                message,
+                self.salt,
+                self.session_id,
+                self.auth_key,
+                self.auth_key_id
+            )
+
             await self.connection.send(payload)
-        except OSError as e:
+        except Exception:
             self.results.pop(msg_id, None)
-            raise e
+            raise
 
         if wait_response:
             try:
@@ -562,10 +581,6 @@ class Session:
                 # after network interruptions or resumed connections.
                 if result.error_code in (16, 17):
                     try:
-                        # Reset time sync flag to allow fresh synchronization
-                        if getattr(self.client, "_is_server_time_synced", None) is True:
-                            self.client._is_server_time_synced = False
-                        # Proactively restart the session to resync server time and session state
                         await self.restart()
                     except Exception as e:
                         log.info("Restarting session failed due to - %s - %s", e.__class__.__name__, e)
@@ -573,8 +588,10 @@ class Session:
                     raise BadMsgNotification(result.error_code)
 
             if isinstance(result, raw.types.BadServerSalt):
+                if _salt_retries <= 0:
+                    raise TimeoutError("Too many BadServerSalt responses")
                 self.salt = result.new_server_salt
-                return await self.send(data, wait_response, timeout)
+                return await self.send(data, wait_response, timeout, _salt_retries - 1)
 
             return result
 
@@ -589,7 +606,7 @@ class Session:
         try:
             await asyncio.wait_for(self.is_started.wait(), self.WAIT_TIMEOUT)
         except asyncio.TimeoutError:
-            pass
+            log.warning("Session not started within %ss, proceeding anyway", self.WAIT_TIMEOUT)
 
         if isinstance(
             query, (raw.functions.InvokeWithoutUpdates, raw.functions.InvokeWithTakeout)
@@ -619,7 +636,7 @@ class Session:
                 await asyncio.sleep(amount)
             except (OSError, InternalServerError, ServiceUnavailable, BadMsgNotification, TimeoutError) as e:
                 log.warning(
-                    '[%s] Retrying "%s" due to: %s', attempt, query_name, str(e) or repr(e)
+                    '[%s] Retrying "%s" due to: %s', self.client.name, query_name, str(e) or repr(e)
                 )
 
                 await asyncio.sleep(retry_delay)

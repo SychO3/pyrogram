@@ -51,7 +51,7 @@ CREATE TABLE peers
 (
     id             INTEGER PRIMARY KEY,
     access_hash    INTEGER,
-    type           INTEGER NOT NULL,
+    type           TEXT NOT NULL,
     phone_number   TEXT,
     last_update_on INTEGER NOT NULL DEFAULT (CAST(STRFTIME('%s', 'now') AS INTEGER))
 );
@@ -77,19 +77,9 @@ CREATE TABLE version
     number INTEGER PRIMARY KEY
 );
 
-CREATE INDEX idx_peers_id ON peers (id);
 CREATE INDEX idx_peers_phone_number ON peers (phone_number);
 CREATE INDEX idx_usernames_id ON usernames (id);
 CREATE INDEX idx_usernames_username ON usernames (username);
-
-CREATE TRIGGER trg_peers_last_update_on
-    AFTER UPDATE
-    ON peers
-BEGIN
-    UPDATE peers
-    SET last_update_on = CAST(STRFTIME('%s', 'now') AS INTEGER)
-    WHERE id = NEW.id;
-END;
 """
 
 USERNAMES_SCHEMA = """
@@ -204,7 +194,7 @@ class SQLiteStorage(Storage):
             version += 1
 
         if version == 6:
-            address = PROD[await self.dc_id()]
+            address = PROD.get(await self.dc_id(), "149.154.167.51")
 
             await self.conn.execute("ALTER TABLE sessions ADD server_address TEXT;")
             await self.conn.execute("ALTER TABLE sessions ADD port INTEGER;")
@@ -230,25 +220,33 @@ class SQLiteStorage(Storage):
 
     async def open(self):
         if self.in_memory:
-            self.conn = await aiosqlite.connect(":memory:", timeout=1)
+            self.conn = await aiosqlite.connect(":memory:", timeout=10)
             await self.create()
 
             if self.session_string:
+                try:
+                    decoded = base64.urlsafe_b64decode(
+                        self.session_string + "=" * (-len(self.session_string) % 4)
+                    )
+                except Exception:
+                    raise ValueError("Invalid session string: malformed base64 encoding")
+
                 # Old format
                 if len(self.session_string) in [
                     self.SESSION_STRING_SIZE,
                     self.SESSION_STRING_SIZE_64,
                 ]:
-                    dc_id, test_mode, auth_key, user_id, is_bot = struct.unpack(
-                        (
-                            self.OLD_SESSION_STRING_FORMAT
-                            if len(self.session_string) == self.SESSION_STRING_SIZE
-                            else self.OLD_SESSION_STRING_FORMAT_64
-                        ),
-                        base64.urlsafe_b64decode(
-                            self.session_string + "=" * (-len(self.session_string) % 4)
-                        ),
-                    )
+                    try:
+                        dc_id, test_mode, auth_key, user_id, is_bot = struct.unpack(
+                            (
+                                self.OLD_SESSION_STRING_FORMAT
+                                if len(self.session_string) == self.SESSION_STRING_SIZE
+                                else self.OLD_SESSION_STRING_FORMAT_64
+                            ),
+                            decoded,
+                        )
+                    except struct.error:
+                        raise ValueError("Invalid session string: corrupted or truncated data")
 
                     await self.dc_id(dc_id)
                     await self.test_mode(test_mode)
@@ -262,12 +260,13 @@ class SQLiteStorage(Storage):
                     )
                     return
 
-                dc_id, api_id, test_mode, auth_key, user_id, is_bot = struct.unpack(
-                    self.SESSION_STRING_FORMAT,
-                    base64.urlsafe_b64decode(
-                        self.session_string + "=" * (-len(self.session_string) % 4)
-                    ),
-                )
+                try:
+                    dc_id, api_id, test_mode, auth_key, user_id, is_bot = struct.unpack(
+                        self.SESSION_STRING_FORMAT,
+                        decoded,
+                    )
+                except struct.error:
+                    raise ValueError("Invalid session string: corrupted or truncated data")
 
                 await self.dc_id(dc_id)
                 await self.server_address(PROD[dc_id])
@@ -284,7 +283,9 @@ class SQLiteStorage(Storage):
         path = self.database
         file_exists = isinstance(path, Path) and path.is_file()
 
-        self.conn = await aiosqlite.connect(str(path), timeout=1)
+        self.conn = await aiosqlite.connect(str(path), timeout=10)
+
+        await self.conn.execute("PRAGMA foreign_keys = ON")
 
         if self.use_wal:
             await self.conn.execute("PRAGMA journal_mode=WAL")
@@ -296,32 +297,36 @@ class SQLiteStorage(Storage):
         else:
             await self.create()
 
-        await self.conn.execute("VACUUM")
-        await self.conn.commit()
-
     async def save(self):
         await self.date(int(time.time()))
         await self.conn.commit()
 
     async def close(self):
-        await self.conn.close()
+        if self.conn is not None:
+            await self.save()
+            await self.conn.close()
 
     async def delete(self):
+        await self.close()
         if not self.in_memory:
-            Path(self.database).unlink()
+            Path(self.database).unlink(missing_ok=True)
 
     async def update_peers(self, peers: List[Tuple[int, int, str, str]]):
         await self.conn.executemany(
             "REPLACE INTO peers (id, access_hash, type, phone_number) VALUES (?, ?, ?, ?)", peers
         )
+        await self.conn.commit()
 
     async def update_usernames(self, usernames: List[Tuple[int, List[str]]]):
-        await self.conn.executemany("DELETE FROM usernames WHERE id = ?", [(id,) for id, _ in usernames])
-
         await self.conn.executemany(
-            "REPLACE INTO usernames (id, username) VALUES (?, ?)",
-            [(id, username) for id, usernames in usernames for username in usernames],
+            "DELETE FROM usernames WHERE id = ?",
+            [(peer_id,) for peer_id, _ in usernames]
         )
+        await self.conn.executemany(
+            "INSERT INTO usernames (id, username) VALUES (?, ?)",
+            [(peer_id, name) for peer_id, names in usernames for name in names],
+        )
+        await self.conn.commit()
 
     async def update_state(self, value: Any = object):
         if value is object:
@@ -381,7 +386,7 @@ class SQLiteStorage(Storage):
     async def _get(self, table: str, attr: str):
         async with self.conn.execute(f"SELECT {attr} FROM {table}") as cursor:
             row = await cursor.fetchone()
-            return row[0]
+            return row[0] if row else None
 
     async def _set(self, table: str, attr: str, value: Any):
         await self.conn.execute(f"UPDATE {table} SET {attr} = ?", (value,))

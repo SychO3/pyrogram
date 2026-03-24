@@ -30,14 +30,11 @@ class MsgFactory:
         self.client = client
 
         self._last_msg_id = 0
-
-        self._msg_id_lock = asyncio.Lock()
-        self._seq_no_lock = asyncio.Lock()
-
+        self._lock = asyncio.Lock()
         self._content_related_messages_sent = 0
 
     async def allocate_message_identity(self) -> int:
-        async with self._msg_id_lock:
+        async with self._lock:
             base_msg_id = int(self.client.server_time * (2**32)) & ~0b11
 
             if base_msg_id <= self._last_msg_id:
@@ -47,19 +44,19 @@ class MsgFactory:
 
             return base_msg_id
 
-    async def allocate_message_sequence(self, is_content_related: bool) -> int:
-        async with self._seq_no_lock:
+    async def create(self, body: TLObject) -> Message:
+        async with self._lock:
+            base_msg_id = int(self.client.server_time * (2**32)) & ~0b11
+
+            if base_msg_id <= self._last_msg_id:
+                base_msg_id = self._last_msg_id + 4
+
+            self._last_msg_id = base_msg_id
+
+            is_content_related = not isinstance(body, (Ping, HttpWait, MsgsAck, MsgContainer))
             seq_no = (self._content_related_messages_sent * 2) + (1 if is_content_related else 0)
 
             if is_content_related:
                 self._content_related_messages_sent += 1
 
-            return seq_no
-
-    async def create(self, body: TLObject) -> Message:
-        msg_id = await self.allocate_message_identity()
-
-        is_content_related = not isinstance(body, (Ping, HttpWait, MsgsAck, MsgContainer))
-        seq_no = await self.allocate_message_sequence(is_content_related)
-
-        return Message(body, msg_id, seq_no, len(body))
+            return Message(body, base_msg_id, seq_no, len(body))
