@@ -17,6 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
+from collections import OrderedDict
 from contextlib import suppress
 import functools
 import inspect
@@ -28,7 +29,7 @@ import shutil
 import sys
 import time
 from concurrent.futures.thread import ThreadPoolExecutor
-from datetime import datetime, timedelta
+from datetime import datetime
 from hashlib import sha256
 from importlib import import_module
 from io import BytesIO, StringIO
@@ -60,7 +61,7 @@ from pyrogram.qrlogin import QRLogin
 from pyrogram.session import Auth, Session
 from pyrogram.storage import SQLiteStorage, Storage
 from pyrogram.types import LinkPreviewOptions, TermsOfService, User
-from pyrogram.utils import ainput
+from pyrogram.utils import ainput, invoke_callable
 
 from .connection import Connection
 from .connection.transport import TCP, TCPAbridged
@@ -327,7 +328,13 @@ class Client(Methods):
         super().__init__()
 
         self.name = name
-        self.api_id = int(api_id) if api_id else None
+        if api_id is not None:
+            try:
+                self.api_id = int(api_id)
+            except (ValueError, TypeError) as e:
+                raise ValueError(f"api_id must be numeric, got {api_id!r}") from e
+        else:
+            self.api_id = None
         self.api_hash = api_hash
         self.app_version = app_version
         self.device_model = device_model
@@ -429,6 +436,7 @@ class Client(Methods):
         self.updates_watchdog_task = None
         self.updates_watchdog_event = asyncio.Event()
         self.last_update_time = datetime.now()
+        self._last_update_monotonic = time.monotonic()
 
         if isinstance(loop, asyncio.AbstractEventLoop):
             self.loop = loop
@@ -477,7 +485,7 @@ class Client(Methods):
             else:
                 break
 
-            if datetime.now() - self.last_update_time > timedelta(seconds=self.UPDATES_WATCHDOG_INTERVAL):
+            if time.monotonic() - self._last_update_monotonic > self.UPDATES_WATCHDOG_INTERVAL:
                 try:
                     await self.invoke(raw.functions.updates.GetState())
                     await self.recover_gaps()
@@ -576,10 +584,14 @@ class Client(Methods):
                 enums.SentCodeType.CALL: "phone call",
                 enums.SentCodeType.FLASH_CALL: "phone flash call",
                 enums.SentCodeType.FRAGMENT_SMS: "Fragment",
-                enums.SentCodeType.EMAIL_CODE: "email code"
+                enums.SentCodeType.EMAIL_CODE: "email code",
+                enums.SentCodeType.MISSED_CALL: "missed call",
+                enums.SentCodeType.FIREBASE_SMS: "Firebase SMS",
+                enums.SentCodeType.SMS_PHRASE: "SMS phrase",
+                enums.SentCodeType.SMS_WORD: "SMS word"
             }
 
-            print(f"The confirmation code has been sent via {sent_code_descriptions[sent_code.type]}")
+            print(f"The confirmation code has been sent via {sent_code_descriptions.get(sent_code.type, str(sent_code.type))}")
 
         while True:
             if not self.phone_code:
@@ -592,38 +604,7 @@ class Client(Methods):
                 self.phone_code = None
             except SessionPasswordNeeded as e:
                 print(e.MESSAGE)
-
-                while True:
-                    print("Password hint: {}".format(await self.get_password_hint()))
-
-                    if not self.password:
-                        self.password = await ainput("Enter 2FA password (empty to recover): ", hide=self.hide_password, loop=self.loop)
-
-                    try:
-                        if not self.password:
-                            confirm = await ainput("Confirm password recovery (y/N): ", loop=self.loop)
-
-                            if confirm.lower() == "y":
-                                email_pattern = await self.send_recovery_code()
-                                print(f"The recovery code has been sent to {email_pattern}")
-
-                                while True:
-                                    recovery_code = await ainput("Enter recovery code: ", loop=self.loop)
-
-                                    try:
-                                        return await self.recover_password(recovery_code)
-                                    except BadRequest as e:
-                                        print(e.MESSAGE)
-                                    except Exception as e:
-                                        log.exception(e)
-                                        raise
-                            else:
-                                self.password = None
-                        else:
-                            return await self.check_password(self.password)
-                    except BadRequest as e:
-                        print(e.MESSAGE)
-                        self.password = None
+                return await self._handle_2fa_password()
             else:
                 break
 
@@ -680,8 +661,11 @@ class Client(Methods):
                 signed_in = await qr_login.wait()
 
                 if signed_in:
-                    log.info(f"Logged in successfully as {signed_in.full_name}")
+                    log.info("Logged in successfully as %s", signed_in.full_name)
                     return signed_in
+
+                log.info("QR login returned no user, retrying.")
+                await qr_login.recreate()
             except asyncio.TimeoutError:
                 log.info("Recreating QR code.")
                 await qr_login.recreate()
@@ -690,40 +674,7 @@ class Client(Methods):
                 await qr_login.recreate()
             except SessionPasswordNeeded as e:
                 print(e.MESSAGE)
-
-                while True:
-                    print("Password hint: {}".format(await self.get_password_hint()))
-
-                    if not self.password:
-                        self.password = await ainput("Enter 2FA password (empty to recover): ", hide=self.hide_password, loop=self.loop)
-
-                    try:
-                        if not self.password:
-                            confirm = await ainput("Confirm password recovery (y/N): ", loop=self.loop)
-
-                            if confirm.lower() == "y":
-                                email_pattern = await self.send_recovery_code()
-                                print(f"The recovery code has been sent to {email_pattern}")
-
-                                while True:
-                                    recovery_code = await ainput("Enter recovery code: ", loop=self.loop)
-
-                                    try:
-                                        return await self.recover_password(recovery_code)
-                                    except BadRequest as e:
-                                        print(e.MESSAGE)
-                                    except Exception as e:
-                                        log.exception(e)
-                                        raise
-                            else:
-                                self.password = None
-                        else:
-                            return await self.check_password(self.password)
-                    except BadRequest as e:
-                        print(e.MESSAGE)
-                        self.password = None
-            else:
-                break
+                return await self._handle_2fa_password()
 
     def set_parse_mode(self, parse_mode: Optional["enums.ParseMode"]):
         """Set the parse mode to be used globally by the client.
@@ -762,6 +713,43 @@ class Client(Methods):
         """
 
         self.parse_mode = parse_mode
+
+    async def _handle_2fa_password(self) -> User:
+        while True:
+            print("Password hint: {}".format(await self.get_password_hint()))
+
+            if not self.password:
+                self.password = await ainput(
+                    "Enter 2FA password (empty to recover): ",
+                    hide=self.hide_password,
+                    loop=self.loop
+                )
+
+            try:
+                if not self.password:
+                    confirm = await ainput("Confirm password recovery (y/N): ", loop=self.loop)
+
+                    if confirm.lower() == "y":
+                        email_pattern = await self.send_recovery_code()
+                        print(f"The recovery code has been sent to {email_pattern}")
+
+                        while True:
+                            recovery_code = await ainput("Enter recovery code: ", loop=self.loop)
+
+                            try:
+                                return await self.recover_password(recovery_code)
+                            except BadRequest as e:
+                                print(e.MESSAGE)
+                            except Exception:
+                                log.exception("Unexpected error during password recovery")
+                                raise
+                    else:
+                        self.password = None
+                else:
+                    return await self.check_password(self.password)
+            except BadRequest as e:
+                print(e.MESSAGE)
+                self.password = None
 
     async def fetch_peers(self, peers: List[Union[raw.types.User, raw.types.Chat, raw.types.Channel]]) -> bool:
         is_min = False
@@ -820,6 +808,7 @@ class Client(Methods):
 
     async def handle_updates(self, updates):
         self.last_update_time = datetime.now()
+        self._last_update_monotonic = time.monotonic()
 
         if isinstance(updates, (raw.types.Updates, raw.types.UpdatesCombined)):
             is_min = any((
@@ -854,7 +843,7 @@ class Client(Methods):
                     )
 
                 if isinstance(update, raw.types.UpdateChannelTooLong):
-                    log.info(update)
+                    log.info("UpdateChannelTooLong: %s", update)
 
                 if isinstance(update, raw.types.UpdateNewChannelMessage) and is_min:
                     message = update.message
@@ -919,17 +908,17 @@ class Client(Methods):
         elif isinstance(updates, raw.types.UpdateShort):
             self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
-            log.info(updates)
+            log.info("UpdatesTooLong: %s", updates)
 
     async def load_session(self):
         await self.storage.open()
 
-        session_empty = any([
-            await self.storage.test_mode() is None,
-            await self.storage.auth_key() is None,
-            await self.storage.user_id() is None,
-            await self.storage.is_bot() is None
-        ])
+        session_empty = (
+            await self.storage.test_mode() is None
+            or await self.storage.auth_key() is None
+            or await self.storage.user_id() is None
+            or await self.storage.is_bot() is None
+        )
 
         if session_empty:
             if not self.api_id or not self.api_hash:
@@ -1009,6 +998,11 @@ class Client(Methods):
             count = 0
 
             for root in roots:
+                plugin_path = Path(root.replace(".", "/"))
+                if ".." in plugin_path.parts or plugin_path.is_absolute():
+                    log.warning('[%s] [LOAD] Skipping suspicious plugin path "%s"', self.name, root)
+                    continue
+
                 if not include:
                     for path in sorted(Path(root.replace(".", "/")).rglob("*.py")):
                         module_path = '.'.join(path.parent.parts + (path.stem,))
@@ -1106,38 +1100,37 @@ class Client(Methods):
     async def handle_download(self, packet):
         file_id, directory, file_name, in_memory, file_size, progress, progress_args = packet
 
-        os.makedirs(directory, exist_ok=True) if not in_memory else None
-        temp_file_path = os.path.abspath(re.sub("\\\\", "/", os.path.join(directory, file_name))) + ".temp"
+        file_name = os.path.basename(file_name.replace("\\", "/"))
+        if not in_memory:
+            os.makedirs(directory, exist_ok=True)
+
+        temp_file_path = os.path.abspath(os.path.join(directory, file_name)) + ".temp"
         file = BytesIO() if in_memory else open(temp_file_path, "wb")
+        success = False
 
         try:
             async for chunk in self.get_file(file_id, file_size, 0, 0, progress, progress_args):
                 file.write(chunk)
-        except (SystemExit, KeyboardInterrupt, GeneratorExit):
-            if not in_memory:
-                file.close()
-                os.remove(temp_file_path)
-            raise
+            success = True
         except (asyncio.CancelledError, FloodWaitX, FloodPremiumWaitX):
-            if not in_memory:
-                file.close()
-                os.remove(temp_file_path)
             raise
-        except Exception as e:
-            if not in_memory:
-                file.close()
-                os.remove(temp_file_path)
-            log.exception("Download failed: %s", e)
+        except Exception:
+            log.exception("Download failed")
             return None
-        else:
-            if in_memory:
-                file.name = file_name
-                return file
-            else:
+        finally:
+            if not success and not in_memory:
                 file.close()
-                file_path = os.path.splitext(temp_file_path)[0]
-                shutil.move(temp_file_path, file_path)
-                return file_path
+                with suppress(OSError):
+                    os.remove(temp_file_path)
+
+        if in_memory:
+            file.name = file_name
+            return file
+
+        file.close()
+        file_path = os.path.splitext(temp_file_path)[0]
+        shutil.move(temp_file_path, file_path)
+        return file_path
 
     async def get_file(
         self,
@@ -1217,19 +1210,14 @@ class Client(Methods):
                         offset_bytes += chunk_size
 
                         if progress:
-                            func = functools.partial(
+                            await invoke_callable(
                                 progress,
-                                min(offset_bytes, file_size)
-                                if file_size != 0
-                                else offset_bytes,
+                                min(offset_bytes, file_size) if file_size != 0 else offset_bytes,
                                 file_size,
-                                *progress_args
+                                *progress_args,
+                                executor=self.executor,
+                                loop=self.loop
                             )
-
-                            if inspect.iscoroutinefunction(progress):
-                                await func()
-                            else:
-                                await self.loop.run_in_executor(self.executor, func)
 
                         if len(chunk) < chunk_size or current >= total:
                             break
@@ -1273,12 +1261,12 @@ class Client(Methods):
                             chunk = r2.bytes
 
                             # https://core.telegram.org/cdn#decrypting-files
-                            decrypted_chunk = await self.loop.run_in_executor(
+                            decrypted_chunk = await self.loop.run_in_executor(  # type: ignore[arg-type]
                                 self.executor,
                                 aes.ctr256_decrypt,
-                                chunk,
-                                r.encryption_key,
-                                bytearray(r.encryption_iv[:-4] + (offset_bytes // 16).to_bytes(4, "big"))
+                                chunk,   # type: ignore[arg-type]
+                                r.encryption_key,  # type: ignore[arg-type]
+                                bytearray(r.encryption_iv[:-4] + (offset_bytes // 16).to_bytes(4, "big"))  # type: ignore[arg-type]
                             )
 
                             hashes = await session.invoke(
@@ -1305,17 +1293,14 @@ class Client(Methods):
                             offset_bytes += chunk_size
 
                             if progress:
-                                func = functools.partial(
+                                await invoke_callable(
                                     progress,
                                     min(offset_bytes, file_size) if file_size != 0 else offset_bytes,
                                     file_size,
-                                    *progress_args
+                                    *progress_args,
+                                    executor=self.executor,
+                                    loop=self.loop
                                 )
-
-                                if inspect.iscoroutinefunction(progress):
-                                    await func()
-                                else:
-                                    await self.loop.run_in_executor(self.executor, func)
 
                             if len(chunk) < chunk_size or current >= total:
                                 break
@@ -1325,8 +1310,8 @@ class Client(Methods):
                 raise
             except (FloodWaitX, FloodPremiumWaitX):
                 raise
-            except Exception as e:
-                log.exception("get_file error: %s", e)
+            except Exception:
+                log.exception("get_file error")
                 raise
 
     async def get_session(
@@ -1383,6 +1368,9 @@ class Client(Methods):
                         connection_id=business_connection_id
                     )
                 )
+
+                if not connection.updates:
+                    raise ValueError(f"No updates returned for business connection {business_connection_id}")
 
                 dc_id = self.business_connections[business_connection_id] = connection.updates[0].connection.dc_id
 
@@ -1625,7 +1613,7 @@ class Client(Methods):
     def _set_server_time(self, msg_id: int):
         server_ts = msg_id / float(2**32)
         self._server_time_offset = server_ts - time.time()
-        log.info(f"Time synced: offset={self._server_time_offset:.3f}s, server_time={utils.timestamp_to_datetime(server_ts)}")
+        log.info("Time synced: offset=%.3fs, server_time=%s", self._server_time_offset, utils.timestamp_to_datetime(server_ts))
 
     def guess_mime_type(self, filename: Union[str, BytesIO]) -> Optional[str]:
         if isinstance(filename, BytesIO):
@@ -1640,17 +1628,22 @@ class Client(Methods):
 class Cache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.store = {}
+        self.store = OrderedDict()
 
     def __getitem__(self, key):
-        return self.store.get(key, None)
+        try:
+            self.store.move_to_end(key)
+            return self.store[key]
+        except KeyError:
+            return None
 
     def __setitem__(self, key, value):
-        if key in self.store:
-            del self.store[key]
-
+        try:
+            self.store.move_to_end(key)
+        except KeyError:
+            if self.capacity > 0 and len(self.store) >= self.capacity:
+                self.store.popitem(last=False)
         self.store[key] = value
 
-        if len(self.store) > self.capacity:
-            for _ in range(self.capacity // 2 + 1):
-                del self.store[next(iter(self.store))]
+    def __contains__(self, key):
+        return key in self.store
