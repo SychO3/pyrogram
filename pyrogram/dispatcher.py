@@ -262,11 +262,25 @@ class Dispatcher:
     async def start(self):
         if callable(self.client.start_handler):
             try:
-                await self.client.start_handler(self.client)
+                if inspect.iscoroutinefunction(self.client.start_handler):
+                    await self.client.start_handler(self.client)
+                else:
+                    result = self.client.start_handler(self.client)
+                    if inspect.isawaitable(result):
+                        await result
             except Exception as e:
-                log.exception(e)
+                log.exception("start_handler raised: %s", e)
 
         if not self.client.no_updates:
+            self.locks_list.clear()
+            self.handler_worker_tasks.clear()
+
+            if 0 not in self.groups or self.conversation_handler not in self.groups.get(0, []):
+                if 0 not in self.groups:
+                    self.groups[0] = []
+                    self.groups = OrderedDict(sorted(self.groups.items()))
+                self.groups[0].insert(0, self.conversation_handler)
+
             for i in range(self.client.workers):
                 self.locks_list.append(asyncio.Lock())
 
@@ -301,7 +315,7 @@ class Dispatcher:
                         self.client.remove_listener(listener)
                         if getattr(listener, "future", None) and not listener.future.done():
                             try:
-                                listener.future.set_exception(asyncio.CancelledError())
+                                listener.future.cancel()
                             except Exception:
                                 pass
                     except Exception:
@@ -311,9 +325,14 @@ class Dispatcher:
 
         if callable(self.client.stop_handler):
             try:
-                await self.client.stop_handler(self.client)
+                if inspect.iscoroutinefunction(self.client.stop_handler):
+                    await self.client.stop_handler(self.client)
+                else:
+                    result = self.client.stop_handler(self.client)
+                    if inspect.isawaitable(result):
+                        await result
             except Exception as e:
-                log.exception(e)
+                log.exception("stop_handler raised: %s", e)
 
         if not self.client.no_updates:
             for i in range(self.client.workers):
@@ -322,8 +341,10 @@ class Dispatcher:
             for i in self.handler_worker_tasks:
                 await i
 
+            self.handler_worker_tasks.clear()
+            self.locks_list.clear()
+
             if clear_handlers:
-                self.handler_worker_tasks.clear()
                 self.groups.clear()
 
             log.info("Stopped %s HandlerTasks", self.client.workers)
@@ -339,6 +360,8 @@ class Dispatcher:
                     self.groups = OrderedDict(sorted(self.groups.items()))
 
                 self.groups[group].append(handler)
+            except Exception as e:
+                log.exception("Failed to add handler: %s", e)
             finally:
                 for lock in self.locks_list:
                     lock.release()
@@ -352,14 +375,17 @@ class Dispatcher:
 
             try:
                 if group not in self.groups:
-                    raise ValueError(
-                        f"Group {group} does not exist. Handler was not removed."
-                    )
+                    log.warning("Group %s does not exist. Handler was not removed.", group)
+                    return
 
                 self.groups[group].remove(handler)
 
                 if not self.groups[group]:
                     del self.groups[group]
+            except ValueError:
+                log.warning("Handler not found in group %s.", group)
+            except Exception as e:
+                log.exception("Failed to remove handler: %s", e)
             finally:
                 for lock in self.locks_list:
                     lock.release()
@@ -395,16 +421,16 @@ class Dispatcher:
                                 try:
                                     if await handler.check(self.client, parsed_update):
                                         args = (parsed_update,)
-                                except Exception as e:
-                                    log.exception(e)
+                                except Exception:
+                                    log.exception("Handler check failed")
                                     continue
 
                             elif isinstance(handler, RawUpdateHandler):
                                 try:
                                     if await handler.check(self.client, update):
                                         args = (update, users, chats)
-                                except Exception as e:
-                                    log.exception(e)
+                                except Exception:
+                                    log.exception("Raw handler check failed")
                                     continue
 
                             if args is None:
@@ -421,8 +447,7 @@ class Dispatcher:
                                         *args
                                     )
                             except asyncio.CancelledError:
-                                # Swallow task cancellations during shutdown/interrupt
-                                pass
+                                raise
                             except pyrogram.StopPropagation:
                                 raise
                             except pyrogram.ContinuePropagation:
@@ -435,8 +460,8 @@ class Dispatcher:
                             break
             except pyrogram.StopPropagation:
                 pass
-            except Exception as e:
-                log.exception(e)
+            except Exception:
+                log.exception("Unhandled exception in handler worker")
 
     async def handle_update_handler_exception(
         self,

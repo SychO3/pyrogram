@@ -43,9 +43,10 @@ class Filter:
 class InvertFilter(Filter):
     def __init__(self, base):
         self.base = base
+        self._base_is_async = inspect.iscoroutinefunction(base.__call__)
 
     async def __call__(self, client: "pyrogram.Client", update: Update):
-        if inspect.iscoroutinefunction(self.base.__call__):
+        if self._base_is_async:
             x = await self.base(client, update)
         else:
             x = await client.loop.run_in_executor(
@@ -61,9 +62,11 @@ class AndFilter(Filter):
     def __init__(self, base, other):
         self.base = base
         self.other = other
+        self._base_is_async = inspect.iscoroutinefunction(base.__call__)
+        self._other_is_async = inspect.iscoroutinefunction(other.__call__)
 
     async def __call__(self, client: "pyrogram.Client", update: Update):
-        if inspect.iscoroutinefunction(self.base.__call__):
+        if self._base_is_async:
             x = await self.base(client, update)
         else:
             x = await client.loop.run_in_executor(
@@ -72,11 +75,10 @@ class AndFilter(Filter):
                 client, update
             )
 
-        # short circuit
         if not x:
             return False
 
-        if inspect.iscoroutinefunction(self.other.__call__):
+        if self._other_is_async:
             y = await self.other(client, update)
         else:
             y = await client.loop.run_in_executor(
@@ -85,16 +87,18 @@ class AndFilter(Filter):
                 client, update
             )
 
-        return x and y
+        return y
 
 
 class OrFilter(Filter):
     def __init__(self, base, other):
         self.base = base
         self.other = other
+        self._base_is_async = inspect.iscoroutinefunction(base.__call__)
+        self._other_is_async = inspect.iscoroutinefunction(other.__call__)
 
     async def __call__(self, client: "pyrogram.Client", update: Update):
-        if inspect.iscoroutinefunction(self.base.__call__):
+        if self._base_is_async:
             x = await self.base(client, update)
         else:
             x = await client.loop.run_in_executor(
@@ -103,11 +107,10 @@ class OrFilter(Filter):
                 client, update
             )
 
-        # short circuit
         if x:
             return True
 
-        if inspect.iscoroutinefunction(self.other.__call__):
+        if self._other_is_async:
             y = await self.other(client, update)
         else:
             y = await client.loop.run_in_executor(
@@ -116,7 +119,7 @@ class OrFilter(Filter):
                 client, update
             )
 
-        return x or y
+        return y
 
 
 CUSTOM_FILTER_NAME = "CustomFilter"
@@ -146,7 +149,7 @@ def create(func: Callable, name: str = None, **kwargs) -> Filter:
             :meth:`~pyrogram.filters.command` or :meth:`~pyrogram.filters.regex`.
     """
     return type(
-        name or func.__name__ or CUSTOM_FILTER_NAME,
+        name or getattr(func, "__name__", None) or CUSTOM_FILTER_NAME,
         (Filter,),
         {"__call__": func, **kwargs}
     )()
@@ -923,11 +926,11 @@ paid_message = create(paid_message_filter)
 
 # region linked_channel_filter
 async def linked_channel_filter(_, __, m: Message):
-    return bool(
-        m.forward_origin and
-        m.forward_origin.type == enums.MessageOriginType.CHANNEL and
-        m.forward_origin.chat == m.sender_chat
-    )
+    origin = m.forward_origin
+    if not (origin and origin.type == enums.MessageOriginType.CHANNEL and m.sender_chat):
+        return False
+    origin_chat = getattr(origin, "chat", None)
+    return origin_chat is not None and origin_chat.id == m.sender_chat.id
 
 
 linked_channel = create(linked_channel_filter)
@@ -999,7 +1002,7 @@ def command(commands: Union[str, List[str]], prefixes: Optional[Union[str, List[
     command_re = re.compile(r"([\"'])(.*?)(?<!\\)\1|(\S+)")
 
     async def func(flt, client: pyrogram.Client, message: Message):
-        username = client.me.username or ""
+        username = client.me.username if client.me else ""
         text = message.text or message.caption
         message.command = None
 
@@ -1013,11 +1016,12 @@ def command(commands: Union[str, List[str]], prefixes: Optional[Union[str, List[
             without_prefix = text[len(prefix):]
 
             for cmd in flt.commands:
-                if not re.match(rf"^(?:{cmd}(?:@?{username})?)(?:\s|$)", without_prefix,
+                escaped_cmd = re.escape(cmd)
+                if not re.match(rf"^(?:{escaped_cmd}(?:@?{username})?)(?:\s|$)", without_prefix,
                                 flags=re.IGNORECASE if not flt.case_sensitive else 0):
                     continue
 
-                without_command = re.sub(rf"{cmd}(?:@?{username})?\s?", "", without_prefix, count=1,
+                without_command = re.sub(rf"{escaped_cmd}(?:@?{username})?\s?", "", without_prefix, count=1,
                                          flags=re.IGNORECASE if not flt.case_sensitive else 0)
 
                 # match.groups are 1-indexed, group(1) is the quote, group(2) is the text
@@ -1087,6 +1091,8 @@ def regex(pattern: Union[str, Pattern], flags: int = 0):
 
         if value:
             update.matches = list(flt.p.finditer(value)) or None
+        else:
+            update.matches = None
 
         return bool(update.matches)
 

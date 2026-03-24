@@ -112,7 +112,7 @@ class CallbackQueryHandler(Handler):
                     listener_does_match = await filters(client, query)
                 else:
                     listener_does_match = await client.loop.run_in_executor(
-                        None, filters, client, query
+                        client.executor, filters, client, query
                     )
             else:
                 listener_does_match = True
@@ -132,20 +132,20 @@ class CallbackQueryHandler(Handler):
             client, query
         )
 
+        query._matched_listener = listener if listener_does_match else None
+
         if callable(self.filters):
             if iscoroutinefunction(self.filters.__call__):
                 handler_does_match = await self.filters(client, query)
             else:
                 handler_does_match = await client.loop.run_in_executor(
-                    None, self.filters, client, query
+                    client.executor, self.filters, client, query
                 )
         else:
             handler_does_match = True
 
-        data = self.compose_data_identifier(query)
-
-        if PyromodConfig.unallowed_click_alert:
-            # matches with the current query but from any user
+        if PyromodConfig.unallowed_click_alert and listener:
+            data = self.compose_data_identifier(query)
             permissive_identifier = Identifier(
                 chat_id=data.chat_id,
                 message_id=data.message_id,
@@ -153,11 +153,9 @@ class CallbackQueryHandler(Handler):
                 from_user_id=None,
             )
 
-            matches = permissive_identifier.matches(data)
-
             if (
-                listener
-                and (matches and not listener_does_match)
+                permissive_identifier.matches(data)
+                and not listener_does_match
                 and listener.unallowed_click_alert
             ):
                 alert = (
@@ -168,8 +166,6 @@ class CallbackQueryHandler(Handler):
                 await query.answer(alert)
                 return False
 
-        # let handler get the chance to handle if listener
-        # exists but its filters doesn't match
         return listener_does_match or handler_does_match
 
     async def resolve_future_or_callback(
@@ -183,9 +179,11 @@ class CallbackQueryHandler(Handler):
         :param args: The arguments to call the callback with.
         :return: None
         """
-        listener_does_match, listener = await self.check_if_has_matching_listener(
-            client, query
-        )
+        listener = getattr(query, '_matched_listener', None)
+        listener_does_match = listener is not None
+
+        if not listener_does_match:
+            listener_does_match, listener = await self.check_if_has_matching_listener(client, query)
 
         if listener and listener_does_match:
             client.remove_listener(listener)

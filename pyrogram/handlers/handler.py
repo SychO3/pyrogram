@@ -17,11 +17,14 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import inspect
+import logging
 from typing import Callable, Optional
 
 import pyrogram
 from pyrogram.filters import Filter
 from pyrogram.types import Update
+
+log = logging.getLogger(__name__)
 
 
 class Handler:
@@ -39,5 +42,8 @@ class Handler:
                     self.filters,
                     client, update
                 )
+
+        if self.filters is not None:
+            log.warning("Non-callable filter %r treated as match-all", self.filters)
 
         return True

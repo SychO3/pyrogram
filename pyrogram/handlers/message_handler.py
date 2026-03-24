@@ -89,7 +89,7 @@ class MessageHandler(Handler):
                     listener_does_match = await filters(client, message)
                 else:
                     listener_does_match = await client.loop.run_in_executor(
-                        None, filters, client, message
+                        client.executor, filters, client, message
                     )
             else:
                 listener_does_match = True
@@ -104,22 +104,20 @@ class MessageHandler(Handler):
         :param message: Message object to check with.
         :return: Whether the message has a matching listener or handler and its filters does match with the Message.
         """
-        listener_does_match = (
-            await self.check_if_has_matching_listener(client, message)
-        )[0]
+        listener_does_match, listener = await self.check_if_has_matching_listener(client, message)
+
+        message._matched_listener = listener if listener_does_match else None
 
         if callable(self.filters):
             if iscoroutinefunction(self.filters.__call__):
                 handler_does_match = await self.filters(client, message)
             else:
                 handler_does_match = await client.loop.run_in_executor(
-                    None, self.filters, client, message
+                    client.executor, self.filters, client, message
                 )
         else:
             handler_does_match = True
 
-        # let handler get the chance to handle if listener
-        # exists but its filters doesn't match
         return listener_does_match or handler_does_match
 
     async def resolve_future_or_callback(self, client: "pyrogram.Client", message: Message, *args):
@@ -131,9 +129,11 @@ class MessageHandler(Handler):
         :param args: Arguments to call the callback with.
         :return: None
         """
-        listener_does_match, listener = await self.check_if_has_matching_listener(
-            client, message
-        )
+        listener = getattr(message, '_matched_listener', None)
+        listener_does_match = listener is not None
+
+        if not listener_does_match:
+            listener_does_match, listener = await self.check_if_has_matching_listener(client, message)
 
         if listener and listener_does_match:
             client.remove_listener(listener)

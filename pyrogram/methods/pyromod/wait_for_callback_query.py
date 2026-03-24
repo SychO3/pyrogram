@@ -78,5 +78,5 @@ class WaitForCallbackQuery:
             )
         )
         waiter = dict(future=future, filters=filters, update_type=types.CallbackQuery)
-        conversation_handler.waiters[chat_id] = waiter
+        conversation_handler.register_waiter(chat_id, waiter)
         return await asyncio.wait_for(future, timeout=timeout)

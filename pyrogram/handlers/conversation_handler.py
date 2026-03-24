@@ -29,11 +29,20 @@ from .handler import Handler
 class ConversationHandler(MessageHandler, CallbackQueryHandler):
     """The Conversation handler class."""
     def __init__(self):
-        # Initialize base handler with a no-op async callback to satisfy handler interface
         Handler.__init__(self, self.callback)
+        self.original_callback = self.callback
         self.waiters = {}
 
+    def register_waiter(self, chat_id, waiter):
+        old = self.waiters.get(chat_id)
+        if old and not old['future'].done():
+            old['future'].cancel()
+        self.waiters[chat_id] = waiter
+
     async def check(self, client: "pyrogram.Client", update: Union[Message, CallbackQuery]):
+        if not self.waiters:
+            return False
+
         if isinstance(update, Message) and update.outgoing:
             return False
 
@@ -71,8 +80,9 @@ class ConversationHandler(MessageHandler, CallbackQueryHandler):
 
     @staticmethod
     async def callback(_, __):
-        pass
+        raise pyrogram.StopPropagation
 
     def delete_waiter(self, chat_id, future):
-        if future == self.waiters[chat_id]['future']:
+        waiter = self.waiters.get(chat_id)
+        if waiter and waiter.get('future') == future:
             del self.waiters[chat_id]

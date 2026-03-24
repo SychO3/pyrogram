@@ -164,7 +164,7 @@ class Auth:
                     )
                 )
 
-                if isinstance(server_dh_params, raw.types.ServerDhParamsFail):
+                if isinstance(server_dh_params, raw.types.ServerDHParamsFail):
                     raise Exception("Server DH params generation failed")
 
                 encrypted_answer = server_dh_params.encrypted_answer
