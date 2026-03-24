@@ -29,7 +29,7 @@ class GetChatAudiosCount:
     ) -> int:
         """Get the total count of audios for a chat.
 
-        .. include:: /_includes/usable-by/users.rst
+        .. include:: /_includes/usable-by/users-bots.rst
 
         Parameters:
             chat_id (``int`` | ``str``):
