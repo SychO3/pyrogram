@@ -19,9 +19,9 @@
 import asyncio
 import logging
 import os
+from struct import pack, unpack
 from typing import Optional, Tuple, Union
 
-import pyrogram
 from pyrogram.crypto import aes
 
 from .tcp import TCP, ProxyDict
@@ -29,8 +29,8 @@ from .tcp import TCP, ProxyDict
 log = logging.getLogger(__name__)
 
 
-class TCPAbridgedO(TCP):
-    RESERVED = (b"HEAD", b"POST", b"GET ", b"OPTI", b"\xee" * 4)
+class TCPPaddedIntermediateO(TCP):
+    RESERVED = (b"HEAD", b"POST", b"GET ", b"OPTI", b"\xee" * 4, b"\xdd" * 4)
 
     def __init__(
         self,
@@ -56,7 +56,7 @@ class TCPAbridgedO(TCP):
                 and nonce[:4] not in self.RESERVED
                 and nonce[4:8] != b"\x00" * 4
             ):
-                nonce[56] = nonce[57] = nonce[58] = nonce[59] = 0xEF
+                nonce[56] = nonce[57] = nonce[58] = nonce[59] = 0xDD
                 break
 
         temp = bytearray(nonce[55:7:-1])
@@ -70,48 +70,47 @@ class TCPAbridgedO(TCP):
         self.marker_event.set()
 
     async def send(self, data: bytes, *args, request_ack: bool = False) -> None:
-        length = len(data) // 4
-
-        if length <= 126:
-            header = bytes([length | 0x80]) if request_ack else bytes([length])
-        else:
-            header = (b"\xff" if request_ack else b"\x7f") + length.to_bytes(3, "little")
-
+        padding = os.urandom(os.urandom(1)[0] % 16)
+        total_len = len(data) + len(padding)
+        if request_ack:
+            total_len |= 0x80000000
+        data_padded = pack("<I", total_len) + data + padding
         payload = await self.loop.run_in_executor(
-            self.crypto_executor, aes.ctr256_encrypt, header + data, *self.encrypt
+            self.crypto_executor, aes.ctr256_encrypt, data_padded, *self.encrypt
         )
         await super().send(payload)
 
     async def recv(self, length: int = 0) -> Optional[bytes]:
         while True:
-            length = await super().recv(1)
+            length = await super().recv(4)
 
             if length is None:
                 return None
 
             length = aes.ctr256_decrypt(length, *self.decrypt)
+            tlen = unpack("<I", length)[0]
 
-            if length[0] & 0x80:
-                remaining = await super().recv(3)
-                if remaining is None:
-                    return None
-                remaining = aes.ctr256_decrypt(remaining, *self.decrypt)
-                token = bytes(reversed(length + remaining))
-                if self.quick_ack_handler:
-                    self.quick_ack_handler(token)
-                continue
-
-            if length == b"\x7f":
-                length = await super().recv(3)
-                if length is None:
-                    return None
-                length = aes.ctr256_decrypt(length, *self.decrypt)
-
-            data = await super().recv(int.from_bytes(length, "little") * 4)
+            data = await super().recv(tlen)
 
             if data is None:
                 return None
 
-            return await self.loop.run_in_executor(
+            data = await self.loop.run_in_executor(
                 self.crypto_executor, aes.ctr256_decrypt, data, *self.decrypt
             )
+
+            # Quick ACK in padded intermediate: 0xFFFFFFFF(4) + token(4) + padding(0-8)
+            if tlen <= 16 and len(data) >= 8 and data[:4] == b"\xff\xff\xff\xff":
+                if self.quick_ack_handler:
+                    self.quick_ack_handler(bytes(data[4:8]))
+                continue
+
+            # Transport errors / special packets (< minimum MTProto payload of 40 bytes)
+            if tlen < 24:
+                return bytes(data[:4])
+
+            # Normal MTProto payload is always ≡ 8 (mod 16): 24 + N*16
+            # Strip the random transport padding added by the sender
+            padding_len = (tlen - 8) % 16
+            payload_len = tlen - padding_len
+            return bytes(data[:payload_len])

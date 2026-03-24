@@ -68,6 +68,7 @@ class TCPFull(TCP):
         packet = packet[:-4]
 
         if crc32(packet) != unpack("<I", checksum)[0]:
+            log.warning("CRC32 mismatch: data corruption detected, dropping packet")
             return None
 
         return packet[8:]

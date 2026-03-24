@@ -69,20 +69,35 @@ class TCPIntermediateO(TCP):
         await super().send(nonce, wait_for_marker=False)
         self.marker_event.set()
 
-    async def send(self, data: bytes, *args) -> None:
-        await super().send(aes.ctr256_encrypt(pack("<i", len(data)) + data, *self.encrypt))
+    async def send(self, data: bytes, *args, request_ack: bool = False) -> None:
+        length = len(data)
+        if request_ack:
+            length |= 0x80000000
+        payload = await self.loop.run_in_executor(
+            self.crypto_executor, aes.ctr256_encrypt, pack("<I", length) + data, *self.encrypt
+        )
+        await super().send(payload)
 
     async def recv(self, length: int = 0) -> Optional[bytes]:
-        length = await super().recv(4)
+        while True:
+            raw = await super().recv(4)
 
-        if length is None:
-            return None
+            if raw is None:
+                return None
 
-        length = aes.ctr256_decrypt(length, *self.decrypt)
+            decrypted_len = aes.ctr256_decrypt(raw, *self.decrypt)
+            value = unpack("<I", decrypted_len)[0]
 
-        data = await super().recv(unpack("<i", length)[0])
+            if value >= 0x80000000:
+                if self.quick_ack_handler:
+                    self.quick_ack_handler(decrypted_len)
+                continue
 
-        if data is None:
-            return None
+            data = await super().recv(value)
 
-        return aes.ctr256_decrypt(data, *self.decrypt)
+            if data is None:
+                return None
+
+            return await self.loop.run_in_executor(
+                self.crypto_executor, aes.ctr256_decrypt, data, *self.decrypt
+            )

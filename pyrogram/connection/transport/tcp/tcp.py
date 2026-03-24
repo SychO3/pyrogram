@@ -61,6 +61,7 @@ class TCP:
 
         self.marker_event = asyncio.Event()
         self.lock = asyncio.Lock()
+        self.quick_ack_handler = None
 
         if isinstance(loop, asyncio.AbstractEventLoop):
             self.loop = loop
@@ -130,11 +131,19 @@ class TCP:
 
         log.info("Connection established")
 
+    def _set_socket_options(self) -> None:
+        if self.writer is None:
+            return
+        sock = self.writer.transport.get_extra_info("socket")
+        if sock is not None:
+            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+
     async def _connect(self, destination: Tuple[str, int]) -> None:
         if self.proxy:
             await self._connect_via_proxy(destination)
         else:
             await self._connect_via_direct(destination)
+        self._set_socket_options()
 
     async def connect(self, address: Tuple[str, int]) -> None:
         try:
@@ -161,29 +170,28 @@ class TCP:
             finally:
                 self.writer = None
 
+        self.crypto_executor.shutdown(wait=False)
+
     async def send(self, data: bytes, wait_for_marker: bool = True) -> None:
+        if wait_for_marker:
+            try:
+                await asyncio.wait_for(self.marker_event.wait(), timeout=TCP.TIMEOUT)
+            except asyncio.TimeoutError:
+                raise TimeoutError("Timed out waiting for transport handshake")
+
         async with self.lock:
             if self.writer is None or self.writer.is_closing():
                 log.debug("Send called but writer is None or closing")
                 return None
 
-            if wait_for_marker:
-                log.debug("Waiting for marker event before sending")
-                try:
-                    await asyncio.wait_for(self.marker_event.wait(), timeout=TCP.TIMEOUT)
-                except asyncio.TimeoutError:
-                    log.error("Timed out waiting for marker event after %ss", TCP.TIMEOUT)
-                    raise TimeoutError
-                log.debug("Marker event received, proceeding with send")
-
             log.debug("Sending %d bytes", len(data))
             try:
                 self.writer.write(data)
                 await self.writer.drain()
-                log.debug("Send complete")
+            except OSError:
+                raise
             except Exception as e:
-                log.error("Send failed: %s %s", type(e).__name__, e)
-                raise OSError(e)
+                raise OSError(str(e)) from e
 
     async def recv(self, length: int = 0) -> Optional[bytes]:
         if not self.reader:
@@ -191,17 +199,17 @@ class TCP:
             return None
 
         log.debug("Receiving %d bytes", length)
-        data = b""
+        buf = bytearray()
 
-        while len(data) < length:
+        while len(buf) < length:
             try:
                 chunk = await asyncio.wait_for(
-                    self.reader.read(length - len(data)),
+                    self.reader.read(length - len(buf)),
                     timeout=TCP.TIMEOUT,
                 )
             except asyncio.TimeoutError:
                 log.debug(
-                    "Recv timed out after %ss (got %d/%d bytes)", TCP.TIMEOUT, len(data), length
+                    "Recv timed out after %ss (got %d/%d bytes)", TCP.TIMEOUT, len(buf), length
                 )
                 return None
             except OSError as e:
@@ -209,17 +217,17 @@ class TCP:
                 return None
             else:
                 if chunk:
-                    data += chunk
+                    buf.extend(chunk)
                     log.debug(
-                        "Received chunk: %d bytes (%d/%d total)", len(chunk), len(data), length
+                        "Received chunk: %d bytes (%d/%d total)", len(chunk), len(buf), length
                     )
                 else:
                     log.debug(
                         "Recv got empty chunk (connection closed?) after %d/%d bytes",
-                        len(data),
+                        len(buf),
                         length,
                     )
                     return None
 
-        log.debug("Recv complete: %d bytes", len(data))
-        return data
+        log.debug("Recv complete: %d bytes", len(buf))
+        return bytes(buf)

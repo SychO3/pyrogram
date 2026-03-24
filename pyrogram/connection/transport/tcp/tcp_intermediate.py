@@ -42,13 +42,24 @@ class TCPIntermediate(TCP):
         await super().send(b"\xee" * 4, wait_for_marker=False)
         self.marker_event.set()
 
-    async def send(self, data: bytes, *args) -> None:
-        await super().send(pack("<i", len(data)) + data)
+    async def send(self, data: bytes, *args, request_ack: bool = False) -> None:
+        length = len(data)
+        if request_ack:
+            length |= 0x80000000
+        await super().send(pack("<I", length) + data)
 
     async def recv(self, length: int = 0) -> Optional[bytes]:
-        length = await super().recv(4)
+        while True:
+            raw_length = await super().recv(4)
 
-        if length is None:
-            return None
+            if raw_length is None:
+                return None
 
-        return await super().recv(unpack("<i", length)[0])
+            value = unpack("<I", raw_length)[0]
+
+            if value >= 0x80000000:
+                if self.quick_ack_handler:
+                    self.quick_ack_handler(raw_length)
+                continue
+
+            return await super().recv(value)

@@ -41,26 +41,35 @@ class TCPAbridged(TCP):
         await super().send(b"\xef", wait_for_marker=False)
         self.marker_event.set()
 
-    async def send(self, data: bytes, *args) -> None:
+    async def send(self, data: bytes, *args, request_ack: bool = False) -> None:
         length = len(data) // 4
 
-        await super().send(
-            (bytes([length])
-             if length <= 126
-             else b"\x7f" + length.to_bytes(3, "little"))
-            + data
-        )
+        if length <= 126:
+            header = bytes([length | 0x80]) if request_ack else bytes([length])
+        else:
+            header = (b"\xff" if request_ack else b"\x7f") + length.to_bytes(3, "little")
+
+        await super().send(header + data)
 
     async def recv(self, length: int = 0) -> Optional[bytes]:
-        length = await super().recv(1)
-
-        if length is None:
-            return None
-
-        if length == b"\x7f":
-            length = await super().recv(3)
+        while True:
+            length = await super().recv(1)
 
             if length is None:
                 return None
 
-        return await super().recv(int.from_bytes(length, "little") * 4)
+            if length[0] & 0x80:
+                remaining = await super().recv(3)
+                if remaining is None:
+                    return None
+                token = bytes(reversed(length + remaining))
+                if self.quick_ack_handler:
+                    self.quick_ack_handler(token)
+                continue
+
+            if length == b"\x7f":
+                length = await super().recv(3)
+                if length is None:
+                    return None
+
+            return await super().recv(int.from_bytes(length, "little") * 4)
