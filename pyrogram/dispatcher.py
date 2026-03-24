@@ -328,7 +328,10 @@ class Dispatcher:
                 self.updates_queue.put_nowait(None)
 
             for i in self.handler_worker_tasks:
-                await i
+                try:
+                    await i
+                except asyncio.CancelledError:
+                    pass
 
             self.handler_worker_tasks.clear()
             self.locks_list.clear()
