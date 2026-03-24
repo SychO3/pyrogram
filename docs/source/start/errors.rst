@@ -44,9 +44,12 @@ provides categories of errors, which are named after the common HTTP errors and 
 -   :doc:`400 - BadRequest <../api/errors/bad-request>`
 -   :doc:`401 - Unauthorized <../api/errors/unauthorized>`
 -   :doc:`403 - Forbidden <../api/errors/forbidden>`
+-   :doc:`404 - NotFound <../api/errors/not-found>`
 -   :doc:`406 - NotAcceptable <../api/errors/not-acceptable>`
 -   :doc:`420 - Flood <../api/errors/flood>`
 -   :doc:`500 - InternalServerError <../api/errors/internal-server-error>`
+-   :doc:`503 - ServiceUnavailable <../api/errors/service-unavailable>`
+-   :doc:`Unknown <../api/errors/unknown>`
 
 Single Errors
 -------------

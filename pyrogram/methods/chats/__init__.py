@@ -32,6 +32,7 @@ from .delete_folder import DeleteFolder
 from .delete_forum_topic import DeleteForumTopic
 from .delete_supergroup import DeleteSupergroup
 from .delete_user_history import DeleteUserHistory
+from .edit_folder_invite_link import EditFolderInviteLink
 from .edit_forum_topic import EditForumTopic
 from .create_folder_invite_link import CreateFolderInviteLink
 from .get_chat import GetChat
@@ -149,6 +150,7 @@ class Chats(
     DeleteFolderInviteLink,
     DeleteForumTopic,
     DeleteSupergroup,
+    EditFolderInviteLink,
     EditForumTopic,
     CreateFolderInviteLink,
     GetPersonalChannels,
