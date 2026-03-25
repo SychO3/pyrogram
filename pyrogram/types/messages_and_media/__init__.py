@@ -21,6 +21,8 @@ from .auction_bid import AuctionBid
 from .auction_round import AuctionRound
 from .auction_state import AuctionState, AuctionStateActive, AuctionStateFinished
 from .audio import Audio
+from .bank_card_data import BankCardData
+from .bank_card_open_url import BankCardOpenUrl
 from .available_effect import AvailableEffect
 from .boosts_status import BoostsStatus
 from .business_message import BusinessMessage
@@ -63,6 +65,7 @@ from .gift_upgrade_preview import GiftUpgradePreview
 from .gift_upgrade_price import GiftUpgradePrice
 from .gift_upgrade_variants import GiftUpgradeVariants
 from .invoice import Invoice
+from .order_info import OrderInfo
 from .link_preview_options import LinkPreviewOptions
 from .giveaway import Giveaway
 from .input_checklist_task import InputChecklistTask
@@ -93,6 +96,7 @@ from .paid_messages_refunded import PaidMessagesRefunded
 from .paid_reactor import PaidReactor
 from .payment_form import PaymentForm
 from .payment_option import PaymentOption
+from .payment_receipt import PaymentReceipt
 from .payment_result import PaymentResult
 from .photo import Photo
 from .poll import Poll
@@ -103,7 +107,9 @@ from .refunded_payment import RefundedPayment
 from .reply_parameters import ReplyParameters
 from .restriction_reason import RestrictionReason
 from .saved_credentials import SavedCredentials
+from .saved_payment_info import SavedPaymentInfo
 from .screenshot_taken import ScreenshotTaken
+from .shipping_address import ShippingAddress
 from .star_amount import StarAmount
 from .gift_attribute import GiftAttribute
 from .gift_auction_state import GiftAuctionState
@@ -127,6 +133,7 @@ from .suggested_post_refunded import SuggestedPostRefunded
 from .suggested_post_price import SuggestedPostPrice, SuggestedPostPriceStar, SuggestedPostPriceTon
 from .text_quote import TextQuote
 from .thumbnail import Thumbnail
+from .validated_order_info import ValidatedOrderInfo
 from .upgraded_gift_attribute_id_backdrop import UpgradedGiftAttributeIdBackdrop
 from .upgraded_gift_attribute_id_model import UpgradedGiftAttributeIdModel
 from .upgraded_gift_attribute_id_symbol import UpgradedGiftAttributeIdSymbol
@@ -151,6 +158,8 @@ __all__ = [
     "AuctionStateActive",
     "AuctionStateFinished",
     "Audio",
+    "BankCardData",
+    "BankCardOpenUrl",
     "AvailableEffect",
     "BoostsStatus",
     "BusinessMessage",
@@ -199,6 +208,7 @@ __all__ = [
     "Giveaway",
     "InputChecklistTask",
     "Invoice",
+    "OrderInfo",
     "LinkPreviewOptions",
     "GiveawayCompleted",
     "GiveawayCreated",
@@ -227,6 +237,7 @@ __all__ = [
     "PaidReactor",
     "PaymentForm",
     "PaymentOption",
+    "PaymentReceipt",
     "PaymentResult",
     "Photo",
     "Poll",
@@ -237,7 +248,9 @@ __all__ = [
     "ReplyParameters",
     "RestrictionReason",
     "SavedCredentials",
+    "SavedPaymentInfo",
     "ScreenshotTaken",
+    "ShippingAddress",
     "StarAmount",
     "GiftAttribute",
     "GiftAuctionState",
@@ -263,6 +276,7 @@ __all__ = [
     "SuggestedPostPriceTon",
     "TextQuote",
     "Thumbnail",
+    "ValidatedOrderInfo",
     "UpgradedGiftAttributeIdBackdrop",
     "UpgradedGiftAttributeIdModel",
     "UpgradedGiftAttributeIdSymbol",

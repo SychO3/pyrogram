@@ -20,6 +20,7 @@ from .add_collection_gifts import AddCollectionGifts
 from .apply_gift_code import ApplyGiftCode
 from .buy_gift_upgrade import BuyGiftUpgrade
 from .check_gift_code import CheckGiftCode
+from .clear_saved_payment_info import ClearSavedPaymentInfo
 from .convert_gift_to_stars import ConvertGiftToStars
 from .craft_gift import CraftGift
 from .create_gift_collection import CreateGiftCollection
@@ -27,6 +28,7 @@ from .delete_gift_collection import DeleteGiftCollection
 from .drop_gift_original_details import DropGiftOriginalDetails
 from .edit_star_subscription import EditStarSubscription
 from .get_available_gifts import GetAvailableGifts
+from .get_bank_card_data import GetBankCardData
 from .get_chat_gifts import GetChatGifts
 from .get_gift_auction_state import GetGiftAuctionState
 from .get_chat_gifts_count import GetChatGiftsCount
@@ -35,6 +37,8 @@ from .get_gift_upgrade_preview import GetGiftUpgradePreview
 from .get_gift_upgrade_variants import GetGiftUpgradeVariants
 from .get_gifts_for_crafting import GetGiftsForCrafting
 from .get_payment_form import GetPaymentForm
+from .get_payment_receipt import GetPaymentReceipt
+from .get_saved_payment_info import GetSavedPaymentInfo
 from .get_stars_balance import GetStarsBalance
 from .get_ton_balance import GetTonBalance
 from .get_upgraded_gift import GetUpgradedGift
@@ -60,6 +64,7 @@ from .show_gift import ShowGift
 from .suggest_birthday import SuggestBirthday
 from .transfer_gift import TransferGift
 from .upgrade_gift import UpgradeGift
+from .validate_requested_info import ValidateRequestedInfo
 
 
 class Payments(
@@ -67,6 +72,7 @@ class Payments(
     ApplyGiftCode,
     BuyGiftUpgrade,
     CheckGiftCode,
+    ClearSavedPaymentInfo,
     ConvertGiftToStars,
     CraftGift,
     CreateGiftCollection,
@@ -74,6 +80,7 @@ class Payments(
     DropGiftOriginalDetails,
     EditStarSubscription,
     GetAvailableGifts,
+    GetBankCardData,
     GetChatGifts,
     GetGiftAuctionState,
     GetChatGiftsCount,
@@ -82,6 +89,8 @@ class Payments(
     GetGiftUpgradeVariants,
     GetGiftsForCrafting,
     GetPaymentForm,
+    GetPaymentReceipt,
+    GetSavedPaymentInfo,
     GetStarsBalance,
     GetTonBalance,
     GetUpgradedGift,
@@ -106,6 +115,7 @@ class Payments(
     ShowGift,
     SuggestBirthday,
     TransferGift,
-    UpgradeGift
+    UpgradeGift,
+    ValidateRequestedInfo
 ):
     pass

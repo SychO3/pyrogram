@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Optional
+
 import pyrogram
 from pyrogram import raw, types
 
@@ -25,7 +27,10 @@ class SendPaymentForm:
         self: "pyrogram.Client",
         payment_form_id: int,
         input_invoice: "types.InputInvoice",
-        credentials: "types.InputCredentials" = None
+        credentials: "types.InputCredentials" = None,
+        requested_info_id: Optional[str] = None,
+        shipping_option_id: Optional[str] = None,
+        tip_amount: Optional[int] = None
     ) -> "types.PaymentResult":
         """Send a filled-out payment form to the bot for final verification.
 
@@ -41,6 +46,16 @@ class SendPaymentForm:
             credentials (:obj:`~pyrogram.types.InputCredentials`, *optional*):
                 The credentials chosen by user for payment.
                 Pass None for a payment in Telegram Stars.
+
+            requested_info_id (``str``, *optional*):
+                Identifier of a saved order info, returned by
+                :meth:`~pyrogram.Client.validate_requested_info`.
+
+            shipping_option_id (``str``, *optional*):
+                Identifier of the chosen shipping option.
+
+            tip_amount (``int``, *optional*):
+                The amount of tip in the smallest units of the currency.
 
         Returns:
             :obj:`~pyrogram.types.PaymentResult`: On success, the payment result is returned.
@@ -60,7 +75,7 @@ class SendPaymentForm:
                     payment_form_id=form.id,
                     input_invoice=invoice,
                     credentials=types.InputCredentialsNew(
-                        data=json.dumps({"token": "...", "type": "card"}), # Pass the token received from the payment provider
+                        data=json.dumps({"token": "...", "type": "card"}),
                     )
                 )
 
@@ -89,7 +104,10 @@ class SendPaymentForm:
                 raw.functions.payments.SendPaymentForm(
                     form_id=payment_form_id,
                     invoice=await input_invoice.write(self),
-                    credentials=await credentials.write(self)
+                    credentials=await credentials.write(self),
+                    requested_info_id=requested_info_id,
+                    shipping_option_id=shipping_option_id,
+                    tip_amount=tip_amount
                 )
             )
 

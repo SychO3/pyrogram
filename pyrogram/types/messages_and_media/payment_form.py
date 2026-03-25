@@ -76,6 +76,9 @@ class PaymentForm(Object):
         native_provider (``str``, *optional*):
             Payment provider name.
 
+        order_info (:obj:`~pyrogram.types.OrderInfo`, *optional*):
+            Saved order information, if any.
+
         raw (:obj:`~raw.base.payments.PaymentForm`, *optional*):
             The raw object, as received from the Telegram API.
     """
@@ -100,6 +103,7 @@ class PaymentForm(Object):
         can_save_credentials: Optional[bool] = None,
         need_password: Optional[bool] = None,
         native_provider: Optional[str] = None,
+        order_info: Optional["types.OrderInfo"] = None,
         raw: "raw.base.payments.PaymentForm" = None,
     ):
         super().__init__(client)
@@ -120,6 +124,7 @@ class PaymentForm(Object):
         self.can_save_credentials = can_save_credentials
         self.need_password = need_password
         self.native_provider = native_provider
+        self.order_info = order_info
         self.raw = raw
 
     @staticmethod
@@ -142,9 +147,8 @@ class PaymentForm(Object):
                 can_save_credentials=form.can_save_credentials,
                 need_password=form.password_missing,
                 native_provider=form.native_provider,
-                # native_params,
                 additional_payment_options=types.List([types.PaymentOption._parse(option) for option in getattr(form, "additional_methods", [])]) or None,
-                # saved_info,
+                order_info=types.OrderInfo._parse(form.saved_info),
                 saved_credentials=types.List([types.SavedCredentials._parse(credential) for credential in getattr(form, "saved_credentials", [])]) or None,
                 raw=form
             )
