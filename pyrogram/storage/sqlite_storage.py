@@ -145,7 +145,7 @@ class SQLiteStorage(Storage):
         workdir: Path,
         session_string: Optional[str] = None,
         in_memory: Optional[bool] = False,
-        use_wal: Optional[bool] = False,
+        use_wal: Optional[bool] = True,
     ):
         super().__init__(name)
 
