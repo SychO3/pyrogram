@@ -61,6 +61,7 @@ from .http_wait import HttpWait
 from .ip_port import IpPort
 from .ip_port_secret import IpPortSecret
 from .access_point_rule import AccessPointRule
+from .null import Null
 from .input_peer_empty import InputPeerEmpty
 from .input_peer_self import InputPeerSelf
 from .input_peer_chat import InputPeerChat

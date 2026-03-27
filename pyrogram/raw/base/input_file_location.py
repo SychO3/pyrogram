@@ -49,15 +49,6 @@ else:
             - :obj:`InputSecureFileLocation <pyrogram.raw.types.InputSecureFileLocation>`
             - :obj:`InputStickerSetThumb <pyrogram.raw.types.InputStickerSetThumb>`
             - :obj:`InputTakeoutFileLocation <pyrogram.raw.types.InputTakeoutFileLocation>`
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
         """
 
         QUALNAME = "pyrogram.raw.base.InputFileLocation"

@@ -46,15 +46,6 @@ class InputPhotoLegacyFileLocation(TLObject):
         volume_id: ``int`` ``64-bit``
         local_id: ``int`` ``32-bit``
         secret: ``int`` ``64-bit``
-
-    See Also:
-        This object can be returned by 2 methods:
-
-        .. hlist::
-            :columns: 2
-
-            - :obj:`InputPeerPhotoFileLocationLegacy <pyrogram.raw.functions.InputPeerPhotoFileLocationLegacy>`
-            - :obj:`InputStickerSetThumbLegacy <pyrogram.raw.functions.InputStickerSetThumbLegacy>`
     """
 
     __slots__: List[str] = ["id", "access_hash", "file_reference", "volume_id", "local_id", "secret"]

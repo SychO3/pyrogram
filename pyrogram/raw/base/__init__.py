@@ -46,6 +46,7 @@ from .new_session import NewSession
 from .http_wait import HttpWait
 from .ip_port import IpPort
 from .access_point_rule import AccessPointRule
+from .null import Null
 from .input_peer import InputPeer
 from .input_user import InputUser
 from .input_contact import InputContact

@@ -16,53 +16,37 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from io import BytesIO
-from typing import TYPE_CHECKING, List, Optional, Any
-
-from pyrogram.raw.core.primitives import Int, Long, Int128, Int256, Bool, Bytes, String, Double, Vector
-from pyrogram.raw.core import TLObject
-
-if TYPE_CHECKING:
-    from pyrogram import raw
-
 # # # # # # # # # # # # # # # # # # # # # # # #
 #               !!! WARNING !!!               #
 #          This is a generated file!          #
 # All changes made in this file will be lost! #
 # # # # # # # # # # # # # # # # # # # # # # # #
 
+from typing import TYPE_CHECKING, Union
 
-class Null(TLObject["raw.base.Null"]):
-    """Telegram API method.
+from pyrogram import raw
+from pyrogram.raw.core import BaseTypeMeta
 
-    Details:
-        - Layer: ``223``
-        - ID: ``56730BCC``
 
-    **No parameters required.**
+if TYPE_CHECKING:
+    Null = Union[raw.types.Null]
+else:
+    # noinspection PyRedeclaration
+    class Null(metaclass=BaseTypeMeta):  # type: ignore
+        """This base type has 1 constructor available.
 
-    Returns:
-        :obj:`Null <pyrogram.raw.base.Null>`
-    """
+    Constructors:
+        .. hlist::
+            :columns: 2
 
-    __slots__: List[str] = []
+            - :obj:`Null <pyrogram.raw.types.Null>`
+        """
 
-    ID = 0x56730bcc
-    QUALNAME = "functions.Null"
+        QUALNAME = "pyrogram.raw.base.Null"
+        __union_types__ = Union[raw.types.Null]
 
-    def __init__(self) -> None:
-        pass
-
-    @staticmethod
-    def read(b: BytesIO, *args: Any) -> "Null":
-        # No flags
-        
-        return Null()
-
-    def write(self, *args) -> bytes:
-        b = BytesIO()
-        b.write(Int(self.ID, False))
-
-        # No flags
-        
-        return b.getvalue()
+        def __init__(self):
+            raise TypeError("Base types can only be used for type checking purposes: "
+                            "you tried to use a base type instance as argument, "
+                            "but you need to instantiate one of its constructors instead. "
+                            "More info: https://docs.kurigram.icu/telegram/base/null")

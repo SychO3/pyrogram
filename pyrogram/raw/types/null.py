@@ -32,60 +32,34 @@ if TYPE_CHECKING:
 # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-class InputPeerPhotoFileLocationLegacy(TLObject["raw.base.InputFileLocation"]):
-    """Telegram API method.
+class Null(TLObject):
+    """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Null`.
 
     Details:
         - Layer: ``223``
-        - ID: ``27D69997``
+        - ID: ``56730BCC``
 
-    Parameters:
-        peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
-        volume_id: ``int`` ``64-bit``
-        local_id: ``int`` ``32-bit``
-        big (optional): ``bool``
-
-    Returns:
-        :obj:`InputFileLocation <pyrogram.raw.base.InputFileLocation>`
+    **No parameters required.**
     """
 
-    __slots__: List[str] = ["peer", "volume_id", "local_id", "big"]
+    __slots__: List[str] = []
 
-    ID = 0x27d69997
-    QUALNAME = "functions.InputPeerPhotoFileLocationLegacy"
+    ID = 0x56730bcc
+    QUALNAME = "types.Null"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", volume_id: int, local_id: int, big: Optional[bool] = None) -> None:
-        self.peer = peer  # InputPeer
-        self.volume_id = volume_id  # long
-        self.local_id = local_id  # int
-        self.big = big  # flags.0?true
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
-    def read(b: BytesIO, *args: Any) -> "InputPeerPhotoFileLocationLegacy":
+    def read(b: BytesIO, *args: Any) -> "Null":
+        # No flags
         
-        flags = Int.read(b)
-        
-        big = True if flags & (1 << 0) else False
-        peer = TLObject.read(b)
-        
-        volume_id = Long.read(b)
-        
-        local_id = Int.read(b)
-        
-        return InputPeerPhotoFileLocationLegacy(peer=peer, volume_id=volume_id, local_id=local_id, big=big)
+        return Null()
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        flags = 0
-        flags |= (1 << 0) if self.big else 0
-        b.write(Int(flags))
-        
-        b.write(self.peer.write())
-        
-        b.write(Long(self.volume_id))
-        
-        b.write(Int(self.local_id))
+        # No flags
         
         return b.getvalue()
