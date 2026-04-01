@@ -292,6 +292,8 @@ LASTNAME_INVALID	The last name is invalid.
 LIMIT_INVALID	The provided limit is invalid.
 LINK_NOT_MODIFIED	The chat link was not modified because you tried to link to the same target.
 LOCATION_INVALID	The provided location is invalid.
+MANAGER_INVALID	The provided bot manager is invalid.
+MANAGER_PERMISSION_MISSING	The bot manager permission is missing.
 MAX_DATE_INVALID	The specified maximum date is invalid.
 MAX_ID_INVALID	The provided max_id is invalid.
 MAX_QTS_INVALID	The specified qts is invalid.
@@ -599,6 +601,7 @@ USERNAME_NOT_MODIFIED	The username was not modified because you tried to edit it
 USERNAME_NOT_OCCUPIED	The provided username is not occupied by anyone.
 USERNAME_OCCUPIED	The provided username is already in use by someone else.
 USERNAME_PURCHASE_AVAILABLE	The specified username can be purchased on https://fragment.com.
+USERNAME_SUFFIX_MISSING	Bot username must end in `bot`.
 USERPIC_UPLOAD_REQUIRED	You are required to upload a profile picture for this action.
 USERS_TOO_FEW	Not enough users (to create a chat, for example).
 USERS_TOO_MUCH	The maximum number of users has been exceeded (to create a chat, for example).
