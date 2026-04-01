@@ -27,6 +27,7 @@ BALANCE_TOO_LOW	The transaction cannot be completed because the current [Telegra
 BANK_CARD_NUMBER_INVALID	The specified credit card number is invalid.
 BANNED_RIGHTS_INVALID	You provided a set of restrictions that is invalid.
 BASE_PORT_LOC_INVALID	The base port location is invalid.
+BIRTHDAY_ALREADY	This user has already entered a birthday.
 BIRTHDAY_INVALID	An invalid age was specified, must be between 0 and 150 years.
 BOOSTS_EMPTY	No boost slots were specified.
 BOOSTS_REQUIRED	The specified channel must first be [boosted by its users](https://core.telegram.org/api/boost) in order to perform this action.
