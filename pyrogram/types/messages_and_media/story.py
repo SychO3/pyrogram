@@ -139,7 +139,7 @@ class Story(Object, Update):
         raw (:obj:`~pyrogram.raw.types.StoryItem`, *optional*):
             The raw story object, as received from the Telegram API.
     """
-
+    # TODO: Refactor
     def __init__(
         self,
         *,
@@ -1697,14 +1697,15 @@ class Story(Object, Update):
     async def copy(
         self,
         chat_id: Union[int, str],
-        caption: str = None,
+        caption: Optional[str] = None,
         parse_mode: Optional["enums.ParseMode"] = None,
-        caption_entities: List["types.MessageEntity"] = None,
-        period: int = None,
-        privacy: "enums.StoriesPrivacyRules" = None,
-        allowed_users: List[int] = None,
-        disallowed_users: List[int] = None,
-        protect_content: bool = None
+        caption_entities: Optional[List["types.MessageEntity"]] = None,
+        period: Optional[int] = None,
+        media_areas: Optional[List["types.MediaArea"]] = None,
+        privacy: Optional["enums.StoriesPrivacyRules"] = None,
+        allowed_users: Optional[List[int]] = None,
+        disallowed_users: Optional[List[int]] = None,
+        protect_content: Optional[bool] = None
     ) -> "types.Story":
         """Bound method *copy* of :obj:`~pyrogram.types.Story`.
 
@@ -1733,9 +1734,19 @@ class Story(Object, Update):
                 If not specified, the original caption is kept.
                 Pass "" (empty string) to remove the caption.
 
+            parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
+                By default, texts are parsed using both Markdown and HTML styles.
+                You can combine both syntaxes together.
+
+            caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
+                List of special entities that appear in the new caption, which can be specified instead of *parse_mode*.
+
             period (``int``, *optional*):
                 How long the story will posted, in secs.
                 only for premium users.
+
+            media_areas (List of :obj:`~pyrogram.types.MediaArea`, *optional*):
+                List of media areas to add to the story.
 
             privacy (:obj:`~pyrogram.enums.StoriesPrivacyRules`, *optional*):
                 Story privacy.
@@ -1755,13 +1766,6 @@ class Story(Object, Update):
             protect_content (``bool``, *optional*):
                 Protects the contents of the sent story from forwarding and saving.
 
-            parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
-                By default, texts are parsed using both Markdown and HTML styles.
-                You can combine both syntaxes together.
-
-            caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
-                List of special entities that appear in the new caption, which can be specified instead of *parse_mode*.
-
         Returns:
             :obj:`~pyrogram.types.Story`: On success, the copied story is returned.
 
@@ -1772,11 +1776,15 @@ class Story(Object, Update):
             caption = self.caption or ""
             caption_entities = self.caption_entities
 
+        if media_areas is None:
+            media_areas = self.media_areas
+
         return await self._client.send_story(
             chat_id=chat_id,
             media=await self.download(in_memory=True),
             caption=caption,
             period=period,
+            media_areas=media_areas,
             protect_content=protect_content,
             parse_mode=parse_mode,
             caption_entities=caption_entities,
