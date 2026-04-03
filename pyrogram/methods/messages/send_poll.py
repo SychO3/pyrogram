@@ -263,6 +263,7 @@ class SendPoll:
                 media=raw.types.InputMediaPoll(
                     poll=raw.types.Poll(
                         id=self.rnd_id(),
+                        hash=self.rnd_id(),
                         question=raw.types.TextWithEntities(
                             text=question,
                             entities=question_entities or []
