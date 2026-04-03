@@ -36,7 +36,7 @@ class InputCollectibleUsername(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputCollectible`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E39460A9``
 
     Parameters:

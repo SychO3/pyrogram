@@ -36,7 +36,7 @@ class RequestPeerTypeBroadcast(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RequestPeerType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``339BEF6C``
 
     Parameters:

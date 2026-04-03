@@ -36,7 +36,7 @@ class InputSavedStarGiftChat(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputSavedStarGift`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F101AA7F``
 
     Parameters:

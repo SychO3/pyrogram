@@ -36,7 +36,7 @@ class UpdateConnectedBot(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``66A08C7E``
 
     Parameters:

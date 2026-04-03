@@ -36,7 +36,7 @@ class AllowSendMessage(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F132E3EF``
 
     Parameters:

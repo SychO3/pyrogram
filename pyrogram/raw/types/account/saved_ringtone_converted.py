@@ -36,7 +36,7 @@ class SavedRingtoneConverted(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.SavedRingtone`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1F307EB7``
 
     Parameters:

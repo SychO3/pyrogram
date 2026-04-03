@@ -42,7 +42,7 @@ else:
             - :obj:`messages.AffectedHistory <pyrogram.raw.types.messages.AffectedHistory>`
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 8 methods:
 
         .. hlist::
             :columns: 2
@@ -53,6 +53,7 @@ else:
             - :obj:`messages.ReadReactions <pyrogram.raw.functions.messages.ReadReactions>`
             - :obj:`messages.DeleteSavedHistory <pyrogram.raw.functions.messages.DeleteSavedHistory>`
             - :obj:`messages.DeleteTopicHistory <pyrogram.raw.functions.messages.DeleteTopicHistory>`
+            - :obj:`messages.ReadPollVotes <pyrogram.raw.functions.messages.ReadPollVotes>`
             - :obj:`channels.DeleteParticipantHistory <pyrogram.raw.functions.channels.DeleteParticipantHistory>`
         """
 

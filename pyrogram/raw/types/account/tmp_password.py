@@ -36,7 +36,7 @@ class TmpPassword(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.TmpPassword`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DB64FD34``
 
     Parameters:

@@ -36,7 +36,7 @@ class CanSendMessage(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1359F4E6``
 
     Parameters:

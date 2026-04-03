@@ -36,7 +36,7 @@ class UpdateStarRefProgram(TLObject["raw.base.StarRefProgram"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``778B5AB3``
 
     Parameters:

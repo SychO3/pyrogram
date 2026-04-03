@@ -36,7 +36,7 @@ class CodeTypeCall(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.CodeType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``741CD3E3``
 
     **No parameters required.**

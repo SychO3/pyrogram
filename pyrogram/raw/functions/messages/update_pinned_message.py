@@ -36,7 +36,7 @@ class UpdatePinnedMessage(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D2AAF7EC``
 
     Parameters:

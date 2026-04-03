@@ -36,7 +36,7 @@ class CheckUsername(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2714D86C``
 
     Parameters:

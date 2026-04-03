@@ -36,7 +36,7 @@ class TextStrike(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RichText`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9BF8BB95``
 
     Parameters:

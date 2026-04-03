@@ -36,7 +36,7 @@ class ResendPasswordEmail(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7A7F2A15``
 
     **No parameters required.**

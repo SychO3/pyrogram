@@ -36,7 +36,7 @@ class SecureRequiredTypeOneOf(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureRequiredType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``27477B4``
 
     Parameters:

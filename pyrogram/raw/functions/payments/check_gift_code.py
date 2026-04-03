@@ -36,7 +36,7 @@ class CheckGiftCode(TLObject["raw.base.payments.CheckedGiftCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8E51B4C1``
 
     Parameters:

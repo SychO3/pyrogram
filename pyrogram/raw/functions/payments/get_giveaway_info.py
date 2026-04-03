@@ -36,7 +36,7 @@ class GetGiveawayInfo(TLObject["raw.base.payments.GiveawayInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F4239425``
 
     Parameters:

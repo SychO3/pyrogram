@@ -36,7 +36,7 @@ class LangPackStringPluralized(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.LangPackString`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6C47AC9F``
 
     Parameters:

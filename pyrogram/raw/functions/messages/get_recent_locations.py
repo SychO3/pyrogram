@@ -36,7 +36,7 @@ class GetRecentLocations(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``702A40E0``
 
     Parameters:

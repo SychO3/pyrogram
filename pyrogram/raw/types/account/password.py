@@ -36,7 +36,7 @@ class Password(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.Password`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``957B50FB``
 
     Parameters:

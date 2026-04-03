@@ -36,7 +36,7 @@ class UpdateColor(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``684D214E``
 
     Parameters:

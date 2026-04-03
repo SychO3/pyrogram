@@ -36,7 +36,7 @@ class InitPasskeyLogin(TLObject["raw.base.auth.PasskeyLoginOptions"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``518AD0B7``
 
     Parameters:

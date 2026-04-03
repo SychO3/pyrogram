@@ -36,7 +36,7 @@ class SmsJob(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SmsJob`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E6A1EEB8``
 
     Parameters:

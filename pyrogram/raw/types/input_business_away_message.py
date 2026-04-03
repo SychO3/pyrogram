@@ -36,7 +36,7 @@ class InputBusinessAwayMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputBusinessAwayMessage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``832175E0``
 
     Parameters:

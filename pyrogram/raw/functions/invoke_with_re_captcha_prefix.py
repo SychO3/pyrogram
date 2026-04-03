@@ -36,7 +36,7 @@ class InvokeWithReCaptchaPrefix(TLObject["raw.base.Error"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``ADBB0F94``
 
     Parameters:

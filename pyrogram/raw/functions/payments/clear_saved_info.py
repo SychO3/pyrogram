@@ -36,7 +36,7 @@ class ClearSavedInfo(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D83D70C1``
 
     Parameters:

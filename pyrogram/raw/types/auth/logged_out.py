@@ -36,7 +36,7 @@ class LoggedOut(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.LoggedOut`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C3A2835F``
 
     Parameters:

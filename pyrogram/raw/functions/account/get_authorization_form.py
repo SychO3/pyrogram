@@ -36,7 +36,7 @@ class GetAuthorizationForm(TLObject["raw.base.account.AuthorizationForm"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A929597A``
 
     Parameters:

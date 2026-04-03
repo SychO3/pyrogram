@@ -36,7 +36,7 @@ class ChatParticipantsForbidden(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatParticipants`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8763D3E1``
 
     Parameters:

@@ -36,7 +36,7 @@ class EmojiList(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmojiList`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7A1E11D1``
 
     Parameters:

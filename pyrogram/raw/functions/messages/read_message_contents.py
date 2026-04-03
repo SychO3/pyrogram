@@ -36,7 +36,7 @@ class ReadMessageContents(TLObject["raw.base.messages.AffectedMessages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``36A73F77``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputPrivacyKeyBirthday(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPrivacyKey`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D65A11CC``
 
     **No parameters required.**

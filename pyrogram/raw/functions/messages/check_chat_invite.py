@@ -36,7 +36,7 @@ class CheckChatInvite(TLObject["raw.base.ChatInvite"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3EADB1BB``
 
     Parameters:

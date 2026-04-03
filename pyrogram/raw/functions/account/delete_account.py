@@ -36,7 +36,7 @@ class DeleteAccount(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A2C0CF74``
 
     Parameters:

@@ -29,11 +29,11 @@ from pyrogram.raw.core import BaseTypeMeta
 
 
 if TYPE_CHECKING:
-    MessageEntity = Union[raw.types.InputMessageEntityMentionName, raw.types.MessageEntityBankCard, raw.types.MessageEntityBlockquote, raw.types.MessageEntityBold, raw.types.MessageEntityBotCommand, raw.types.MessageEntityCashtag, raw.types.MessageEntityCode, raw.types.MessageEntityCustomEmoji, raw.types.MessageEntityEmail, raw.types.MessageEntityFormattedDate, raw.types.MessageEntityHashtag, raw.types.MessageEntityItalic, raw.types.MessageEntityMention, raw.types.MessageEntityMentionName, raw.types.MessageEntityPhone, raw.types.MessageEntityPre, raw.types.MessageEntitySpoiler, raw.types.MessageEntityStrike, raw.types.MessageEntityTextUrl, raw.types.MessageEntityUnderline, raw.types.MessageEntityUnknown, raw.types.MessageEntityUrl]
+    MessageEntity = Union[raw.types.InputMessageEntityMentionName, raw.types.MessageEntityBankCard, raw.types.MessageEntityBlockquote, raw.types.MessageEntityBold, raw.types.MessageEntityBotCommand, raw.types.MessageEntityCashtag, raw.types.MessageEntityCode, raw.types.MessageEntityCustomEmoji, raw.types.MessageEntityDiffDelete, raw.types.MessageEntityDiffInsert, raw.types.MessageEntityDiffReplace, raw.types.MessageEntityEmail, raw.types.MessageEntityFormattedDate, raw.types.MessageEntityHashtag, raw.types.MessageEntityItalic, raw.types.MessageEntityMention, raw.types.MessageEntityMentionName, raw.types.MessageEntityPhone, raw.types.MessageEntityPre, raw.types.MessageEntitySpoiler, raw.types.MessageEntityStrike, raw.types.MessageEntityTextUrl, raw.types.MessageEntityUnderline, raw.types.MessageEntityUnknown, raw.types.MessageEntityUrl]
 else:
     # noinspection PyRedeclaration
     class MessageEntity(metaclass=BaseTypeMeta):  # type: ignore
-        """This base type has 22 constructors available.
+        """This base type has 25 constructors available.
 
     Constructors:
         .. hlist::
@@ -47,6 +47,9 @@ else:
             - :obj:`MessageEntityCashtag <pyrogram.raw.types.MessageEntityCashtag>`
             - :obj:`MessageEntityCode <pyrogram.raw.types.MessageEntityCode>`
             - :obj:`MessageEntityCustomEmoji <pyrogram.raw.types.MessageEntityCustomEmoji>`
+            - :obj:`MessageEntityDiffDelete <pyrogram.raw.types.MessageEntityDiffDelete>`
+            - :obj:`MessageEntityDiffInsert <pyrogram.raw.types.MessageEntityDiffInsert>`
+            - :obj:`MessageEntityDiffReplace <pyrogram.raw.types.MessageEntityDiffReplace>`
             - :obj:`MessageEntityEmail <pyrogram.raw.types.MessageEntityEmail>`
             - :obj:`MessageEntityFormattedDate <pyrogram.raw.types.MessageEntityFormattedDate>`
             - :obj:`MessageEntityHashtag <pyrogram.raw.types.MessageEntityHashtag>`
@@ -64,7 +67,7 @@ else:
         """
 
         QUALNAME = "pyrogram.raw.base.MessageEntity"
-        __union_types__ = Union[raw.types.InputMessageEntityMentionName, raw.types.MessageEntityBankCard, raw.types.MessageEntityBlockquote, raw.types.MessageEntityBold, raw.types.MessageEntityBotCommand, raw.types.MessageEntityCashtag, raw.types.MessageEntityCode, raw.types.MessageEntityCustomEmoji, raw.types.MessageEntityEmail, raw.types.MessageEntityFormattedDate, raw.types.MessageEntityHashtag, raw.types.MessageEntityItalic, raw.types.MessageEntityMention, raw.types.MessageEntityMentionName, raw.types.MessageEntityPhone, raw.types.MessageEntityPre, raw.types.MessageEntitySpoiler, raw.types.MessageEntityStrike, raw.types.MessageEntityTextUrl, raw.types.MessageEntityUnderline, raw.types.MessageEntityUnknown, raw.types.MessageEntityUrl]
+        __union_types__ = Union[raw.types.InputMessageEntityMentionName, raw.types.MessageEntityBankCard, raw.types.MessageEntityBlockquote, raw.types.MessageEntityBold, raw.types.MessageEntityBotCommand, raw.types.MessageEntityCashtag, raw.types.MessageEntityCode, raw.types.MessageEntityCustomEmoji, raw.types.MessageEntityDiffDelete, raw.types.MessageEntityDiffInsert, raw.types.MessageEntityDiffReplace, raw.types.MessageEntityEmail, raw.types.MessageEntityFormattedDate, raw.types.MessageEntityHashtag, raw.types.MessageEntityItalic, raw.types.MessageEntityMention, raw.types.MessageEntityMentionName, raw.types.MessageEntityPhone, raw.types.MessageEntityPre, raw.types.MessageEntitySpoiler, raw.types.MessageEntityStrike, raw.types.MessageEntityTextUrl, raw.types.MessageEntityUnderline, raw.types.MessageEntityUnknown, raw.types.MessageEntityUrl]
 
         def __init__(self):
             raise TypeError("Base types can only be used for type checking purposes: "

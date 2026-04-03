@@ -36,41 +36,66 @@ class PollAnswer(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PollAnswer`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``FF16E2CA``
+        - Layer: ``224``
+        - ID: ``4B7D786A``
 
     Parameters:
         text: :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
         option: ``bytes``
+        media (optional): :obj:`MessageMedia <pyrogram.raw.base.MessageMedia>`
+        added_by (optional): :obj:`Peer <pyrogram.raw.base.Peer>`
+        date (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["text", "option"]
+    __slots__: List[str] = ["text", "option", "media", "added_by", "date"]
 
-    ID = 0xff16e2ca
+    ID = 0x4b7d786a
     QUALNAME = "types.PollAnswer"
 
-    def __init__(self, *, text: "raw.base.TextWithEntities", option: bytes) -> None:
+    def __init__(self, *, text: "raw.base.TextWithEntities", option: bytes, media: "raw.base.MessageMedia" = None, added_by: "raw.base.Peer" = None, date: Optional[int] = None) -> None:
         self.text = text  # TextWithEntities
         self.option = option  # bytes
+        self.media = media  # flags.0?MessageMedia
+        self.added_by = added_by  # flags.1?Peer
+        self.date = date  # flags.1?int
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "PollAnswer":
-        # No flags
+        
+        flags = Int.read(b)
         
         text = TLObject.read(b)
         
         option = Bytes.read(b)
         
-        return PollAnswer(text=text, option=option)
+        media = TLObject.read(b) if flags & (1 << 0) else None
+        
+        added_by = TLObject.read(b) if flags & (1 << 1) else None
+        
+        date = Int.read(b) if flags & (1 << 1) else None
+        return PollAnswer(text=text, option=option, media=media, added_by=added_by, date=date)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.media is not None else 0
+        flags |= (1 << 1) if self.added_by is not None else 0
+        flags |= (1 << 1) if self.date is not None else 0
+        b.write(Int(flags))
         
         b.write(self.text.write())
         
         b.write(Bytes(self.option))
+        
+        if self.media is not None:
+            b.write(self.media.write())
+        
+        if self.added_by is not None:
+            b.write(self.added_by.write())
+        
+        if self.date is not None:
+            b.write(Int(self.date))
         
         return b.getvalue()

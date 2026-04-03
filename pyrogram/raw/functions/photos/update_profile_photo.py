@@ -36,7 +36,7 @@ class UpdateProfilePhoto(TLObject["raw.base.photos.Photo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9E82039``
 
     Parameters:

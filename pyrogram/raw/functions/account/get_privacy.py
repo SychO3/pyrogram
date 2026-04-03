@@ -36,7 +36,7 @@ class GetPrivacy(TLObject["raw.base.account.PrivacyRules"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DADBC950``
 
     Parameters:

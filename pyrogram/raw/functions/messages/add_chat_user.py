@@ -36,7 +36,7 @@ class AddChatUser(TLObject["raw.base.messages.InvitedUsers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CBC6D107``
 
     Parameters:

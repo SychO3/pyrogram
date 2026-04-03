@@ -36,7 +36,7 @@ class BotCallbackAnswer(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.BotCallbackAnswer`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``36585EA4``
 
     Parameters:

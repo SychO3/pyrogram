@@ -36,7 +36,7 @@ class LabeledPrice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.LabeledPrice`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CB296BF8``
 
     Parameters:

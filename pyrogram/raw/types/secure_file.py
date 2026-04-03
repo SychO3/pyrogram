@@ -36,7 +36,7 @@ class SecureFile(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecureFile`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7D09C27E``
 
     Parameters:

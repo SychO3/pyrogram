@@ -36,7 +36,7 @@ class UploadRingtone(TLObject["raw.base.Document"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``831A83A2``
 
     Parameters:

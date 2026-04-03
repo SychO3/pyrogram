@@ -36,7 +36,7 @@ class InputStickerSetShortName(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStickerSet`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``861CC8A0``
 
     Parameters:

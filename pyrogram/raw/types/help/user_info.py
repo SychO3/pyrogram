@@ -36,7 +36,7 @@ class UserInfo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.UserInfo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1EB3758``
 
     Parameters:

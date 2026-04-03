@@ -36,7 +36,7 @@ class SetContactSignUpNotification(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CFF43F61``
 
     Parameters:

@@ -36,7 +36,7 @@ class MonoForumDialog(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SavedDialog`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``64407EA7``
 
     Parameters:

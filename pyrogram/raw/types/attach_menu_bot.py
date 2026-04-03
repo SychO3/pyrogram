@@ -36,7 +36,7 @@ class AttachMenuBot(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.AttachMenuBot`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D90D8DFE``
 
     Parameters:

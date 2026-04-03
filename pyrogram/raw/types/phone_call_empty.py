@@ -36,7 +36,7 @@ class PhoneCallEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PhoneCall`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5366C915``
 
     Parameters:

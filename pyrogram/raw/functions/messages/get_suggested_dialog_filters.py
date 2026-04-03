@@ -36,7 +36,7 @@ class GetSuggestedDialogFilters(TLObject["List[raw.base.DialogFilterSuggested]"]
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A29CD42C``
 
     **No parameters required.**

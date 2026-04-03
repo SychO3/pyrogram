@@ -52,3 +52,8 @@ from .get_admined_bots import GetAdminedBots
 from .update_star_ref_program import UpdateStarRefProgram
 from .set_custom_verification import SetCustomVerification
 from .get_bot_recommendations import GetBotRecommendations
+from .check_username import CheckUsername
+from .create_bot import CreateBot
+from .export_bot_token import ExportBotToken
+from .request_web_view_button import RequestWebViewButton
+from .get_requested_web_view_button import GetRequestedWebViewButton

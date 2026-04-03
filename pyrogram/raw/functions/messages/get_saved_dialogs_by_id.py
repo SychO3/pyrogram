@@ -36,7 +36,7 @@ class GetSavedDialogsByID(TLObject["raw.base.messages.SavedDialogs"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6F6F9C96``
 
     Parameters:

@@ -36,7 +36,7 @@ class EditForumTopic(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CECC1134``
 
     Parameters:

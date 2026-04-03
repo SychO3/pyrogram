@@ -36,7 +36,7 @@ class UpdatePinnedForumTopic(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``175DF251``
 
     Parameters:

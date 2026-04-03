@@ -36,7 +36,7 @@ class MessageActionSuggestBirthday(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2C8F2A25``
 
     Parameters:

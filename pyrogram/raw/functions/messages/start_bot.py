@@ -36,7 +36,7 @@ class StartBot(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E6DF7378``
 
     Parameters:

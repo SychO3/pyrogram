@@ -36,7 +36,7 @@ class SetDefaultHistoryTTL(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9EB51445``
 
     Parameters:

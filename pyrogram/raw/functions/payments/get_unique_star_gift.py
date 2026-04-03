@@ -36,7 +36,7 @@ class GetUniqueStarGift(TLObject["raw.base.payments.UniqueStarGift"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A1974D72``
 
     Parameters:

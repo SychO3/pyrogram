@@ -36,7 +36,7 @@ class GroupCallStreamChannels(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.phone.GroupCallStreamChannels`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D0E482B2``
 
     Parameters:

@@ -36,7 +36,7 @@ class PaymentResult(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.PaymentResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4E5F810D``
 
     Parameters:

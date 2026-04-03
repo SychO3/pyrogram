@@ -36,7 +36,7 @@ class StarGiftAuctionState(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftAuctionState`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6B39F4EC``
 
     Parameters:

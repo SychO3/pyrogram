@@ -36,7 +36,7 @@ class NotifyBroadcasts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.NotifyPeer`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D612E8EF``
 
     **No parameters required.**

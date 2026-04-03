@@ -36,7 +36,7 @@ class InputStickerSetEmojiGenericAnimations(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStickerSet`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4C4D4CE``
 
     **No parameters required.**

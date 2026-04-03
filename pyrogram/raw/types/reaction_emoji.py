@@ -36,7 +36,7 @@ class ReactionEmoji(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Reaction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1B2286B8``
 
     Parameters:

@@ -36,7 +36,7 @@ class ResaleStarGifts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.ResaleStarGifts`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``947A12DF``
 
     Parameters:

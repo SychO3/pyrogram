@@ -36,7 +36,7 @@ class ResetWallPapers(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BB3B9804``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class ResPQ(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ResPQ`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``05162463``
 
     Parameters:

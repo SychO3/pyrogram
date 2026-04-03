@@ -36,7 +36,7 @@ class PremiumPromo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.PremiumPromo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5334759C``
 
     Parameters:

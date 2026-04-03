@@ -36,7 +36,7 @@ class EditChatAbout(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DEF60797``
 
     Parameters:

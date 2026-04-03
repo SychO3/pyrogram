@@ -36,7 +36,7 @@ class ServerDHParamsFail(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ServerDHParams`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``79CB045D``
 
     Parameters:

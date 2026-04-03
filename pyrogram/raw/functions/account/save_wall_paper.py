@@ -36,7 +36,7 @@ class SaveWallPaper(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6C5A5B37``
 
     Parameters:

@@ -36,7 +36,7 @@ class EligibleToJoin(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.smsjobs.EligibilityToJoin`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DC8B44CF``
 
     Parameters:

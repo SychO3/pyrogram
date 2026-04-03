@@ -36,7 +36,7 @@ class GetBotBusinessConnection(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``76A86270``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetSponsoredMessages(TLObject["raw.base.messages.SponsoredMessages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3D6CE850``
 
     Parameters:

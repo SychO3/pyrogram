@@ -36,7 +36,7 @@ class ThemesNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.Themes`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F41EB622``
 
     **No parameters required.**

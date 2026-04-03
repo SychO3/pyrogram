@@ -36,7 +36,7 @@ class RegisterPasskey(TLObject["raw.base.Passkey"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``55B41FD6``
 
     Parameters:

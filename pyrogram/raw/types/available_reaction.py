@@ -36,7 +36,7 @@ class AvailableReaction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.AvailableReaction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C077EC01``
 
     Parameters:

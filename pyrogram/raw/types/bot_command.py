@@ -36,7 +36,7 @@ class BotCommand(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotCommand`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C27AC8C7``
 
     Parameters:

@@ -36,7 +36,7 @@ class ReportResultAddComment(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReportResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6F09AC31``
 
     Parameters:

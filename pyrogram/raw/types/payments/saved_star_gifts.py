@@ -36,7 +36,7 @@ class SavedStarGifts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.SavedStarGifts`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``95F389B1``
 
     Parameters:

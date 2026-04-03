@@ -36,7 +36,7 @@ class MsgResendReq(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MsgResendReq`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7D861A08``
 
     Parameters:

@@ -36,7 +36,7 @@ class SearchSentMedia(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``107E31A0``
 
     Parameters:

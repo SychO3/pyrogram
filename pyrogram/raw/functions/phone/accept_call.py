@@ -36,7 +36,7 @@ class AcceptCall(TLObject["raw.base.phone.PhoneCall"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3BD2B4A0``
 
     Parameters:

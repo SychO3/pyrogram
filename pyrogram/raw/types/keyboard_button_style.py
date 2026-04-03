@@ -36,7 +36,7 @@ class KeyboardButtonStyle(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButtonStyle`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4FDD3430``
 
     Parameters:

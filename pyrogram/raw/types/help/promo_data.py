@@ -36,7 +36,7 @@ class PromoData(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.PromoData`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8A4D87A``
 
     Parameters:

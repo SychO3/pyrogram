@@ -36,7 +36,7 @@ class GetBlocked(TLObject["raw.base.contacts.Blocked"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9A868F80``
 
     Parameters:

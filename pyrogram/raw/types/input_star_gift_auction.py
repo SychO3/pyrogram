@@ -36,7 +36,7 @@ class InputStarGiftAuction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStarGiftAuction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2E16C98``
 
     Parameters:

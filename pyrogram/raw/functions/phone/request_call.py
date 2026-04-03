@@ -36,7 +36,7 @@ class RequestCall(TLObject["raw.base.phone.PhoneCall"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``42FF96ED``
 
     Parameters:

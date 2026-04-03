@@ -36,7 +36,7 @@ class PeerSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PeerSettings`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F47741F7``
 
     Parameters:

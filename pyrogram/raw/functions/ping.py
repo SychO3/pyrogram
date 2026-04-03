@@ -36,7 +36,7 @@ class Ping(TLObject["raw.base.Pong"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7ABE77EC``
 
     Parameters:

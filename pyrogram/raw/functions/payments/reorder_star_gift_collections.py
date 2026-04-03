@@ -36,7 +36,7 @@ class ReorderStarGiftCollections(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C32AF4CC``
 
     Parameters:

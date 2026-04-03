@@ -36,7 +36,7 @@ class SponsoredMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SponsoredMessage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7DBF8673``
 
     Parameters:

@@ -36,7 +36,7 @@ class LeaveGroupCall(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``500377F9``
 
     Parameters:

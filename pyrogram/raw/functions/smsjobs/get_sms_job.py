@@ -36,7 +36,7 @@ class GetSmsJob(TLObject["raw.base.SmsJob"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``778D902F``
 
     Parameters:

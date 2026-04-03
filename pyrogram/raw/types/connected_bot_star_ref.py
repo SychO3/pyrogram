@@ -36,7 +36,7 @@ class ConnectedBotStarRef(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ConnectedBotStarRef`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``19A13F71``
 
     Parameters:

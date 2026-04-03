@@ -36,7 +36,7 @@ class InputFolderPeer(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputFolderPeer`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``FBD2C296``
 
     Parameters:

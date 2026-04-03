@@ -36,7 +36,7 @@ class CheckPaidAuth(TLObject["raw.base.auth.SentCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``56E59F9C``
 
     Parameters:

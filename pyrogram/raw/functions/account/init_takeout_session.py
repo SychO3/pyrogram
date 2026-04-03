@@ -36,7 +36,7 @@ class InitTakeoutSession(TLObject["raw.base.account.Takeout"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8EF3EAB0``
 
     Parameters:

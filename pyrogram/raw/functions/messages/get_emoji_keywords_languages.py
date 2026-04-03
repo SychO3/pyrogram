@@ -36,7 +36,7 @@ class GetEmojiKeywordsLanguages(TLObject["List[raw.base.EmojiLanguage]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4E9963B2``
 
     Parameters:

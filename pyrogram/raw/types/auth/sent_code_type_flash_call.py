@@ -36,7 +36,7 @@ class SentCodeTypeFlashCall(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.SentCodeType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AB03C6D9``
 
     Parameters:

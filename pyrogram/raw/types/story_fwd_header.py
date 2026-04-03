@@ -36,7 +36,7 @@ class StoryFwdHeader(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StoryFwdHeader`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B826E150``
 
     Parameters:

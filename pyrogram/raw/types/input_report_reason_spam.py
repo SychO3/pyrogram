@@ -36,7 +36,7 @@ class InputReportReasonSpam(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReportReason`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``58DBCAB8``
 
     **No parameters required.**

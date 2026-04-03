@@ -36,7 +36,7 @@ class GetResaleStarGifts(TLObject["raw.base.payments.ResaleStarGifts"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7A5FA236``
 
     Parameters:
@@ -46,6 +46,7 @@ class GetResaleStarGifts(TLObject["raw.base.payments.ResaleStarGifts"]):
         sort_by_price (optional): ``bool``
         sort_by_num (optional): ``bool``
         for_craft (optional): ``bool``
+        stars_only (optional): ``bool``
         attributes_hash (optional): ``int`` ``64-bit``
         attributes (optional): List of :obj:`StarGiftAttributeId <pyrogram.raw.base.StarGiftAttributeId>`
 
@@ -53,18 +54,19 @@ class GetResaleStarGifts(TLObject["raw.base.payments.ResaleStarGifts"]):
         :obj:`payments.ResaleStarGifts <pyrogram.raw.base.payments.ResaleStarGifts>`
     """
 
-    __slots__: List[str] = ["gift_id", "offset", "limit", "sort_by_price", "sort_by_num", "for_craft", "attributes_hash", "attributes"]
+    __slots__: List[str] = ["gift_id", "offset", "limit", "sort_by_price", "sort_by_num", "for_craft", "stars_only", "attributes_hash", "attributes"]
 
     ID = 0x7a5fa236
     QUALNAME = "functions.payments.GetResaleStarGifts"
 
-    def __init__(self, *, gift_id: int, offset: str, limit: int, sort_by_price: Optional[bool] = None, sort_by_num: Optional[bool] = None, for_craft: Optional[bool] = None, attributes_hash: Optional[int] = None, attributes: Optional[List["raw.base.StarGiftAttributeId"]] = None) -> None:
+    def __init__(self, *, gift_id: int, offset: str, limit: int, sort_by_price: Optional[bool] = None, sort_by_num: Optional[bool] = None, for_craft: Optional[bool] = None, stars_only: Optional[bool] = None, attributes_hash: Optional[int] = None, attributes: Optional[List["raw.base.StarGiftAttributeId"]] = None) -> None:
         self.gift_id = gift_id  # long
         self.offset = offset  # string
         self.limit = limit  # int
         self.sort_by_price = sort_by_price  # flags.1?true
         self.sort_by_num = sort_by_num  # flags.2?true
         self.for_craft = for_craft  # flags.4?true
+        self.stars_only = stars_only  # flags.5?true
         self.attributes_hash = attributes_hash  # flags.0?long
         self.attributes = attributes  # flags.3?Vector<StarGiftAttributeId>
 
@@ -76,6 +78,7 @@ class GetResaleStarGifts(TLObject["raw.base.payments.ResaleStarGifts"]):
         sort_by_price = True if flags & (1 << 1) else False
         sort_by_num = True if flags & (1 << 2) else False
         for_craft = True if flags & (1 << 4) else False
+        stars_only = True if flags & (1 << 5) else False
         attributes_hash = Long.read(b) if flags & (1 << 0) else None
         gift_id = Long.read(b)
         
@@ -85,7 +88,7 @@ class GetResaleStarGifts(TLObject["raw.base.payments.ResaleStarGifts"]):
         
         limit = Int.read(b)
         
-        return GetResaleStarGifts(gift_id=gift_id, offset=offset, limit=limit, sort_by_price=sort_by_price, sort_by_num=sort_by_num, for_craft=for_craft, attributes_hash=attributes_hash, attributes=attributes)
+        return GetResaleStarGifts(gift_id=gift_id, offset=offset, limit=limit, sort_by_price=sort_by_price, sort_by_num=sort_by_num, for_craft=for_craft, stars_only=stars_only, attributes_hash=attributes_hash, attributes=attributes)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -95,6 +98,7 @@ class GetResaleStarGifts(TLObject["raw.base.payments.ResaleStarGifts"]):
         flags |= (1 << 1) if self.sort_by_price else 0
         flags |= (1 << 2) if self.sort_by_num else 0
         flags |= (1 << 4) if self.for_craft else 0
+        flags |= (1 << 5) if self.stars_only else 0
         flags |= (1 << 0) if self.attributes_hash is not None else 0
         flags |= (1 << 3) if self.attributes else 0
         b.write(Int(flags))

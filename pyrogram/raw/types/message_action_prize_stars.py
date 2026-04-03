@@ -36,7 +36,7 @@ class MessageActionPrizeStars(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B00C47A2``
 
     Parameters:

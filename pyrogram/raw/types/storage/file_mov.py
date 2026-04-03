@@ -36,7 +36,7 @@ class FileMov(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.storage.FileType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4B09EBBC``
 
     **No parameters required.**

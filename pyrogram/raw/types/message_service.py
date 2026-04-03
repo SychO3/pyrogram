@@ -36,7 +36,7 @@ class MessageService(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Message`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7A800E0A``
 
     Parameters:

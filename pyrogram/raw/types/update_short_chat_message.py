@@ -36,7 +36,7 @@ class UpdateShortChatMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Updates`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4D6DEEA5``
 
     Parameters:
@@ -58,7 +58,7 @@ class UpdateShortChatMessage(TLObject):
         ttl_period (optional): ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 128 methods:
+        This object can be returned by 130 methods:
 
         .. hlist::
             :columns: 2
@@ -120,6 +120,8 @@ class UpdateShortChatMessage(TLObject):
             - :obj:`messages.CreateForumTopic <pyrogram.raw.functions.messages.CreateForumTopic>`
             - :obj:`messages.EditChatCreator <pyrogram.raw.functions.messages.EditChatCreator>`
             - :obj:`messages.EditChatParticipantRank <pyrogram.raw.functions.messages.EditChatParticipantRank>`
+            - :obj:`messages.AddPollAnswer <pyrogram.raw.functions.messages.AddPollAnswer>`
+            - :obj:`messages.DeletePollAnswer <pyrogram.raw.functions.messages.DeletePollAnswer>`
             - :obj:`channels.CreateChannel <pyrogram.raw.functions.channels.CreateChannel>`
             - :obj:`channels.EditAdmin <pyrogram.raw.functions.channels.EditAdmin>`
             - :obj:`channels.EditTitle <pyrogram.raw.functions.channels.EditTitle>`

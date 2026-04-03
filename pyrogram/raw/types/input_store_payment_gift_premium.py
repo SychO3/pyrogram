@@ -36,7 +36,7 @@ class InputStorePaymentGiftPremium(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStorePaymentPurpose`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``616F7FE8``
 
     Parameters:

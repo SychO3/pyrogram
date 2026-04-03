@@ -36,7 +36,7 @@ class EditChatParticipantRank(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A00F32B0``
 
     Parameters:

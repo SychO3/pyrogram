@@ -36,7 +36,7 @@ class SetEmojiStickers(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3CD930B7``
 
     Parameters:

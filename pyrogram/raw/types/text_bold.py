@@ -36,7 +36,7 @@ class TextBold(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RichText`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6724ABC4``
 
     Parameters:

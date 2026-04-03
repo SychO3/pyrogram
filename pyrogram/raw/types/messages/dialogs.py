@@ -36,7 +36,7 @@ class Dialogs(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Dialogs`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``15BA6C40``
 
     Parameters:

@@ -36,7 +36,7 @@ class JsonBool(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.JSONValue`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C7345E6A``
 
     Parameters:

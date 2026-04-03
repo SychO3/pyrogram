@@ -36,7 +36,7 @@ class DeleteStories(TLObject["List[raw.base.int]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AE59DB5F``
 
     Parameters:

@@ -36,7 +36,7 @@ class BotInlineMediaResult(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotInlineResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``17DB940B``
 
     Parameters:

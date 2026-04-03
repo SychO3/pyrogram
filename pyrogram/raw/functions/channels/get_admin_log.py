@@ -36,7 +36,7 @@ class GetAdminLog(TLObject["raw.base.channels.AdminLogResults"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``33DDF480``
 
     Parameters:

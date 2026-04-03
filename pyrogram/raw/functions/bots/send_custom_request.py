@@ -36,7 +36,7 @@ class SendCustomRequest(TLObject["raw.base.DataJSON"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AA2769ED``
 
     Parameters:

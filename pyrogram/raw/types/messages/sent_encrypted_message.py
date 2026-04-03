@@ -36,7 +36,7 @@ class SentEncryptedMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.SentEncryptedMessage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``560F8935``
 
     Parameters:

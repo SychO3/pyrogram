@@ -36,7 +36,7 @@ class EmojiGameUnavailable(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.EmojiGameInfo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``59E65335``
 
     **No parameters required.**

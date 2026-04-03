@@ -36,7 +36,7 @@ class FoundStickerSetsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.FoundStickerSets`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D54B65D``
 
     **No parameters required.**

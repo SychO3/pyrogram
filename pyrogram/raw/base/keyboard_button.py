@@ -57,6 +57,14 @@ else:
             - :obj:`KeyboardButtonUrlAuth <pyrogram.raw.types.KeyboardButtonUrlAuth>`
             - :obj:`KeyboardButtonUserProfile <pyrogram.raw.types.KeyboardButtonUserProfile>`
             - :obj:`KeyboardButtonWebView <pyrogram.raw.types.KeyboardButtonWebView>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`bots.GetRequestedWebViewButton <pyrogram.raw.functions.bots.GetRequestedWebViewButton>`
         """
 
         QUALNAME = "pyrogram.raw.base.KeyboardButton"

@@ -36,7 +36,7 @@ class WebAuthorizations(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.WebAuthorizations`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``ED56C9FC``
 
     Parameters:

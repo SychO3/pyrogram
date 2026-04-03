@@ -36,7 +36,7 @@ class AffectedHistory(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.AffectedHistory`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B45C69D1``
 
     Parameters:
@@ -45,7 +45,7 @@ class AffectedHistory(TLObject):
         offset: ``int`` ``32-bit``
 
     See Also:
-        This object can be returned by 7 methods:
+        This object can be returned by 8 methods:
 
         .. hlist::
             :columns: 2
@@ -56,6 +56,7 @@ class AffectedHistory(TLObject):
             - :obj:`messages.ReadReactions <pyrogram.raw.functions.messages.ReadReactions>`
             - :obj:`messages.DeleteSavedHistory <pyrogram.raw.functions.messages.DeleteSavedHistory>`
             - :obj:`messages.DeleteTopicHistory <pyrogram.raw.functions.messages.DeleteTopicHistory>`
+            - :obj:`messages.ReadPollVotes <pyrogram.raw.functions.messages.ReadPollVotes>`
             - :obj:`channels.DeleteParticipantHistory <pyrogram.raw.functions.channels.DeleteParticipantHistory>`
     """
 

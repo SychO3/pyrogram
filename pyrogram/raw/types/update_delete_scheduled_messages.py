@@ -36,7 +36,7 @@ class UpdateDeleteScheduledMessages(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F2A71983``
 
     Parameters:

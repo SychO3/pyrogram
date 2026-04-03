@@ -36,7 +36,7 @@ class GetBirthdays(TLObject["raw.base.contacts.ContactBirthdays"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DAEDA864``
 
     **No parameters required.**

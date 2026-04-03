@@ -36,7 +36,7 @@ class ChannelAdminLogEventActionExportedInviteRevoke(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``410A134E``
 
     Parameters:

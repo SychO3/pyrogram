@@ -113,3 +113,4 @@ from .web_page_preview import WebPagePreview
 from .emoji_game_outcome import EmojiGameOutcome
 from .emoji_game_unavailable import EmojiGameUnavailable
 from .emoji_game_dice_info import EmojiGameDiceInfo
+from .composed_message_with_ai import ComposedMessageWithAI

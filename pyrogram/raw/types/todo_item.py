@@ -36,7 +36,7 @@ class TodoItem(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TodoItem`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CBA9A52F``
 
     Parameters:

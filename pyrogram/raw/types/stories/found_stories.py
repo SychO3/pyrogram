@@ -36,7 +36,7 @@ class FoundStories(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stories.FoundStories`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E2DE7737``
 
     Parameters:

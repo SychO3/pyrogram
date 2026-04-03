@@ -36,7 +36,7 @@ class AllStickersNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.AllStickers`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E86602C3``
 
     **No parameters required.**

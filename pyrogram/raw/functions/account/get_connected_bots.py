@@ -36,7 +36,7 @@ class GetConnectedBots(TLObject["raw.base.account.ConnectedBots"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4EA4C80F``
 
     **No parameters required.**

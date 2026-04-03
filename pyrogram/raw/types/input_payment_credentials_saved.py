@@ -36,7 +36,7 @@ class InputPaymentCredentialsSaved(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPaymentCredentials`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C10EB2CF``
 
     Parameters:

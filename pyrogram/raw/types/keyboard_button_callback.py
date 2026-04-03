@@ -36,7 +36,7 @@ class KeyboardButtonCallback(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E62BC960``
 
     Parameters:
@@ -44,6 +44,14 @@ class KeyboardButtonCallback(TLObject):
         data: ``bytes``
         requires_password (optional): ``bool``
         style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`bots.GetRequestedWebViewButton <pyrogram.raw.functions.bots.GetRequestedWebViewButton>`
     """
 
     __slots__: List[str] = ["text", "data", "requires_password", "style"]

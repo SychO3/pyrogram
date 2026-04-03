@@ -36,7 +36,7 @@ class CraftStarGift(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B0F9684F``
 
     Parameters:

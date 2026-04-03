@@ -36,7 +36,7 @@ class Folder(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Folder`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``FF544E65``
 
     Parameters:

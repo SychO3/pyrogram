@@ -36,7 +36,7 @@ class GetDefaultTagReactions(TLObject["raw.base.messages.Reactions"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BDF93428``
 
     Parameters:

@@ -36,7 +36,7 @@ class StarsTransactionPeerAPI(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarsTransactionPeer`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F9677AAD``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class UpdateChannelMessageForwards(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D29A27F4``
 
     Parameters:

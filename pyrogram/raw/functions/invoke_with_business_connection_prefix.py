@@ -36,7 +36,7 @@ class InvokeWithBusinessConnectionPrefix(TLObject["raw.base.Error"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DD289F8E``
 
     Parameters:

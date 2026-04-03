@@ -36,8 +36,8 @@ class Dialog(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Dialog`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``D58A08C6``
+        - Layer: ``224``
+        - ID: ``FC89F7F3``
 
     Parameters:
         peer: :obj:`Peer <pyrogram.raw.base.Peer>`
@@ -47,6 +47,7 @@ class Dialog(TLObject):
         unread_count: ``int`` ``32-bit``
         unread_mentions_count: ``int`` ``32-bit``
         unread_reactions_count: ``int`` ``32-bit``
+        unread_poll_votes_count: ``int`` ``32-bit``
         notify_settings: :obj:`PeerNotifySettings <pyrogram.raw.base.PeerNotifySettings>`
         pinned (optional): ``bool``
         unread_mark (optional): ``bool``
@@ -57,12 +58,12 @@ class Dialog(TLObject):
         ttl_period (optional): ``int`` ``32-bit``
     """
 
-    __slots__: List[str] = ["peer", "top_message", "read_inbox_max_id", "read_outbox_max_id", "unread_count", "unread_mentions_count", "unread_reactions_count", "notify_settings", "pinned", "unread_mark", "view_forum_as_messages", "pts", "draft", "folder_id", "ttl_period"]
+    __slots__: List[str] = ["peer", "top_message", "read_inbox_max_id", "read_outbox_max_id", "unread_count", "unread_mentions_count", "unread_reactions_count", "unread_poll_votes_count", "notify_settings", "pinned", "unread_mark", "view_forum_as_messages", "pts", "draft", "folder_id", "ttl_period"]
 
-    ID = 0xd58a08c6
+    ID = 0xfc89f7f3
     QUALNAME = "types.Dialog"
 
-    def __init__(self, *, peer: "raw.base.Peer", top_message: int, read_inbox_max_id: int, read_outbox_max_id: int, unread_count: int, unread_mentions_count: int, unread_reactions_count: int, notify_settings: "raw.base.PeerNotifySettings", pinned: Optional[bool] = None, unread_mark: Optional[bool] = None, view_forum_as_messages: Optional[bool] = None, pts: Optional[int] = None, draft: "raw.base.DraftMessage" = None, folder_id: Optional[int] = None, ttl_period: Optional[int] = None) -> None:
+    def __init__(self, *, peer: "raw.base.Peer", top_message: int, read_inbox_max_id: int, read_outbox_max_id: int, unread_count: int, unread_mentions_count: int, unread_reactions_count: int, unread_poll_votes_count: int, notify_settings: "raw.base.PeerNotifySettings", pinned: Optional[bool] = None, unread_mark: Optional[bool] = None, view_forum_as_messages: Optional[bool] = None, pts: Optional[int] = None, draft: "raw.base.DraftMessage" = None, folder_id: Optional[int] = None, ttl_period: Optional[int] = None) -> None:
         self.peer = peer  # Peer
         self.top_message = top_message  # int
         self.read_inbox_max_id = read_inbox_max_id  # int
@@ -70,6 +71,7 @@ class Dialog(TLObject):
         self.unread_count = unread_count  # int
         self.unread_mentions_count = unread_mentions_count  # int
         self.unread_reactions_count = unread_reactions_count  # int
+        self.unread_poll_votes_count = unread_poll_votes_count  # int
         self.notify_settings = notify_settings  # PeerNotifySettings
         self.pinned = pinned  # flags.2?true
         self.unread_mark = unread_mark  # flags.3?true
@@ -101,6 +103,8 @@ class Dialog(TLObject):
         
         unread_reactions_count = Int.read(b)
         
+        unread_poll_votes_count = Int.read(b)
+        
         notify_settings = TLObject.read(b)
         
         pts = Int.read(b) if flags & (1 << 0) else None
@@ -108,7 +112,7 @@ class Dialog(TLObject):
         
         folder_id = Int.read(b) if flags & (1 << 4) else None
         ttl_period = Int.read(b) if flags & (1 << 5) else None
-        return Dialog(peer=peer, top_message=top_message, read_inbox_max_id=read_inbox_max_id, read_outbox_max_id=read_outbox_max_id, unread_count=unread_count, unread_mentions_count=unread_mentions_count, unread_reactions_count=unread_reactions_count, notify_settings=notify_settings, pinned=pinned, unread_mark=unread_mark, view_forum_as_messages=view_forum_as_messages, pts=pts, draft=draft, folder_id=folder_id, ttl_period=ttl_period)
+        return Dialog(peer=peer, top_message=top_message, read_inbox_max_id=read_inbox_max_id, read_outbox_max_id=read_outbox_max_id, unread_count=unread_count, unread_mentions_count=unread_mentions_count, unread_reactions_count=unread_reactions_count, unread_poll_votes_count=unread_poll_votes_count, notify_settings=notify_settings, pinned=pinned, unread_mark=unread_mark, view_forum_as_messages=view_forum_as_messages, pts=pts, draft=draft, folder_id=folder_id, ttl_period=ttl_period)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -137,6 +141,8 @@ class Dialog(TLObject):
         b.write(Int(self.unread_mentions_count))
         
         b.write(Int(self.unread_reactions_count))
+        
+        b.write(Int(self.unread_poll_votes_count))
         
         b.write(self.notify_settings.write())
         

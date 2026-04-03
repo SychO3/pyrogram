@@ -36,7 +36,7 @@ class InputMessagesFilterRoundVideo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessagesFilter`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B549DA53``
 
     **No parameters required.**

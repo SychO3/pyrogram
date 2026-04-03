@@ -36,7 +36,7 @@ class GetPremiumGiftCodeOptions(TLObject["List[raw.base.PremiumGiftCodeOption]"]
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2757BA54``
 
     Parameters:

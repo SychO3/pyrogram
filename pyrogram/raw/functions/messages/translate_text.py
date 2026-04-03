@@ -36,29 +36,31 @@ class TranslateText(TLObject["raw.base.messages.TranslatedText"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
-        - ID: ``63183030``
+        - Layer: ``224``
+        - ID: ``A5EEC345``
 
     Parameters:
         to_lang: ``str``
         peer (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         id (optional): List of ``int`` ``32-bit``
         text (optional): List of :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
+        tone (optional): ``str``
 
     Returns:
         :obj:`messages.TranslatedText <pyrogram.raw.base.messages.TranslatedText>`
     """
 
-    __slots__: List[str] = ["to_lang", "peer", "id", "text"]
+    __slots__: List[str] = ["to_lang", "peer", "id", "text", "tone"]
 
-    ID = 0x63183030
+    ID = 0xa5eec345
     QUALNAME = "functions.messages.TranslateText"
 
-    def __init__(self, *, to_lang: str, peer: "raw.base.InputPeer" = None, id: Optional[List[int]] = None, text: Optional[List["raw.base.TextWithEntities"]] = None) -> None:
+    def __init__(self, *, to_lang: str, peer: "raw.base.InputPeer" = None, id: Optional[List[int]] = None, text: Optional[List["raw.base.TextWithEntities"]] = None, tone: Optional[str] = None) -> None:
         self.to_lang = to_lang  # string
         self.peer = peer  # flags.0?InputPeer
         self.id = id  # flags.0?Vector<int>
         self.text = text  # flags.1?Vector<TextWithEntities>
+        self.tone = tone  # flags.2?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "TranslateText":
@@ -73,7 +75,8 @@ class TranslateText(TLObject["raw.base.messages.TranslatedText"]):
         
         to_lang = String.read(b)
         
-        return TranslateText(to_lang=to_lang, peer=peer, id=id, text=text)
+        tone = String.read(b) if flags & (1 << 2) else None
+        return TranslateText(to_lang=to_lang, peer=peer, id=id, text=text, tone=tone)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -83,6 +86,7 @@ class TranslateText(TLObject["raw.base.messages.TranslatedText"]):
         flags |= (1 << 0) if self.peer is not None else 0
         flags |= (1 << 0) if self.id else 0
         flags |= (1 << 1) if self.text else 0
+        flags |= (1 << 2) if self.tone is not None else 0
         b.write(Int(flags))
         
         if self.peer is not None:
@@ -95,5 +99,8 @@ class TranslateText(TLObject["raw.base.messages.TranslatedText"]):
             b.write(Vector(self.text))
         
         b.write(String(self.to_lang))
+        
+        if self.tone is not None:
+            b.write(String(self.tone))
         
         return b.getvalue()

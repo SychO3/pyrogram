@@ -36,7 +36,7 @@ class SavedGifs(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.SavedGifs`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``84A02A0D``
 
     Parameters:

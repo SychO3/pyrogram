@@ -36,7 +36,7 @@ class GetFutureChatCreatorAfterLeave(TLObject["raw.base.User"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3B7D0EA6``
 
     Parameters:

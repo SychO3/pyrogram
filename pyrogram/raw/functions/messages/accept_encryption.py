@@ -36,7 +36,7 @@ class AcceptEncryption(TLObject["raw.base.EncryptedChat"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3DBC0415``
 
     Parameters:

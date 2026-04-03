@@ -36,7 +36,7 @@ class ContentSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.ContentSettings`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``57E28221``
 
     Parameters:

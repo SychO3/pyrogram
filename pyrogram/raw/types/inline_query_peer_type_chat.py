@@ -36,7 +36,7 @@ class InlineQueryPeerTypeChat(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InlineQueryPeerType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D766C50A``
 
     **No parameters required.**

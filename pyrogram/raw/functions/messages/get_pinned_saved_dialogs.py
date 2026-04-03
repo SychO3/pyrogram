@@ -36,7 +36,7 @@ class GetPinnedSavedDialogs(TLObject["raw.base.messages.SavedDialogs"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D63D94E0``
 
     **No parameters required.**

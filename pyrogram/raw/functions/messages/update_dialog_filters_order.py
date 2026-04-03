@@ -36,7 +36,7 @@ class UpdateDialogFiltersOrder(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C563C1E4``
 
     Parameters:

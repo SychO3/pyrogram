@@ -36,7 +36,7 @@ class UpdateBusinessAwayMessage(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A26A7FA5``
 
     Parameters:

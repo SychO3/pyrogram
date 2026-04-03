@@ -36,7 +36,7 @@ class GetBotInfo(TLObject["raw.base.bots.BotInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DCD914FD``
 
     Parameters:

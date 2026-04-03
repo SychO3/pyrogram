@@ -36,7 +36,7 @@ class GetContactIDs(TLObject["List[raw.base.int]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7ADC669D``
 
     Parameters:

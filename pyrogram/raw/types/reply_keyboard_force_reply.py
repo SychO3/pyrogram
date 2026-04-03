@@ -36,7 +36,7 @@ class ReplyKeyboardForceReply(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReplyMarkup`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``86B40B08``
 
     Parameters:

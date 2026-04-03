@@ -36,7 +36,7 @@ class LoginToken(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.auth.LoginToken`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``629F1980``
 
     Parameters:

@@ -36,7 +36,7 @@ class BotVerification(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotVerification`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F93CD45C``
 
     Parameters:

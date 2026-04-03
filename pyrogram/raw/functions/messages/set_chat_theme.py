@@ -36,7 +36,7 @@ class SetChatTheme(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``81202C9``
 
     Parameters:

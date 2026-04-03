@@ -36,7 +36,7 @@ class VerifyPhone(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4DD3A7F6``
 
     Parameters:

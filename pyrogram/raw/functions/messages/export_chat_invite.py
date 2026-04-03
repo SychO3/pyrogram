@@ -36,7 +36,7 @@ class ExportChatInvite(TLObject["raw.base.ExportedChatInvite"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A455DE90``
 
     Parameters:

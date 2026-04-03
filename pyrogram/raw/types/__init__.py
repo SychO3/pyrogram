@@ -227,6 +227,9 @@ from .message_action_new_creator_pending import MessageActionNewCreatorPending
 from .message_action_change_creator import MessageActionChangeCreator
 from .message_action_no_forwards_toggle import MessageActionNoForwardsToggle
 from .message_action_no_forwards_request import MessageActionNoForwardsRequest
+from .message_action_poll_append_answer import MessageActionPollAppendAnswer
+from .message_action_poll_delete_answer import MessageActionPollDeleteAnswer
+from .message_action_managed_bot_created import MessageActionManagedBotCreated
 from .dialog import Dialog
 from .dialog_folder import DialogFolder
 from .photo_empty import PhotoEmpty
@@ -280,6 +283,7 @@ from .input_messages_filter_my_mentions import InputMessagesFilterMyMentions
 from .input_messages_filter_geo import InputMessagesFilterGeo
 from .input_messages_filter_contacts import InputMessagesFilterContacts
 from .input_messages_filter_pinned import InputMessagesFilterPinned
+from .input_messages_filter_poll import InputMessagesFilterPoll
 from .update_new_message import UpdateNewMessage
 from .update_message_id import UpdateMessageID
 from .update_delete_messages import UpdateDeleteMessages
@@ -433,6 +437,7 @@ from .update_star_gift_auction_user_state import UpdateStarGiftAuctionUserState
 from .update_emoji_game_info import UpdateEmojiGameInfo
 from .update_star_gift_craft_fail import UpdateStarGiftCraftFail
 from .update_chat_participant_rank import UpdateChatParticipantRank
+from .update_managed_bot import UpdateManagedBot
 from .updates_too_long import UpdatesTooLong
 from .update_short_message import UpdateShortMessage
 from .update_short_chat_message import UpdateShortChatMessage
@@ -618,6 +623,9 @@ from .message_entity_spoiler import MessageEntitySpoiler
 from .message_entity_custom_emoji import MessageEntityCustomEmoji
 from .message_entity_blockquote import MessageEntityBlockquote
 from .message_entity_formatted_date import MessageEntityFormattedDate
+from .message_entity_diff_insert import MessageEntityDiffInsert
+from .message_entity_diff_replace import MessageEntityDiffReplace
+from .message_entity_diff_delete import MessageEntityDiffDelete
 from .input_channel_empty import InputChannelEmpty
 from .input_channel import InputChannel
 from .input_channel_from_message import InputChannelFromMessage
@@ -908,6 +916,7 @@ from .page_list_ordered_item_blocks import PageListOrderedItemBlocks
 from .page_related_article import PageRelatedArticle
 from .page import Page
 from .poll_answer import PollAnswer
+from .input_poll_answer import InputPollAnswer
 from .poll import Poll
 from .poll_answer_voters import PollAnswerVoters
 from .poll_results import PollResults
@@ -1083,6 +1092,7 @@ from .exported_contact_token import ExportedContactToken
 from .request_peer_type_user import RequestPeerTypeUser
 from .request_peer_type_chat import RequestPeerTypeChat
 from .request_peer_type_broadcast import RequestPeerTypeBroadcast
+from .request_peer_type_create_bot import RequestPeerTypeCreateBot
 from .emoji_list_not_modified import EmojiListNotModified
 from .emoji_list import EmojiList
 from .emoji_group import EmojiGroup
@@ -1286,4 +1296,5 @@ from .star_gift_attribute_rarity_rare import StarGiftAttributeRarityRare
 from .star_gift_attribute_rarity_epic import StarGiftAttributeRarityEpic
 from .star_gift_attribute_rarity_legendary import StarGiftAttributeRarityLegendary
 from .keyboard_button_style import KeyboardButtonStyle
+from .input_message_read_metric import InputMessageReadMetric
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

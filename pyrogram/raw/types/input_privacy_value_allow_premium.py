@@ -36,7 +36,7 @@ class InputPrivacyValueAllowPremium(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPrivacyRule`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``77CDC9F1``
 
     **No parameters required.**

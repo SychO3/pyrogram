@@ -36,7 +36,7 @@ class GroupCallParticipantVideoSourceGroup(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GroupCallParticipantVideoSourceGroup`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DCB118B7``
 
     Parameters:

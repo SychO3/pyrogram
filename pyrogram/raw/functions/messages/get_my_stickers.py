@@ -36,7 +36,7 @@ class GetMyStickers(TLObject["raw.base.messages.MyStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D0B5E1FC``
 
     Parameters:

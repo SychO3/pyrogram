@@ -36,7 +36,7 @@ class BusinessChatLink(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessChatLink`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B4AE666F``
 
     Parameters:

@@ -36,7 +36,7 @@ class CdnPublicKey(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.CdnPublicKey`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C982EABA``
 
     Parameters:

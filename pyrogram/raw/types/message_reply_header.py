@@ -36,8 +36,8 @@ class MessageReplyHeader(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageReplyHeader`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``6917560B``
+        - Layer: ``224``
+        - ID: ``1B97DD66``
 
     Parameters:
         reply_to_scheduled (optional): ``bool``
@@ -52,14 +52,15 @@ class MessageReplyHeader(TLObject):
         quote_entities (optional): List of :obj:`MessageEntity <pyrogram.raw.base.MessageEntity>`
         quote_offset (optional): ``int`` ``32-bit``
         todo_item_id (optional): ``int`` ``32-bit``
+        poll_option (optional): ``bytes``
     """
 
-    __slots__: List[str] = ["reply_to_scheduled", "forum_topic", "quote", "reply_to_msg_id", "reply_to_peer_id", "reply_from", "reply_media", "reply_to_top_id", "quote_text", "quote_entities", "quote_offset", "todo_item_id"]
+    __slots__: List[str] = ["reply_to_scheduled", "forum_topic", "quote", "reply_to_msg_id", "reply_to_peer_id", "reply_from", "reply_media", "reply_to_top_id", "quote_text", "quote_entities", "quote_offset", "todo_item_id", "poll_option"]
 
-    ID = 0x6917560b
+    ID = 0x1b97dd66
     QUALNAME = "types.MessageReplyHeader"
 
-    def __init__(self, *, reply_to_scheduled: Optional[bool] = None, forum_topic: Optional[bool] = None, quote: Optional[bool] = None, reply_to_msg_id: Optional[int] = None, reply_to_peer_id: "raw.base.Peer" = None, reply_from: "raw.base.MessageFwdHeader" = None, reply_media: "raw.base.MessageMedia" = None, reply_to_top_id: Optional[int] = None, quote_text: Optional[str] = None, quote_entities: Optional[List["raw.base.MessageEntity"]] = None, quote_offset: Optional[int] = None, todo_item_id: Optional[int] = None) -> None:
+    def __init__(self, *, reply_to_scheduled: Optional[bool] = None, forum_topic: Optional[bool] = None, quote: Optional[bool] = None, reply_to_msg_id: Optional[int] = None, reply_to_peer_id: "raw.base.Peer" = None, reply_from: "raw.base.MessageFwdHeader" = None, reply_media: "raw.base.MessageMedia" = None, reply_to_top_id: Optional[int] = None, quote_text: Optional[str] = None, quote_entities: Optional[List["raw.base.MessageEntity"]] = None, quote_offset: Optional[int] = None, todo_item_id: Optional[int] = None, poll_option: Optional[bytes] = None) -> None:
         self.reply_to_scheduled = reply_to_scheduled  # flags.2?true
         self.forum_topic = forum_topic  # flags.3?true
         self.quote = quote  # flags.9?true
@@ -72,6 +73,7 @@ class MessageReplyHeader(TLObject):
         self.quote_entities = quote_entities  # flags.7?Vector<MessageEntity>
         self.quote_offset = quote_offset  # flags.10?int
         self.todo_item_id = todo_item_id  # flags.11?int
+        self.poll_option = poll_option  # flags.12?bytes
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "MessageReplyHeader":
@@ -94,7 +96,8 @@ class MessageReplyHeader(TLObject):
         
         quote_offset = Int.read(b) if flags & (1 << 10) else None
         todo_item_id = Int.read(b) if flags & (1 << 11) else None
-        return MessageReplyHeader(reply_to_scheduled=reply_to_scheduled, forum_topic=forum_topic, quote=quote, reply_to_msg_id=reply_to_msg_id, reply_to_peer_id=reply_to_peer_id, reply_from=reply_from, reply_media=reply_media, reply_to_top_id=reply_to_top_id, quote_text=quote_text, quote_entities=quote_entities, quote_offset=quote_offset, todo_item_id=todo_item_id)
+        poll_option = Bytes.read(b) if flags & (1 << 12) else None
+        return MessageReplyHeader(reply_to_scheduled=reply_to_scheduled, forum_topic=forum_topic, quote=quote, reply_to_msg_id=reply_to_msg_id, reply_to_peer_id=reply_to_peer_id, reply_from=reply_from, reply_media=reply_media, reply_to_top_id=reply_to_top_id, quote_text=quote_text, quote_entities=quote_entities, quote_offset=quote_offset, todo_item_id=todo_item_id, poll_option=poll_option)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -113,6 +116,7 @@ class MessageReplyHeader(TLObject):
         flags |= (1 << 7) if self.quote_entities else 0
         flags |= (1 << 10) if self.quote_offset is not None else 0
         flags |= (1 << 11) if self.todo_item_id is not None else 0
+        flags |= (1 << 12) if self.poll_option is not None else 0
         b.write(Int(flags))
         
         if self.reply_to_msg_id is not None:
@@ -141,5 +145,8 @@ class MessageReplyHeader(TLObject):
         
         if self.todo_item_id is not None:
             b.write(Int(self.todo_item_id))
+        
+        if self.poll_option is not None:
+            b.write(Bytes(self.poll_option))
         
         return b.getvalue()

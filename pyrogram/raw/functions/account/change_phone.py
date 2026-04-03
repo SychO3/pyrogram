@@ -36,7 +36,7 @@ class ChangePhone(TLObject["raw.base.User"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``70C32EDB``
 
     Parameters:

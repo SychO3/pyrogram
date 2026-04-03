@@ -36,7 +36,7 @@ class GetTmpPassword(TLObject["raw.base.account.TmpPassword"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``449E0B51``
 
     Parameters:

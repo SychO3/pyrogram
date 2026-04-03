@@ -36,7 +36,7 @@ class SendScreenshotNotification(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A1405817``
 
     Parameters:

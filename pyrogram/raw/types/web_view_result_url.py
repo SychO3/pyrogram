@@ -36,7 +36,7 @@ class WebViewResultUrl(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.WebViewResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4D22FF98``
 
     Parameters:

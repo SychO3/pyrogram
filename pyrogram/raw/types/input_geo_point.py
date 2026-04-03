@@ -36,7 +36,7 @@ class InputGeoPoint(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputGeoPoint`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``48222FAF``
 
     Parameters:

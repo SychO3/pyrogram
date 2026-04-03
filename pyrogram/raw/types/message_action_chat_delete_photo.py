@@ -36,7 +36,7 @@ class MessageActionChatDeletePhoto(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``95E3FBEF``
 
     **No parameters required.**

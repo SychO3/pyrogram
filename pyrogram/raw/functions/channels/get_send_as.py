@@ -36,7 +36,7 @@ class GetSendAs(TLObject["raw.base.channels.SendAsPeers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E785A43F``
 
     Parameters:

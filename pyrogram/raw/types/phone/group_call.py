@@ -36,7 +36,7 @@ class GroupCall(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.phone.GroupCall`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9E727AAD``
 
     Parameters:

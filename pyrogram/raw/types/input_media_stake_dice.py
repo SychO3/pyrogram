@@ -36,7 +36,7 @@ class InputMediaStakeDice(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputMedia`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F3A9244A``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetChatInviteImporters(TLObject["raw.base.messages.ChatInviteImporters"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DF04DD4E``
 
     Parameters:

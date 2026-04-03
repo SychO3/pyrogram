@@ -84,3 +84,4 @@ from .found_stickers import FoundStickers
 from .web_page_preview import WebPagePreview
 from .emoji_game_outcome import EmojiGameOutcome
 from .emoji_game_info import EmojiGameInfo
+from .composed_message_with_ai import ComposedMessageWithAI

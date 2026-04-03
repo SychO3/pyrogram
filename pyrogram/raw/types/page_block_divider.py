@@ -36,7 +36,7 @@ class PageBlockDivider(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DB20B188``
 
     **No parameters required.**

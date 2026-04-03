@@ -36,7 +36,7 @@ class PasswordSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.PasswordSettings`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9A5C33E5``
 
     Parameters:

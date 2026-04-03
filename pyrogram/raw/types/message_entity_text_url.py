@@ -36,7 +36,7 @@ class MessageEntityTextUrl(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageEntity`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``76A6D327``
 
     Parameters:

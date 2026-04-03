@@ -36,7 +36,7 @@ class InitPasskeyRegistration(TLObject["raw.base.account.PasskeyRegistrationOpti
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``429547E8``
 
     **No parameters required.**

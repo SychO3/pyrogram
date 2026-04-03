@@ -36,7 +36,7 @@ class PageBlockEmbed(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A8718DC5``
 
     Parameters:

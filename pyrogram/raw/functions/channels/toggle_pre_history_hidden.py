@@ -36,7 +36,7 @@ class TogglePreHistoryHidden(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``EABBB94C``
 
     Parameters:

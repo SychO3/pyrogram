@@ -36,7 +36,7 @@ class MessageMediaGiveawayResults(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageMedia`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CEAA3EA1``
 
     Parameters:

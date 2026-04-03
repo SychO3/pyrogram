@@ -36,7 +36,7 @@ class EmojiStatusEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmojiStatus`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2DE11AAE``
 
     **No parameters required.**

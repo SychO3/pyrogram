@@ -36,7 +36,7 @@ class StarGiftAttributeOriginalDetails(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAttribute`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E0BFF26C``
 
     Parameters:

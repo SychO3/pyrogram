@@ -36,7 +36,7 @@ class ResolveBusinessChatLink(TLObject["raw.base.account.ResolvedBusinessChatLin
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5492E5EE``
 
     Parameters:

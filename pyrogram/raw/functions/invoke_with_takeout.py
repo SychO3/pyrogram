@@ -36,7 +36,7 @@ class InvokeWithTakeout(TLObject["raw.base.X"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``ACA9FD2E``
 
     Parameters:

@@ -36,7 +36,7 @@ class ReqDHParams(TLObject["raw.base.ServerDHParams"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D712E4BE``
 
     Parameters:

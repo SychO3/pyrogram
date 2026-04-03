@@ -36,7 +36,7 @@ class ImportContacts(TLObject["raw.base.contacts.ImportedContacts"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2C800BE5``
 
     Parameters:

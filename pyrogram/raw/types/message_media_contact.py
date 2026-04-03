@@ -36,7 +36,7 @@ class MessageMediaContact(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageMedia`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``70322949``
 
     Parameters:

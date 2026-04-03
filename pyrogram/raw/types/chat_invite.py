@@ -36,7 +36,7 @@ class ChatInvite(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChatInvite`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5C9D3702``
 
     Parameters:

@@ -36,7 +36,7 @@ class DeletePhotos(TLObject["List[raw.base.long]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``87CF7F2F``
 
     Parameters:

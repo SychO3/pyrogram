@@ -36,7 +36,7 @@ class KeyboardButtonSwitchInline(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``991399FC``
 
     Parameters:
@@ -45,6 +45,14 @@ class KeyboardButtonSwitchInline(TLObject):
         same_peer (optional): ``bool``
         style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
         peer_types (optional): List of :obj:`InlineQueryPeerType <pyrogram.raw.base.InlineQueryPeerType>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`bots.GetRequestedWebViewButton <pyrogram.raw.functions.bots.GetRequestedWebViewButton>`
     """
 
     __slots__: List[str] = ["text", "query", "same_peer", "style", "peer_types"]

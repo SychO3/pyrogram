@@ -36,7 +36,7 @@ class UpgradeStarGift(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AED6E4F5``
 
     Parameters:

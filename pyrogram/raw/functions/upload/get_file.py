@@ -36,7 +36,7 @@ class GetFile(TLObject["raw.base.upload.File"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BE5335BE``
 
     Parameters:

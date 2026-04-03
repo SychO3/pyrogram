@@ -36,7 +36,7 @@ class PublicForwards(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.stats.PublicForwards`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``93037E20``
 
     Parameters:

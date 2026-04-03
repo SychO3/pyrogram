@@ -36,7 +36,7 @@ class EmojiGameDiceInfo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.EmojiGameInfo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``44E56023``
 
     Parameters:

@@ -36,7 +36,7 @@ class Timezone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Timezone`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``FF9289F5``
 
     Parameters:

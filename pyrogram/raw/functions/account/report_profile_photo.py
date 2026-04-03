@@ -36,7 +36,7 @@ class ReportProfilePhoto(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``FA8CC6F5``
 
     Parameters:

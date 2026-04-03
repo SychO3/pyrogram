@@ -36,7 +36,7 @@ class GetAllSecureValues(TLObject["List[raw.base.SecureValue]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B288BC7D``
 
     **No parameters required.**

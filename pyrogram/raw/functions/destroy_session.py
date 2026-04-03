@@ -36,7 +36,7 @@ class DestroySession(TLObject["raw.base.DestroySessionRes"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E7512126``
 
     Parameters:

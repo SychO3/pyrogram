@@ -36,7 +36,7 @@ class GetMultiWallPapers(TLObject["List[raw.base.WallPaper]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``65AD71DC``
 
     Parameters:

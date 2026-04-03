@@ -36,7 +36,7 @@ class SendVerifyEmailCode(TLObject["raw.base.account.SentEmailCode"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``98E037BB``
 
     Parameters:

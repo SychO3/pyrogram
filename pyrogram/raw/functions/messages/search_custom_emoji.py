@@ -36,7 +36,7 @@ class SearchCustomEmoji(TLObject["raw.base.EmojiList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2C11C0D7``
 
     Parameters:

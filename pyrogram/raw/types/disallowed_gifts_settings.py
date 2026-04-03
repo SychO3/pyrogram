@@ -36,7 +36,7 @@ class DisallowedGiftsSettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DisallowedGiftsSettings`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``71F276C4``
 
     Parameters:

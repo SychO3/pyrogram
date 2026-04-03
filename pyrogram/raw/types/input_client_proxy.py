@@ -36,7 +36,7 @@ class InputClientProxy(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputClientProxy`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``75588B3F``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetEmojiStickerGroups(TLObject["raw.base.messages.EmojiGroups"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1DD840F5``
 
     Parameters:

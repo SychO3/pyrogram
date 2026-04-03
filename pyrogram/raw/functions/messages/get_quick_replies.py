@@ -36,7 +36,7 @@ class GetQuickReplies(TLObject["raw.base.messages.QuickReplies"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D483F2A8``
 
     Parameters:

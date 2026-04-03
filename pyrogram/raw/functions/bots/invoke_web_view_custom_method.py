@@ -36,7 +36,7 @@ class InvokeWebViewCustomMethod(TLObject["raw.base.DataJSON"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``87FC5E7``
 
     Parameters:

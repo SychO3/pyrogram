@@ -45,7 +45,7 @@ else:
             - :obj:`messages.MessagesSlice <pyrogram.raw.types.messages.MessagesSlice>`
 
     See Also:
-        This object can be returned by 15 methods:
+        This object can be returned by 16 methods:
 
         .. hlist::
             :columns: 2
@@ -63,6 +63,7 @@ else:
             - :obj:`messages.SearchSentMedia <pyrogram.raw.functions.messages.SearchSentMedia>`
             - :obj:`messages.GetSavedHistory <pyrogram.raw.functions.messages.GetSavedHistory>`
             - :obj:`messages.GetQuickReplyMessages <pyrogram.raw.functions.messages.GetQuickReplyMessages>`
+            - :obj:`messages.GetUnreadPollVotes <pyrogram.raw.functions.messages.GetUnreadPollVotes>`
             - :obj:`channels.GetMessages <pyrogram.raw.functions.channels.GetMessages>`
             - :obj:`channels.SearchPosts <pyrogram.raw.functions.channels.SearchPosts>`
         """

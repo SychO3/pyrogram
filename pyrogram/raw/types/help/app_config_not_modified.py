@@ -36,7 +36,7 @@ class AppConfigNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.AppConfig`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7CDE641D``
 
     **No parameters required.**

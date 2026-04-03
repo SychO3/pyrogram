@@ -36,7 +36,7 @@ class AttachMenuPeerTypePM(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.AttachMenuPeerType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F146D31F``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class StickerSetNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.StickerSet`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D3F924EB``
 
     **No parameters required.**

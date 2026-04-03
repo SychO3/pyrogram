@@ -36,7 +36,7 @@ class MessageEntityUnderline(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageEntity`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9C4E7E8B``
 
     Parameters:

@@ -36,7 +36,7 @@ class StarGiftAuctionRoundExtendable(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAuctionRound`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AA021E5``
 
     Parameters:

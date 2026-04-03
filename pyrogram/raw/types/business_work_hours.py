@@ -36,7 +36,7 @@ class BusinessWorkHours(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessWorkHours`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8C92B098``
 
     Parameters:

@@ -36,7 +36,7 @@ class ChannelAdminLogEventActionParticipantInvite(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E31C34D8``
 
     Parameters:

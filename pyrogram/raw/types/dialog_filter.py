@@ -36,7 +36,7 @@ class DialogFilter(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DialogFilter`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AA472651``
 
     Parameters:

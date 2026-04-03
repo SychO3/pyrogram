@@ -36,7 +36,7 @@ class VerifyEmail(TLObject["raw.base.account.EmailVerified"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``32DA4CF``
 
     Parameters:

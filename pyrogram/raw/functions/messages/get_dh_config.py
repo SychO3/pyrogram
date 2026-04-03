@@ -36,7 +36,7 @@ class GetDhConfig(TLObject["raw.base.messages.DhConfig"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``26CF8950``
 
     Parameters:

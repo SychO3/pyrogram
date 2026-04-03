@@ -36,7 +36,7 @@ class DeleteParticipantHistory(TLObject["raw.base.messages.AffectedHistory"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``367544DB``
 
     Parameters:

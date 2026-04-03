@@ -36,7 +36,7 @@ class ImportAuthorization(TLObject["raw.base.auth.Authorization"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A57A7DAD``
 
     Parameters:

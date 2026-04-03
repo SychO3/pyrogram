@@ -36,7 +36,7 @@ class GetAttachedStickers(TLObject["List[raw.base.StickerSetCovered]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CC5B67CC``
 
     Parameters:

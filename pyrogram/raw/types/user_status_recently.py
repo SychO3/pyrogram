@@ -36,7 +36,7 @@ class UserStatusRecently(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.UserStatus`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7B197DC8``
 
     Parameters:

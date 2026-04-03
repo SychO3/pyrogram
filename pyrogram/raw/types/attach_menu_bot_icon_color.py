@@ -36,7 +36,7 @@ class AttachMenuBotIconColor(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.AttachMenuBotIconColor`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4576F3F0``
 
     Parameters:

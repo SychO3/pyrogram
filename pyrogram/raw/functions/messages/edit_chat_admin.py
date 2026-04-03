@@ -36,7 +36,7 @@ class EditChatAdmin(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A85BD1C2``
 
     Parameters:

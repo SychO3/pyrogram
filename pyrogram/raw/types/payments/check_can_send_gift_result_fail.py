@@ -36,7 +36,7 @@ class CheckCanSendGiftResultFail(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.CheckCanSendGiftResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D5E58274``
 
     Parameters:

@@ -36,7 +36,7 @@ class SetSecureValueErrors(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``90C894B5``
 
     Parameters:

@@ -36,7 +36,7 @@ class FeaturedStickers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.FeaturedStickers`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BE382906``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetAutoSaveSettings(TLObject["raw.base.account.AutoSaveSettings"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``ADCBBCDA``
 
     **No parameters required.**

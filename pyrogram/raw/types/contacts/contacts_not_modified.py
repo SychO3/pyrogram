@@ -36,7 +36,7 @@ class ContactsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.contacts.Contacts`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B74BA9D2``
 
     **No parameters required.**

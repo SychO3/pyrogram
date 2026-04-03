@@ -36,7 +36,7 @@ class InputQuickReplyShortcutId(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputQuickReplyShortcut`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1190CF1``
 
     Parameters:

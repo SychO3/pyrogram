@@ -36,7 +36,7 @@ class ReactionPaid(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Reaction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``523DA4EB``
 
     **No parameters required.**

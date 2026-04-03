@@ -36,7 +36,7 @@ class CheckHistoryImport(TLObject["raw.base.messages.HistoryImportParsed"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``43FE19F3``
 
     Parameters:

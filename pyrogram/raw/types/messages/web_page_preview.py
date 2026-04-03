@@ -36,7 +36,7 @@ class WebPagePreview(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.WebPagePreview`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8C9A88AC``
 
     Parameters:

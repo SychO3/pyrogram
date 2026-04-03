@@ -36,7 +36,7 @@ class GetMessagesViews(TLObject["raw.base.messages.MessageViews"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5784D3E1``
 
     Parameters:

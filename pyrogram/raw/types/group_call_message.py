@@ -36,7 +36,7 @@ class GroupCallMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GroupCallMessage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1A8AFC7E``
 
     Parameters:

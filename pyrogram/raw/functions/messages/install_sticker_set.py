@@ -36,7 +36,7 @@ class InstallStickerSet(TLObject["raw.base.messages.StickerSetInstallResult"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C78FE460``
 
     Parameters:

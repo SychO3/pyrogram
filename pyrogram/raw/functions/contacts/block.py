@@ -36,7 +36,7 @@ class Block(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2E2E8734``
 
     Parameters:

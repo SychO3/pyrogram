@@ -36,7 +36,7 @@ class GetForumTopicsByID(TLObject["raw.base.messages.ForumTopics"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AF0A4A08``
 
     Parameters:

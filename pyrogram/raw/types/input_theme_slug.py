@@ -36,7 +36,7 @@ class InputThemeSlug(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputTheme`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F5890DF1``
 
     Parameters:

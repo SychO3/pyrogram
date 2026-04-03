@@ -36,7 +36,7 @@ class StatsGroupTopAdmin(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StatsGroupTopAdmin`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D7584C87``
 
     Parameters:

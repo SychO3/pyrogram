@@ -36,7 +36,7 @@ class CreateBusinessChatLink(TLObject["raw.base.BusinessChatLink"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8851E68E``
 
     Parameters:

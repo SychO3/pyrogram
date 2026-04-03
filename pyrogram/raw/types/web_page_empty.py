@@ -36,7 +36,7 @@ class WebPageEmpty(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.WebPage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``211A1788``
 
     Parameters:

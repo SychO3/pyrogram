@@ -36,7 +36,7 @@ class StarGiftAttributeRarityLegendary(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAttributeRarity`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CEF7E7A8``
 
     **No parameters required.**

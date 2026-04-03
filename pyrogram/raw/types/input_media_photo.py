@@ -36,24 +36,28 @@ class InputMediaPhoto(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputMedia`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``B3BA0635``
+        - Layer: ``224``
+        - ID: ``E3AF4434``
 
     Parameters:
         id: :obj:`InputPhoto <pyrogram.raw.base.InputPhoto>`
         spoiler (optional): ``bool``
+        live_photo (optional): ``bool``
         ttl_seconds (optional): ``int`` ``32-bit``
+        video (optional): :obj:`InputDocument <pyrogram.raw.base.InputDocument>`
     """
 
-    __slots__: List[str] = ["id", "spoiler", "ttl_seconds"]
+    __slots__: List[str] = ["id", "spoiler", "live_photo", "ttl_seconds", "video"]
 
-    ID = 0xb3ba0635
+    ID = 0xe3af4434
     QUALNAME = "types.InputMediaPhoto"
 
-    def __init__(self, *, id: "raw.base.InputPhoto", spoiler: Optional[bool] = None, ttl_seconds: Optional[int] = None) -> None:
+    def __init__(self, *, id: "raw.base.InputPhoto", spoiler: Optional[bool] = None, live_photo: Optional[bool] = None, ttl_seconds: Optional[int] = None, video: "raw.base.InputDocument" = None) -> None:
         self.id = id  # InputPhoto
         self.spoiler = spoiler  # flags.1?true
+        self.live_photo = live_photo  # flags.2?true
         self.ttl_seconds = ttl_seconds  # flags.0?int
+        self.video = video  # flags.2?InputDocument
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "InputMediaPhoto":
@@ -61,10 +65,13 @@ class InputMediaPhoto(TLObject):
         flags = Int.read(b)
         
         spoiler = True if flags & (1 << 1) else False
+        live_photo = True if flags & (1 << 2) else False
         id = TLObject.read(b)
         
         ttl_seconds = Int.read(b) if flags & (1 << 0) else None
-        return InputMediaPhoto(id=id, spoiler=spoiler, ttl_seconds=ttl_seconds)
+        video = TLObject.read(b) if flags & (1 << 2) else None
+        
+        return InputMediaPhoto(id=id, spoiler=spoiler, live_photo=live_photo, ttl_seconds=ttl_seconds, video=video)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -72,12 +79,17 @@ class InputMediaPhoto(TLObject):
 
         flags = 0
         flags |= (1 << 1) if self.spoiler else 0
+        flags |= (1 << 2) if self.live_photo else 0
         flags |= (1 << 0) if self.ttl_seconds is not None else 0
+        flags |= (1 << 2) if self.video is not None else 0
         b.write(Int(flags))
         
         b.write(self.id.write())
         
         if self.ttl_seconds is not None:
             b.write(Int(self.ttl_seconds))
+        
+        if self.video is not None:
+            b.write(self.video.write())
         
         return b.getvalue()

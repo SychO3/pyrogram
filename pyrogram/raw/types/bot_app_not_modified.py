@@ -36,7 +36,7 @@ class BotAppNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BotApp`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5DA674B7``
 
     **No parameters required.**

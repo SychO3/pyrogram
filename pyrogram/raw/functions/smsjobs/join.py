@@ -36,7 +36,7 @@ class Join(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A74ECE2D``
 
     **No parameters required.**

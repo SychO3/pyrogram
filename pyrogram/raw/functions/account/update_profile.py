@@ -36,7 +36,7 @@ class UpdateProfile(TLObject["raw.base.User"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``78515775``
 
     Parameters:

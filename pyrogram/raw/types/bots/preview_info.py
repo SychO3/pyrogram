@@ -36,7 +36,7 @@ class PreviewInfo(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.bots.PreviewInfo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CA71D64``
 
     Parameters:

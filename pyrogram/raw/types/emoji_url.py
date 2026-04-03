@@ -36,7 +36,7 @@ class EmojiURL(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EmojiURL`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A575739D``
 
     Parameters:

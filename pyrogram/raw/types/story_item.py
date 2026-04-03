@@ -36,8 +36,8 @@ class StoryItem(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StoryItem`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``EDF164F1``
+        - Layer: ``224``
+        - ID: ``16A4B93C``
 
     Parameters:
         id: ``int`` ``32-bit``
@@ -62,14 +62,15 @@ class StoryItem(TLObject):
         views (optional): :obj:`StoryViews <pyrogram.raw.base.StoryViews>`
         sent_reaction (optional): :obj:`Reaction <pyrogram.raw.base.Reaction>`
         albums (optional): List of ``int`` ``32-bit``
+        music (optional): :obj:`Document <pyrogram.raw.base.Document>`
     """
 
-    __slots__: List[str] = ["id", "date", "expire_date", "media", "pinned", "public", "close_friends", "min", "noforwards", "edited", "contacts", "selected_contacts", "out", "from_id", "fwd_from", "caption", "entities", "media_areas", "privacy", "views", "sent_reaction", "albums"]
+    __slots__: List[str] = ["id", "date", "expire_date", "media", "pinned", "public", "close_friends", "min", "noforwards", "edited", "contacts", "selected_contacts", "out", "from_id", "fwd_from", "caption", "entities", "media_areas", "privacy", "views", "sent_reaction", "albums", "music"]
 
-    ID = 0xedf164f1
+    ID = 0x16a4b93c
     QUALNAME = "types.StoryItem"
 
-    def __init__(self, *, id: int, date: int, expire_date: int, media: "raw.base.MessageMedia", pinned: Optional[bool] = None, public: Optional[bool] = None, close_friends: Optional[bool] = None, min: Optional[bool] = None, noforwards: Optional[bool] = None, edited: Optional[bool] = None, contacts: Optional[bool] = None, selected_contacts: Optional[bool] = None, out: Optional[bool] = None, from_id: "raw.base.Peer" = None, fwd_from: "raw.base.StoryFwdHeader" = None, caption: Optional[str] = None, entities: Optional[List["raw.base.MessageEntity"]] = None, media_areas: Optional[List["raw.base.MediaArea"]] = None, privacy: Optional[List["raw.base.PrivacyRule"]] = None, views: "raw.base.StoryViews" = None, sent_reaction: "raw.base.Reaction" = None, albums: Optional[List[int]] = None) -> None:
+    def __init__(self, *, id: int, date: int, expire_date: int, media: "raw.base.MessageMedia", pinned: Optional[bool] = None, public: Optional[bool] = None, close_friends: Optional[bool] = None, min: Optional[bool] = None, noforwards: Optional[bool] = None, edited: Optional[bool] = None, contacts: Optional[bool] = None, selected_contacts: Optional[bool] = None, out: Optional[bool] = None, from_id: "raw.base.Peer" = None, fwd_from: "raw.base.StoryFwdHeader" = None, caption: Optional[str] = None, entities: Optional[List["raw.base.MessageEntity"]] = None, media_areas: Optional[List["raw.base.MediaArea"]] = None, privacy: Optional[List["raw.base.PrivacyRule"]] = None, views: "raw.base.StoryViews" = None, sent_reaction: "raw.base.Reaction" = None, albums: Optional[List[int]] = None, music: "raw.base.Document" = None) -> None:
         self.id = id  # int
         self.date = date  # int
         self.expire_date = expire_date  # int
@@ -92,6 +93,7 @@ class StoryItem(TLObject):
         self.views = views  # flags.3?StoryViews
         self.sent_reaction = sent_reaction  # flags.15?Reaction
         self.albums = albums  # flags.19?Vector<int>
+        self.music = music  # flags.20?Document
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "StoryItem":
@@ -132,7 +134,9 @@ class StoryItem(TLObject):
         
         albums = TLObject.read(b, Int) if flags & (1 << 19) else []
         
-        return StoryItem(id=id, date=date, expire_date=expire_date, media=media, pinned=pinned, public=public, close_friends=close_friends, min=min, noforwards=noforwards, edited=edited, contacts=contacts, selected_contacts=selected_contacts, out=out, from_id=from_id, fwd_from=fwd_from, caption=caption, entities=entities, media_areas=media_areas, privacy=privacy, views=views, sent_reaction=sent_reaction, albums=albums)
+        music = TLObject.read(b) if flags & (1 << 20) else None
+        
+        return StoryItem(id=id, date=date, expire_date=expire_date, media=media, pinned=pinned, public=public, close_friends=close_friends, min=min, noforwards=noforwards, edited=edited, contacts=contacts, selected_contacts=selected_contacts, out=out, from_id=from_id, fwd_from=fwd_from, caption=caption, entities=entities, media_areas=media_areas, privacy=privacy, views=views, sent_reaction=sent_reaction, albums=albums, music=music)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -157,6 +161,7 @@ class StoryItem(TLObject):
         flags |= (1 << 3) if self.views is not None else 0
         flags |= (1 << 15) if self.sent_reaction is not None else 0
         flags |= (1 << 19) if self.albums else 0
+        flags |= (1 << 20) if self.music is not None else 0
         b.write(Int(flags))
         
         b.write(Int(self.id))
@@ -193,5 +198,8 @@ class StoryItem(TLObject):
         
         if self.albums is not None:
             b.write(Vector(self.albums, Int))
+        
+        if self.music is not None:
+            b.write(self.music.write())
         
         return b.getvalue()

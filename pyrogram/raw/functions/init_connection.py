@@ -36,7 +36,7 @@ class InitConnection(TLObject["raw.base.X"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C1CD5EA9``
 
     Parameters:

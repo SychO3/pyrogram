@@ -36,7 +36,7 @@ class NoAppUpdate(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.AppUpdate`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C45A6536``
 
     **No parameters required.**

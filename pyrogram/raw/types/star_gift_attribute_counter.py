@@ -36,7 +36,7 @@ class StarGiftAttributeCounter(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.StarGiftAttributeCounter`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2EB1B658``
 
     Parameters:

@@ -36,7 +36,7 @@ class AnswerWebhookJSONQuery(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E6213F4D``
 
     Parameters:

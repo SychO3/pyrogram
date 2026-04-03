@@ -36,7 +36,7 @@ class InputReportReasonOther(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReportReason`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C1E4A2B1``
 
     **No parameters required.**

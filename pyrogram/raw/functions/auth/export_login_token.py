@@ -36,7 +36,7 @@ class ExportLoginToken(TLObject["raw.base.auth.LoginToken"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B7E085FE``
 
     Parameters:

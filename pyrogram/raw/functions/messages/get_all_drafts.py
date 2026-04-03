@@ -36,7 +36,7 @@ class GetAllDrafts(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6A3F8D65``
 
     **No parameters required.**

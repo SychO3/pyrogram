@@ -266,3 +266,10 @@ from .get_future_chat_creator_after_leave import GetFutureChatCreatorAfterLeave
 from .edit_chat_participant_rank import EditChatParticipantRank
 from .decline_url_auth import DeclineUrlAuth
 from .check_url_auth_match_code import CheckUrlAuthMatchCode
+from .compose_message_with_ai import ComposeMessageWithAI
+from .report_read_metrics import ReportReadMetrics
+from .report_music_listen import ReportMusicListen
+from .add_poll_answer import AddPollAnswer
+from .delete_poll_answer import DeletePollAnswer
+from .get_unread_poll_votes import GetUnreadPollVotes
+from .read_poll_votes import ReadPollVotes

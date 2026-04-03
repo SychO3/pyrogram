@@ -36,7 +36,7 @@ class DeleteChat(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5BD0EE50``
 
     Parameters:

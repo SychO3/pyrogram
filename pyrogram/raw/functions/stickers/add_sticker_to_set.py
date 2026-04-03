@@ -36,7 +36,7 @@ class AddStickerToSet(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8653FEBE``
 
     Parameters:

@@ -36,7 +36,7 @@ class BoostsStatus(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.premium.BoostsStatus`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4959427A``
 
     Parameters:

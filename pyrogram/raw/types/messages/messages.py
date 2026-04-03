@@ -36,7 +36,7 @@ class Messages(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.Messages`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1D73E7EA``
 
     Parameters:
@@ -46,7 +46,7 @@ class Messages(TLObject):
         users: List of :obj:`User <pyrogram.raw.base.User>`
 
     See Also:
-        This object can be returned by 15 methods:
+        This object can be returned by 16 methods:
 
         .. hlist::
             :columns: 2
@@ -64,6 +64,7 @@ class Messages(TLObject):
             - :obj:`messages.SearchSentMedia <pyrogram.raw.functions.messages.SearchSentMedia>`
             - :obj:`messages.GetSavedHistory <pyrogram.raw.functions.messages.GetSavedHistory>`
             - :obj:`messages.GetQuickReplyMessages <pyrogram.raw.functions.messages.GetQuickReplyMessages>`
+            - :obj:`messages.GetUnreadPollVotes <pyrogram.raw.functions.messages.GetUnreadPollVotes>`
             - :obj:`channels.GetMessages <pyrogram.raw.functions.channels.GetMessages>`
             - :obj:`channels.SearchPosts <pyrogram.raw.functions.channels.SearchPosts>`
     """

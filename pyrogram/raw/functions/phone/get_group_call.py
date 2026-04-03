@@ -36,7 +36,7 @@ class GetGroupCall(TLObject["raw.base.phone.GroupCall"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``41845DB``
 
     Parameters:

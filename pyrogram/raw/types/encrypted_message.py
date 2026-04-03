@@ -36,7 +36,7 @@ class EncryptedMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EncryptedMessage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``ED18C118``
 
     Parameters:

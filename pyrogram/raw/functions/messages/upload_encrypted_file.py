@@ -36,7 +36,7 @@ class UploadEncryptedFile(TLObject["raw.base.EncryptedFile"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5057C497``
 
     Parameters:

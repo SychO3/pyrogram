@@ -36,7 +36,7 @@ class CreateChat(TLObject["raw.base.messages.InvitedUsers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``92CEDDD4``
 
     Parameters:

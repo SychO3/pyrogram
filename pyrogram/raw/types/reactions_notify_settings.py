@@ -36,14 +36,15 @@ class ReactionsNotifySettings(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReactionsNotifySettings`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``56E34970``
+        - Layer: ``224``
+        - ID: ``71E4EA58``
 
     Parameters:
         sound: :obj:`NotificationSound <pyrogram.raw.base.NotificationSound>`
         show_previews: ``bool``
         messages_notify_from (optional): :obj:`ReactionNotificationsFrom <pyrogram.raw.base.ReactionNotificationsFrom>`
         stories_notify_from (optional): :obj:`ReactionNotificationsFrom <pyrogram.raw.base.ReactionNotificationsFrom>`
+        poll_votes_notify_from (optional): :obj:`ReactionNotificationsFrom <pyrogram.raw.base.ReactionNotificationsFrom>`
 
     See Also:
         This object can be returned by 2 methods:
@@ -55,16 +56,17 @@ class ReactionsNotifySettings(TLObject):
             - :obj:`account.SetReactionsNotifySettings <pyrogram.raw.functions.account.SetReactionsNotifySettings>`
     """
 
-    __slots__: List[str] = ["sound", "show_previews", "messages_notify_from", "stories_notify_from"]
+    __slots__: List[str] = ["sound", "show_previews", "messages_notify_from", "stories_notify_from", "poll_votes_notify_from"]
 
-    ID = 0x56e34970
+    ID = 0x71e4ea58
     QUALNAME = "types.ReactionsNotifySettings"
 
-    def __init__(self, *, sound: "raw.base.NotificationSound", show_previews: bool, messages_notify_from: "raw.base.ReactionNotificationsFrom" = None, stories_notify_from: "raw.base.ReactionNotificationsFrom" = None) -> None:
+    def __init__(self, *, sound: "raw.base.NotificationSound", show_previews: bool, messages_notify_from: "raw.base.ReactionNotificationsFrom" = None, stories_notify_from: "raw.base.ReactionNotificationsFrom" = None, poll_votes_notify_from: "raw.base.ReactionNotificationsFrom" = None) -> None:
         self.sound = sound  # NotificationSound
         self.show_previews = show_previews  # Bool
         self.messages_notify_from = messages_notify_from  # flags.0?ReactionNotificationsFrom
         self.stories_notify_from = stories_notify_from  # flags.1?ReactionNotificationsFrom
+        self.poll_votes_notify_from = poll_votes_notify_from  # flags.2?ReactionNotificationsFrom
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "ReactionsNotifySettings":
@@ -75,11 +77,13 @@ class ReactionsNotifySettings(TLObject):
         
         stories_notify_from = TLObject.read(b) if flags & (1 << 1) else None
         
+        poll_votes_notify_from = TLObject.read(b) if flags & (1 << 2) else None
+        
         sound = TLObject.read(b)
         
         show_previews = Bool.read(b)
         
-        return ReactionsNotifySettings(sound=sound, show_previews=show_previews, messages_notify_from=messages_notify_from, stories_notify_from=stories_notify_from)
+        return ReactionsNotifySettings(sound=sound, show_previews=show_previews, messages_notify_from=messages_notify_from, stories_notify_from=stories_notify_from, poll_votes_notify_from=poll_votes_notify_from)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -88,6 +92,7 @@ class ReactionsNotifySettings(TLObject):
         flags = 0
         flags |= (1 << 0) if self.messages_notify_from is not None else 0
         flags |= (1 << 1) if self.stories_notify_from is not None else 0
+        flags |= (1 << 2) if self.poll_votes_notify_from is not None else 0
         b.write(Int(flags))
         
         if self.messages_notify_from is not None:
@@ -95,6 +100,9 @@ class ReactionsNotifySettings(TLObject):
         
         if self.stories_notify_from is not None:
             b.write(self.stories_notify_from.write())
+        
+        if self.poll_votes_notify_from is not None:
+            b.write(self.poll_votes_notify_from.write())
         
         b.write(self.sound.write())
         

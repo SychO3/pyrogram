@@ -36,7 +36,7 @@ class RenameStickerSet(TLObject["raw.base.messages.StickerSet"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``124B1C00``
 
     Parameters:

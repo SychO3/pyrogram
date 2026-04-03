@@ -36,7 +36,7 @@ class InlineBotWebView(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InlineBotWebView`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B57295D5``
 
     Parameters:

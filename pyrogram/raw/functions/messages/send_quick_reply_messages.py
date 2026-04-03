@@ -36,7 +36,7 @@ class SendQuickReplyMessages(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6C750DE1``
 
     Parameters:

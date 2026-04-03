@@ -36,7 +36,7 @@ class GroupCallDiscarded(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GroupCall`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7780BCB4``
 
     Parameters:

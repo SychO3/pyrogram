@@ -36,7 +36,7 @@ class ExportedChatlistInvite(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ExportedChatlistInvite`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C5181AC``
 
     Parameters:

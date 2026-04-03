@@ -36,7 +36,7 @@ class GetPopularAppBots(TLObject["raw.base.bots.PopularAppBots"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C2510192``
 
     Parameters:

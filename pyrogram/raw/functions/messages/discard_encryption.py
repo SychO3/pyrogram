@@ -36,7 +36,7 @@ class DiscardEncryption(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F393AEA0``
 
     Parameters:

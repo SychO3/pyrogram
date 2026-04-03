@@ -36,7 +36,7 @@ class GetBotRecommendations(TLObject["raw.base.users.Users"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A1B70815``
 
     Parameters:

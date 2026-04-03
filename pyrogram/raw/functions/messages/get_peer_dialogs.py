@@ -36,7 +36,7 @@ class GetPeerDialogs(TLObject["raw.base.messages.PeerDialogs"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E470BCFD``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputPasskeyCredentialFirebasePNV(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPasskeyCredential`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5B1CCB28``
 
     Parameters:

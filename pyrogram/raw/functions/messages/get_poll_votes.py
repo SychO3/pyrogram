@@ -36,7 +36,7 @@ class GetPollVotes(TLObject["raw.base.messages.VotesList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B86E380E``
 
     Parameters:

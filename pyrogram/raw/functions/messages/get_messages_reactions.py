@@ -36,7 +36,7 @@ class GetMessagesReactions(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8BBA90E6``
 
     Parameters:

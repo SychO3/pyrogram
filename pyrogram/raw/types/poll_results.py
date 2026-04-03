@@ -36,30 +36,34 @@ class PollResults(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PollResults`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``7ADF2420``
+        - Layer: ``224``
+        - ID: ``BA7BB15E``
 
     Parameters:
         min (optional): ``bool``
+        has_unread_votes (optional): ``bool``
         results (optional): List of :obj:`PollAnswerVoters <pyrogram.raw.base.PollAnswerVoters>`
         total_voters (optional): ``int`` ``32-bit``
         recent_voters (optional): List of :obj:`Peer <pyrogram.raw.base.Peer>`
         solution (optional): ``str``
         solution_entities (optional): List of :obj:`MessageEntity <pyrogram.raw.base.MessageEntity>`
+        solution_media (optional): :obj:`MessageMedia <pyrogram.raw.base.MessageMedia>`
     """
 
-    __slots__: List[str] = ["min", "results", "total_voters", "recent_voters", "solution", "solution_entities"]
+    __slots__: List[str] = ["min", "has_unread_votes", "results", "total_voters", "recent_voters", "solution", "solution_entities", "solution_media"]
 
-    ID = 0x7adf2420
+    ID = 0xba7bb15e
     QUALNAME = "types.PollResults"
 
-    def __init__(self, *, min: Optional[bool] = None, results: Optional[List["raw.base.PollAnswerVoters"]] = None, total_voters: Optional[int] = None, recent_voters: Optional[List["raw.base.Peer"]] = None, solution: Optional[str] = None, solution_entities: Optional[List["raw.base.MessageEntity"]] = None) -> None:
+    def __init__(self, *, min: Optional[bool] = None, has_unread_votes: Optional[bool] = None, results: Optional[List["raw.base.PollAnswerVoters"]] = None, total_voters: Optional[int] = None, recent_voters: Optional[List["raw.base.Peer"]] = None, solution: Optional[str] = None, solution_entities: Optional[List["raw.base.MessageEntity"]] = None, solution_media: "raw.base.MessageMedia" = None) -> None:
         self.min = min  # flags.0?true
+        self.has_unread_votes = has_unread_votes  # flags.6?true
         self.results = results  # flags.1?Vector<PollAnswerVoters>
         self.total_voters = total_voters  # flags.2?int
         self.recent_voters = recent_voters  # flags.3?Vector<Peer>
         self.solution = solution  # flags.4?string
         self.solution_entities = solution_entities  # flags.4?Vector<MessageEntity>
+        self.solution_media = solution_media  # flags.5?MessageMedia
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "PollResults":
@@ -67,6 +71,7 @@ class PollResults(TLObject):
         flags = Int.read(b)
         
         min = True if flags & (1 << 0) else False
+        has_unread_votes = True if flags & (1 << 6) else False
         results = TLObject.read(b) if flags & (1 << 1) else []
         
         total_voters = Int.read(b) if flags & (1 << 2) else None
@@ -75,7 +80,9 @@ class PollResults(TLObject):
         solution = String.read(b) if flags & (1 << 4) else None
         solution_entities = TLObject.read(b) if flags & (1 << 4) else []
         
-        return PollResults(min=min, results=results, total_voters=total_voters, recent_voters=recent_voters, solution=solution, solution_entities=solution_entities)
+        solution_media = TLObject.read(b) if flags & (1 << 5) else None
+        
+        return PollResults(min=min, has_unread_votes=has_unread_votes, results=results, total_voters=total_voters, recent_voters=recent_voters, solution=solution, solution_entities=solution_entities, solution_media=solution_media)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -83,11 +90,13 @@ class PollResults(TLObject):
 
         flags = 0
         flags |= (1 << 0) if self.min else 0
+        flags |= (1 << 6) if self.has_unread_votes else 0
         flags |= (1 << 1) if self.results else 0
         flags |= (1 << 2) if self.total_voters is not None else 0
         flags |= (1 << 3) if self.recent_voters else 0
         flags |= (1 << 4) if self.solution is not None else 0
         flags |= (1 << 4) if self.solution_entities else 0
+        flags |= (1 << 5) if self.solution_media is not None else 0
         b.write(Int(flags))
         
         if self.results is not None:
@@ -104,5 +113,8 @@ class PollResults(TLObject):
         
         if self.solution_entities is not None:
             b.write(Vector(self.solution_entities))
+        
+        if self.solution_media is not None:
+            b.write(self.solution_media.write())
         
         return b.getvalue()

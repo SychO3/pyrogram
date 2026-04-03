@@ -36,7 +36,7 @@ class GetSaved(TLObject["List[raw.base.SavedContact]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``82F1E39F``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class InputMessagesFilterContacts(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessagesFilter`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E062DB83``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class UpdateDialogUnreadMark(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B658F23E``
 
     Parameters:

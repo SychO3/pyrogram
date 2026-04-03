@@ -36,7 +36,7 @@ class SavePreparedInlineMessage(TLObject["raw.base.messages.BotPreparedInlineMes
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F21F7F2F``
 
     Parameters:

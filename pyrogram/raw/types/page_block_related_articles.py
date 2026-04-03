@@ -36,7 +36,7 @@ class PageBlockRelatedArticles(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageBlock`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``16115A96``
 
     Parameters:

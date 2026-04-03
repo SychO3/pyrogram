@@ -36,7 +36,7 @@ class GetGroupCallStreamRtmpUrl(TLObject["raw.base.phone.GroupCallStreamRtmpUrl"
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5AF4C73A``
 
     Parameters:

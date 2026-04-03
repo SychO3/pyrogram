@@ -36,7 +36,7 @@ class InputBotInlineResultGame(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputBotInlineResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4FA417F2``
 
     Parameters:

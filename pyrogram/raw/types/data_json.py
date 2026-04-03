@@ -36,7 +36,7 @@ class DataJSON(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.DataJSON`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7D748D04``
 
     Parameters:

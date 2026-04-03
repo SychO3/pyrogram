@@ -36,7 +36,7 @@ class EditPhoto(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F12E57C9``
 
     Parameters:

@@ -36,7 +36,7 @@ class InputStorePaymentStarsTopup(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputStorePaymentPurpose`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F9A2A6CB``
 
     Parameters:

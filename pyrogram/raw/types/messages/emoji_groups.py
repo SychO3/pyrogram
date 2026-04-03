@@ -36,7 +36,7 @@ class EmojiGroups(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.EmojiGroups`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``881FB94B``
 
     Parameters:

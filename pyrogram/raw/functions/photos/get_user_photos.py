@@ -36,7 +36,7 @@ class GetUserPhotos(TLObject["raw.base.photos.Photos"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``91CD32A8``
 
     Parameters:

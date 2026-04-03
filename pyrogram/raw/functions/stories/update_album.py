@@ -36,7 +36,7 @@ class UpdateAlbum(TLObject["raw.base.StoryAlbum"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5E5259B6``
 
     Parameters:

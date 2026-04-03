@@ -36,7 +36,7 @@ class MediaAreaStarGift(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MediaArea`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5787686D``
 
     Parameters:

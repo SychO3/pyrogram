@@ -36,8 +36,8 @@ class ForumTopic(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ForumTopic`.
 
     Details:
-        - Layer: ``223``
-        - ID: ``CDFF0ECA``
+        - Layer: ``224``
+        - ID: ``FCDAD815``
 
     Parameters:
         id: ``int`` ``32-bit``
@@ -51,6 +51,7 @@ class ForumTopic(TLObject):
         unread_count: ``int`` ``32-bit``
         unread_mentions_count: ``int`` ``32-bit``
         unread_reactions_count: ``int`` ``32-bit``
+        unread_poll_votes_count: ``int`` ``32-bit``
         from_id: :obj:`Peer <pyrogram.raw.base.Peer>`
         notify_settings: :obj:`PeerNotifySettings <pyrogram.raw.base.PeerNotifySettings>`
         my (optional): ``bool``
@@ -63,12 +64,12 @@ class ForumTopic(TLObject):
         draft (optional): :obj:`DraftMessage <pyrogram.raw.base.DraftMessage>`
     """
 
-    __slots__: List[str] = ["id", "date", "peer", "title", "icon_color", "top_message", "read_inbox_max_id", "read_outbox_max_id", "unread_count", "unread_mentions_count", "unread_reactions_count", "from_id", "notify_settings", "my", "closed", "pinned", "short", "hidden", "title_missing", "icon_emoji_id", "draft"]
+    __slots__: List[str] = ["id", "date", "peer", "title", "icon_color", "top_message", "read_inbox_max_id", "read_outbox_max_id", "unread_count", "unread_mentions_count", "unread_reactions_count", "unread_poll_votes_count", "from_id", "notify_settings", "my", "closed", "pinned", "short", "hidden", "title_missing", "icon_emoji_id", "draft"]
 
-    ID = 0xcdff0eca
+    ID = 0xfcdad815
     QUALNAME = "types.ForumTopic"
 
-    def __init__(self, *, id: int, date: int, peer: "raw.base.Peer", title: str, icon_color: int, top_message: int, read_inbox_max_id: int, read_outbox_max_id: int, unread_count: int, unread_mentions_count: int, unread_reactions_count: int, from_id: "raw.base.Peer", notify_settings: "raw.base.PeerNotifySettings", my: Optional[bool] = None, closed: Optional[bool] = None, pinned: Optional[bool] = None, short: Optional[bool] = None, hidden: Optional[bool] = None, title_missing: Optional[bool] = None, icon_emoji_id: Optional[int] = None, draft: "raw.base.DraftMessage" = None) -> None:
+    def __init__(self, *, id: int, date: int, peer: "raw.base.Peer", title: str, icon_color: int, top_message: int, read_inbox_max_id: int, read_outbox_max_id: int, unread_count: int, unread_mentions_count: int, unread_reactions_count: int, unread_poll_votes_count: int, from_id: "raw.base.Peer", notify_settings: "raw.base.PeerNotifySettings", my: Optional[bool] = None, closed: Optional[bool] = None, pinned: Optional[bool] = None, short: Optional[bool] = None, hidden: Optional[bool] = None, title_missing: Optional[bool] = None, icon_emoji_id: Optional[int] = None, draft: "raw.base.DraftMessage" = None) -> None:
         self.id = id  # int
         self.date = date  # int
         self.peer = peer  # Peer
@@ -80,6 +81,7 @@ class ForumTopic(TLObject):
         self.unread_count = unread_count  # int
         self.unread_mentions_count = unread_mentions_count  # int
         self.unread_reactions_count = unread_reactions_count  # int
+        self.unread_poll_votes_count = unread_poll_votes_count  # int
         self.from_id = from_id  # Peer
         self.notify_settings = notify_settings  # PeerNotifySettings
         self.my = my  # flags.1?true
@@ -125,13 +127,15 @@ class ForumTopic(TLObject):
         
         unread_reactions_count = Int.read(b)
         
+        unread_poll_votes_count = Int.read(b)
+        
         from_id = TLObject.read(b)
         
         notify_settings = TLObject.read(b)
         
         draft = TLObject.read(b) if flags & (1 << 4) else None
         
-        return ForumTopic(id=id, date=date, peer=peer, title=title, icon_color=icon_color, top_message=top_message, read_inbox_max_id=read_inbox_max_id, read_outbox_max_id=read_outbox_max_id, unread_count=unread_count, unread_mentions_count=unread_mentions_count, unread_reactions_count=unread_reactions_count, from_id=from_id, notify_settings=notify_settings, my=my, closed=closed, pinned=pinned, short=short, hidden=hidden, title_missing=title_missing, icon_emoji_id=icon_emoji_id, draft=draft)
+        return ForumTopic(id=id, date=date, peer=peer, title=title, icon_color=icon_color, top_message=top_message, read_inbox_max_id=read_inbox_max_id, read_outbox_max_id=read_outbox_max_id, unread_count=unread_count, unread_mentions_count=unread_mentions_count, unread_reactions_count=unread_reactions_count, unread_poll_votes_count=unread_poll_votes_count, from_id=from_id, notify_settings=notify_settings, my=my, closed=closed, pinned=pinned, short=short, hidden=hidden, title_missing=title_missing, icon_emoji_id=icon_emoji_id, draft=draft)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -172,6 +176,8 @@ class ForumTopic(TLObject):
         b.write(Int(self.unread_mentions_count))
         
         b.write(Int(self.unread_reactions_count))
+        
+        b.write(Int(self.unread_poll_votes_count))
         
         b.write(self.from_id.write())
         

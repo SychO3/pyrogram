@@ -36,7 +36,7 @@ class Photos(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.photos.Photos`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8DCA6AA5``
 
     Parameters:

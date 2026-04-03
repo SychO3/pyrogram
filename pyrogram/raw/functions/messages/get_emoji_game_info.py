@@ -36,7 +36,7 @@ class GetEmojiGameInfo(TLObject["raw.base.messages.EmojiGameInfo"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``FB7E8CA7``
 
     **No parameters required.**

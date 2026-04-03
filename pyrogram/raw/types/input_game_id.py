@@ -36,7 +36,7 @@ class InputGameID(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputGame`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``32C3E77``
 
     Parameters:

@@ -36,7 +36,7 @@ class ChatlistUpdates(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.chatlists.ChatlistUpdates`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``93BD878D``
 
     Parameters:

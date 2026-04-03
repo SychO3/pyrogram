@@ -36,7 +36,7 @@ class InputChatlistDialogFilter(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatlist`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F3E0DA33``
 
     Parameters:

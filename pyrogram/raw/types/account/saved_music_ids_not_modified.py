@@ -36,7 +36,7 @@ class SavedMusicIdsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.SavedMusicIds`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4FC81D6E``
 
     **No parameters required.**

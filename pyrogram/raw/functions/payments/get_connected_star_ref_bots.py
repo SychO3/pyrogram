@@ -36,7 +36,7 @@ class GetConnectedStarRefBots(TLObject["raw.base.payments.ConnectedStarRefBots"]
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5869A553``
 
     Parameters:

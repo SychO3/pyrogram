@@ -36,7 +36,7 @@ class DeleteAutoSaveExceptions(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``53BC0020``
 
     **No parameters required.**

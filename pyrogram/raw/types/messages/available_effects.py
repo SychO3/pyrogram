@@ -36,7 +36,7 @@ class AvailableEffects(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.AvailableEffects`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BDDB616E``
 
     Parameters:

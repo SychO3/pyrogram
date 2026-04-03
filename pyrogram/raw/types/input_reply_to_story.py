@@ -36,7 +36,7 @@ class InputReplyToStory(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputReplyTo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5881323A``
 
     Parameters:

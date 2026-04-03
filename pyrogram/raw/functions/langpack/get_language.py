@@ -36,7 +36,7 @@ class GetLanguage(TLObject["raw.base.LangPackLanguage"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6A596502``
 
     Parameters:

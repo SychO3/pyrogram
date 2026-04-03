@@ -36,7 +36,7 @@ class InputChatTheme(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputChatTheme`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C93DE95C``
 
     Parameters:

@@ -36,7 +36,7 @@ class LoadAsyncGraph(TLObject["raw.base.StatsGraph"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``621D5FA0``
 
     Parameters:

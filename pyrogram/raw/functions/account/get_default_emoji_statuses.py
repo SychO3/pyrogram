@@ -36,7 +36,7 @@ class GetDefaultEmojiStatuses(TLObject["raw.base.account.EmojiStatuses"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D6753386``
 
     Parameters:

@@ -36,7 +36,7 @@ class HidePromoData(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1E251C95``
 
     Parameters:

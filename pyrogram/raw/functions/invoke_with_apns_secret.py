@@ -36,7 +36,7 @@ class InvokeWithApnsSecret(TLObject["raw.base.X"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``0DAE54F8``
 
     Parameters:

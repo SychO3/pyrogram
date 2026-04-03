@@ -36,7 +36,7 @@ class UpdateStarGiftAuctionState(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``48E246C2``
 
     Parameters:

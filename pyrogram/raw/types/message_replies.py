@@ -36,7 +36,7 @@ class MessageReplies(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessageReplies`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``83D60FC2``
 
     Parameters:

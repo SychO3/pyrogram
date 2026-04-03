@@ -36,7 +36,7 @@ class ReceivedNotifyMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReceivedNotifyMessage`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A384B779``
 
     Parameters:

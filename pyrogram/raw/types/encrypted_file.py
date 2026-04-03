@@ -36,7 +36,7 @@ class EncryptedFile(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EncryptedFile`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A8008CD8``
 
     Parameters:

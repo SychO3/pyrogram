@@ -36,7 +36,7 @@ class SendMultiMedia(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1BF89D74``
 
     Parameters:

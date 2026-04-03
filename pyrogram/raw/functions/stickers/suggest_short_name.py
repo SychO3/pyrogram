@@ -36,7 +36,7 @@ class SuggestShortName(TLObject["raw.base.stickers.SuggestedShortName"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4DAFC503``
 
     Parameters:

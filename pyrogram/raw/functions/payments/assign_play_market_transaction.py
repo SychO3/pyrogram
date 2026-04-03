@@ -36,7 +36,7 @@ class AssignPlayMarketTransaction(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DFFD50D3``
 
     Parameters:

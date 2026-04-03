@@ -36,12 +36,20 @@ class KeyboardButtonRequestPhone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``417EFD8F``
 
     Parameters:
         text: ``str``
         style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`bots.GetRequestedWebViewButton <pyrogram.raw.functions.bots.GetRequestedWebViewButton>`
     """
 
     __slots__: List[str] = ["text", "style"]

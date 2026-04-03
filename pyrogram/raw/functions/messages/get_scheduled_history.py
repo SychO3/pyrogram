@@ -36,7 +36,7 @@ class GetScheduledHistory(TLObject["raw.base.messages.Messages"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F516760B``
 
     Parameters:

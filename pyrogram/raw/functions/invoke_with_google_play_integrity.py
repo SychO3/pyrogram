@@ -36,7 +36,7 @@ class InvokeWithGooglePlayIntegrity(TLObject["raw.base.X"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1DF92984``
 
     Parameters:

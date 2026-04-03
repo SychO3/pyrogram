@@ -36,7 +36,7 @@ class GetChannelRestrictedStatusEmojis(TLObject["raw.base.EmojiList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``35A9E0D5``
 
     Parameters:

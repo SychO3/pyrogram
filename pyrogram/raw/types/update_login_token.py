@@ -36,7 +36,7 @@ class UpdateLoginToken(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``564FE691``
 
     **No parameters required.**

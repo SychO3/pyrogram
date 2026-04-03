@@ -36,7 +36,7 @@ class EditChatTitle(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``73783FFD``
 
     Parameters:

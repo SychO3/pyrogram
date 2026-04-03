@@ -36,7 +36,7 @@ class GetGroupsForDiscussion(TLObject["raw.base.messages.Chats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F5DAD378``
 
     **No parameters required.**

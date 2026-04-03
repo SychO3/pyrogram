@@ -36,7 +36,7 @@ class InputCollectiblePhone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputCollectible`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A2E214A4``
 
     Parameters:

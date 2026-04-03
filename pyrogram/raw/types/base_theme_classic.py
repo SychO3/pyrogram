@@ -36,7 +36,7 @@ class BaseThemeClassic(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BaseTheme`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C3A12462``
 
     **No parameters required.**

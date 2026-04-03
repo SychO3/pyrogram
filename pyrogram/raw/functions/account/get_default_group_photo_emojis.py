@@ -36,7 +36,7 @@ class GetDefaultGroupPhotoEmojis(TLObject["raw.base.EmojiList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``915860AE``
 
     Parameters:

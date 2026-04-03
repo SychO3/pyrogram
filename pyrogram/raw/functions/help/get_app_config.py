@@ -36,7 +36,7 @@ class GetAppConfig(TLObject["raw.base.help.AppConfig"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``61E3F854``
 
     Parameters:

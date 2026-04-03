@@ -36,53 +36,63 @@ class SendBotRequestedPeer(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
-        - ID: ``91B2D060``
+        - Layer: ``224``
+        - ID: ``6C5CF2A7``
 
     Parameters:
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
-        msg_id: ``int`` ``32-bit``
         button_id: ``int`` ``32-bit``
         requested_peers: List of :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
+        msg_id (optional): ``int`` ``32-bit``
+        webapp_req_id (optional): ``str``
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["peer", "msg_id", "button_id", "requested_peers"]
+    __slots__: List[str] = ["peer", "button_id", "requested_peers", "msg_id", "webapp_req_id"]
 
-    ID = 0x91b2d060
+    ID = 0x6c5cf2a7
     QUALNAME = "functions.messages.SendBotRequestedPeer"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", msg_id: int, button_id: int, requested_peers: List["raw.base.InputPeer"]) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", button_id: int, requested_peers: List["raw.base.InputPeer"], msg_id: Optional[int] = None, webapp_req_id: Optional[str] = None) -> None:
         self.peer = peer  # InputPeer
-        self.msg_id = msg_id  # int
         self.button_id = button_id  # int
         self.requested_peers = requested_peers  # Vector<InputPeer>
+        self.msg_id = msg_id  # flags.0?int
+        self.webapp_req_id = webapp_req_id  # flags.1?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SendBotRequestedPeer":
-        # No flags
+        
+        flags = Int.read(b)
         
         peer = TLObject.read(b)
         
-        msg_id = Int.read(b)
-        
+        msg_id = Int.read(b) if flags & (1 << 0) else None
+        webapp_req_id = String.read(b) if flags & (1 << 1) else None
         button_id = Int.read(b)
         
         requested_peers = TLObject.read(b)
         
-        return SendBotRequestedPeer(peer=peer, msg_id=msg_id, button_id=button_id, requested_peers=requested_peers)
+        return SendBotRequestedPeer(peer=peer, button_id=button_id, requested_peers=requested_peers, msg_id=msg_id, webapp_req_id=webapp_req_id)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
         b.write(Int(self.ID, False))
 
-        # No flags
+        flags = 0
+        flags |= (1 << 0) if self.msg_id is not None else 0
+        flags |= (1 << 1) if self.webapp_req_id is not None else 0
+        b.write(Int(flags))
         
         b.write(self.peer.write())
         
-        b.write(Int(self.msg_id))
+        if self.msg_id is not None:
+            b.write(Int(self.msg_id))
+        
+        if self.webapp_req_id is not None:
+            b.write(String(self.webapp_req_id))
         
         b.write(Int(self.button_id))
         

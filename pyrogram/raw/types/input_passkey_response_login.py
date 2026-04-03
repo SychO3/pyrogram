@@ -36,7 +36,7 @@ class InputPasskeyResponseLogin(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPasskeyResponse`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C31FC14A``
 
     Parameters:

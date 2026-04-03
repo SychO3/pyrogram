@@ -36,7 +36,7 @@ class SaveDefaultGroupCallJoinAs(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``575E1F8C``
 
     Parameters:

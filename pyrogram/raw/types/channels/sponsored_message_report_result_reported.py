@@ -36,7 +36,7 @@ class SponsoredMessageReportResultReported(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.channels.SponsoredMessageReportResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AD798849``
 
     **No parameters required.**

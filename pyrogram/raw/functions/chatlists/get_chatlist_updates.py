@@ -36,7 +36,7 @@ class GetChatlistUpdates(TLObject["raw.base.chatlists.ChatlistUpdates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``89419521``
 
     Parameters:

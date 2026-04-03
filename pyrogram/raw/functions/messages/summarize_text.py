@@ -36,27 +36,29 @@ class SummarizeText(TLObject["raw.base.TextWithEntities"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
-        - ID: ``9D4104E2``
+        - Layer: ``224``
+        - ID: ``ABBBD346``
 
     Parameters:
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         id: ``int`` ``32-bit``
         to_lang (optional): ``str``
+        tone (optional): ``str``
 
     Returns:
         :obj:`TextWithEntities <pyrogram.raw.base.TextWithEntities>`
     """
 
-    __slots__: List[str] = ["peer", "id", "to_lang"]
+    __slots__: List[str] = ["peer", "id", "to_lang", "tone"]
 
-    ID = 0x9d4104e2
+    ID = 0xabbbd346
     QUALNAME = "functions.messages.SummarizeText"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", id: int, to_lang: Optional[str] = None) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", id: int, to_lang: Optional[str] = None, tone: Optional[str] = None) -> None:
         self.peer = peer  # InputPeer
         self.id = id  # int
         self.to_lang = to_lang  # flags.0?string
+        self.tone = tone  # flags.2?string
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SummarizeText":
@@ -68,7 +70,8 @@ class SummarizeText(TLObject["raw.base.TextWithEntities"]):
         id = Int.read(b)
         
         to_lang = String.read(b) if flags & (1 << 0) else None
-        return SummarizeText(peer=peer, id=id, to_lang=to_lang)
+        tone = String.read(b) if flags & (1 << 2) else None
+        return SummarizeText(peer=peer, id=id, to_lang=to_lang, tone=tone)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -76,6 +79,7 @@ class SummarizeText(TLObject["raw.base.TextWithEntities"]):
 
         flags = 0
         flags |= (1 << 0) if self.to_lang is not None else 0
+        flags |= (1 << 2) if self.tone is not None else 0
         b.write(Int(flags))
         
         b.write(self.peer.write())
@@ -84,5 +88,8 @@ class SummarizeText(TLObject["raw.base.TextWithEntities"]):
         
         if self.to_lang is not None:
             b.write(String(self.to_lang))
+        
+        if self.tone is not None:
+            b.write(String(self.tone))
         
         return b.getvalue()

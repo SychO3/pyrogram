@@ -36,7 +36,7 @@ class ReactionNotificationsFromAll(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReactionNotificationsFrom`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4B9E22A0``
 
     **No parameters required.**

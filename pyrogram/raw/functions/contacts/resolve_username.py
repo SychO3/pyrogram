@@ -36,7 +36,7 @@ class ResolveUsername(TLObject["raw.base.contacts.ResolvedPeer"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``725AFBBC``
 
     Parameters:

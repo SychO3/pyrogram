@@ -36,7 +36,7 @@ class ChatAdminsWithInvites(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.ChatAdminsWithInvites`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B69B72D7``
 
     Parameters:

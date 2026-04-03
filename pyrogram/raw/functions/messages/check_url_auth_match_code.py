@@ -36,7 +36,7 @@ class CheckUrlAuthMatchCode(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C9A47B0B``
 
     Parameters:

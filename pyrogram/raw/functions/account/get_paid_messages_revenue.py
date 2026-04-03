@@ -36,7 +36,7 @@ class GetPaidMessagesRevenue(TLObject["raw.base.account.PaidMessagesRevenue"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``19BA4A67``
 
     Parameters:

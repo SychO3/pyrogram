@@ -36,7 +36,7 @@ class FoundStickersNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.FoundStickers`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6010C534``
 
     Parameters:

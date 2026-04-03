@@ -36,7 +36,7 @@ class SendSignalingData(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``FF7A9383``
 
     Parameters:

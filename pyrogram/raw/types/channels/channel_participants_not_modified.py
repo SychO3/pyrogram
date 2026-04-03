@@ -36,7 +36,7 @@ class ChannelParticipantsNotModified(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.channels.ChannelParticipants`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F0173FE9``
 
     **No parameters required.**

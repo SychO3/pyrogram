@@ -36,7 +36,7 @@ class Message(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Message`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3AE56482``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetMaskStickers(TLObject["raw.base.messages.AllStickers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``640F82B8``
 
     Parameters:

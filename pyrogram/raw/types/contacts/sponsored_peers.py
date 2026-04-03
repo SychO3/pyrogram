@@ -36,7 +36,7 @@ class SponsoredPeers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.contacts.SponsoredPeers`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``EB032884``
 
     Parameters:

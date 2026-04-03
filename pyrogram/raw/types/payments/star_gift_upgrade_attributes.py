@@ -36,7 +36,7 @@ class StarGiftUpgradeAttributes(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.StarGiftUpgradeAttributes`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``46C6E36F``
 
     Parameters:

@@ -36,7 +36,7 @@ class SecurePlainPhone(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SecurePlainData`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7D6099DD``
 
     Parameters:

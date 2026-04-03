@@ -36,7 +36,7 @@ class GetGroupParticipants(TLObject["raw.base.phone.GroupParticipants"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C558D8AB``
 
     Parameters:

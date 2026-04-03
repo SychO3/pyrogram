@@ -36,7 +36,7 @@ class PasskeyRegistrationOptions(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.account.PasskeyRegistrationOptions`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E16B5CE1``
 
     Parameters:

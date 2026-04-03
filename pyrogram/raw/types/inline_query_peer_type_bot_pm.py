@@ -36,7 +36,7 @@ class InlineQueryPeerTypeBotPM(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InlineQueryPeerType`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``E3B2D0C``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class InvokeAfterMsg(TLObject["raw.base.X"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CB9F372D``
 
     Parameters:

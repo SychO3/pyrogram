@@ -36,7 +36,7 @@ class GetAdminedPublicChannels(TLObject["raw.base.messages.Chats"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F8B036AF``
 
     Parameters:

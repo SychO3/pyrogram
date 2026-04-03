@@ -43,7 +43,7 @@ else:
             - :obj:`UserEmpty <pyrogram.raw.types.UserEmpty>`
 
     See Also:
-        This object can be returned by 8 methods:
+        This object can be returned by 9 methods:
 
         .. hlist::
             :columns: 2
@@ -56,6 +56,7 @@ else:
             - :obj:`messages.GetFutureChatCreatorAfterLeave <pyrogram.raw.functions.messages.GetFutureChatCreatorAfterLeave>`
             - :obj:`channels.GetMessageAuthor <pyrogram.raw.functions.channels.GetMessageAuthor>`
             - :obj:`bots.GetAdminedBots <pyrogram.raw.functions.bots.GetAdminedBots>`
+            - :obj:`bots.CreateBot <pyrogram.raw.functions.bots.CreateBot>`
         """
 
         QUALNAME = "pyrogram.raw.base.User"

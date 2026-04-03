@@ -36,7 +36,7 @@ class MissingInvitee(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MissingInvitee`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``628C9224``
 
     Parameters:

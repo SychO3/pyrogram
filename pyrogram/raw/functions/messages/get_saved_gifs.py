@@ -36,7 +36,7 @@ class GetSavedGifs(TLObject["raw.base.messages.SavedGifs"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5CF09635``
 
     Parameters:

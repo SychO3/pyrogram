@@ -36,7 +36,7 @@ class InviteToGroupCall(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7B393160``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetAutoDownloadSettings(TLObject["raw.base.account.AutoDownloadSettings"])
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``56DA0B3F``
 
     **No parameters required.**

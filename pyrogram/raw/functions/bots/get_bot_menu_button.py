@@ -36,7 +36,7 @@ class GetBotMenuButton(TLObject["raw.base.BotMenuButton"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``9C60EB28``
 
     Parameters:

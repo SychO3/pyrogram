@@ -36,7 +36,7 @@ class InputPaymentCredentialsGooglePay(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPaymentCredentials`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8AC32801``
 
     Parameters:

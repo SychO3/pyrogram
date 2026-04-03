@@ -36,7 +36,7 @@ class MessagePeerReaction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.MessagePeerReaction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8C79B63C``
 
     Parameters:

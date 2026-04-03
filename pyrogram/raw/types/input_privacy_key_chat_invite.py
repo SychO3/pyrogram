@@ -36,7 +36,7 @@ class InputPrivacyKeyChatInvite(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPrivacyKey`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BDFB0426``
 
     **No parameters required.**

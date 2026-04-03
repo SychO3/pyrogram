@@ -36,7 +36,7 @@ class GroupCallParticipant(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GroupCallParticipant`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2A3DC7AC``
 
     Parameters:

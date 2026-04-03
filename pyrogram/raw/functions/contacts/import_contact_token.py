@@ -36,7 +36,7 @@ class ImportContactToken(TLObject["raw.base.User"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``13005788``
 
     Parameters:

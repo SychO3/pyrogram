@@ -36,7 +36,7 @@ class ImportLoginToken(TLObject["raw.base.auth.LoginToken"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``95AC5CE4``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetSearchResultsCalendar(TLObject["raw.base.messages.SearchResultsCalendar
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6AA3F6BD``
 
     Parameters:

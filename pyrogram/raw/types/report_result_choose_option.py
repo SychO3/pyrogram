@@ -36,7 +36,7 @@ class ReportResultChooseOption(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReportResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F0E4E0B6``
 
     Parameters:

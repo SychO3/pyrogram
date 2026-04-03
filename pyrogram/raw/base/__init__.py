@@ -419,4 +419,5 @@ from .star_gift_background import StarGiftBackground
 from .star_gift_auction_round import StarGiftAuctionRound
 from .star_gift_attribute_rarity import StarGiftAttributeRarity
 from .keyboard_button_style import KeyboardButtonStyle
+from .input_message_read_metric import InputMessageReadMetric
 from . import help, storage, auth, contacts, messages, updates, photos, upload, account, channels, payments, phone, stats, stickers, users, chatlists, bots, stories, premium, smsjobs, fragment

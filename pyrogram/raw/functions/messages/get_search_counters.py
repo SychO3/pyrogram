@@ -36,7 +36,7 @@ class GetSearchCounters(TLObject["List[raw.base.messages.SearchCounter]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1BBCF300``
 
     Parameters:

@@ -36,7 +36,7 @@ class EncryptedChatDiscarded(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.EncryptedChat`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``1E1C7C45``
 
     Parameters:

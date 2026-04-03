@@ -36,7 +36,7 @@ class AcceptAuthorization(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F3ED4C73``
 
     Parameters:

@@ -36,7 +36,7 @@ class EmojiGameOutcome(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.EmojiGameOutcome`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DA2AD647``
 
     Parameters:

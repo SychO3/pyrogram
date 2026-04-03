@@ -36,7 +36,7 @@ class BusinessBotRights(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.BusinessBotRights`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A0624CF7``
 
     Parameters:

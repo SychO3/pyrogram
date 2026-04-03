@@ -36,7 +36,7 @@ class RequestMainWebView(TLObject["raw.base.WebViewResult"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C9E01E7B``
 
     Parameters:

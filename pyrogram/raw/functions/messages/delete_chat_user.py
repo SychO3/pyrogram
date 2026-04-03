@@ -36,7 +36,7 @@ class DeleteChatUser(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A2185CAB``
 
     Parameters:

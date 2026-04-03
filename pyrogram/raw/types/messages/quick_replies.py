@@ -36,7 +36,7 @@ class QuickReplies(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.messages.QuickReplies`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``C68D6695``
 
     Parameters:

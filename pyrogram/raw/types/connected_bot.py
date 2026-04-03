@@ -36,7 +36,7 @@ class ConnectedBot(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ConnectedBot`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``CD64636C``
 
     Parameters:

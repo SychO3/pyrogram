@@ -36,7 +36,7 @@ class GetPeerSettings(TLObject["raw.base.messages.PeerSettings"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``EFD9A6A2``
 
     Parameters:

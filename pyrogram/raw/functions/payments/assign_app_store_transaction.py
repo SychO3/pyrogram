@@ -36,7 +36,7 @@ class AssignAppStoreTransaction(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``80ED747D``
 
     Parameters:

@@ -36,25 +36,27 @@ class GetPollResults(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
-        - ID: ``73BB643B``
+        - Layer: ``224``
+        - ID: ``EDA3E33B``
 
     Parameters:
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         msg_id: ``int`` ``32-bit``
+        poll_hash: ``int`` ``64-bit``
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["peer", "msg_id"]
+    __slots__: List[str] = ["peer", "msg_id", "poll_hash"]
 
-    ID = 0x73bb643b
+    ID = 0xeda3e33b
     QUALNAME = "functions.messages.GetPollResults"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", msg_id: int) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", msg_id: int, poll_hash: int) -> None:
         self.peer = peer  # InputPeer
         self.msg_id = msg_id  # int
+        self.poll_hash = poll_hash  # long
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "GetPollResults":
@@ -64,7 +66,9 @@ class GetPollResults(TLObject["raw.base.Updates"]):
         
         msg_id = Int.read(b)
         
-        return GetPollResults(peer=peer, msg_id=msg_id)
+        poll_hash = Long.read(b)
+        
+        return GetPollResults(peer=peer, msg_id=msg_id, poll_hash=poll_hash)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -75,5 +79,7 @@ class GetPollResults(TLObject["raw.base.Updates"]):
         b.write(self.peer.write())
         
         b.write(Int(self.msg_id))
+        
+        b.write(Long(self.poll_hash))
         
         return b.getvalue()

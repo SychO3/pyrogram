@@ -36,7 +36,7 @@ class GetRequirementsToContact(TLObject["List[raw.base.RequirementToContact]"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``D89A83A3``
 
     Parameters:

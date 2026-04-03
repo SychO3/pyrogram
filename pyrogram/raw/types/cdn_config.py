@@ -36,7 +36,7 @@ class CdnConfig(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.CdnConfig`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5725E40A``
 
     Parameters:

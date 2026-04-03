@@ -36,7 +36,7 @@ class NotifyUsers(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.NotifyPeer`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B4C83B4C``
 
     **No parameters required.**

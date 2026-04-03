@@ -36,7 +36,7 @@ class GetSponsoredPeers(TLObject["raw.base.contacts.SponsoredPeers"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B6C8C393``
 
     Parameters:

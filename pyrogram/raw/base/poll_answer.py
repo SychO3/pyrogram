@@ -29,21 +29,22 @@ from pyrogram.raw.core import BaseTypeMeta
 
 
 if TYPE_CHECKING:
-    PollAnswer = Union[raw.types.PollAnswer]
+    PollAnswer = Union[raw.types.InputPollAnswer, raw.types.PollAnswer]
 else:
     # noinspection PyRedeclaration
     class PollAnswer(metaclass=BaseTypeMeta):  # type: ignore
-        """This base type has 1 constructor available.
+        """This base type has 2 constructors available.
 
     Constructors:
         .. hlist::
             :columns: 2
 
+            - :obj:`InputPollAnswer <pyrogram.raw.types.InputPollAnswer>`
             - :obj:`PollAnswer <pyrogram.raw.types.PollAnswer>`
         """
 
         QUALNAME = "pyrogram.raw.base.PollAnswer"
-        __union_types__ = Union[raw.types.PollAnswer]
+        __union_types__ = Union[raw.types.InputPollAnswer, raw.types.PollAnswer]
 
         def __init__(self):
             raise TypeError("Base types can only be used for type checking purposes: "

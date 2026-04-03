@@ -36,7 +36,7 @@ class InputReportReasonIllegalDrugs(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ReportReason`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A8EB2BE``
 
     **No parameters required.**

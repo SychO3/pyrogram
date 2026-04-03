@@ -36,7 +36,7 @@ class ToggleJoinRequest(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``4C2985B6``
 
     Parameters:

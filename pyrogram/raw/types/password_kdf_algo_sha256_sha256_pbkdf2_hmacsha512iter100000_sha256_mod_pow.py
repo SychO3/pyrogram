@@ -36,7 +36,7 @@ class PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow(TLObject
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PasswordKdfAlgo`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3A912D4A``
 
     Parameters:

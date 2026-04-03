@@ -36,7 +36,7 @@ class TogglePeerStoriesHidden(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BD0415C4``
 
     Parameters:

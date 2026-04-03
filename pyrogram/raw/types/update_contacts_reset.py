@@ -36,7 +36,7 @@ class UpdateContactsReset(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.Update`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``7084A7BE``
 
     **No parameters required.**

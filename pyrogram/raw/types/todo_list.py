@@ -36,7 +36,7 @@ class TodoList(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.TodoList`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``49B92A26``
 
     Parameters:

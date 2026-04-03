@@ -36,7 +36,7 @@ class RpcDropAnswer(TLObject["raw.base.RpcDropAnswer"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``58E4A740``
 
     Parameters:

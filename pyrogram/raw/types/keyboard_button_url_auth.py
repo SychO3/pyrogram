@@ -36,7 +36,7 @@ class KeyboardButtonUrlAuth(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.KeyboardButton`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F51006F9``
 
     Parameters:
@@ -45,6 +45,14 @@ class KeyboardButtonUrlAuth(TLObject):
         button_id: ``int`` ``32-bit``
         style (optional): :obj:`KeyboardButtonStyle <pyrogram.raw.base.KeyboardButtonStyle>`
         fwd_text (optional): ``str``
+
+    See Also:
+        This object can be returned by 1 method:
+
+        .. hlist::
+            :columns: 2
+
+            - :obj:`bots.GetRequestedWebViewButton <pyrogram.raw.functions.bots.GetRequestedWebViewButton>`
     """
 
     __slots__: List[str] = ["text", "url", "button_id", "style", "fwd_text"]

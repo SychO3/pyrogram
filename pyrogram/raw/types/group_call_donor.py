@@ -36,7 +36,7 @@ class GroupCallDonor(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.GroupCallDonor`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``EE430C85``
 
     Parameters:

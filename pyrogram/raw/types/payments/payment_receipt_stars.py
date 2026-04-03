@@ -36,7 +36,7 @@ class PaymentReceiptStars(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.payments.PaymentReceipt`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``DABBF83A``
 
     Parameters:

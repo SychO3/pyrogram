@@ -36,7 +36,7 @@ class GetContentSettings(TLObject["raw.base.account.ContentSettings"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``8B9B4DAE``
 
     **No parameters required.**

@@ -36,7 +36,7 @@ class InputPeerUserFromMessage(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.InputPeer`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A87B0A1C``
 
     Parameters:

@@ -36,7 +36,7 @@ class GetTimezonesList(TLObject["raw.base.help.TimezonesList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``49B30240``
 
     Parameters:

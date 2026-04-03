@@ -36,7 +36,7 @@ class PageTableCell(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.PageTableCell`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``34566B6A``
 
     Parameters:

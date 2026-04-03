@@ -36,7 +36,7 @@ class GetPeerStories(TLObject["raw.base.stories.PeerStories"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2C4ADA50``
 
     Parameters:

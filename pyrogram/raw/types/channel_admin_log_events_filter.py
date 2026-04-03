@@ -36,7 +36,7 @@ class ChannelAdminLogEventsFilter(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventsFilter`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``EA107AE4``
 
     Parameters:

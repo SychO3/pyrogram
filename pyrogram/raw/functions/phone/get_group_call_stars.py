@@ -36,7 +36,7 @@ class GetGroupCallStars(TLObject["raw.base.phone.GroupCallStars"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``6F636302``
 
     Parameters:

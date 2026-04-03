@@ -36,7 +36,7 @@ class ConvertToGigagroup(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B290C69``
 
     Parameters:

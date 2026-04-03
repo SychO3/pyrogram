@@ -36,7 +36,7 @@ class DeleteSecureValue(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B880BC4B``
 
     Parameters:

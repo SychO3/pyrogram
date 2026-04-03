@@ -36,7 +36,7 @@ class GetAlbumStories(TLObject["raw.base.stories.Stories"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AC806D61``
 
     Parameters:

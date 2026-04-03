@@ -36,7 +36,7 @@ class CreateForumTopic(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``2F98C3D5``
 
     Parameters:

@@ -36,7 +36,7 @@ class ToggleConnectedBotPaused(TLObject["raw.base.Bool"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``646E1097``
 
     Parameters:

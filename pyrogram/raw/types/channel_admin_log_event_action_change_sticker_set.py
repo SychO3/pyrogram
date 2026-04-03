@@ -36,7 +36,7 @@ class ChannelAdminLogEventActionChangeStickerSet(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B1C3CAA7``
 
     Parameters:

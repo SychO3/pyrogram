@@ -36,7 +36,7 @@ class TermsOfService(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.help.TermsOfService`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``780A0310``
 
     Parameters:

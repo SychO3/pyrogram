@@ -36,7 +36,7 @@ class GetStoryPublicForwards(TLObject["raw.base.stats.PublicForwards"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A6437EF6``
 
     Parameters:

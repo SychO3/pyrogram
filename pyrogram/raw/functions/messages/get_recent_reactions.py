@@ -36,7 +36,7 @@ class GetRecentReactions(TLObject["raw.base.messages.Reactions"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``39461DB2``
 
     Parameters:

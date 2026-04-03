@@ -36,7 +36,7 @@ class EditChatCreator(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F743B857``
 
     Parameters:

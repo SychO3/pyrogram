@@ -36,8 +36,8 @@ class SendStory(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
-        - ID: ``737FC2EC``
+        - Layer: ``224``
+        - ID: ``8F9E6898``
 
     Parameters:
         peer: :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
@@ -54,17 +54,18 @@ class SendStory(TLObject["raw.base.Updates"]):
         fwd_from_id (optional): :obj:`InputPeer <pyrogram.raw.base.InputPeer>`
         fwd_from_story (optional): ``int`` ``32-bit``
         albums (optional): List of ``int`` ``32-bit``
+        music (optional): :obj:`InputDocument <pyrogram.raw.base.InputDocument>`
 
     Returns:
         :obj:`Updates <pyrogram.raw.base.Updates>`
     """
 
-    __slots__: List[str] = ["peer", "media", "privacy_rules", "random_id", "pinned", "noforwards", "fwd_modified", "media_areas", "caption", "entities", "period", "fwd_from_id", "fwd_from_story", "albums"]
+    __slots__: List[str] = ["peer", "media", "privacy_rules", "random_id", "pinned", "noforwards", "fwd_modified", "media_areas", "caption", "entities", "period", "fwd_from_id", "fwd_from_story", "albums", "music"]
 
-    ID = 0x737fc2ec
+    ID = 0x8f9e6898
     QUALNAME = "functions.stories.SendStory"
 
-    def __init__(self, *, peer: "raw.base.InputPeer", media: "raw.base.InputMedia", privacy_rules: List["raw.base.InputPrivacyRule"], random_id: int, pinned: Optional[bool] = None, noforwards: Optional[bool] = None, fwd_modified: Optional[bool] = None, media_areas: Optional[List["raw.base.MediaArea"]] = None, caption: Optional[str] = None, entities: Optional[List["raw.base.MessageEntity"]] = None, period: Optional[int] = None, fwd_from_id: "raw.base.InputPeer" = None, fwd_from_story: Optional[int] = None, albums: Optional[List[int]] = None) -> None:
+    def __init__(self, *, peer: "raw.base.InputPeer", media: "raw.base.InputMedia", privacy_rules: List["raw.base.InputPrivacyRule"], random_id: int, pinned: Optional[bool] = None, noforwards: Optional[bool] = None, fwd_modified: Optional[bool] = None, media_areas: Optional[List["raw.base.MediaArea"]] = None, caption: Optional[str] = None, entities: Optional[List["raw.base.MessageEntity"]] = None, period: Optional[int] = None, fwd_from_id: "raw.base.InputPeer" = None, fwd_from_story: Optional[int] = None, albums: Optional[List[int]] = None, music: "raw.base.InputDocument" = None) -> None:
         self.peer = peer  # InputPeer
         self.media = media  # InputMedia
         self.privacy_rules = privacy_rules  # Vector<InputPrivacyRule>
@@ -79,6 +80,7 @@ class SendStory(TLObject["raw.base.Updates"]):
         self.fwd_from_id = fwd_from_id  # flags.6?InputPeer
         self.fwd_from_story = fwd_from_story  # flags.6?int
         self.albums = albums  # flags.8?Vector<int>
+        self.music = music  # flags.9?InputDocument
 
     @staticmethod
     def read(b: BytesIO, *args: Any) -> "SendStory":
@@ -107,7 +109,9 @@ class SendStory(TLObject["raw.base.Updates"]):
         fwd_from_story = Int.read(b) if flags & (1 << 6) else None
         albums = TLObject.read(b, Int) if flags & (1 << 8) else []
         
-        return SendStory(peer=peer, media=media, privacy_rules=privacy_rules, random_id=random_id, pinned=pinned, noforwards=noforwards, fwd_modified=fwd_modified, media_areas=media_areas, caption=caption, entities=entities, period=period, fwd_from_id=fwd_from_id, fwd_from_story=fwd_from_story, albums=albums)
+        music = TLObject.read(b) if flags & (1 << 9) else None
+        
+        return SendStory(peer=peer, media=media, privacy_rules=privacy_rules, random_id=random_id, pinned=pinned, noforwards=noforwards, fwd_modified=fwd_modified, media_areas=media_areas, caption=caption, entities=entities, period=period, fwd_from_id=fwd_from_id, fwd_from_story=fwd_from_story, albums=albums, music=music)
 
     def write(self, *args) -> bytes:
         b = BytesIO()
@@ -124,6 +128,7 @@ class SendStory(TLObject["raw.base.Updates"]):
         flags |= (1 << 6) if self.fwd_from_id is not None else 0
         flags |= (1 << 6) if self.fwd_from_story is not None else 0
         flags |= (1 << 8) if self.albums else 0
+        flags |= (1 << 9) if self.music is not None else 0
         b.write(Int(flags))
         
         b.write(self.peer.write())
@@ -154,5 +159,8 @@ class SendStory(TLObject["raw.base.Updates"]):
         
         if self.albums is not None:
             b.write(Vector(self.albums, Int))
+        
+        if self.music is not None:
+            b.write(self.music.write())
         
         return b.getvalue()

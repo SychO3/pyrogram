@@ -36,7 +36,7 @@ class SendMessageUploadDocumentAction(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.SendMessageAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``AA0CD9E4``
 
     Parameters:

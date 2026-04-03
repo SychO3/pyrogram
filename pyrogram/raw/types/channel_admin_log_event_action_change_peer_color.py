@@ -36,7 +36,7 @@ class ChannelAdminLogEventActionChangePeerColor(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.ChannelAdminLogEventAction`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``5796E780``
 
     Parameters:

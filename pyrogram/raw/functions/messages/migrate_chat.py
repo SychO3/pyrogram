@@ -36,7 +36,7 @@ class MigrateChat(TLObject["raw.base.Updates"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``A2875319``
 
     Parameters:

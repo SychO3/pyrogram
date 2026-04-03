@@ -36,7 +36,7 @@ class RecentMeUrlStickerSet(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RecentMeUrl`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``BC0A57DC``
 
     Parameters:

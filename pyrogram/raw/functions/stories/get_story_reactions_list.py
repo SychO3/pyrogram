@@ -36,7 +36,7 @@ class GetStoryReactionsList(TLObject["raw.base.stories.StoryReactionsList"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``B9B2881F``
 
     Parameters:

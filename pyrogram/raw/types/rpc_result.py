@@ -36,7 +36,7 @@ class RpcResult(TLObject):
     """This object is a constructor of the base type :obj:`~pyrogram.raw.base.RpcResult`.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``F35C6D01``
 
     Parameters:

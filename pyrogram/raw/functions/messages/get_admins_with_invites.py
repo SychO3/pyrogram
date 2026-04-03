@@ -36,7 +36,7 @@ class GetAdminsWithInvites(TLObject["raw.base.messages.ChatAdminsWithInvites"]):
     """Telegram API method.
 
     Details:
-        - Layer: ``223``
+        - Layer: ``224``
         - ID: ``3920E6EF``
 
     Parameters:
