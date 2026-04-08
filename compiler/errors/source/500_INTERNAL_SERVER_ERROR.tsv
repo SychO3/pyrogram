@@ -6,12 +6,16 @@ CALL_OCCUPY_FAILED	The call failed because the user is already making another ca
 CDN_UPLOAD_TIMEOUT	A server-side timeout occurred while reuploading the file to the CDN DC.
 CHAT_ID_GENERATE_FAILED	Failure while generating the chat ID.
 CHAT_INVALID	Invalid chat.
-FIRSTNAME_INVALID	The first name is invalid.
+ENCRYPTION_DECLINE_ADMIN_FAILED	
+GROUPCALL_ADD_PARTICIPANTS_FAILED	
 MSG_WAIT_FAILED	A waiting call returned an error.
+NEED_DOC_INVALID	
 PARTICIPANT_CALL_FAILED	
+PASSKEY_AUTH_RESTART	
 PERSISTENT_TIMESTAMP_OUTDATED	Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).
 RANDOM_ID_DUPLICATE	You provided a random ID that was already used.
 SEND_MEDIA_INVALID	The specified media is invalid.
 SIGN_IN_FAILED	Failure while signing in.
 TRANSLATE_REQ_FAILED	Translation failed, please try again later.
-TRANSLATION_TIMEOUT	
+TRANSLATION_TIMEOUT	A timeout occurred while translating the specified text.
+VOLUME_MOVE_INVALID	
