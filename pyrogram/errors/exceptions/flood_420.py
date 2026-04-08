@@ -55,7 +55,7 @@ class FloodWaitX(Flood):
 
 
 class FrozenMethodInvalid(Flood):
-    """"""
+    """The current account is [frozen](https://core.telegram.org/api/auth#frozen-accounts), and thus cannot execute the specified action."""
     ID = "FROZEN_METHOD_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__

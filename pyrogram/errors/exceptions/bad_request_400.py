@@ -33,13 +33,6 @@ class AboutTooLong(BadRequest):
     MESSAGE = __doc__
 
 
-class AccessForbidden(BadRequest):
-    """"""
-    ID = "ACCESS_FORBIDDEN"
-    """``str``: RPC Error ID"""
-    MESSAGE = __doc__
-
-
 class AccessTokenExpired(BadRequest):
     """Access token expired."""
     ID = "ACCESS_TOKEN_EXPIRED"
@@ -320,6 +313,13 @@ class BotDomainInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class BotFallbackUnsupported(BadRequest):
+    """The fallback flag can't be set for bots."""
+    ID = "BOT_FALLBACK_UNSUPPORTED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class BotGamesDisabled(BadRequest):
     """Games can't be sent to channels."""
     ID = "BOT_GAMES_DISABLED"
@@ -495,6 +495,13 @@ class ButtonIdInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class ButtonInvalid(BadRequest):
+    """The specified button is invalid."""
+    ID = "BUTTON_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class ButtonPosInvalid(BadRequest):
     """The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...)."""
     ID = "BUTTON_POS_INVALID"
@@ -666,6 +673,20 @@ class ChannelTooLarge(BadRequest):
 class ChargeAlreadyRefunded(BadRequest):
     """The transaction was already refunded."""
     ID = "CHARGE_ALREADY_REFUNDED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class ChargeIdEmpty(BadRequest):
+    """The specified charge_id is empty."""
+    ID = "CHARGE_ID_EMPTY"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class ChargeIdInvalid(BadRequest):
+    """The specified charge_id is invalid."""
+    ID = "CHARGE_ID_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -866,6 +887,13 @@ class CollectibleNotFound(BadRequest):
     MESSAGE = __doc__
 
 
+class CollectionIdInvalid(BadRequest):
+    """"""
+    ID = "COLLECTION_ID_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class ColorInvalid(BadRequest):
     """The specified color palette ID was invalid."""
     ID = "COLOR_INVALID"
@@ -978,6 +1006,13 @@ class CreateCallFailed(BadRequest):
     MESSAGE = __doc__
 
 
+class CredentialInvalid(BadRequest):
+    """"""
+    ID = "CREDENTIAL_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class CurrencyTotalAmountInvalid(BadRequest):
     """The total amount of all prices is invalid."""
     ID = "CURRENCY_TOTAL_AMOUNT_INVALID"
@@ -988,6 +1023,13 @@ class CurrencyTotalAmountInvalid(BadRequest):
 class CustomReactionsTooMany(BadRequest):
     """Too many custom reactions were specified."""
     ID = "CUSTOM_REACTIONS_TOO_MANY"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class DataHashSizeInvalid(BadRequest):
+    """The size of the specified secureValueErrorData.data_hash is invalid."""
+    ID = "DATA_HASH_SIZE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -1041,9 +1083,30 @@ class DocumentInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class EffectChatInvalid(BadRequest):
+    """"""
+    ID = "EFFECT_CHAT_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class EffectIdInvalid(BadRequest):
+    """The specified effect ID is invalid."""
+    ID = "EFFECT_ID_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class EmailHashExpired(BadRequest):
     """Email hash expired."""
     ID = "EMAIL_HASH_EXPIRED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class EmailInstallMissing(BadRequest):
+    """"""
+    ID = "EMAIL_INSTALL_MISSING"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -1223,6 +1286,20 @@ class ExtendedMediaAmountInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class ExtendedMediaEmpty(BadRequest):
+    """"""
+    ID = "EXTENDED_MEDIA_EMPTY"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class ExtendedMediaInvalid(BadRequest):
+    """The specified paid media is invalid."""
+    ID = "EXTENDED_MEDIA_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class ExternalUrlInvalid(BadRequest):
     """External URL invalid."""
     ID = "EXTERNAL_URL_INVALID"
@@ -1322,35 +1399,42 @@ class FilePartXMissing(BadRequest):
 
 
 class FileReferenceEmpty(BadRequest):
-    """An empty [file reference](https://core.telegram.org/api/file_reference) was specified."""
+    """An empty [file reference](https://core.telegram.org/api/file-references) was specified."""
     ID = "FILE_REFERENCE_EMPTY"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class FileReferenceExpired(BadRequest):
-    """File reference expired, it must be refetched as described in [the documentation](https://core.telegram.org/api/file_reference)."""
+    """File reference expired, it must be refetched as described in [the documentation](https://core.telegram.org/api/file-references)."""
     ID = "FILE_REFERENCE_EXPIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class FileReferenceInvalid(BadRequest):
-    """The specified [file reference](https://core.telegram.org/api/file_reference) is invalid."""
+    """The specified [file reference](https://core.telegram.org/api/file-references) is invalid."""
     ID = "FILE_REFERENCE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
+class FileReferenceXEmpty(BadRequest):
+    """"""
+    ID = "FILE_REFERENCE_X_EMPTY"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class FileReferenceXExpired(BadRequest):
-    """The file reference of the media file at index {value} in the passed media array expired, it [must be refreshed](https://core.telegram.org/api/file_reference)."""
+    """The file reference of the media file at index {value} in the passed media array expired, it [must be refreshed as specified in the documentation](https://core.telegram.org/api/file-references). ."""
     ID = "FILE_REFERENCE_X_EXPIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class FileReferenceXInvalid(BadRequest):
-    """The file reference of the media file at index {value} in the passed media array is invalid."""
+    """The [file reference](https://core.telegram.org/api/file-references) of the media file at index {value} in the passed media array is invalid."""
     ID = "FILE_REFERENCE_X_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -1433,6 +1517,13 @@ class FormIdEmpty(BadRequest):
     MESSAGE = __doc__
 
 
+class FormSubmitDuplicate(BadRequest):
+    """The same payment form was already submitted. ."""
+    ID = "FORM_SUBMIT_DUPLICATE"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class FormUnsupported(BadRequest):
     """Please update your client."""
     ID = "FORM_UNSUPPORTED"
@@ -1469,7 +1560,7 @@ class FromPeerInvalid(BadRequest):
 
 
 class FrozenParticipantMissing(BadRequest):
-    """"""
+    """The current account is [frozen](https://core.telegram.org/api/auth#frozen-accounts), and cannot access the specified peer."""
     ID = "FROZEN_PARTICIPANT_MISSING"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -1622,6 +1713,13 @@ class HashInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class HashSizeInvalid(BadRequest):
+    """The size of the specified secureValueError.hash is invalid."""
+    ID = "HASH_SIZE_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class HideRequesterMissing(BadRequest):
     """The join request was missing or was already handled."""
     ID = "HIDE_REQUESTER_MISSING"
@@ -1755,9 +1853,30 @@ class InputPeersEmpty(BadRequest):
     MESSAGE = __doc__
 
 
+class InputPurposeInvalid(BadRequest):
+    """The specified payment purpose is invalid."""
+    ID = "INPUT_PURPOSE_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class InputRequestTooLong(BadRequest):
     """The request payload is too long."""
     ID = "INPUT_REQUEST_TOO_LONG"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class InputStarsAmountInvalid(BadRequest):
+    """"""
+    ID = "INPUT_STARS_AMOUNT_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class InputStarsNanosInvalid(BadRequest):
+    """"""
+    ID = "INPUT_STARS_NANOS_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -1849,6 +1968,13 @@ class InviteSlugExpired(BadRequest):
 class InviteSlugInvalid(BadRequest):
     """The specified invitation slug is invalid."""
     ID = "INVITE_SLUG_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class InvoiceInvalid(BadRequest):
+    """The specified invoice is invalid."""
+    ID = "INVOICE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -1947,6 +2073,13 @@ class MaxQtsInvalid(BadRequest):
 class Md5ChecksumInvalid(BadRequest):
     """The MD5 checksums do not match."""
     ID = "MD5_CHECKSUM_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class MediaAlreadyPaid(BadRequest):
+    """You already paid for the specified media."""
+    ID = "MEDIA_ALREADY_PAID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -2098,6 +2231,13 @@ class MessagePollClosed(BadRequest):
     MESSAGE = __doc__
 
 
+class MessageRequired(BadRequest):
+    """"""
+    ID = "MESSAGE_REQUIRED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class MessageTooLong(BadRequest):
     """The provided message is too long."""
     ID = "MESSAGE_TOO_LONG"
@@ -2126,6 +2266,13 @@ class MinDateInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class MonthInvalid(BadRequest):
+    """The number of months specified in inputInvoicePremiumGiftStars.months is invalid."""
+    ID = "MONTH_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class MsgIdInvalid(BadRequest):
     """Invalid message ID provided."""
     ID = "MSG_ID_INVALID"
@@ -2141,7 +2288,7 @@ class MsgTooOld(BadRequest):
 
 
 class MsgVoiceMissing(BadRequest):
-    """"""
+    """The specified message is not a voice message."""
     ID = "MSG_VOICE_MISSING"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2157,6 +2304,13 @@ class MsgWaitFailed(BadRequest):
 class MultiMediaTooLong(BadRequest):
     """Too many media files for album."""
     ID = "MULTI_MEDIA_TOO_LONG"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class NeedActionMissing(BadRequest):
+    """"""
+    ID = "NEED_ACTION_MISSING"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -2189,6 +2343,13 @@ class NextOffsetInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class NogeneralHideForbidden(BadRequest):
+    """Only the "General" topic with `id=1` can be hidden."""
+    ID = "NOGENERAL_HIDE_FORBIDDEN"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class NotEligible(BadRequest):
     """The current user is not eligible to join the Peer-to-Peer Login Program."""
     ID = "NOT_ELIGIBLE"
@@ -2199,6 +2360,13 @@ class NotEligible(BadRequest):
 class NotJoined(BadRequest):
     """The current user hasn't joined the Peer-to-Peer Login Program."""
     ID = "NOT_JOINED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class NoPaymentNeeded(BadRequest):
+    """The upgrade/transfer of the specified gift was already paid for or is free."""
+    ID = "NO_PAYMENT_NEEDED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -2259,8 +2427,15 @@ class PackTitleInvalid(BadRequest):
     MESSAGE = __doc__
 
 
+class PackTypeInvalid(BadRequest):
+    """The masks and emojis flags are mutually exclusive."""
+    ID = "PACK_TYPE_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class ParentPeerInvalid(BadRequest):
-    """"""
+    """The specified `parent_peer` is invalid."""
     ID = "PARENT_PEER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2344,7 +2519,7 @@ class PasswordTooFreshX(BadRequest):
 
 
 class PaymentCredentialsInvalid(BadRequest):
-    """"""
+    """The specified payment credentials are invalid."""
     ID = "PAYMENT_CREDENTIALS_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2358,7 +2533,7 @@ class PaymentProviderInvalid(BadRequest):
 
 
 class PaymentRequired(BadRequest):
-    """"""
+    """Payment is required for this action, see [here &raquo;](https://core.telegram.org/api/gifts) for more info."""
     ID = "PAYMENT_REQUIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2595,6 +2770,20 @@ class PinnedDialogsTooMuch(BadRequest):
     MESSAGE = __doc__
 
 
+class PinnedTooMuch(BadRequest):
+    """There are too many pinned topics, unpin some first."""
+    ID = "PINNED_TOO_MUCH"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class PinnedTopicNotModified(BadRequest):
+    """"""
+    ID = "PINNED_TOPIC_NOT_MODIFIED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class PinRestricted(BadRequest):
     """You can't pin messages."""
     ID = "PIN_RESTRICTED"
@@ -2644,6 +2833,13 @@ class PremiumAccountRequired(BadRequest):
     MESSAGE = __doc__
 
 
+class PremiumPurposeInvalid(BadRequest):
+    """"""
+    ID = "PREMIUM_PURPOSE_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class PricingChatInvalid(BadRequest):
     """The pricing for the [subscription](https://core.telegram.org/api/subscriptions) is invalid, the maximum price is specified in the [`stars_subscription_amount_max` config key &raquo;](https://core.telegram.org/api/config#stars-subscription-amount-max)."""
     ID = "PRICING_CHAT_INVALID"
@@ -2680,7 +2876,7 @@ class PublicKeyRequired(BadRequest):
 
 
 class PurposeInvalid(BadRequest):
-    """"""
+    """The specified payment purpose is invalid."""
     ID = "PURPOSE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2703,6 +2899,13 @@ class QueryIdInvalid(BadRequest):
 class QueryTooShort(BadRequest):
     """The query string is too short."""
     ID = "QUERY_TOO_SHORT"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class QuickRepliesBotNotAllowed(BadRequest):
+    """[Quick replies](https://core.telegram.org/api/business#quick-reply-shortcuts) cannot be used by bots."""
+    ID = "QUICK_REPLIES_BOT_NOT_ALLOWED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -2771,7 +2974,7 @@ class RandomIdEmpty(BadRequest):
 
 
 class RandomIdExpired(BadRequest):
-    """"""
+    """The specified `random_id` was expired (most likely it didn't follow the required `uint64_t random_id = (time() << 32) | ((uint64_t)random_uint32_t())` format, or the specified time is too far in the past)."""
     ID = "RANDOM_ID_EXPIRED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2799,7 +3002,7 @@ class RangesInvalid(BadRequest):
 
 
 class ReactionsCountInvalid(BadRequest):
-    """"""
+    """The specified number of reactions is invalid."""
     ID = "REACTIONS_COUNT_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2883,7 +3086,7 @@ class ReplyToInvalid(BadRequest):
 
 
 class ReplyToMonoforumPeerInvalid(BadRequest):
-    """"""
+    """The specified inputReplyToMonoForum.monoforum_peer_id is invalid."""
     ID = "REPLY_TO_MONOFORUM_PEER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -2899,6 +3102,20 @@ class ReplyToUserInvalid(BadRequest):
 class RequestTokenInvalid(BadRequest):
     """The master DC did not accept the `request_token` from the CDN DC. Continue downloading the file from the master DC using upload.getFile."""
     ID = "REQUEST_TOKEN_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class ResellStarsTooFew(BadRequest):
+    """"""
+    ID = "RESELL_STARS_TOO_FEW"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class ResellStarsTooMuch(BadRequest):
+    """"""
+    ID = "RESELL_STARS_TOO_MUCH"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -2981,8 +3198,15 @@ class RsaDecryptFailed(BadRequest):
 
 
 class SavedIdEmpty(BadRequest):
-    """"""
+    """The passed inputSavedStarGiftChat.saved_id is empty."""
     ID = "SAVED_ID_EMPTY"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class SavedPeerInvalid(BadRequest):
+    """"""
+    ID = "SAVED_PEER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -3057,9 +3281,23 @@ class SecureSecretRequired(BadRequest):
     MESSAGE = __doc__
 
 
+class SelfDeleteRestricted(BadRequest):
+    """Business bots can't delete messages just for the user, `revoke` **must** be set."""
+    ID = "SELF_DELETE_RESTRICTED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class SendAsPeerInvalid(BadRequest):
     """You can't send messages as the specified peer."""
     ID = "SEND_AS_PEER_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class SendMessageGameInvalid(BadRequest):
+    """An inputBotInlineMessageGame can only be contained in an inputBotInlineResultGame, not in an inputBotInlineResult/inputBotInlineResultPhoto/etc."""
+    ID = "SEND_MESSAGE_GAME_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -3177,50 +3415,127 @@ class SrpPasswordChanged(BadRequest):
 
 
 class StargiftAlreadyConverted(BadRequest):
-    """"""
+    """The specified star gift was already converted to Stars."""
     ID = "STARGIFT_ALREADY_CONVERTED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
+class StargiftAlreadyRefunded(BadRequest):
+    """The specified star gift was already refunded."""
+    ID = "STARGIFT_ALREADY_REFUNDED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftAlreadyUpgraded(BadRequest):
+    """The specified gift was already upgraded to a collectible gift."""
+    ID = "STARGIFT_ALREADY_UPGRADED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftAttributeInvalid(BadRequest):
+    """"""
+    ID = "STARGIFT_ATTRIBUTE_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class StargiftInvalid(BadRequest):
-    """The passed [inputInvoiceStarGift](https://core.telegram.org/constructor/inputInvoiceStarGift) is invalid."""
+    """The passed gift is invalid."""
     ID = "STARGIFT_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
-class StargiftNotFound(BadRequest):
+class StargiftMessageInvalid(BadRequest):
     """"""
+    ID = "STARGIFT_MESSAGE_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftNotFound(BadRequest):
+    """The specified gift was not found."""
     ID = "STARGIFT_NOT_FOUND"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
-class StargiftOwnerInvalid(BadRequest):
+class StargiftNotOwner(BadRequest):
     """"""
+    ID = "STARGIFT_NOT_OWNER"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftNotUnique(BadRequest):
+    """"""
+    ID = "STARGIFT_NOT_UNIQUE"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftOfferInvalid(BadRequest):
+    """"""
+    ID = "STARGIFT_OFFER_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftOfferNotAllowed(BadRequest):
+    """"""
+    ID = "STARGIFT_OFFER_NOT_ALLOWED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftOwnerInvalid(BadRequest):
+    """You cannot transfer or sell a gift owned by another user."""
     ID = "STARGIFT_OWNER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class StargiftPeerInvalid(BadRequest):
-    """"""
+    """The specified inputSavedStarGiftChat.peer is invalid."""
     ID = "STARGIFT_PEER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
-class StargiftResellNotAllowed(BadRequest):
+class StargiftResellCurrencyNotAllowed(BadRequest):
+    """You can't buy the gift using the specified currency (i.e. trying to pay in Stars for TON gifts)."""
+    ID = "STARGIFT_RESELL_CURRENCY_NOT_ALLOWED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftResellTooEarlyX(BadRequest):
     """"""
-    ID = "STARGIFT_RESELL_NOT_ALLOWED"
+    ID = "STARGIFT_RESELL_TOO_EARLY_X"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class StargiftSlugInvalid(BadRequest):
-    """"""
+    """The specified gift slug is invalid."""
     ID = "STARGIFT_SLUG_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftTransferTooEarlyX(BadRequest):
+    """You cannot transfer this gift yet, wait {value} seconds."""
+    ID = "STARGIFT_TRANSFER_TOO_EARLY_X"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftUpgradeUnavailable(BadRequest):
+    """A received gift can only be upgraded to a collectible gift if the [messageActionStarGift](https://core.telegram.org/constructor/messageActionStarGift)/[savedStarGift](https://core.telegram.org/constructor/savedStarGift).`can_upgrade` flag is set."""
+    ID = "STARGIFT_UPGRADE_UNAVAILABLE"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -3228,6 +3543,13 @@ class StargiftSlugInvalid(BadRequest):
 class StargiftUsageLimited(BadRequest):
     """The gift is sold out."""
     ID = "STARGIFT_USAGE_LIMITED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class StargiftUserUsageLimited(BadRequest):
+    """You've reached the starGift.limited_per_user limit, you can't buy any more gifts of this type."""
+    ID = "STARGIFT_USER_USAGE_LIMITED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -3268,7 +3590,7 @@ class StarrefPermilleTooLow(BadRequest):
 
 
 class StarsAmountInvalid(BadRequest):
-    """"""
+    """The specified amount in stars is invalid."""
     ID = "STARS_AMOUNT_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -3499,14 +3821,14 @@ class StoryPeriodInvalid(BadRequest):
 
 
 class StorySendFloodMonthlyX(BadRequest):
-    """You've hit the monthly story limit as specified by the [`stories_sent_monthly_limit_*` client configuration parameters](https://core.telegram.org/api/config#stories-sent-monthly-limit-default): wait for the specified number of seconds before posting a new story."""
+    """You've hit the monthly story limit as specified by the [`stories_sent_monthly_limit_*` client configuration parameters](https://core.telegram.org/api/config#stories-sent-monthly-limit-default): wait {value} seconds before posting a new story."""
     ID = "STORY_SEND_FLOOD_MONTHLY_X"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
 
 class StorySendFloodWeeklyX(BadRequest):
-    """You've hit the weekly story limit as specified by the [`stories_sent_weekly_limit_*` client configuration parameters](https://core.telegram.org/api/config#stories-sent-weekly-limit-default): wait for the specified number of seconds before posting a new story."""
+    """You've hit the weekly story limit as specified by the [`stories_sent_weekly_limit_*` client configuration parameters](https://core.telegram.org/api/config#stories-sent-weekly-limit-default): wait for {value} seconds before posting a new story."""
     ID = "STORY_SEND_FLOOD_WEEKLY_X"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -3519,9 +3841,30 @@ class SubscriptionExportMissing(BadRequest):
     MESSAGE = __doc__
 
 
+class SubscriptionIdInvalid(BadRequest):
+    """The specified subscription_id is invalid."""
+    ID = "SUBSCRIPTION_ID_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class SubscriptionPeriodInvalid(BadRequest):
     """The specified subscription_pricing.period is invalid."""
     ID = "SUBSCRIPTION_PERIOD_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class SuggestedPostAmountInvalid(BadRequest):
+    """The specified price for the suggested post is invalid."""
+    ID = "SUGGESTED_POST_AMOUNT_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class SuggestedPostPeerInvalid(BadRequest):
+    """You cannot send suggested posts to non-[monoforum](https://core.telegram.org/api/monoforum) peers."""
+    ID = "SUGGESTED_POST_PEER_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -3618,7 +3961,7 @@ class ThemeParamsInvalid(BadRequest):
 
 
 class ThemeSlugInvalid(BadRequest):
-    """"""
+    """The specified theme slug is invalid."""
     ID = "THEME_SLUG_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -3655,6 +3998,27 @@ class TmpPasswordDisabled(BadRequest):
 class TmpPasswordInvalid(BadRequest):
     """The passed tmp_password is invalid."""
     ID = "TMP_PASSWORD_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class TodoItemsEmpty(BadRequest):
+    """A checklist was specified, but no [checklist items](https://core.telegram.org/api/todo) were passed."""
+    ID = "TODO_ITEMS_EMPTY"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class TodoItemDuplicate(BadRequest):
+    """Duplicate [checklist items](https://core.telegram.org/api/todo) detected."""
+    ID = "TODO_ITEM_DUPLICATE"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class TodoNotModified(BadRequest):
+    """No todo items were specified, so no changes were made to the todo list."""
+    ID = "TODO_NOT_MODIFIED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -3737,7 +4101,7 @@ class TopicTitleEmpty(BadRequest):
 
 
 class ToIdInvalid(BadRequest):
-    """"""
+    """The specified `to_id` of the passed inputInvoiceStarGiftResale or inputInvoiceStarGiftTransfer is invalid."""
     ID = "TO_ID_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -3800,7 +4164,7 @@ class TypesEmpty(BadRequest):
 
 
 class Unsupported(BadRequest):
-    """"""
+    """`require_payment` cannot be *set* by users, only by monoforums: users must instead use the [inputPrivacyKeyNoPaidMessages](https://core.telegram.org/constructor/inputPrivacyKeyNoPaidMessages) privacy setting to remove a previously added exemption."""
     ID = "UNSUPPORTED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__

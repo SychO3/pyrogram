@@ -75,9 +75,16 @@ class ChatInvalid(InternalServerError):
     MESSAGE = __doc__
 
 
-class FirstnameInvalid(InternalServerError):
-    """The first name is invalid."""
-    ID = "FIRSTNAME_INVALID"
+class EncryptionDeclineAdminFailed(InternalServerError):
+    """"""
+    ID = "ENCRYPTION_DECLINE_ADMIN_FAILED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class GroupcallAddParticipantsFailed(InternalServerError):
+    """"""
+    ID = "GROUPCALL_ADD_PARTICIPANTS_FAILED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -89,9 +96,23 @@ class MsgWaitFailed(InternalServerError):
     MESSAGE = __doc__
 
 
+class NeedDocInvalid(InternalServerError):
+    """"""
+    ID = "NEED_DOC_INVALID"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class ParticipantCallFailed(InternalServerError):
     """"""
     ID = "PARTICIPANT_CALL_FAILED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class PasskeyAuthRestart(InternalServerError):
+    """"""
+    ID = "PASSKEY_AUTH_RESTART"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -132,8 +153,15 @@ class TranslateReqFailed(InternalServerError):
 
 
 class TranslationTimeout(InternalServerError):
-    """"""
+    """A timeout occurred while translating the specified text."""
     ID = "TRANSLATION_TIMEOUT"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class VolumeMoveInvalid(InternalServerError):
+    """"""
+    ID = "VOLUME_MOVE_INVALID"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 

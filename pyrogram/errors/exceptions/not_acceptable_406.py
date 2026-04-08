@@ -27,8 +27,15 @@ class NotAcceptable(RPCError):
 
 
 class AllowPaymentRequired(NotAcceptable):
-    """"""
+    """This peer only accepts [paid messages &raquo;](https://core.telegram.org/api/paid-messages): this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages. ."""
     ID = "ALLOW_PAYMENT_REQUIRED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class ApiGiftRestrictedUpdateApp(NotAcceptable):
+    """Please update the app to access the gift API."""
+    ID = "API_GIFT_RESTRICTED_UPDATE_APP"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -83,7 +90,7 @@ class ChatForwardsRestricted(NotAcceptable):
 
 
 class FilerefUpgradeNeeded(NotAcceptable):
-    """The client has to be updated in order to support [file references](https://core.telegram.org/api/file_reference)."""
+    """The client has to be updated in order to support [file references](https://core.telegram.org/api/file-references)."""
     ID = "FILEREF_UPGRADE_NEEDED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -146,7 +153,7 @@ class PhonePasswordFlood(NotAcceptable):
 
 
 class PrecheckoutFailed(NotAcceptable):
-    """"""
+    """Precheckout failed, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable)."""
     ID = "PRECHECKOUT_FAILED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -180,8 +187,15 @@ class SendCodeUnavailable(NotAcceptable):
     MESSAGE = __doc__
 
 
+class StargiftExportInProgress(NotAcceptable):
+    """A gift export is in progress, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable)."""
+    ID = "STARGIFT_EXPORT_IN_PROGRESS"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class StarsFormAmountMismatch(NotAcceptable):
-    """"""
+    """The form amount has changed, please fetch the new form using [payments.getPaymentForm](https://core.telegram.org/method/payments.getPaymentForm) and restart the process."""
     ID = "STARS_FORM_AMOUNT_MISMATCH"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
@@ -216,7 +230,7 @@ class TopicDeleted(NotAcceptable):
 
 
 class TranslationsDisabled(NotAcceptable):
-    """"""
+    """Translations are unavailable, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable)."""
     ID = "TRANSLATIONS_DISABLED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__

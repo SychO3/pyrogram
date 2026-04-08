@@ -26,6 +26,13 @@ class Forbidden(RPCError):
     NAME = __doc__
 
 
+class AccessDenied(Forbidden):
+    """"""
+    ID = "ACCESS_DENIED"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
 class AllowPaymentRequiredX(Forbidden):
     """This peer charges {value} [Telegram Stars](https://core.telegram.org/api/stars) per message, but the `allow_paid_stars` was not set or its value is smaller than {value}."""
     ID = "ALLOW_PAYMENT_REQUIRED_X"
@@ -41,8 +48,15 @@ class AnonymousReactionsDisabled(Forbidden):
 
 
 class BotAccessForbidden(Forbidden):
-    """"""
+    """The specified method *can* be used over a [business connection](https://core.telegram.org/api/bots/connected-business-bots) for some operations, but the specified query attempted an operation that is not allowed over a business connection."""
     ID = "BOT_ACCESS_FORBIDDEN"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class BotVerifierForbidden(Forbidden):
+    """This bot cannot assign [verification icons](https://core.telegram.org/api/bots/verification)."""
+    ID = "BOT_VERIFIER_FORBIDDEN"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
@@ -320,13 +334,6 @@ class TakeoutRequired(Forbidden):
     MESSAGE = __doc__
 
 
-class UserBotInvalid(Forbidden):
-    """User accounts must provide the `bot` method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts."""
-    ID = "USER_BOT_INVALID"
-    """``str``: RPC Error ID"""
-    MESSAGE = __doc__
-
-
 class UserChannelsTooMuch(Forbidden):
     """One of the users you tried to add is already in too many channels/supergroups."""
     ID = "USER_CHANNELS_TOO_MUCH"
@@ -365,6 +372,13 @@ class UserNotMutualContact(Forbidden):
 class UserNotParticipant(Forbidden):
     """You're not a member of this supergroup/channel."""
     ID = "USER_NOT_PARTICIPANT"
+    """``str``: RPC Error ID"""
+    MESSAGE = __doc__
+
+
+class UserPermissionDenied(Forbidden):
+    """The user hasn't granted or has revoked the bot's access to change their emoji status using [bots.toggleUserEmojiStatusPermission](https://core.telegram.org/method/bots.toggleUserEmojiStatusPermission)."""
+    ID = "USER_PERMISSION_DENIED"
     """``str``: RPC Error ID"""
     MESSAGE = __doc__
 
