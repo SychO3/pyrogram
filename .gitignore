@@ -3,6 +3,7 @@
 config.ini
 main.py
 unknown_errors.txt
+compiler/errors/error_urls.txt
 
 # Pyrogram generated code
 #pyrogram/errors/exceptions/
