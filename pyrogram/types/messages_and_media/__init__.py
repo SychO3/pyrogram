@@ -38,6 +38,7 @@ from .checklist_task import ChecklistTask
 from .checklist_tasks_added import ChecklistTasksAdded
 from .checklist_tasks_done import ChecklistTasksDone
 from .checklist import Checklist
+from .composed_message_with_ai import ComposedMessageWithAI
 from .contact_registered import ContactRegistered
 from .contact import Contact
 from .craft_gift_result import CraftGiftResult, CraftGiftResultSuccess, CraftGiftResultFail
@@ -133,6 +134,7 @@ from .suggested_post_refunded import SuggestedPostRefunded
 from .suggested_post_price import SuggestedPostPrice, SuggestedPostPriceStar, SuggestedPostPriceTon
 from .text_quote import TextQuote
 from .thumbnail import Thumbnail
+from .transcribed_audio import TranscribedAudio
 from .validated_order_info import ValidatedOrderInfo
 from .upgraded_gift_attribute_id_backdrop import UpgradedGiftAttributeIdBackdrop
 from .upgraded_gift_attribute_id_model import UpgradedGiftAttributeIdModel
@@ -175,6 +177,7 @@ __all__ = [
     "ChecklistTasksAdded",
     "ChecklistTasksDone",
     "Checklist",
+    "ComposedMessageWithAI",
     "ContactRegistered",
     "Contact",
     "CraftGiftResult",
@@ -276,6 +279,7 @@ __all__ = [
     "SuggestedPostPriceTon",
     "TextQuote",
     "Thumbnail",
+    "TranscribedAudio",
     "ValidatedOrderInfo",
     "UpgradedGiftAttributeIdBackdrop",
     "UpgradedGiftAttributeIdModel",

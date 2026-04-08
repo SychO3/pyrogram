@@ -16,10 +16,10 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import List, Optional
+from typing import Optional
 
 import pyrogram
-from pyrogram import enums, raw, types, utils
+from pyrogram import raw, types, utils
 
 
 class TranslateText:
@@ -27,8 +27,7 @@ class TranslateText:
         self: "pyrogram.Client",
         text: str,
         to_language_code: str,
-        parse_mode: Optional["enums.ParseMode"] = None,
-        entities: List["types.MessageEntity"] = None,
+        tone: Optional[str] = None,
     ) -> "types.FormattedText":
         """Translate a text to the given language.
 
@@ -47,6 +46,10 @@ class TranslateText:
                 "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr",
                 "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "ji", "yo", "zu"
 
+            tone (``str``, *optional*):
+                Tone for the translation.
+                Must be one of "formal", "short", "tribal", "corp", "biblical", "viking", "zen".
+
         Returns:
             :obj:`~pyrogram.types.FormattedText`: On success, information about the translated text is returned.
 
@@ -55,7 +58,7 @@ class TranslateText:
 
                 await app.translate_text("Hello!", "ru")
         """
-        message, entities = (await utils.parse_text_entities(self, text, parse_mode, entities)).values()
+        message, entities = (await utils.parse_text_entities(self, text, None, None)).values()
 
         r = await self.invoke(
             raw.functions.messages.TranslateText(
@@ -65,7 +68,8 @@ class TranslateText:
                         text=message,
                         entities=entities or []
                     )
-                ]
+                ],
+                tone=tone,
             )
         )
 

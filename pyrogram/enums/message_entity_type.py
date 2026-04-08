@@ -83,5 +83,14 @@ class MessageEntityType(AutoName):
     DATE_TIME = raw.types.MessageEntityFormattedDate
     "Date time"
 
+    DIFF_INSERT = raw.types.MessageEntityDiffInsert
+    "AI diff inserted text"
+
+    DIFF_DELETE = raw.types.MessageEntityDiffDelete
+    "AI diff deleted text"
+
+    DIFF_REPLACE = raw.types.MessageEntityDiffReplace
+    "AI diff replaced text"
+
     UNKNOWN = raw.types.MessageEntityUnknown
     "Unknown message entity type"

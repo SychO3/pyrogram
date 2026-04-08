@@ -19,6 +19,7 @@
 from .add_checklist_tasks import AddChecklistTasks
 from .add_to_gifs import AddToGifs
 from .approve_suggested_post import ApproveSuggestedPost
+from .compose_message_with_ai import ComposeMessageWithAI
 from .copy_media_group import CopyMediaGroup
 from .copy_message import CopyMessage
 from .decline_suggested_post import DeclineSuggestedPost
@@ -93,6 +94,7 @@ from .start_bot import StartBot
 from .stop_poll import StopPoll
 from .stream_media import StreamMedia
 from .summarize_message import SummarizeMessage
+from .transcribe_audio import TranscribeAudio
 from .translate_message_text import TranslateMessageText
 from .translate_text import TranslateText
 from .view_messages import ViewMessages
@@ -103,6 +105,7 @@ class Messages(
     AddChecklistTasks,
     AddToGifs,
     ApproveSuggestedPost,
+    ComposeMessageWithAI,
     DeclineSuggestedPost,
     DeleteMessages,
     EditMessageCaption,
@@ -177,6 +180,7 @@ class Messages(
     GetMainWebApp,
     StreamMedia,
     SummarizeMessage,
+    TranscribeAudio,
     TranslateMessageText,
     TranslateText,
     GetCustomEmojiStickers,
