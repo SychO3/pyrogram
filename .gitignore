@@ -231,6 +231,8 @@ compiler/api/bot_only.json
 compiler/api/user_only.json
 compiler/api/business_supported.json
 compiler/api/unauthed_allowed.json
+compiler/api/bot_api_types.json
+compiler/api/bot_api_methods.json
 .DS_Store
 
 # Pyrogram generated code
