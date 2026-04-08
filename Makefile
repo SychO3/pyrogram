@@ -12,7 +12,7 @@ BLUE   := \033[0;34m
 BOLD   := \033[1m
 RESET  := \033[0m
 
-.PHONY: venv venv-docs clean-venv clean-build clean-api clean-docs clean api docs docs-archive build tag dtag schema-diff update-schema
+.PHONY: venv venv-docs clean-venv clean-build clean-api clean-docs clean api docs docs-archive build tag dtag schema-diff update-schema fetch-data
 
 venv:
 	@if [ ! -d "$(VENV)" ]; then \
@@ -79,3 +79,7 @@ schema-diff:
 update-schema:
 	curl -fsSL https://raw.githubusercontent.com/SychO3/tl-schema-merger/refs/heads/master/merged.tl -o compiler/api/source/main_api.tl
 	@printf "$(GREEN)Updated main_api.tl$(RESET)\n"
+
+fetch-data:
+	cd compiler && ../$(PYTHON) gen_urls.py
+	cd compiler && ../$(PYTHON) fetch_data.py

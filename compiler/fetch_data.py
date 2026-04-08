@@ -10,8 +10,11 @@ import requests
 
 
 BASE_DIR = Path(__file__).resolve().parent
-URLS_FILE = BASE_DIR / "error_urls.txt"
-SOURCE_DIR = BASE_DIR / "source"
+URLS_FILE = BASE_DIR / "data_urls.txt"
+SOURCE_DIR = BASE_DIR / "errors" / "source"
+API_SOURCE_DIR = BASE_DIR / "api"
+
+METHOD_CATEGORIES = ["bot_only", "user_only", "business_supported", "unauthed_allowed"]
 
 
 def default_code_mapping() -> Dict[str, str]:
@@ -148,6 +151,7 @@ def main() -> None:
             write_tsv(path, {})
     # Accumulate merged data across multiple URLs
     aggregated: Dict[str, Dict[str, str]] = defaultdict(dict)
+    method_cats: Dict[str, set] = {cat: set() for cat in METHOD_CATEGORIES}
 
     for url in urls:
         try:
@@ -172,6 +176,12 @@ def main() -> None:
                 else:
                     aggregated[filename].setdefault(k, v)
 
+        # Collect method categories
+        for cat in METHOD_CATEGORIES:
+            items = data.get(cat)
+            if isinstance(items, list):
+                method_cats[cat].update(items)
+
     # 合并写回
     for filename, rows in aggregated.items():
         path = SOURCE_DIR / filename
@@ -187,7 +197,19 @@ def main() -> None:
                 merged[k] = v
 
         write_tsv(path, merged)
-        print(f"[OK] Wrote {path.relative_to(BASE_DIR)} with {len(merged)} rows")
+        print(f"[OK] Wrote {path.relative_to(BASE_DIR / 'errors')} with {len(merged)} rows")
+
+    # Write method category JSON files
+    API_SOURCE_DIR.mkdir(parents=True, exist_ok=True)
+    for cat in METHOD_CATEGORIES:
+        items = sorted(method_cats[cat])
+        if not items:
+            continue
+        path = API_SOURCE_DIR / f"{cat}.json"
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(items, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        print(f"[OK] Wrote {path.relative_to(BASE_DIR)} with {len(items)} methods")
 
 
 if __name__ == "__main__":

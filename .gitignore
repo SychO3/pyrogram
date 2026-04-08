@@ -224,9 +224,13 @@ docs
 config.ini
 main.py
 unknown_errors.txt
-compiler/errors/error_urls.txt
+compiler/data_urls.txt
 compiler/api/schema_snapshot.json
 compiler/api/schema_changes.json
+compiler/api/bot_only.json
+compiler/api/user_only.json
+compiler/api/business_supported.json
+compiler/api/unauthed_allowed.json
 .DS_Store
 
 # Pyrogram generated code

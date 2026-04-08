@@ -8,7 +8,7 @@ def generate_urls(
     branch: str = "data",
     token: str | None = None,
     print_output: bool = True,
-    save_file: str = "error_urls.txt"
+    save_file: str = "data_urls.txt"
 ) -> List[Tuple[str, str]]:
     """
     Traverse a GitHub repo folder and return a list of (sha256_path, https_url).
