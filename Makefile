@@ -12,7 +12,7 @@ BLUE   := \033[0;34m
 BOLD   := \033[1m
 RESET  := \033[0m
 
-.PHONY: venv venv-docs clean-venv clean-build clean-api clean-docs clean api docs docs-archive build tag dtag schema-diff update-schema fetch-data
+.PHONY: venv venv-docs clean-venv clean-build clean-api clean-enums clean-docs clean api enums docs docs-archive build tag dtag schema-diff update-schema fetch-data
 
 venv:
 	@if [ ! -d "$(VENV)" ]; then \
@@ -44,16 +44,21 @@ clean-api:
 	$(RM) pyrogram/errors/exceptions pyrogram/raw/all.py pyrogram/raw/base pyrogram/raw/functions pyrogram/raw/types
 	@printf "$(YELLOW)Cleaned api directory$(RESET)\n"
 
+clean-enums:
+	find pyrogram/enums -name '*.py' ! -name 'auto_name.py' -delete
+	@printf "$(YELLOW)Cleaned enums directory$(RESET)\n"
+
 clean-docs:
 	$(RM) docs/build docs/source/api/bound-methods docs/source/api/methods docs/source/api/types docs/source/api/enums docs/source/telegram
 	@printf "$(YELLOW)Cleaned docs directory$(RESET)\n"
 
-clean: clean-venv clean-build clean-api clean-docs
+clean: clean-venv clean-build clean-api clean-enums clean-docs
 	@printf "$(GREEN)Cleaned all directories$(RESET)\n"
 
 api:
 	cd compiler/api && ../../$(PYTHON) compiler.py
 	cd compiler/errors && ../../$(PYTHON) compiler.py
+	cd compiler/enums && ../../$(PYTHON) compiler.py
 
 docs:
 	cd compiler/docs && ../../$(PYTHON) compiler.py
@@ -83,3 +88,9 @@ update-schema:
 fetch-data:
 	cd compiler && ../$(PYTHON) gen_urls.py
 	cd compiler && ../$(PYTHON) fetch_data.py
+
+enums:
+	cd compiler/enums && ../../$(PYTHON) compiler.py
+
+check-enums:
+	cd compiler/enums && ../../$(PYTHON) check.py

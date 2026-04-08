@@ -16,6 +16,12 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+# # # # # # # # # # # # # # # # # # # # # # # #
+#               !!! WARNING !!!               #
+#          This is a generated file!          #
+# All changes made in this file will be lost! #
+# # # # # # # # # # # # # # # # # # # # # # # #
+
 from enum import auto
 
 from .auto_name import AutoName
@@ -33,14 +39,8 @@ class ChatEventAction(AutoName):
     LINKED_CHAT_CHANGED = auto()
     "The linked chat has been changed (see ``old_linked_chat`` and ``new_linked_chat``)"
 
-    # LOCATION_CHANGED = auto()
-    ""
-
     PHOTO_CHANGED = auto()
     "The chat photo has been changed (see ``old_photo`` and ``new_photo``)"
-
-    # STICKER_SET_CHANGED = auto()
-    ""
 
     TITLE_CHANGED = auto()
     "the chat title has been changed (see ``old_title`` and ``new_title``)"
@@ -53,9 +53,6 @@ class ChatEventAction(AutoName):
 
     MESSAGE_DELETED = auto()
     "a message has been deleted (see ``deleted_message``)"
-
-    # VOICE_CHAT_DISCARDED = auto()
-    ""
 
     MESSAGE_EDITED = auto()
     "a message has been edited (see ``old_message`` and ``new_message``)"
@@ -75,14 +72,8 @@ class ChatEventAction(AutoName):
     MEMBER_JOINED = auto()
     "a member joined by themselves. (see ``user``)"
 
-    # MEMBER_JOINED_BY_LINK = auto()
-    ""
-
     MEMBER_LEFT = auto()
     "a member left by themselves. (see ``user``)"
-
-    # MEMBER_MUTED = auto()
-    ""
 
     ADMINISTRATOR_PRIVILEGES_CHANGED = auto()
     "a chat member has been promoted/demoted or their administrator privileges has changed (see ``old_administrator_privileges`` and ``new_administrator_privileges``)"
@@ -90,20 +81,8 @@ class ChatEventAction(AutoName):
     MEMBER_PERMISSIONS_CHANGED = auto()
     "a chat member has been restricted/unrestricted or banned/unbanned, or their permissions has changed (see ``old_member_permissions`` and ``new_member_permissions``)"
 
-    # MEMBER_UNMUTED = auto()
-    ""
-
-    # MEMBER_VOLUME_CHANGED = auto()
-    ""
-
-    # VIDEO_CHAT_STARTED = auto()
-    ""
-
     POLL_STOPPED = auto()
     "a poll has been stopped (see ``stopped_poll``)"
-
-    # VOICE_CHAT_SETTINGS_CHANGED = auto()
-    ""
 
     INVITES_ENABLED = auto()
     "the chat invitation has been enabled or disabled (see ``invites_enabled``)"
@@ -124,8 +103,9 @@ class ChatEventAction(AutoName):
     "a message has been unpinned (see ``unpinned_message``)"
 
     MESSAGE_PIN_CHANGED = auto()
-    "a message has been pinned or unpinned but actual message is not received"
-    "should never be used in end-user code, only for correct parsing"
+    """a message has been pinned or unpinned but actual message is not received
+    should never be used in end-user code, only for correct parsing
+    """
 
     CREATED_FORUM_TOPIC = auto()
     "a new forum topic has been created (see `created_forum_topic`)"

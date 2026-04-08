@@ -16,6 +16,12 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+# # # # # # # # # # # # # # # # # # # # # # # #
+#               !!! WARNING !!!               #
+#          This is a generated file!          #
+# All changes made in this file will be lost! #
+# # # # # # # # # # # # # # # # # # # # # # # #
+
 from enum import auto
 
 from .auto_name import AutoName
@@ -25,10 +31,10 @@ class SuggestedPostState(AutoName):
     """Suggested post state enumeration used in :obj:`~pyrogram.types.SuggestedPostInfo`."""
 
     PENDING = auto()
-    """The post must be approved or declined."""
+    "The post must be approved or declined."
 
     APPROVED = auto()
-    """The post was approved"""
+    "The post was approved"
 
     DECLINED = auto()
-    """The post was declined"""
+    "The post was declined"

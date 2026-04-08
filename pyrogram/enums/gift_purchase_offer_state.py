@@ -16,6 +16,12 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+# # # # # # # # # # # # # # # # # # # # # # # #
+#               !!! WARNING !!!               #
+#          This is a generated file!          #
+# All changes made in this file will be lost! #
+# # # # # # # # # # # # # # # # # # # # # # # #
+
 from enum import auto
 
 from .auto_name import AutoName
@@ -25,10 +31,10 @@ class GiftPurchaseOfferState(AutoName):
     """Gift purchase offer state enumeration used in :obj:`~pyrogram.types.UpgradedGiftPurchaseOffer`."""
 
     PENDING = auto()
-    """The offer must be accepted or rejected"""
+    "The offer must be accepted or rejected"
 
     ACCEPTED = auto()
-    """The offer was accepted"""
+    "The offer was accepted"
 
     REJECTED = auto()
-    """The offer was rejected"""
+    "The offer was rejected"

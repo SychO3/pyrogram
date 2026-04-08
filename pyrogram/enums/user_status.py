@@ -16,6 +16,12 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+# # # # # # # # # # # # # # # # # # # # # # # #
+#               !!! WARNING !!!               #
+#          This is a generated file!          #
+# All changes made in this file will be lost! #
+# # # # # # # # # # # # # # # # # # # # # # # #
+
 from enum import auto
 
 from .auto_name import AutoName
@@ -25,19 +31,19 @@ class UserStatus(AutoName):
     """User status enumeration used in :obj:`~pyrogram.types.User`."""
 
     ONLINE = auto()
-    """User is online"""
+    "User is online"
 
     OFFLINE = auto()
-    """User is offline"""
+    "User is offline"
 
     RECENTLY = auto()
-    """User was seen recently"""
+    "User was seen recently"
 
     LAST_WEEK = auto()
-    """User was seen last week"""
+    "User was seen last week"
 
     LAST_MONTH = auto()
-    """User was seen last month"""
+    "User was seen last month"
 
     LONG_AGO = auto()
-    """User was seen long ago"""
+    "User was seen long ago"

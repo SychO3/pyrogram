@@ -1,0 +1,11 @@
+{notice}
+
+{warning}
+
+from .auto_name import AutoName
+
+
+class {name}(AutoName):
+    """{docstring}"""
+
+{members}

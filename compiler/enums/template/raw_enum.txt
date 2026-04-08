@@ -1,0 +1,12 @@
+{notice}
+
+{warning}
+
+from pyrogram import raw
+from .auto_name import AutoName
+
+
+class {name}(AutoName):
+    """{docstring}"""
+
+{members}

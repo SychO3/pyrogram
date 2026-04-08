@@ -1,0 +1,2056 @@
+[
+  {
+    "name": "BlockList",
+    "type": "auto",
+    "docstring": "Block list enumeration",
+    "members": [
+      {
+        "name": "MAIN",
+        "doc": "The main block list that disallows writing messages to the current user, receiving their status and photo, viewing of stories, and some other actions"
+      },
+      {
+        "name": "STORIES",
+        "doc": "The block list that disallows viewing of stories of the current user"
+      }
+    ]
+  },
+  {
+    "name": "BusinessSchedule",
+    "type": "raw",
+    "docstring": "Business away enumeration used in :obj:`~pyrogram.types.BusinessMessage`.",
+    "members": [
+      {
+        "name": "ALWAYS",
+        "raw": "BusinessAwayMessageScheduleAlways",
+        "doc": "Send always"
+      },
+      {
+        "name": "OUTSIDE_WORK_HOURS",
+        "raw": "BusinessAwayMessageScheduleOutsideWorkHours",
+        "doc": "Outside of Business Hours"
+      },
+      {
+        "name": "CUSTOM",
+        "raw": "BusinessAwayMessageScheduleCustom",
+        "doc": "Custom Schedule"
+      }
+    ],
+    "tl_type": "BusinessAwayMessageSchedule"
+  },
+  {
+    "name": "ButtonStyle",
+    "type": "auto",
+    "docstring": "Button style type enumeration used in :obj:`~pyrogram.types.KeyboardButton` and :obj:`~pyrogram.types.InlineKeyboardButton`.",
+    "members": [
+      {
+        "name": "DEFAULT",
+        "doc": "The button has default style"
+      },
+      {
+        "name": "PRIMARY",
+        "doc": "The button has dark blue color"
+      },
+      {
+        "name": "DANGER",
+        "doc": "The button has red color"
+      },
+      {
+        "name": "SUCCESS",
+        "doc": "The button has green color"
+      }
+    ]
+  },
+  {
+    "name": "ChatAction",
+    "type": "raw",
+    "docstring": "Chat action enumeration used in :obj:`~pyrogram.types.ChatEvent`.",
+    "members": [
+      {
+        "name": "TYPING",
+        "raw": "SendMessageTypingAction",
+        "doc": "Typing text message"
+      },
+      {
+        "name": "UPLOAD_PHOTO",
+        "raw": "SendMessageUploadPhotoAction",
+        "doc": "Uploading photo"
+      },
+      {
+        "name": "RECORD_VIDEO",
+        "raw": "SendMessageRecordVideoAction",
+        "doc": "Recording video"
+      },
+      {
+        "name": "UPLOAD_VIDEO",
+        "raw": "SendMessageUploadVideoAction",
+        "doc": "Uploading video"
+      },
+      {
+        "name": "RECORD_AUDIO",
+        "raw": "SendMessageRecordAudioAction",
+        "doc": "Recording audio"
+      },
+      {
+        "name": "UPLOAD_AUDIO",
+        "raw": "SendMessageUploadAudioAction",
+        "doc": "Uploading audio"
+      },
+      {
+        "name": "UPLOAD_DOCUMENT",
+        "raw": "SendMessageUploadDocumentAction",
+        "doc": "Uploading document"
+      },
+      {
+        "name": "FIND_LOCATION",
+        "raw": "SendMessageGeoLocationAction",
+        "doc": "Finding location"
+      },
+      {
+        "name": "RECORD_VIDEO_NOTE",
+        "raw": "SendMessageRecordRoundAction",
+        "doc": "Recording video note"
+      },
+      {
+        "name": "UPLOAD_VIDEO_NOTE",
+        "raw": "SendMessageUploadRoundAction",
+        "doc": "Uploading video note"
+      },
+      {
+        "name": "PLAYING",
+        "raw": "SendMessageGamePlayAction",
+        "doc": "Playing game"
+      },
+      {
+        "name": "CHOOSE_CONTACT",
+        "raw": "SendMessageChooseContactAction",
+        "doc": "Choosing contact"
+      },
+      {
+        "name": "SPEAKING",
+        "raw": "SpeakingInGroupCallAction",
+        "doc": "Speaking in group call"
+      },
+      {
+        "name": "IMPORT_HISTORY",
+        "raw": "SendMessageHistoryImportAction",
+        "doc": "Importing history"
+      },
+      {
+        "name": "CHOOSE_STICKER",
+        "raw": "SendMessageChooseStickerAction",
+        "doc": "Choosing sticker"
+      },
+      {
+        "name": "CANCEL",
+        "raw": "SendMessageCancelAction",
+        "doc": "Cancel ongoing chat action"
+      }
+    ],
+    "tl_type": "SendMessageAction",
+    "exclude": [
+      "SendMessageEmojiInteraction",
+      "SendMessageEmojiInteractionSeen",
+      "SendMessageTextDraftAction"
+    ]
+  },
+  {
+    "name": "ChatEventAction",
+    "type": "auto",
+    "docstring": "Chat event action enumeration used in :meth:`~pyrogram.Client.get_chat_event_log`.",
+    "members": [
+      {
+        "name": "DESCRIPTION_CHANGED",
+        "doc": "The chat description has been changed (see ``old_description`` and ``new_description``)"
+      },
+      {
+        "name": "HISTORY_TTL_CHANGED",
+        "doc": "The history time-to-live has been changed (see ``old_history_ttl`` and ``new_history_ttl``)"
+      },
+      {
+        "name": "LINKED_CHAT_CHANGED",
+        "doc": "The linked chat has been changed (see ``old_linked_chat`` and ``new_linked_chat``)"
+      },
+      {
+        "name": "PHOTO_CHANGED",
+        "doc": "The chat photo has been changed (see ``old_photo`` and ``new_photo``)"
+      },
+      {
+        "name": "TITLE_CHANGED",
+        "doc": "the chat title has been changed (see ``old_title`` and ``new_title``)"
+      },
+      {
+        "name": "USERNAME_CHANGED",
+        "doc": "the chat username has been changed (see ``old_username`` and ``new_username``)"
+      },
+      {
+        "name": "CHAT_PERMISSIONS_CHANGED",
+        "doc": "the default chat permissions has been changed (see ``old_chat_permissions`` and ``new_chat_permissions``)"
+      },
+      {
+        "name": "MESSAGE_DELETED",
+        "doc": "a message has been deleted (see ``deleted_message``)"
+      },
+      {
+        "name": "MESSAGE_EDITED",
+        "doc": "a message has been edited (see ``old_message`` and ``new_message``)"
+      },
+      {
+        "name": "INVITE_LINK_EDITED",
+        "doc": "An invite link has been edited (see ``old_invite_link`` and ``new_invite`` link)"
+      },
+      {
+        "name": "INVITE_LINK_REVOKED",
+        "doc": "An invite link has been revoked (see ``revoked_invite_link``)"
+      },
+      {
+        "name": "INVITE_LINK_DELETED",
+        "doc": "An invite link has been deleted (see ``deleted_invite_link``)"
+      },
+      {
+        "name": "MEMBER_INVITED",
+        "doc": "a member has been invited by someone (see ``invited_member``)"
+      },
+      {
+        "name": "MEMBER_JOINED",
+        "doc": "a member joined by themselves. (see ``user``)"
+      },
+      {
+        "name": "MEMBER_LEFT",
+        "doc": "a member left by themselves. (see ``user``)"
+      },
+      {
+        "name": "ADMINISTRATOR_PRIVILEGES_CHANGED",
+        "doc": "a chat member has been promoted/demoted or their administrator privileges has changed (see ``old_administrator_privileges`` and ``new_administrator_privileges``)"
+      },
+      {
+        "name": "MEMBER_PERMISSIONS_CHANGED",
+        "doc": "a chat member has been restricted/unrestricted or banned/unbanned, or their permissions has changed (see ``old_member_permissions`` and ``new_member_permissions``)"
+      },
+      {
+        "name": "POLL_STOPPED",
+        "doc": "a poll has been stopped (see ``stopped_poll``)"
+      },
+      {
+        "name": "INVITES_ENABLED",
+        "doc": "the chat invitation has been enabled or disabled (see ``invites_enabled``)"
+      },
+      {
+        "name": "HISTORY_HIDDEN",
+        "doc": "the chat history has been hidden or unhidden (see ``history_hidden``)"
+      },
+      {
+        "name": "SIGNATURES_ENABLED",
+        "doc": "the message signatures have been enabled or disabled (see ``signatures_enabled``)"
+      },
+      {
+        "name": "SLOW_MODE_CHANGED",
+        "doc": "the slow mode has been changes (see ``old_slow_mode`` and ``new_slow_mode``)"
+      },
+      {
+        "name": "MESSAGE_PINNED",
+        "doc": "a message has been pinned (see ``pinned_message``)"
+      },
+      {
+        "name": "MESSAGE_UNPINNED",
+        "doc": "a message has been unpinned (see ``unpinned_message``)"
+      },
+      {
+        "name": "MESSAGE_PIN_CHANGED",
+        "doc": "a message has been pinned or unpinned but actual message is not received\nshould never be used in end-user code, only for correct parsing"
+      },
+      {
+        "name": "CREATED_FORUM_TOPIC",
+        "doc": "a new forum topic has been created (see `created_forum_topic`)"
+      },
+      {
+        "name": "EDITED_FORUM_TOPIC",
+        "doc": "a forum topic has been edited (see `old_forum_topic` and `new_forum_topic`)"
+      },
+      {
+        "name": "DELETED_FORUM_TOPIC",
+        "doc": "a forum topic has been deleted (see `deleted_forum_topic`)"
+      },
+      {
+        "name": "UNKNOWN",
+        "doc": "Unknown chat event action"
+      }
+    ]
+  },
+  {
+    "name": "ChatJoinType",
+    "type": "auto",
+    "docstring": "How the service message :obj:`~pyrogram.enums.MessageServiceType.NEW_CHAT_MEMBERS` was used for the member to join the chat.",
+    "members": [
+      {
+        "name": "BY_ADD",
+        "doc": "A new member joined the chat via an invite link"
+      },
+      {
+        "name": "BY_LINK",
+        "doc": "A new member joined the chat via an invite link"
+      },
+      {
+        "name": "BY_REQUEST",
+        "doc": "A new member was accepted to the chat by an administrator"
+      }
+    ]
+  },
+  {
+    "name": "ChatMemberStatus",
+    "type": "auto",
+    "docstring": "Chat member status enumeration used in :obj:`~pyrogram.types.ChatMember`.",
+    "members": [
+      {
+        "name": "OWNER",
+        "doc": "Chat owner"
+      },
+      {
+        "name": "ADMINISTRATOR",
+        "doc": "Chat administrator"
+      },
+      {
+        "name": "MEMBER",
+        "doc": "Chat member"
+      },
+      {
+        "name": "RESTRICTED",
+        "doc": "Restricted chat member"
+      },
+      {
+        "name": "LEFT",
+        "doc": "Left chat member"
+      },
+      {
+        "name": "BANNED",
+        "doc": "Banned chat member"
+      }
+    ]
+  },
+  {
+    "name": "ChatMembersFilter",
+    "type": "raw",
+    "docstring": "Chat members filter enumeration used in :meth:`~pyrogram.Client.get_chat_members`",
+    "members": [
+      {
+        "name": "SEARCH",
+        "raw": "ChannelParticipantsSearch",
+        "doc": "Search for members"
+      },
+      {
+        "name": "BANNED",
+        "raw": "ChannelParticipantsKicked",
+        "doc": "Banned members"
+      },
+      {
+        "name": "RESTRICTED",
+        "raw": "ChannelParticipantsBanned",
+        "doc": "Restricted members"
+      },
+      {
+        "name": "BOTS",
+        "raw": "ChannelParticipantsBots",
+        "doc": "Bots"
+      },
+      {
+        "name": "RECENT",
+        "raw": "ChannelParticipantsRecent",
+        "doc": "Recently active members"
+      },
+      {
+        "name": "ADMINISTRATORS",
+        "raw": "ChannelParticipantsAdmins",
+        "doc": "Administrators"
+      }
+    ],
+    "tl_type": "ChannelParticipantsFilter",
+    "exclude": [
+      "ChannelParticipantsContacts",
+      "ChannelParticipantsMentions"
+    ]
+  },
+  {
+    "name": "ChatType",
+    "type": "auto",
+    "docstring": "Chat type enumeration used in :obj:`~pyrogram.types.Chat`.",
+    "members": [
+      {
+        "name": "PRIVATE",
+        "doc": "Chat is a private chat with a user"
+      },
+      {
+        "name": "BOT",
+        "doc": "Chat is a private chat with a bot"
+      },
+      {
+        "name": "GROUP",
+        "doc": "Chat is a basic group"
+      },
+      {
+        "name": "SUPERGROUP",
+        "doc": "Chat is a supergroup"
+      },
+      {
+        "name": "CHANNEL",
+        "doc": "Chat is a channel"
+      },
+      {
+        "name": "FORUM",
+        "doc": "Chat is a forum"
+      },
+      {
+        "name": "DIRECT",
+        "doc": "Chat is a direct with a channel"
+      }
+    ]
+  },
+  {
+    "name": "ClientPlatform",
+    "type": "auto",
+    "docstring": "Valid platforms for a :obj:`~pyrogram.Client`.",
+    "members": [
+      {
+        "name": "ANDROID",
+        "doc": "Android"
+      },
+      {
+        "name": "IOS",
+        "doc": "iOS"
+      },
+      {
+        "name": "WP",
+        "doc": "Windows Phone"
+      },
+      {
+        "name": "BB",
+        "doc": "Blackberry"
+      },
+      {
+        "name": "DESKTOP",
+        "doc": "Desktop"
+      },
+      {
+        "name": "WEB",
+        "doc": "Web"
+      },
+      {
+        "name": "UBP",
+        "doc": "Ubuntu Phone"
+      },
+      {
+        "name": "OTHER",
+        "doc": "Other"
+      }
+    ]
+  },
+  {
+    "name": "FolderColor",
+    "type": "value",
+    "docstring": "Folder color enumeration used in :obj:`~pyrogram.types.Folder`.",
+    "members": [
+      {
+        "name": "NO_COLOR",
+        "value": null,
+        "doc": "No color."
+      },
+      {
+        "name": "RED",
+        "value": 0,
+        "doc": "Red color."
+      },
+      {
+        "name": "ORANGE",
+        "value": 1,
+        "doc": "Orange color."
+      },
+      {
+        "name": "VIOLET",
+        "value": 2,
+        "doc": "Violet color."
+      },
+      {
+        "name": "GREEN",
+        "value": 3,
+        "doc": "Green color."
+      },
+      {
+        "name": "CYAN",
+        "value": 4,
+        "doc": "Cyan color."
+      },
+      {
+        "name": "BLUE",
+        "value": 5,
+        "doc": "Blue color."
+      },
+      {
+        "name": "PINK",
+        "value": 6,
+        "doc": "Pink color."
+      }
+    ]
+  },
+  {
+    "name": "GiftAttributeType",
+    "type": "raw",
+    "docstring": "Star gift attribute type enumeration used in :obj:`~pyrogram.types.GiftAttribute`.",
+    "members": [
+      {
+        "name": "MODEL",
+        "raw": "StarGiftAttributeModel",
+        "doc": "Model attribute"
+      },
+      {
+        "name": "SYMBOL",
+        "raw": "StarGiftAttributePattern",
+        "doc": "Symbol attribute"
+      },
+      {
+        "name": "BACKDROP",
+        "raw": "StarGiftAttributeBackdrop",
+        "doc": "Backdrop attribute"
+      },
+      {
+        "name": "ORIGINAL_DETAILS",
+        "raw": "StarGiftAttributeOriginalDetails",
+        "doc": "Original details attribute"
+      }
+    ],
+    "tl_type": "StarGiftAttribute"
+  },
+  {
+    "name": "GiftForResaleOrder",
+    "type": "auto",
+    "docstring": "Describes order in which upgraded gifts for resale will be sorted. Used in :meth:`~pyrogram.Client.search_gifts_for_resale`.",
+    "members": [
+      {
+        "name": "PRICE",
+        "doc": "The gifts will be sorted by their price from the lowest to the highest"
+      },
+      {
+        "name": "CHANGE_DATE",
+        "doc": "The gifts will be sorted by the last date when their price was changed from the newest to the oldest"
+      },
+      {
+        "name": "NUMBER",
+        "doc": "The gifts will be sorted by their number from the smallest to the largest"
+      }
+    ]
+  },
+  {
+    "name": "GiftPurchaseOfferState",
+    "type": "auto",
+    "docstring": "Gift purchase offer state enumeration used in :obj:`~pyrogram.types.UpgradedGiftPurchaseOffer`.",
+    "members": [
+      {
+        "name": "PENDING",
+        "doc": "The offer must be accepted or rejected"
+      },
+      {
+        "name": "ACCEPTED",
+        "doc": "The offer was accepted"
+      },
+      {
+        "name": "REJECTED",
+        "doc": "The offer was rejected"
+      }
+    ]
+  },
+  {
+    "name": "GiftType",
+    "type": "auto",
+    "docstring": "Gift type enumeration used in :obj:`~pyrogram.types.Gift`.",
+    "members": [
+      {
+        "name": "REGULAR",
+        "doc": "Gift is a regular gift"
+      },
+      {
+        "name": "UPGRADED",
+        "doc": "Gift is an upgraded gift"
+      }
+    ]
+  },
+  {
+    "name": "ListenerTypes",
+    "type": "auto",
+    "docstring": "Listener type enumeration used in :obj:`~pyrogram.types.Client`.",
+    "members": [
+      {
+        "name": "MESSAGE",
+        "doc": "A Message"
+      },
+      {
+        "name": "CALLBACK_QUERY",
+        "doc": "A CallbackQuery"
+      }
+    ]
+  },
+  {
+    "name": "MaskPointType",
+    "type": "value",
+    "docstring": "Mask point type enumeration used in :obj:`~pyrogram.types.MaskPosition`.",
+    "members": [
+      {
+        "name": "FOREHEAD",
+        "value": 0,
+        "doc": "Mask point relative to the forehead."
+      },
+      {
+        "name": "EYES",
+        "value": 1,
+        "doc": "Mask point relative to the eyes."
+      },
+      {
+        "name": "MOUTH",
+        "value": 2,
+        "doc": "Mask point relative to the mouth."
+      },
+      {
+        "name": "CHIN",
+        "value": 3,
+        "doc": "Mask point relative to the chin."
+      }
+    ]
+  },
+  {
+    "name": "MediaAreaType",
+    "type": "raw",
+    "docstring": "Media area type enumeration used in :obj:`~pyrogram.types.MediaArea`.",
+    "members": [
+      {
+        "name": "POST",
+        "raw": "MediaAreaChannelPost",
+        "doc": "Channel post."
+      },
+      {
+        "name": "LOCATION",
+        "raw": "MediaAreaGeoPoint",
+        "doc": "Location."
+      },
+      {
+        "name": "REACTION",
+        "raw": "MediaAreaSuggestedReaction",
+        "doc": "Reaction."
+      },
+      {
+        "name": "URL",
+        "raw": "MediaAreaUrl",
+        "doc": "URL."
+      },
+      {
+        "name": "VENUE",
+        "raw": "MediaAreaVenue",
+        "doc": "Venue."
+      },
+      {
+        "name": "WEATHER",
+        "raw": "MediaAreaWeather",
+        "doc": "Weather."
+      },
+      {
+        "name": "GIFT",
+        "raw": "MediaAreaStarGift",
+        "doc": "Gift."
+      }
+    ],
+    "tl_type": "MediaArea",
+    "exclude": [
+      "InputMediaAreaChannelPost",
+      "InputMediaAreaVenue"
+    ]
+  },
+  {
+    "name": "MessageEntityType",
+    "type": "raw",
+    "docstring": "Message entity type enumeration used in :obj:`~pyrogram.types.MessageEntity`.",
+    "members": [
+      {
+        "name": "MENTION",
+        "raw": "MessageEntityMention",
+        "doc": "``@username``"
+      },
+      {
+        "name": "HASHTAG",
+        "raw": "MessageEntityHashtag",
+        "doc": "``#hashtag`` or ``#hashtag@username``"
+      },
+      {
+        "name": "CASHTAG",
+        "raw": "MessageEntityCashtag",
+        "doc": "``$USD`` or ``$USD@username``"
+      },
+      {
+        "name": "BOT_COMMAND",
+        "raw": "MessageEntityBotCommand",
+        "doc": "``/start@pyrogrambot``"
+      },
+      {
+        "name": "URL",
+        "raw": "MessageEntityUrl",
+        "doc": "``https://pyrogram.org`` (see ``url``)"
+      },
+      {
+        "name": "EMAIL",
+        "raw": "MessageEntityEmail",
+        "doc": "``do-not-reply@pyrogram.org``"
+      },
+      {
+        "name": "PHONE_NUMBER",
+        "raw": "MessageEntityPhone",
+        "doc": "``+1-123-456-7890``"
+      },
+      {
+        "name": "BOLD",
+        "raw": "MessageEntityBold",
+        "doc": "Bold text"
+      },
+      {
+        "name": "ITALIC",
+        "raw": "MessageEntityItalic",
+        "doc": "Italic text"
+      },
+      {
+        "name": "UNDERLINE",
+        "raw": "MessageEntityUnderline",
+        "doc": "Underlined text"
+      },
+      {
+        "name": "STRIKETHROUGH",
+        "raw": "MessageEntityStrike",
+        "doc": "Strikethrough text"
+      },
+      {
+        "name": "SPOILER",
+        "raw": "MessageEntitySpoiler",
+        "doc": "Spoiler text"
+      },
+      {
+        "name": "CODE",
+        "raw": "MessageEntityCode",
+        "doc": "Monowidth string"
+      },
+      {
+        "name": "PRE",
+        "raw": "MessageEntityPre",
+        "doc": "Monowidth block (see ``language``)"
+      },
+      {
+        "name": "BLOCKQUOTE",
+        "raw": "MessageEntityBlockquote",
+        "doc": "Blockquote text"
+      },
+      {
+        "name": "TEXT_LINK",
+        "raw": "MessageEntityTextUrl",
+        "doc": "For clickable text URLs"
+      },
+      {
+        "name": "TEXT_MENTION",
+        "raw": "MessageEntityMentionName",
+        "doc": "for users without usernames (see ``user``)"
+      },
+      {
+        "name": "BANK_CARD",
+        "raw": "MessageEntityBankCard",
+        "doc": "Bank card text"
+      },
+      {
+        "name": "CUSTOM_EMOJI",
+        "raw": "MessageEntityCustomEmoji",
+        "doc": "Custom emoji"
+      },
+      {
+        "name": "DATE_TIME",
+        "raw": "MessageEntityFormattedDate",
+        "doc": "Date time"
+      },
+      {
+        "name": "DIFF_INSERT",
+        "raw": "MessageEntityDiffInsert",
+        "doc": "AI diff inserted text"
+      },
+      {
+        "name": "DIFF_DELETE",
+        "raw": "MessageEntityDiffDelete",
+        "doc": "AI diff deleted text"
+      },
+      {
+        "name": "DIFF_REPLACE",
+        "raw": "MessageEntityDiffReplace",
+        "doc": "AI diff replaced text"
+      },
+      {
+        "name": "UNKNOWN",
+        "raw": "MessageEntityUnknown",
+        "doc": "Unknown message entity type"
+      }
+    ],
+    "tl_type": "MessageEntity",
+    "exclude": [
+      "InputMessageEntityMentionName"
+    ]
+  },
+  {
+    "name": "MessageMediaType",
+    "type": "auto",
+    "docstring": "Message media type enumeration used in :obj:`~pyrogram.types.Message`.",
+    "members": [
+      {
+        "name": "UNSUPPORTED",
+        "doc": "A message media content that is not supported in the current pyrogram version"
+      },
+      {
+        "name": "AUDIO",
+        "doc": "Audio media"
+      },
+      {
+        "name": "DOCUMENT",
+        "doc": "Document media"
+      },
+      {
+        "name": "PHOTO",
+        "doc": "Photo media"
+      },
+      {
+        "name": "STICKER",
+        "doc": "Sticker media"
+      },
+      {
+        "name": "VIDEO",
+        "doc": "Video media"
+      },
+      {
+        "name": "ANIMATION",
+        "doc": "Animation media"
+      },
+      {
+        "name": "VOICE",
+        "doc": "Voice media"
+      },
+      {
+        "name": "VIDEO_NOTE",
+        "doc": "Video note media"
+      },
+      {
+        "name": "CONTACT",
+        "doc": "Contact media"
+      },
+      {
+        "name": "LOCATION",
+        "doc": "Location media"
+      },
+      {
+        "name": "VENUE",
+        "doc": "Venue media"
+      },
+      {
+        "name": "POLL",
+        "doc": "Poll media"
+      },
+      {
+        "name": "WEB_PAGE",
+        "doc": "Web page media"
+      },
+      {
+        "name": "DICE",
+        "doc": "Dice media"
+      },
+      {
+        "name": "GAME",
+        "doc": "Game media"
+      },
+      {
+        "name": "GIVEAWAY",
+        "doc": "Giveaway media"
+      },
+      {
+        "name": "GIVEAWAY_WINNERS",
+        "doc": "Giveaway winners media"
+      },
+      {
+        "name": "STORY",
+        "doc": "Story media"
+      },
+      {
+        "name": "INVOICE",
+        "doc": "Invoice media"
+      },
+      {
+        "name": "PAID_MEDIA",
+        "doc": "Paid media"
+      },
+      {
+        "name": "CHECKLIST",
+        "doc": "Checklist media"
+      }
+    ]
+  },
+  {
+    "name": "MessageOriginType",
+    "type": "auto",
+    "docstring": "Message origin type enumeration used in :obj:`~pyrogram.types.MessageOrigin`.",
+    "members": [
+      {
+        "name": "CHANNEL",
+        "doc": "The message was originally a post in a channel"
+      },
+      {
+        "name": "CHAT",
+        "doc": "The message was originally sent on behalf of a chat"
+      },
+      {
+        "name": "HIDDEN_USER",
+        "doc": "The message was originally sent by a user, which is hidden by their privacy settings"
+      },
+      {
+        "name": "IMPORT",
+        "doc": "The message was imported from a foreign chat service"
+      },
+      {
+        "name": "USER",
+        "doc": "The message was originally sent by a known user"
+      }
+    ]
+  },
+  {
+    "name": "MessageServiceType",
+    "type": "auto",
+    "docstring": "Message service type enumeration used in :obj:`~pyrogram.types.Message`.",
+    "members": [
+      {
+        "name": "UNSUPPORTED",
+        "doc": "A message content that is not supported in the current pyrogram version"
+      },
+      {
+        "name": "CUSTOM_ACTION",
+        "doc": "Custom action"
+      },
+      {
+        "name": "NEW_CHAT_MEMBERS",
+        "doc": "New members join"
+      },
+      {
+        "name": "LEFT_CHAT_MEMBER",
+        "doc": "Left chat member"
+      },
+      {
+        "name": "CHAT_OWNER_LEFT",
+        "doc": "Chat owner left"
+      },
+      {
+        "name": "CHAT_OWNER_CHANGED",
+        "doc": "Chat owner changed"
+      },
+      {
+        "name": "NEW_CHAT_TITLE",
+        "doc": "New chat title"
+      },
+      {
+        "name": "NEW_CHAT_PHOTO",
+        "doc": "New chat photo"
+      },
+      {
+        "name": "DELETE_CHAT_PHOTO",
+        "doc": "Deleted chat photo"
+      },
+      {
+        "name": "FORUM_TOPIC_CREATED",
+        "doc": "a new forum topic created in the chat"
+      },
+      {
+        "name": "FORUM_TOPIC_CLOSED",
+        "doc": "a new forum topic closed in the chat"
+      },
+      {
+        "name": "FORUM_TOPIC_REOPENED",
+        "doc": "a new forum topic reopened in the chat"
+      },
+      {
+        "name": "FORUM_TOPIC_EDITED",
+        "doc": "a new forum topic renamed in the chat"
+      },
+      {
+        "name": "GENERAL_FORUM_TOPIC_HIDDEN",
+        "doc": "a general forum topic hidden in the chat"
+      },
+      {
+        "name": "GENERAL_FORUM_TOPIC_UNHIDDEN",
+        "doc": "a general forum topic unhidden in the chat"
+      },
+      {
+        "name": "GROUP_CHAT_CREATED",
+        "doc": "Group chat created"
+      },
+      {
+        "name": "CHANNEL_CHAT_CREATED",
+        "doc": "Channel chat created"
+      },
+      {
+        "name": "SUPERGROUP_CHAT_CREATED",
+        "doc": "Supergroup chat created"
+      },
+      {
+        "name": "MIGRATE_TO_CHAT_ID",
+        "doc": "Migrated to chat id"
+      },
+      {
+        "name": "MIGRATE_FROM_CHAT_ID",
+        "doc": "Migrated from chat id"
+      },
+      {
+        "name": "PINNED_MESSAGE",
+        "doc": "Pinned message"
+      },
+      {
+        "name": "GAME_HIGH_SCORE",
+        "doc": "Game high score"
+      },
+      {
+        "name": "GIVEAWAY_CREATED",
+        "doc": "Giveaway created"
+      },
+      {
+        "name": "GIVEAWAY_COMPLETED",
+        "doc": "Giveaway completed"
+      },
+      {
+        "name": "PREMIUM_GIFT_CODE",
+        "doc": "Gift code"
+      },
+      {
+        "name": "GIFTED_PREMIUM",
+        "doc": "Gifted Telegram Premium"
+      },
+      {
+        "name": "GIFTED_STARS",
+        "doc": "Gifted stars"
+      },
+      {
+        "name": "GIFTED_TON",
+        "doc": "Gifted TON"
+      },
+      {
+        "name": "VIDEO_CHAT_STARTED",
+        "doc": "Video chat started"
+      },
+      {
+        "name": "VIDEO_CHAT_ENDED",
+        "doc": "Video chat ended"
+      },
+      {
+        "name": "VIDEO_CHAT_SCHEDULED",
+        "doc": "Video chat scheduled"
+      },
+      {
+        "name": "VIDEO_CHAT_MEMBERS_INVITED",
+        "doc": "Video chat members invited"
+      },
+      {
+        "name": "PHONE_CALL_STARTED",
+        "doc": "Phone call started"
+      },
+      {
+        "name": "PHONE_CALL_ENDED",
+        "doc": "Phone call ended"
+      },
+      {
+        "name": "WEB_APP_DATA",
+        "doc": "Web app data"
+      },
+      {
+        "name": "USERS_SHARED",
+        "doc": "Requested users"
+      },
+      {
+        "name": "CHAT_SHARED",
+        "doc": "Requested chat"
+      },
+      {
+        "name": "SUCCESSFUL_PAYMENT",
+        "doc": "Successful payment"
+      },
+      {
+        "name": "REFUNDED_PAYMENT",
+        "doc": "Refunded payment"
+      },
+      {
+        "name": "SUGGESTED_POST_APPROVAL_FAILED",
+        "doc": "Suggested post approval failed"
+      },
+      {
+        "name": "SUGGESTED_POST_APPROVED",
+        "doc": "Suggested post approved"
+      },
+      {
+        "name": "SUGGESTED_POST_DECLINED",
+        "doc": "Suggested post declined"
+      },
+      {
+        "name": "SUGGESTED_POST_PAID",
+        "doc": "Suggested post paid"
+      },
+      {
+        "name": "SUGGESTED_POST_REFUNDED",
+        "doc": "Suggested post refunded"
+      },
+      {
+        "name": "SET_MESSAGE_AUTO_DELETE_TIME",
+        "doc": "Chat TTL changed"
+      },
+      {
+        "name": "CHAT_BOOST",
+        "doc": "Boost applied to the chat"
+      },
+      {
+        "name": "GIFT",
+        "doc": "Star gift"
+      },
+      {
+        "name": "CONNECTED_WEBSITE",
+        "doc": "Connected website"
+      },
+      {
+        "name": "WRITE_ACCESS_ALLOWED",
+        "doc": "Write access allowed"
+      },
+      {
+        "name": "SCREENSHOT_TAKEN",
+        "doc": "Screenshot taken"
+      },
+      {
+        "name": "CONTACT_REGISTERED",
+        "doc": "Contact registered"
+      },
+      {
+        "name": "PROXIMITY_ALERT_TRIGGERED",
+        "doc": "Proximity alert triggered"
+      },
+      {
+        "name": "HISTORY_CLEARED",
+        "doc": "Chat history cleared"
+      },
+      {
+        "name": "SUGGEST_PROFILE_PHOTO",
+        "doc": "Suggest profile photo"
+      },
+      {
+        "name": "SUGGEST_BIRTHDAY",
+        "doc": "Suggest birthday"
+      },
+      {
+        "name": "CHAT_SET_BACKGROUND",
+        "doc": "Set chat background"
+      },
+      {
+        "name": "CHAT_SET_THEME",
+        "doc": "Set chat theme"
+      },
+      {
+        "name": "GIVEAWAY_PRIZE_STARS",
+        "doc": "Giveaway prize stars"
+      },
+      {
+        "name": "PAID_MESSAGES_REFUNDED",
+        "doc": "Refunded paid messages"
+      },
+      {
+        "name": "PAID_MESSAGES_PRICE_CHANGED",
+        "doc": "Paid messages price"
+      },
+      {
+        "name": "DIRECT_MESSAGE_PRICE_CHANGED",
+        "doc": "Direct message price"
+      },
+      {
+        "name": "CHECKLIST_TASKS_DONE",
+        "doc": "Checklist tasks done"
+      },
+      {
+        "name": "CHECKLIST_TASKS_ADDED",
+        "doc": "Checklist tasks added"
+      },
+      {
+        "name": "UPGRADED_GIFT_PURCHASE_OFFER",
+        "doc": "Upgraded gift purchase offer"
+      },
+      {
+        "name": "UPGRADED_GIFT_PURCHASE_OFFER_REJECTED",
+        "doc": "Upgraded gift purchase offer declined"
+      },
+      {
+        "name": "CHAT_HAS_PROTECTED_CONTENT_TOGGLED",
+        "doc": "Chat has protected content toggled"
+      },
+      {
+        "name": "CHAT_HAS_PROTECTED_CONTENT_DISABLE_REQUESTED",
+        "doc": "Chat has protected content disable requested"
+      }
+    ]
+  },
+  {
+    "name": "MessagesFilter",
+    "type": "raw",
+    "docstring": "Messages filter enumeration used in :meth:`~pyrogram.Client.search_messages` and :meth:`~pyrogram.Client.search_global`",
+    "members": [
+      {
+        "name": "EMPTY",
+        "raw": "InputMessagesFilterEmpty",
+        "doc": "Empty filter (any kind of messages)"
+      },
+      {
+        "name": "PHOTO",
+        "raw": "InputMessagesFilterPhotos",
+        "doc": "Photo messages"
+      },
+      {
+        "name": "VIDEO",
+        "raw": "InputMessagesFilterVideo",
+        "doc": "Video messages"
+      },
+      {
+        "name": "PHOTO_VIDEO",
+        "raw": "InputMessagesFilterPhotoVideo",
+        "doc": "Photo and video messages"
+      },
+      {
+        "name": "DOCUMENT",
+        "raw": "InputMessagesFilterDocument",
+        "doc": "Document messages"
+      },
+      {
+        "name": "URL",
+        "raw": "InputMessagesFilterUrl",
+        "doc": "Messages containing URLs"
+      },
+      {
+        "name": "ANIMATION",
+        "raw": "InputMessagesFilterGif",
+        "doc": "Animation messages"
+      },
+      {
+        "name": "VOICE_NOTE",
+        "raw": "InputMessagesFilterVoice",
+        "doc": "Voice note messages"
+      },
+      {
+        "name": "VIDEO_NOTE",
+        "raw": "InputMessagesFilterRoundVideo",
+        "doc": "Video note messages"
+      },
+      {
+        "name": "AUDIO_VIDEO_NOTE",
+        "raw": "InputMessagesFilterRoundVoice",
+        "doc": "Audio and video note messages"
+      },
+      {
+        "name": "AUDIO",
+        "raw": "InputMessagesFilterMusic",
+        "doc": "Audio messages (music)"
+      },
+      {
+        "name": "CHAT_PHOTO",
+        "raw": "InputMessagesFilterChatPhotos",
+        "doc": "Chat photo messages"
+      },
+      {
+        "name": "PHONE_CALL",
+        "raw": "InputMessagesFilterPhoneCalls",
+        "doc": "Phone call messages"
+      },
+      {
+        "name": "MENTION",
+        "raw": "InputMessagesFilterMyMentions",
+        "doc": "Messages containing mentions"
+      },
+      {
+        "name": "LOCATION",
+        "raw": "InputMessagesFilterGeo",
+        "doc": "Location messages"
+      },
+      {
+        "name": "CONTACT",
+        "raw": "InputMessagesFilterContacts",
+        "doc": "Contact messages"
+      },
+      {
+        "name": "PINNED",
+        "raw": "InputMessagesFilterPinned",
+        "doc": "Pinned messages"
+      },
+      {
+        "name": "POLL",
+        "raw": "InputMessagesFilterPoll",
+        "doc": "Poll messages"
+      }
+    ],
+    "tl_type": "MessagesFilter"
+  },
+  {
+    "name": "NextCodeType",
+    "type": "raw",
+    "docstring": "Next code type enumeration used in :obj:`~pyrogram.types.SentCode`.",
+    "members": [
+      {
+        "name": "CALL",
+        "raw": "auth.CodeTypeCall",
+        "doc": "The code will be sent via a phone call. A synthesized voice will tell the user which verification code to input."
+      },
+      {
+        "name": "FLASH_CALL",
+        "raw": "auth.CodeTypeFlashCall",
+        "doc": "The code will be sent via a flash phone call, that will be closed immediately."
+      },
+      {
+        "name": "MISSED_CALL",
+        "raw": "auth.CodeTypeMissedCall",
+        "doc": "Missed call."
+      },
+      {
+        "name": "SMS",
+        "raw": "auth.CodeTypeSms",
+        "doc": "The code was sent via SMS."
+      },
+      {
+        "name": "FRAGMENT_SMS",
+        "raw": "auth.CodeTypeFragmentSms",
+        "doc": "The code was sent via Fragment SMS."
+      }
+    ],
+    "tl_type": "auth.CodeType"
+  },
+  {
+    "name": "PaidReactionPrivacy",
+    "type": "raw",
+    "docstring": "Reaction privacy type enumeration used in :meth:`~pyrogram.Client.send_paid_reaction`.",
+    "members": [
+      {
+        "name": "DEFAULT",
+        "raw": "PaidReactionPrivacyDefault",
+        "doc": "Send default reaction"
+      },
+      {
+        "name": "ANONYMOUS",
+        "raw": "PaidReactionPrivacyAnonymous",
+        "doc": "Send anonymous reaction"
+      },
+      {
+        "name": "CHAT",
+        "raw": "PaidReactionPrivacyPeer",
+        "doc": "Send reaction as specific chat. You can get all available chats in :meth:`~pyrogram.Client.get_send_as_chats`"
+      }
+    ],
+    "tl_type": "PaidReactionPrivacy"
+  },
+  {
+    "name": "ParseMode",
+    "type": "auto",
+    "docstring": "Parse mode enumeration used in various places to set a specific parse mode",
+    "members": [
+      {
+        "name": "DEFAULT",
+        "doc": "Default mode. Markdown and HTML combined"
+      },
+      {
+        "name": "MARKDOWN",
+        "doc": "Markdown only mode"
+      },
+      {
+        "name": "HTML",
+        "doc": "HTML only mode"
+      },
+      {
+        "name": "DISABLED",
+        "doc": "Disabled mode"
+      }
+    ]
+  },
+  {
+    "name": "PaymentFormType",
+    "type": "auto",
+    "docstring": "Describes type of payment form.",
+    "members": [
+      {
+        "name": "REGULAR",
+        "doc": "The payment form is for a regular payment"
+      },
+      {
+        "name": "STARS",
+        "doc": "The payment form is for a payment in Telegram Stars"
+      },
+      {
+        "name": "STAR_SUBSCRIPTION",
+        "doc": "The payment form is for a payment in Telegram Stars for subscription"
+      }
+    ]
+  },
+  {
+    "name": "PhoneCallDiscardReason",
+    "type": "raw",
+    "docstring": "Phone call discard reason enumeration used in :obj:`~pyrogram.types.PhoneCallEnded`.",
+    "members": [
+      {
+        "name": "MISSED",
+        "raw": "PhoneCallDiscardReasonMissed",
+        "doc": "The call was ended before the conversation started. It was canceled by the caller or missed by the other party"
+      },
+      {
+        "name": "DECLINED",
+        "raw": "PhoneCallDiscardReasonBusy",
+        "doc": "The call was ended before the conversation started. It was declined by the other party"
+      },
+      {
+        "name": "DISCONNECTED",
+        "raw": "PhoneCallDiscardReasonDisconnect",
+        "doc": "The call was ended before the conversation started. It was declined by the other party"
+      },
+      {
+        "name": "HUNG_UP",
+        "raw": "PhoneCallDiscardReasonHangup",
+        "doc": "The call was ended because one of the parties hung up"
+      },
+      {
+        "name": "UPGRADE_TO_CONFERENCE_CALL",
+        "raw": "PhoneCallDiscardReasonMigrateConferenceCall",
+        "doc": "The call was ended because it has been upgraded to a conference call"
+      }
+    ],
+    "tl_type": "PhoneCallDiscardReason"
+  },
+  {
+    "name": "PhoneNumberCodeType",
+    "type": "auto",
+    "docstring": "Describes type of the request for which a code is sent to a phone number",
+    "members": [
+      {
+        "name": "AUTHENTICATION",
+        "doc": "Default authentication process."
+      },
+      {
+        "name": "CHANGE",
+        "doc": "Checks ownership of a new phone number to change the user's authentication phone number. For official Android and iOS applications only."
+      },
+      {
+        "name": "VERIFY",
+        "doc": "Verifies ownership of a phone number to be added to the user's Telegram Passport."
+      }
+    ]
+  },
+  {
+    "name": "PollType",
+    "type": "auto",
+    "docstring": "Poll type enumeration used in :obj:`~pyrogram.types.Poll`.",
+    "members": [
+      {
+        "name": "QUIZ",
+        "doc": "Quiz poll"
+      },
+      {
+        "name": "REGULAR",
+        "doc": "Regular poll"
+      }
+    ]
+  },
+  {
+    "name": "PrivacyKey",
+    "type": "raw",
+    "docstring": "Privacy key enumeration used in :meth:`~pyrogram.Client.set_privacy`.",
+    "members": [
+      {
+        "name": "ABOUT",
+        "raw": "InputPrivacyKeyAbout",
+        "doc": "Whether people can see your bio"
+      },
+      {
+        "name": "ADDED_BY_PHONE",
+        "raw": "InputPrivacyKeyAddedByPhone",
+        "doc": "Whether people can add you to their contact list by your phone number"
+      },
+      {
+        "name": "BIRTHDAY",
+        "raw": "InputPrivacyKeyBirthday",
+        "doc": "Whether the user can see our birthday."
+      },
+      {
+        "name": "CHAT_INVITE",
+        "raw": "InputPrivacyKeyChatInvite",
+        "doc": "Whether people will be able to invite you to chats"
+      },
+      {
+        "name": "FORWARDS",
+        "raw": "InputPrivacyKeyForwards",
+        "doc": "Whether messages forwarded from you will be anonymous"
+      },
+      {
+        "name": "PHONE_CALL",
+        "raw": "InputPrivacyKeyPhoneCall",
+        "doc": "Whether you will accept phone calls"
+      },
+      {
+        "name": "PHONE_NUMBER",
+        "raw": "InputPrivacyKeyPhoneNumber",
+        "doc": "Whether people will be able to see your phone number"
+      },
+      {
+        "name": "PHONE_P2P",
+        "raw": "InputPrivacyKeyPhoneP2P",
+        "doc": "Whether to allow P2P communication during VoIP calls"
+      },
+      {
+        "name": "PROFILE_PHOTO",
+        "raw": "InputPrivacyKeyProfilePhoto",
+        "doc": "Whether people will be able to see your profile picture"
+      },
+      {
+        "name": "STATUS",
+        "raw": "InputPrivacyKeyStatusTimestamp",
+        "doc": "Whether people will be able to see our exact last online timestamp."
+      },
+      {
+        "name": "VOICE_MESSAGES",
+        "raw": "InputPrivacyKeyVoiceMessages",
+        "doc": "Whether people can send you voice messages or round videos (Premium users only)."
+      },
+      {
+        "name": "GIFTS",
+        "raw": "InputPrivacyKeyStarGiftsAutoSave",
+        "doc": "Whether received gifts will be automatically displayed on our profile"
+      },
+      {
+        "name": "NO_PAID_MESSAGES",
+        "raw": "InputPrivacyKeyNoPaidMessages",
+        "doc": "Whether people who won't have to pay to send you messages"
+      },
+      {
+        "name": "SAVED_MUSIC",
+        "raw": "InputPrivacyKeySavedMusic",
+        "doc": "Whether people can see your saved music list"
+      }
+    ],
+    "tl_type": "InputPrivacyKey"
+  },
+  {
+    "name": "PrivacyRuleType",
+    "type": "raw",
+    "docstring": "Privacy rule type enumeration used in :obj:`~pyrogram.types.PrivacyRule`.",
+    "members": [
+      {
+        "name": "ALLOW_ALL",
+        "raw": "PrivacyValueAllowAll",
+        "doc": "Allow all"
+      },
+      {
+        "name": "ALLOW_BOTS",
+        "raw": "PrivacyValueAllowBots",
+        "doc": "Allow only bots"
+      },
+      {
+        "name": "ALLOW_CHAT_PARTICIPANTS",
+        "raw": "PrivacyValueAllowChatParticipants",
+        "doc": "Allow only participants of certain chats"
+      },
+      {
+        "name": "ALLOW_CLOSE_FRIENDS",
+        "raw": "PrivacyValueAllowCloseFriends",
+        "doc": "Allow only close friends"
+      },
+      {
+        "name": "ALLOW_CONTACTS",
+        "raw": "PrivacyValueAllowContacts",
+        "doc": "Allow all contacts"
+      },
+      {
+        "name": "ALLOW_PREMIUM",
+        "raw": "PrivacyValueAllowPremium",
+        "doc": "Allow only users with a Premium subscription. Currently only usable for :obj:`~pyrogram.enums.PrivacyKey.CHAT_INVITE`."
+      },
+      {
+        "name": "ALLOW_USERS",
+        "raw": "PrivacyValueAllowUsers",
+        "doc": "Allow only certain users"
+      },
+      {
+        "name": "DISALLOW_ALL",
+        "raw": "PrivacyValueDisallowAll",
+        "doc": "Disallow all"
+      },
+      {
+        "name": "DISALLOW_BOTS",
+        "raw": "PrivacyValueDisallowBots",
+        "doc": "Disallow bots and miniapps"
+      },
+      {
+        "name": "DISALLOW_CHAT_PARTICIPANTS",
+        "raw": "PrivacyValueDisallowChatParticipants",
+        "doc": "Disallow only participants of certain chats"
+      },
+      {
+        "name": "DISALLOW_CONTACTS",
+        "raw": "PrivacyValueDisallowContacts",
+        "doc": "Disallow contacts only"
+      },
+      {
+        "name": "DISALLOW_USERS",
+        "raw": "PrivacyValueDisallowUsers",
+        "doc": "Disallow only certain users"
+      }
+    ],
+    "tl_type": "PrivacyRule"
+  },
+  {
+    "name": "ProfileColor",
+    "type": "value",
+    "docstring": "Profile color enumeration used in :meth:`~pyrogram.Client.update_color` and :obj:`~pyrogram.types.ChatColor`.",
+    "members": [
+      {
+        "name": "RED",
+        "value": 0,
+        "doc": "Red color."
+      },
+      {
+        "name": "ORANGE",
+        "value": 1,
+        "doc": "Orange color."
+      },
+      {
+        "name": "VIOLET",
+        "value": 2,
+        "doc": "Violet color."
+      },
+      {
+        "name": "GREEN",
+        "value": 3,
+        "doc": "Green color."
+      },
+      {
+        "name": "CYAN",
+        "value": 4,
+        "doc": "Cyan color."
+      },
+      {
+        "name": "BLUE",
+        "value": 5,
+        "doc": "Blue color."
+      },
+      {
+        "name": "PINK",
+        "value": 6,
+        "doc": "Pink color."
+      },
+      {
+        "name": "GRAY",
+        "value": 7,
+        "doc": "Gray color."
+      },
+      {
+        "name": "RED_LIGHT_RED",
+        "value": 8,
+        "doc": "Red color with light red gradient."
+      },
+      {
+        "name": "ORANGE_LIGHT_ORANGE",
+        "value": 9,
+        "doc": "Orange color with light red gradient."
+      },
+      {
+        "name": "VIOLET_LIGHT_VIOLET",
+        "value": 10,
+        "doc": "Violet color with light violet gradient."
+      },
+      {
+        "name": "GREEN_LIGHT_GREEN",
+        "value": 11,
+        "doc": "Green color with light green gradien."
+      },
+      {
+        "name": "CYAN_LIGHT_CYAN",
+        "value": 12,
+        "doc": "Cyan color with light cyan gradient."
+      },
+      {
+        "name": "BLUE_LIGHT_BLUE",
+        "value": 13,
+        "doc": "Blue color with light blue gradient."
+      },
+      {
+        "name": "PINK_LIGHT_PINK",
+        "value": 14,
+        "doc": "Pink color with light pink gradient."
+      },
+      {
+        "name": "GRAY_LIGHT_GRAY",
+        "value": 15,
+        "doc": "Gray color with light gray gradient."
+      }
+    ]
+  },
+  {
+    "name": "ProfileTab",
+    "type": "raw",
+    "docstring": "Profile tab enumeration used in :obj:`~pyrogram.types.Chat`.",
+    "members": [
+      {
+        "name": "POSTS",
+        "raw": "ProfileTabPosts",
+        "doc": "A tab with stories posted by the user or the channel chat and saved to profile."
+      },
+      {
+        "name": "GIFTS",
+        "raw": "ProfileTabGifts",
+        "doc": "A tab with gifts received by the user or the channel chat."
+      },
+      {
+        "name": "MEDIA",
+        "raw": "ProfileTabMedia",
+        "doc": "A tab with photos and videos posted by the channel."
+      },
+      {
+        "name": "FILES",
+        "raw": "ProfileTabFiles",
+        "doc": "A tab with documents posted by the channel."
+      },
+      {
+        "name": "LINKS",
+        "raw": "ProfileTabLinks",
+        "doc": "A tab with messages posted by the channel and containing links."
+      },
+      {
+        "name": "MUSIC",
+        "raw": "ProfileTabMusic",
+        "doc": "A tab with audio messages posted by the channel."
+      },
+      {
+        "name": "VOICE",
+        "raw": "ProfileTabVoice",
+        "doc": "A tab with voice notes posted by the channel."
+      },
+      {
+        "name": "GIFS",
+        "raw": "ProfileTabGifs",
+        "doc": "A tab with animations posted by the channel."
+      }
+    ],
+    "tl_type": "ProfileTab"
+  },
+  {
+    "name": "ReplyColor",
+    "type": "value",
+    "docstring": "Reply color enumeration used in :meth:`~pyrogram.Client.update_color` and :obj:`~pyrogram.types.ChatColor`.",
+    "members": [
+      {
+        "name": "RED",
+        "value": 0,
+        "doc": "Red color."
+      },
+      {
+        "name": "ORANGE",
+        "value": 1,
+        "doc": "Orange color."
+      },
+      {
+        "name": "VIOLET",
+        "value": 2,
+        "doc": "Violet color."
+      },
+      {
+        "name": "GREEN",
+        "value": 3,
+        "doc": "Green color."
+      },
+      {
+        "name": "CYAN",
+        "value": 4,
+        "doc": "Cyan color."
+      },
+      {
+        "name": "BLUE",
+        "value": 5,
+        "doc": "Blue color."
+      },
+      {
+        "name": "PINK",
+        "value": 6,
+        "doc": "Pink color."
+      },
+      {
+        "name": "RED_DARK_RED",
+        "value": 7,
+        "doc": "Red color with dark red stripes."
+      },
+      {
+        "name": "ORANGE_DARK_ORANGE",
+        "value": 8,
+        "doc": "Orange color with dark orange stripes."
+      },
+      {
+        "name": "VIOLET_DARK_VIOLET",
+        "value": 9,
+        "doc": "Violet color with dark violet stripes."
+      },
+      {
+        "name": "GREEN_DARK_GREEN",
+        "value": 10,
+        "doc": "Green color with dark green stripes."
+      },
+      {
+        "name": "CYAN_DARK_CYAN",
+        "value": 11,
+        "doc": "Cyan color with dark cyan stripes."
+      },
+      {
+        "name": "BLUE_DARK_BLUE",
+        "value": 12,
+        "doc": "Blue color with dark blue stripes."
+      },
+      {
+        "name": "PINK_DARK_PINK",
+        "value": 13,
+        "doc": "Pink color with dark pink stripes."
+      },
+      {
+        "name": "BLUE_WHITE_RED",
+        "value": 14,
+        "doc": "Blue color with white and red stripes."
+      },
+      {
+        "name": "ORANGE_WHITE_GREEN",
+        "value": 15,
+        "doc": "Orange color with white and green stripes."
+      },
+      {
+        "name": "GREEN_WHITE_RED",
+        "value": 16,
+        "doc": "Green color with white and red stripes."
+      },
+      {
+        "name": "CYAN_WHITE_GREEN",
+        "value": 17,
+        "doc": "Cyan color with white and red green."
+      },
+      {
+        "name": "CYAN_YELLOW_PINK",
+        "value": 18,
+        "doc": "Cyan color with yellow and pink stripes."
+      },
+      {
+        "name": "VIOLET_YELLOW_ORANGE",
+        "value": 19,
+        "doc": "Violet color with yellow and orange stripes."
+      },
+      {
+        "name": "BLUE_WHITE_ORANGE",
+        "value": 20,
+        "doc": "Blue color with white and orange stripes."
+      },
+      {
+        "name": "DYNAMIC",
+        "value": 21,
+        "doc": "Secret color that cannot be set.\n\nFor now:\nRed - If you use Telegram desktop.\nBlue - If you are using Telegram android/ios."
+      }
+    ]
+  },
+  {
+    "name": "SentCodeType",
+    "type": "raw",
+    "docstring": "Sent code type enumeration used in :obj:`~pyrogram.types.SentCode`.",
+    "members": [
+      {
+        "name": "APP",
+        "raw": "auth.SentCodeTypeApp",
+        "doc": "The code was sent through the telegram app."
+      },
+      {
+        "name": "CALL",
+        "raw": "auth.SentCodeTypeCall",
+        "doc": "The code will be sent via a phone call. A synthesized voice will tell the user which verification code to input."
+      },
+      {
+        "name": "FLASH_CALL",
+        "raw": "auth.SentCodeTypeFlashCall",
+        "doc": "The code will be sent via a flash phone call, that will be closed immediately."
+      },
+      {
+        "name": "MISSED_CALL",
+        "raw": "auth.SentCodeTypeMissedCall",
+        "doc": "Missed call."
+      },
+      {
+        "name": "SMS",
+        "raw": "auth.SentCodeTypeSms",
+        "doc": "The code was sent via SMS."
+      },
+      {
+        "name": "FRAGMENT_SMS",
+        "raw": "auth.SentCodeTypeFragmentSms",
+        "doc": "The code was sent via Fragment SMS."
+      },
+      {
+        "name": "EMAIL_CODE",
+        "raw": "auth.SentCodeTypeEmailCode",
+        "doc": "The code was sent via email."
+      },
+      {
+        "name": "FIREBASE_SMS",
+        "raw": "auth.SentCodeTypeFirebaseSms",
+        "doc": "The code should be delivered via SMS after Firebase attestation."
+      },
+      {
+        "name": "SETUP_EMAIL_REQUIRED",
+        "raw": "auth.SentCodeTypeSetUpEmailRequired",
+        "doc": "The user should add and verify an email address in order to login."
+      },
+      {
+        "name": "SMS_PHRASE",
+        "raw": "auth.SentCodeTypeSmsPhrase",
+        "doc": "The code was sent via SMS with a phrase."
+      },
+      {
+        "name": "SMS_WORD",
+        "raw": "auth.SentCodeTypeSmsWord",
+        "doc": "The code was sent via SMS with a word."
+      }
+    ],
+    "tl_type": "auth.SentCodeType"
+  },
+  {
+    "name": "StickerType",
+    "type": "auto",
+    "docstring": "Sticker type enumeration used in :obj:`~pyrogram.types.Sticker`.",
+    "members": [
+      {
+        "name": "REGULAR",
+        "doc": "The sticker is a regular sticker"
+      },
+      {
+        "name": "MASK",
+        "doc": "The sticker is a mask in WEBP format to be placed on photos or videos."
+      },
+      {
+        "name": "CUSTOM_EMOJI",
+        "doc": "The sticker is a custom emoji to be used inside message text and caption."
+      }
+    ]
+  },
+  {
+    "name": "StoriesPrivacyRules",
+    "type": "auto",
+    "docstring": "Stories privacy rules type enumeration used in :meth:`~pyrogram.Client.post_story`.",
+    "members": [
+      {
+        "name": "PUBLIC",
+        "doc": "Public stories"
+      },
+      {
+        "name": "CONTACTS",
+        "doc": "Contacts only stories"
+      },
+      {
+        "name": "CLOSE_FRIENDS",
+        "doc": "Close friends stories"
+      },
+      {
+        "name": "SELECTED_USERS",
+        "doc": "Selected users stories"
+      }
+    ]
+  },
+  {
+    "name": "SuggestedPostRefundReason",
+    "type": "auto",
+    "docstring": "Suggested post refund reason enumeration used in :obj:`~pyrogram.types.SuggestedPostRefunded`.",
+    "members": [
+      {
+        "name": "POST_DELETED",
+        "doc": "The post was deleted within 24 hours of being posted or removed from scheduled messages without being posted"
+      },
+      {
+        "name": "PAYMENT_REFUNDED",
+        "doc": "The post was refunded, because the payment for the post was refunded."
+      }
+    ]
+  },
+  {
+    "name": "SuggestedPostState",
+    "type": "auto",
+    "docstring": "Suggested post state enumeration used in :obj:`~pyrogram.types.SuggestedPostInfo`.",
+    "members": [
+      {
+        "name": "PENDING",
+        "doc": "The post must be approved or declined."
+      },
+      {
+        "name": "APPROVED",
+        "doc": "The post was approved"
+      },
+      {
+        "name": "DECLINED",
+        "doc": "The post was declined"
+      }
+    ]
+  },
+  {
+    "name": "UpgradedGiftOrigin",
+    "type": "auto",
+    "docstring": "Origin from which the upgraded gift was obtained. Used in :obj:`~pyrogram.types.Gift`.",
+    "members": [
+      {
+        "name": "UPGRADE",
+        "doc": "The gift was obtained by upgrading of a previously received gift."
+      },
+      {
+        "name": "TRANSFER",
+        "doc": "The gift was transferred from another owner."
+      },
+      {
+        "name": "RESALE",
+        "doc": "The gift was bought from another user."
+      },
+      {
+        "name": "BLOCKCHAIN",
+        "doc": "The gift was assigned from blockchain and isn't owned by the current user. The gift can't be transferred, resold or withdrawn to blockchain."
+      },
+      {
+        "name": "GIFTED_UPGRADE",
+        "doc": "The sender or receiver of the message has paid for upgraid of the gift, which has been completed."
+      },
+      {
+        "name": "OFFER",
+        "doc": "The gift was bought through an offer."
+      },
+      {
+        "name": "CRAFT",
+        "doc": "The gift was crafted from other gifts."
+      }
+    ]
+  },
+  {
+    "name": "UserStatus",
+    "type": "auto",
+    "docstring": "User status enumeration used in :obj:`~pyrogram.types.User`.",
+    "members": [
+      {
+        "name": "ONLINE",
+        "doc": "User is online"
+      },
+      {
+        "name": "OFFLINE",
+        "doc": "User is offline"
+      },
+      {
+        "name": "RECENTLY",
+        "doc": "User was seen recently"
+      },
+      {
+        "name": "LAST_WEEK",
+        "doc": "User was seen last week"
+      },
+      {
+        "name": "LAST_MONTH",
+        "doc": "User was seen last month"
+      },
+      {
+        "name": "LONG_AGO",
+        "doc": "User was seen long ago"
+      }
+    ]
+  }
+]
