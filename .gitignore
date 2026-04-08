@@ -225,6 +225,8 @@ config.ini
 main.py
 unknown_errors.txt
 compiler/errors/error_urls.txt
+compiler/api/schema_snapshot.json
+compiler/api/schema_changes.json
 .DS_Store
 
 # Pyrogram generated code
