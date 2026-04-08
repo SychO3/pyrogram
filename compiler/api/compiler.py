@@ -262,6 +262,10 @@ def start(format: bool = False):
             layer = layer_match.group(1)
             continue
 
+        # Skip lines before the first section marker
+        if section is None:
+            continue
+
         combinator_match = COMBINATOR_RE.match(line)
         if combinator_match:
             # noinspection PyShadowingBuiltins
