@@ -1,33 +1,33 @@
 // Merged TL schema — layer 224
-// Generated: 2026-04-03 00:45:03 UTC
+// Generated: 2026-04-08 00:46:08 UTC
 // Sources:
 //   tdlib:    https://raw.githubusercontent.com/tdlib/td/refs/heads/master/td/generate/scheme/telegram_api.tl
 //   tdesktop: https://raw.githubusercontent.com/telegramdesktop/tdesktop/refs/heads/dev/Telegram/SourceFiles/mtproto/scheme/api.tl
 
-// int ? = Int;
-// long ? = Long;
-// double ? = Double;
-// string ? = String;
+int ? = Int;
+long ? = Long;
+double ? = Double;
+string ? = String;
 
-// bytes = Bytes;
-// int256 = Int256;
+bytes = Bytes;
+int256 = Int256;
 
-// true#3fedd339 = True;
+true#3fedd339 = True;
 
-// boolFalse#bc799737 = Bool;
-// boolTrue#997275b5 = Bool;
+boolFalse#bc799737 = Bool;
+boolTrue#997275b5 = Bool;
 
-// vector#1cb5c415 {t:Type} # [ t ] = Vector t;
+vector#1cb5c415 {t:Type} # [ t ] = Vector t;
 
-// error#c4b9f9bb code:int text:string = Error;
+error#c4b9f9bb code:int text:string = Error;
 
-// ipPort#d433ad73 ipv4:int port:int = IpPort;
-// ipPortSecret#37982646 ipv4:int port:int secret:bytes = IpPort;
-// accessPointRule#4679b65f phone_prefix_rules:string dc_id:int ips:vector<IpPort> = AccessPointRule;
-// help.configSimple#5a592a6c date:int expires:int rules:vector<AccessPointRule> = help.ConfigSimple;
+ipPort#d433ad73 ipv4:int port:int = IpPort;
+ipPortSecret#37982646 ipv4:int port:int secret:bytes = IpPort;
+accessPointRule#4679b65f phone_prefix_rules:string dc_id:int ips:vector<IpPort> = AccessPointRule;
+help.configSimple#5a592a6c date:int expires:int rules:vector<AccessPointRule> = help.ConfigSimple;
 
-// inputPeerPhotoFileLocationLegacy#27d69997 flags:# big:flags.0?true peer:InputPeer volume_id:long local_id:int = InputFileLocation;
-// inputStickerSetThumbLegacy#dbaeae9 stickerset:InputStickerSet volume_id:long local_id:int = InputFileLocation;
+inputPeerPhotoFileLocationLegacy#27d69997 flags:# big:flags.0?true peer:InputPeer volume_id:long local_id:int = InputFileLocation;
+inputStickerSetThumbLegacy#dbaeae9 stickerset:InputStickerSet volume_id:long local_id:int = InputFileLocation;
 
 ---functions---
 
