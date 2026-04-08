@@ -1,6 +1,7 @@
-"""Parse types and methods from the Telegram Bot API HTML page (tg.html).
+"""Parse types and methods from the Telegram Bot API page.
 
-Outputs two JSON files under compiler/api/:
+Fetches https://core.telegram.org/bots/api and outputs two JSON files
+under compiler/api/:
   - bot_api_types.json   — all Bot API types
   - bot_api_methods.json — all Bot API methods
 """
@@ -10,9 +11,10 @@ import re
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.request import urlopen
 
 BASE_DIR = Path(__file__).parent
-HTML_PATH = BASE_DIR / "tg.html"
+API_URL = "https://core.telegram.org/bots/api"
 API_DIR = BASE_DIR / "api"
 
 # ---------- HTML table extractor ----------
@@ -309,7 +311,8 @@ def parse(html: str) -> tuple[list[dict], list[dict]]:
 
 
 def main():
-    html = HTML_PATH.read_text(encoding="utf-8")
+    with urlopen(API_URL) as resp:
+        html = resp.read().decode("utf-8")
     types, methods = parse(html)
 
     API_DIR.mkdir(parents=True, exist_ok=True)
