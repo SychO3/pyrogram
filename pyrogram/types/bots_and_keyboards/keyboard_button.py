@@ -62,6 +62,11 @@ class KeyboardButton(Object):
             Tapping on a chat will send its identifier to the bot in a `chat_shared` service message.
             Available in private chats only.
 
+        request_managed_bot (:obj:`~pyrogram.types.KeyboardButtonRequestManagedBot`, *optional*):
+            If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot.
+            Available for bots that enabled management of other bots in the @BotFather Mini App.
+            Available in private chats only.
+
         web_app (:obj:`~pyrogram.types.WebAppInfo`, *optional*):
             If specified, the described `Web App <https://core.telegram.org/bots/webapps>`_ will be launched when the
             button is pressed.
@@ -78,6 +83,7 @@ class KeyboardButton(Object):
         request_poll: Optional["types.KeyboardButtonPollType"] = None,
         request_users: Optional["types.KeyboardButtonRequestUsers"] = None,
         request_chat: Optional["types.KeyboardButtonRequestChat"] = None,
+        request_managed_bot: Optional["types.KeyboardButtonRequestManagedBot"] = None,
         web_app: Optional["types.WebAppInfo"] = None,
     ):
         super().__init__()
@@ -90,6 +96,7 @@ class KeyboardButton(Object):
         self.request_poll = request_poll
         self.request_users = request_users
         self.request_chat = request_chat
+        self.request_managed_bot = request_managed_bot
         self.web_app = web_app
 
     @staticmethod
@@ -177,6 +184,18 @@ class KeyboardButton(Object):
                         request_username=getattr(b, "username_requested", None),
                         request_photo=getattr(b, "photo_requested", None),
                         max_quantity = getattr(b, "max_quantity", None),
+                    )
+                )
+
+            if isinstance(b.peer_type, raw.types.RequestPeerTypeCreateBot):
+                return KeyboardButton(
+                    text=b.text,
+                    style=button_style,
+                    icon_custom_emoji_id=icon_custom_emoji_id,
+                    request_managed_bot=types.KeyboardButtonRequestManagedBot(
+                        button_id=b.button_id,
+                        suggested_name=b.peer_type.suggested_name,
+                        suggested_username=b.peer_type.suggested_username
                     )
                 )
 
@@ -275,6 +294,17 @@ class KeyboardButton(Object):
                 username_requested=self.request_chat.request_username,
                 photo_requested=self.request_chat.request_photo,
                 style=style,
+            )
+        elif self.request_managed_bot:
+            return raw.types.InputKeyboardButtonRequestPeer(
+                text=self.text,
+                button_id=self.request_managed_bot.button_id,
+                peer_type=raw.types.RequestPeerTypeCreateBot(
+                    bot_managed=True,
+                    suggested_name=self.request_managed_bot.suggested_name,
+                    suggested_username=self.request_managed_bot.suggested_username
+                ),
+                max_quantity=1
             )
         elif self.request_users:
             peer_type = raw.types.RequestPeerTypeUser(

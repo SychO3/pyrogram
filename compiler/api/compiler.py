@@ -221,6 +221,19 @@ def get_references(t: str, kind: str):
     return None, 0
 
 
+def indent_desc(desc: str, indent: str = "    ") -> str:
+    lines = desc.splitlines()
+
+    if len(lines) <= 1:
+        return desc
+
+    first, *rest = lines
+
+    return first + "\n" + "\n".join(
+        (indent + line if line.strip() else "") for line in rest
+    )
+
+
 # noinspection PyShadowingBuiltins
 def start(format: bool = False):
     shutil.rmtree(DESTINATION_PATH / "types", ignore_errors=True)

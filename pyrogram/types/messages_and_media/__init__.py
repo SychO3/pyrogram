@@ -75,6 +75,7 @@ from .giveaway_created import GiveawayCreated
 from .giveaway_prize_stars import GiveawayPrizeStars
 from .giveaway_winners import GiveawayWinners
 from .location import Location
+from .managed_bot_created import ManagedBotCreated
 from .mask_position import MaskPosition
 from .media_area import MediaArea
 from .message import Message
@@ -100,6 +101,8 @@ from .payment_option import PaymentOption
 from .payment_receipt import PaymentReceipt
 from .payment_result import PaymentResult
 from .photo import Photo
+from .poll_option_added import PollOptionAdded
+from .poll_option_deleted import PollOptionDeleted
 from .poll import Poll
 from .proximity_alert_triggered import ProximityAlertTriggered
 from .poll_option import PollOption
@@ -218,6 +221,7 @@ __all__ = [
     "GiveawayPrizeStars",
     "GiveawayWinners",
     "Location",
+    "ManagedBotCreated",
     "MaskPosition",
     "MediaArea",
     "Message",
@@ -243,6 +247,8 @@ __all__ = [
     "PaymentReceipt",
     "PaymentResult",
     "Photo",
+    "PollOptionAdded",
+    "PollOptionDeleted",
     "Poll",
     "ProximityAlertTriggered",
     "PollOption",

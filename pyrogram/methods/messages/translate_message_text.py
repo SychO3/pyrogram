@@ -53,8 +53,8 @@ class TranslateMessageText:
                 "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "ji", "yo", "zu"
 
             tone (``str``, *optional*):
-                Tone for the translation.
-                Must be one of "formal", "short", "tribal", "corp", "biblical", "viking", "zen".
+                Tone of the translation.
+                Must be one of "formal", "neutral", "casual".
 
         Returns:
             :obj:`~pyrogram.types.FormattedText`: On success, information about the translated text is returned.

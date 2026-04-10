@@ -28,6 +28,7 @@ from pyrogram.types import CallbackQuery, Identifier, Listener
 from .handler import Handler
 
 
+
 class CallbackQueryHandler(Handler):
     """The CallbackQuery handler class. Used to handle callback queries coming from inline buttons.
     It is intended to be used with :meth:`~pyrogram.Client.add_handler`

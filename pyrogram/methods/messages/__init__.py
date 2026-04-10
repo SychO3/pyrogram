@@ -17,15 +17,17 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from .add_checklist_tasks import AddChecklistTasks
+from .add_poll_option import AddPollOption
 from .add_to_gifs import AddToGifs
 from .approve_suggested_post import ApproveSuggestedPost
-from .compose_message_with_ai import ComposeMessageWithAI
+from .compose_text_with_ai import ComposeTextWithAI
 from .copy_media_group import CopyMediaGroup
 from .copy_message import CopyMessage
 from .decline_suggested_post import DeclineSuggestedPost
 from .delete_chat_history import DeleteChatHistory
 from .delete_direct_messages_chat_topic_history import DeleteDirectMessagesChatTopicHistory
 from .delete_messages import DeleteMessages
+from .delete_poll_option import DeletePollOption
 from .download_media import DownloadMedia
 from .edit_inline_caption import EditInlineCaption
 from .edit_inline_media import EditInlineMedia
@@ -36,6 +38,7 @@ from .edit_message_checklist import EditMessageChecklist
 from .edit_message_media import EditMessageMedia
 from .edit_message_reply_markup import EditMessageReplyMarkup
 from .edit_message_text import EditMessageText
+from .fix_text_with_ai import FixTextWithAI
 from .forward_media_group import ForwardMediaGroup
 from .forward_messages import ForwardMessages
 from .get_available_effects import GetAvailableEffects
@@ -103,16 +106,19 @@ from .vote_poll import VotePoll
 
 class Messages(
     AddChecklistTasks,
+    AddPollOption,
     AddToGifs,
     ApproveSuggestedPost,
-    ComposeMessageWithAI,
+    ComposeTextWithAI,
     DeclineSuggestedPost,
     DeleteMessages,
+    DeletePollOption,
     EditMessageCaption,
     EditMessageChecklist,
     EditMessageReplyMarkup,
     EditMessageMedia,
     EditMessageText,
+    FixTextWithAI,
     ForwardMediaGroup,
     ForwardMessages,
     GetAvailableEffects,

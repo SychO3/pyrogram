@@ -122,7 +122,7 @@ class Client(Methods):
         proxy (``dict`` | ``str``, *optional*):
             The Proxy settings as dict.
             E.g.: *dict(scheme="socks5", hostname="11.22.33.44", port=1234, username="user", password="pass")*
-            or *"http://11.22.33.44:1234"* or *"socks5://user:pass@11.22.33.44:1234"*.
+            or *"http://11.22.33.44:1234"* or *"socks5://user:pass@11.22.33.44:1234"* or *"tg://user:pass@11.22.33.44:1234"*.
             The *username* and *password* can be omitted if the proxy doesn't require authorization.
 
         test_mode (``bool``, *optional*):

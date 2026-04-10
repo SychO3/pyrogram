@@ -52,8 +52,8 @@ class SummarizeMessage:
                 Defaults to the client's language code.
 
             tone (``str``, *optional*):
-                Tone for the summary.
-                Must be one of "formal", "short", "tribal", "corp", "biblical", "viking", "zen".
+                Tone of the summarization.
+                Must be one of "formal", "neutral", "casual".
 
         Returns:
             :obj:`~pyrogram.types.FormattedText`: On success, information about the summarized text is returned.
