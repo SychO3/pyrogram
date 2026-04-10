@@ -20,7 +20,7 @@ import datetime
 from typing import List, Optional
 
 import pyrogram
-from pyrogram import types
+from pyrogram import raw, types
 
 from ..object import Object
 
@@ -34,6 +34,9 @@ class PollOption(Object):
 
         text (:obj:`~pyrogram.types.FormattedText`, *optional*):
             Option text, 1-100 characters.
+
+        media (:obj:`~pyrogram.types.Photo`, *optional*):
+            Media attached to the option.
 
         voter_count (``int``, *optional*):
             Number of users that voted for this option.
@@ -64,6 +67,7 @@ class PollOption(Object):
         client: "pyrogram.Client" = None,
         persistent_id: str,
         text: Optional["types.FormattedText"] = None,
+        media: Optional["types.Photo"] = None,
         voter_count: Optional[int] = None,
         vote_percentage: Optional[int] = None,
         recent_voters: Optional[List["types.Chat"]] = None,
@@ -75,6 +79,7 @@ class PollOption(Object):
 
         self.persistent_id = persistent_id
         self.text = text
+        self.media = media
         self.voter_count = voter_count
         self.vote_percentage = vote_percentage
         self.recent_voters = recent_voters

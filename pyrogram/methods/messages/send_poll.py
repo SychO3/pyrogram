@@ -17,11 +17,14 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import os
+import re
 from datetime import datetime
-from typing import List, Optional, Union
+from typing import BinaryIO, List, Optional, Union
 
 import pyrogram
 from pyrogram import enums, raw, types, utils
+from pyrogram.file_id import FileType
 
 log = logging.getLogger(__name__)
 
@@ -42,10 +45,12 @@ class SendPoll:
         hide_results_until_closes: Optional[bool] = None,
         correct_option_ids: Optional[List[int]] = None,
         explanation: Optional[Union[str, "types.FormattedText"]] = None,
+        explanation_media: Optional[Union[str, BinaryIO]] = None,
         open_period: Optional[int] = None,
         close_date: Optional[datetime] = None,
         is_closed: Optional[bool] = None,
         description: Optional[Union[str, "types.FormattedText"]] = None,
+        attached_media: Optional[Union[str, BinaryIO]] = None,
         disable_notification: Optional[bool] = None,
         protect_content: Optional[bool] = None,
         allow_paid_broadcast: Optional[bool] = None,
@@ -123,6 +128,13 @@ class SendPoll:
             explanation (``str`` | :obj:`~pyrogram.types.FormattedText`, *optional*):
                 Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing.
 
+            explanation_media (``str`` | ``BinaryIO``, *optional*):
+                Media attached to the quiz explanation/solution.
+                Pass a file_id as string to send a media that exists on the Telegram servers,
+                pass an HTTP URL as string for Telegram to get a media from the Internet,
+                pass a file path as string to upload a new media from the local machine, or
+                pass a binary file-like object with its attribute ".name" set for in-memory uploads.
+
             open_period (``int``, *optional*):
                 Amount of time in seconds the poll will be active after creation, 5-2628000.
                 Can't be used together with *close_date*.
@@ -139,6 +151,13 @@ class SendPoll:
 
             description (``str`` | :obj:`~pyrogram.types.FormattedText`, *optional*):
                 Description of the poll to be sent, 0-1024 characters after entities parsing.
+
+            attached_media (``str`` | ``BinaryIO``, *optional*):
+                Media attached to the poll itself.
+                Pass a file_id as string to send a media that exists on the Telegram servers,
+                pass an HTTP URL as string for Telegram to get a media from the Internet,
+                pass a file path as string to upload a new media from the local machine, or
+                pass a binary file-like object with its attribute ".name" set for in-memory uploads.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
@@ -225,6 +244,34 @@ class SendPoll:
             message = raw_message.text
             entities = raw_message.entities
 
+        raw_attached_media = None
+        if attached_media is not None:
+            if isinstance(attached_media, str):
+                if os.path.isfile(attached_media):
+                    file = await self.save_file(attached_media)
+                    raw_attached_media = raw.types.InputMediaUploadedPhoto(file=file)
+                elif re.match("^https?://", attached_media):
+                    raw_attached_media = raw.types.InputMediaPhotoExternal(url=attached_media)
+                else:
+                    raw_attached_media = utils.get_input_media_from_file_id(attached_media, FileType.PHOTO)
+            else:
+                file = await self.save_file(attached_media)
+                raw_attached_media = raw.types.InputMediaUploadedPhoto(file=file)
+
+        raw_solution_media = None
+        if explanation_media is not None:
+            if isinstance(explanation_media, str):
+                if os.path.isfile(explanation_media):
+                    file = await self.save_file(explanation_media)
+                    raw_solution_media = raw.types.InputMediaUploadedPhoto(file=file)
+                elif re.match("^https?://", explanation_media):
+                    raw_solution_media = raw.types.InputMediaPhotoExternal(url=explanation_media)
+                else:
+                    raw_solution_media = utils.get_input_media_from_file_id(explanation_media, FileType.PHOTO)
+            else:
+                file = await self.save_file(explanation_media)
+                raw_solution_media = raw.types.InputMediaUploadedPhoto(file=file)
+
         r = await self.invoke(
             raw.functions.messages.SendMedia(
                 peer=await self.resolve_peer(chat_id),
@@ -246,8 +293,10 @@ class SendPoll:
                         close_date=utils.datetime_to_timestamp(close_date)
                     ),
                     correct_answers=correct_option_ids,
+                    attached_media=raw_attached_media,
                     solution=solution,
-                    solution_entities=solution_entities
+                    solution_entities=solution_entities,
+                    solution_media=raw_solution_media
                 ),
                 message=message or "",
                 entities=entities or None,

@@ -58,6 +58,18 @@ class Poll(Object, Update):
         allows_revoting (``bool``, *optional*):
             True, if the poll allows to change the chosen answer options.
 
+        allow_adding_options (``bool``, *optional*):
+            True, if answer options can be added to the poll after creation.
+
+        shuffle_options (``bool``, *optional*):
+            True, if the poll options are shown in random order.
+
+        hide_results_until_closes (``bool``, *optional*):
+            True, if poll results are hidden until the poll closes.
+
+        is_creator (``bool``, *optional*):
+            True, if the current user is the poll creator.
+
         chosen_option_ids (List of ``int``, *optional*):
             Array of 0-based index of the chosen option), None in case of no vote yet.
 
@@ -69,11 +81,17 @@ class Poll(Object, Update):
             Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll,
             0-200 characters.
 
+        explanation_media (:obj:`~pyrogram.types.Photo`, *optional*):
+            Media attached to the quiz explanation/solution.
+
         open_period (``int``, *optional*):
             Amount of time in seconds the poll will be active after creation.
 
         close_date (:py:obj:`~datetime.datetime`, *optional*):
             Point in time when the poll will be automatically closed.
+
+        attached_media (:obj:`~pyrogram.types.Photo`, *optional*):
+            Media attached to the poll.
 
         description (:obj:`~pyrogram.types.FormattedText`, *optional*):
             Description of the poll.
@@ -96,11 +114,17 @@ class Poll(Object, Update):
         type: Optional["enums.PollType"] = None,
         allows_multiple_answers: Optional[bool] = None,
         allows_revoting: Optional[bool] = None,
+        allow_adding_options: Optional[bool] = None,
+        shuffle_options: Optional[bool] = None,
+        hide_results_until_closes: Optional[bool] = None,
+        is_creator: Optional[bool] = None,
         chosen_option_ids: Optional[List[int]] = None,
         correct_option_ids: Optional[List[int]] = None,
         explanation: Optional["types.FormattedText"] = None,
+        explanation_media: Optional["types.Photo"] = None,
         open_period: Optional[int] = None,
         close_date: Optional[datetime] = None,
+        attached_media: Optional["types.Photo"] = None,
         description: Optional["types.FormattedText"] = None,
         voter: Optional["types.User"] = None,
     ):
@@ -115,11 +139,17 @@ class Poll(Object, Update):
         self.type = type
         self.allows_multiple_answers = allows_multiple_answers
         self.allows_revoting = allows_revoting
+        self.allow_adding_options = allow_adding_options
+        self.shuffle_options = shuffle_options
+        self.hide_results_until_closes = hide_results_until_closes
+        self.is_creator = is_creator
         self.chosen_option_ids = chosen_option_ids
         self.correct_option_ids = correct_option_ids
         self.explanation = explanation
+        self.explanation_media = explanation_media
         self.open_period = open_period
         self.close_date = close_date
+        self.attached_media = attached_media
         self.description = description
         self.voter = voter
 
@@ -163,6 +193,9 @@ class Poll(Object, Update):
                 types.PollOption(
                     persistent_id=answer.option.decode(),
                     text=types.FormattedText._parse(client, answer.text),
+                    media=types.Photo._parse(client, answer.media.photo)
+                    if isinstance(getattr(answer, "media", None), raw.types.MessageMediaPhoto)
+                    else None,
                     voter_count=voter_count,
                     vote_percentage=vote_percentages[i],
                     recent_voters=types.List(
@@ -200,6 +233,10 @@ class Poll(Object, Update):
             type=enums.PollType.QUIZ if poll.quiz else enums.PollType.REGULAR,
             allows_multiple_answers=poll.multiple_choice,
             allows_revoting=not poll.revoting_disabled,
+            allow_adding_options=poll.open_answers,
+            shuffle_options=poll.shuffle_answers,
+            hide_results_until_closes=poll.hide_results_until_close,
+            is_creator=poll.creator,
             chosen_option_ids=chosen_option_ids or None,
             correct_option_ids=correct_option_ids or None,
             explanation=types.FormattedText._parse(
@@ -211,8 +248,14 @@ class Poll(Object, Update):
             )
             if poll_results.solution
             else None,
+            explanation_media=types.Photo._parse(client, poll_results.solution_media.photo)
+            if isinstance(getattr(poll_results, "solution_media", None), raw.types.MessageMediaPhoto)
+            else None,
             open_period=poll.close_period,
             close_date=utils.timestamp_to_datetime(poll.close_date),
+            attached_media=types.Photo._parse(client, media_poll.attached_media.photo)
+            if isinstance(getattr(media_poll, "attached_media", None), raw.types.MessageMediaPhoto)
+            else None,
             description=description,
             client=client,
         )

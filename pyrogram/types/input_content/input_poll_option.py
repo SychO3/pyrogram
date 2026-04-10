@@ -16,10 +16,13 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Union
+import os
+import re
+from typing import BinaryIO, Optional, Union
 
 import pyrogram
-from pyrogram import raw, types
+from pyrogram import raw, types, utils
+from pyrogram.file_id import FileType
 
 from ..object import Object
 
@@ -30,22 +33,46 @@ class InputPollOption(Object):
     Parameters:
         text (``str`` | :obj:`~pyrogram.enums.FormattedText`, *optional*):
             Option text, 1-100 characters.
+
+        media (``str`` | ``BinaryIO``, *optional*):
+            Media to attach to the option.
+            Pass a file_id as string to send a media that exists on the Telegram servers,
+            pass an HTTP URL as string for Telegram to get a media from the Internet,
+            pass a file path as string to upload a new media from the local machine, or
+            pass a binary file-like object with its attribute ".name" set for in-memory uploads.
     """
 
-    # TODO: media
     def __init__(
         self,
         *,
         text: Union[str, "types.FormattedText"],
+        media: Optional[Union[str, BinaryIO]] = None,
     ):
         super().__init__()
 
         self.text = text
+        self.media = media
 
     async def write(self, client: "pyrogram.Client") -> "raw.types.InputPollAnswer":
         if isinstance(self.text, str):
             self.text = types.FormattedText(text=self.text)
 
+        input_media = None
+
+        if self.media is not None:
+            if isinstance(self.media, str):
+                if os.path.isfile(self.media):
+                    file = await client.save_file(self.media)
+                    input_media = raw.types.InputMediaUploadedPhoto(file=file)
+                elif re.match("^https?://", self.media):
+                    input_media = raw.types.InputMediaPhotoExternal(url=self.media)
+                else:
+                    input_media = utils.get_input_media_from_file_id(self.media, FileType.PHOTO)
+            else:
+                file = await client.save_file(self.media)
+                input_media = raw.types.InputMediaUploadedPhoto(file=file)
+
         return raw.types.InputPollAnswer(
-            text=await self.text.write(client)
+            text=await self.text.write(client),
+            media=input_media
         )
