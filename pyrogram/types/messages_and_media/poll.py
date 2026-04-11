@@ -96,9 +96,6 @@ class Poll(Object, Update):
         description (:obj:`~pyrogram.types.FormattedText`, *optional*):
             Description of the poll.
             Only for polls inside the :obj:`~pyrogram.types.Message` object.
-
-        voter (:obj:`~pyrogram.types.User`, *optional*):
-            The user that voted in the poll.
     """
 
     def __init__(
@@ -126,7 +123,6 @@ class Poll(Object, Update):
         close_date: Optional[datetime] = None,
         attached_media: Optional["types.Photo"] = None,
         description: Optional["types.FormattedText"] = None,
-        voter: Optional["types.User"] = None,
     ):
         super().__init__(client)
 
@@ -151,7 +147,6 @@ class Poll(Object, Update):
         self.close_date = close_date
         self.attached_media = attached_media
         self.description = description
-        self.voter = voter
 
     @staticmethod
     def _parse(
@@ -296,18 +291,6 @@ class Poll(Object, Update):
                 is_closed=False,
                 chosen_option_ids=chosen_option_ids or None,
                 correct_option_ids=correct_option_ids or None,
-                client=client,
-            )
-
-        if isinstance(update, raw.types.UpdateMessagePollVote):
-            return Poll(
-                id=str(update.poll_id),
-                options=[
-                    types.PollOption(persistent_id=option.decode(), client=client)
-                    for option in update.options
-                ],
-                is_closed=False,
-                voter=types.User._parse(client, users[update.peer.user_id]),
                 client=client,
             )
 

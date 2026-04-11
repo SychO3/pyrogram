@@ -103,6 +103,7 @@ from .payment_result import PaymentResult
 from .photo import Photo
 from .poll_option_added import PollOptionAdded
 from .poll_option_deleted import PollOptionDeleted
+from .poll_answer import PollAnswer
 from .poll import Poll
 from .proximity_alert_triggered import ProximityAlertTriggered
 from .poll_option import PollOption
@@ -249,6 +250,7 @@ __all__ = [
     "Photo",
     "PollOptionAdded",
     "PollOptionDeleted",
+    "PollAnswer",
     "Poll",
     "ProximityAlertTriggered",
     "PollOption",
