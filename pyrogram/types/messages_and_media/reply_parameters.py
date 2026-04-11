@@ -42,7 +42,7 @@ class ReplyParameters(Object):
 
         quote (``str``, *optional*):
             Quoted part of the message to be replied to, 0-1024 characters after entities parsing.
-            The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, and custom_emoji entities.
+            The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities.
             The message will fail to send if the quote isn't found in the original message.
 
         quote_parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
