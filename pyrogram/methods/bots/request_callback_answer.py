@@ -77,7 +77,7 @@ class RequestCallbackAnswer:
             r = await self.invoke(
                 raw.functions.account.GetPassword()
             )
-            password = utils.compute_password_check(r, password)
+            password = await utils.compute_password_check(r, password)
 
         return await self.invoke(
             raw.functions.messages.GetBotCallbackAnswer(

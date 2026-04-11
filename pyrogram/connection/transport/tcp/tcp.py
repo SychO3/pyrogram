@@ -41,7 +41,9 @@ class ProxyDict(TypedDict):
 
 
 class TCP:
-    TIMEOUT = 6
+    CONNECT_TIMEOUT = 10
+    SEND_TIMEOUT = 10
+    WRITE_BUFFER_LIMIT = 2 * 1024 * 1024  # 2MB
 
     def __init__(
         self,
@@ -126,7 +128,7 @@ class TCP:
             sock = await proxy.connect(
                 dest_host=dest_host,
                 dest_port=dest_port,
-                timeout=TCP.TIMEOUT,
+                timeout=TCP.CONNECT_TIMEOUT,
             )
         except Exception as e:
             log.error("Proxy connection failed: %s %s", type(e).__name__, e)
@@ -160,6 +162,16 @@ class TCP:
         sock = self.writer.transport.get_extra_info("socket")
         if sock is not None:
             sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+
+            import sys
+            if sys.platform == "linux":
+                sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPIDLE, 10)
+                sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPINTVL, 5)
+                sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPCNT, 3)
+            elif sys.platform == "darwin":
+                TCP_KEEPALIVE = 0x10  # macOS TCP_KEEPALIVE constant
+                sock.setsockopt(socket.IPPROTO_TCP, TCP_KEEPALIVE, 10)
 
     async def _connect(self, destination: Tuple[str, int]) -> None:
         if self.proxy:
@@ -170,7 +182,7 @@ class TCP:
 
     async def connect(self, address: Tuple[str, int]) -> None:
         try:
-            await asyncio.wait_for(self._connect(address), timeout=TCP.TIMEOUT)
+            await asyncio.wait_for(self._connect(address), timeout=TCP.CONNECT_TIMEOUT)
         except asyncio.TimeoutError:  # Re-raise as TimeoutError. asyncio.TimeoutError is deprecated in 3.11
             raise TimeoutError("Connection timed out")
 
@@ -181,15 +193,21 @@ class TCP:
                 return None
 
             try:
-                if self.writer.transport is not None:
-                    self.writer.transport.abort()
+                try:
+                    self.writer.write_eof()
+                except (OSError, NotImplementedError):
+                    pass
 
                 self.writer.close()
-                await asyncio.wait_for(self.writer.wait_closed(), timeout=TCP.TIMEOUT)
+                await asyncio.wait_for(self.writer.wait_closed(), timeout=TCP.SEND_TIMEOUT)
             except asyncio.TimeoutError:
-                log.warning("Disconnect timed out after %ss", TCP.TIMEOUT)
+                log.warning("Graceful disconnect timed out, aborting")
+                if self.writer.transport is not None:
+                    self.writer.transport.abort()
             except Exception as e:
                 log.info("Close exception: %s %s", type(e).__name__, e)
+                if self.writer and self.writer.transport is not None:
+                    self.writer.transport.abort()
             finally:
                 self.writer = None
 
@@ -198,7 +216,7 @@ class TCP:
     async def send(self, data: bytes, wait_for_marker: bool = True) -> None:
         if wait_for_marker:
             try:
-                await asyncio.wait_for(self.marker_event.wait(), timeout=TCP.TIMEOUT)
+                await asyncio.wait_for(self.marker_event.wait(), timeout=TCP.SEND_TIMEOUT)
             except asyncio.TimeoutError:
                 raise TimeoutError("Timed out waiting for transport handshake")
 
@@ -206,10 +224,16 @@ class TCP:
             if self.writer is None or self.writer.is_closing():
                 raise OSError("Connection is closed")
 
+            buffer_size = self.writer.transport.get_write_buffer_size()
+            if buffer_size > TCP.WRITE_BUFFER_LIMIT:
+                raise OSError(
+                    f"Write buffer overflow: {buffer_size} bytes exceeds {TCP.WRITE_BUFFER_LIMIT} limit"
+                )
+
             log.debug("Sending %d bytes", len(data))
             try:
                 self.writer.write(data)
-                await asyncio.wait_for(self.writer.drain(), timeout=TCP.TIMEOUT)
+                await asyncio.wait_for(self.writer.drain(), timeout=TCP.SEND_TIMEOUT)
             except asyncio.TimeoutError:
                 raise OSError("Send drain timed out")
             except OSError:
@@ -227,15 +251,7 @@ class TCP:
 
         while len(buf) < length:
             try:
-                chunk = await asyncio.wait_for(
-                    self.reader.read(length - len(buf)),
-                    timeout=TCP.TIMEOUT,
-                )
-            except asyncio.TimeoutError:
-                log.debug(
-                    "Recv timed out after %ss (got %d/%d bytes)", TCP.TIMEOUT, len(buf), length
-                )
-                return None
+                chunk = await self.reader.read(length - len(buf))
             except OSError as e:
                 log.debug("Recv OSError: %s %s", type(e).__name__, e)
                 return None

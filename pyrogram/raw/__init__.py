@@ -21,6 +21,37 @@ from importlib import import_module
 from . import types, functions, base, core
 from .all import objects
 
-for k, v in objects.items():
-    path, name = v.rsplit(".", 1)
-    objects[k] = getattr(import_module(path), name)
+
+def _resolve(key):
+    """Lazily resolve a TL object string path to its class."""
+    value = dict.__getitem__(objects, key)
+    if isinstance(value, str):
+        path, name = value.rsplit(".", 1)
+        cls = getattr(import_module(path), name)
+        dict.__setitem__(objects, key, cls)
+        return cls
+    return value
+
+
+# Monkey-patch the objects dict's __class__ to intercept lookups.
+# This avoids importing all ~2400 modules at startup.
+class _LazyDict(dict):
+    __slots__ = ()
+
+    def __getitem__(self, key):
+        value = super().__getitem__(key)
+        if isinstance(value, str):
+            path, name = value.rsplit(".", 1)
+            cls = getattr(import_module(path), name)
+            super().__setitem__(key, cls)
+            return cls
+        return value
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+
+objects.__class__ = _LazyDict

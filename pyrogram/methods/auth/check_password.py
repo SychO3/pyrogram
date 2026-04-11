@@ -47,7 +47,7 @@ class CheckPassword:
         """
         r = await self.invoke(
             raw.functions.auth.CheckPassword(
-                password=compute_password_check(
+                password=await compute_password_check(
                     await self.invoke(raw.functions.account.GetPassword()),
                     password
                 )

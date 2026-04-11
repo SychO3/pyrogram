@@ -90,8 +90,9 @@ class Session:
     RETRY_DELAY = 1
     MAX_RESTART_DELAY = 10
     STORED_MSG_IDS_MAX_SIZE = 1000 * 2
-    CRYPTO_EXECUTOR_WORKERS = 1
+    CRYPTO_EXECUTOR_WORKERS = min(4, os.cpu_count() or 2)
     MAX_CONSECUTIVE_IGNORED = 30
+    MAX_CONCURRENT_PACKETS = 50
 
     def __init__(
         self,
@@ -132,7 +133,7 @@ class Session:
         self.results: Dict[int, Result] = {}
 
         self.stored_msg_ids: List[int] = []
-        self.recent_msg_ids: List[int] = []
+        self.recent_msg_ids: Set[int] = set()
 
         self.ping_task: Optional[asyncio.Task] = None
         self.ping_task_event = asyncio.Event()
@@ -145,6 +146,7 @@ class Session:
 
         self._consecutive_restarts: int = 0
         self._restart_generation: int = 0
+        self._packet_semaphore = asyncio.Semaphore(self.MAX_CONCURRENT_PACKETS)
 
     @property
     def _log_prefix(self) -> str:
@@ -228,7 +230,7 @@ class Session:
         except (OSError, RPCError, ConnectionError) as e:
             log.info("[%s] Session start failed: %s - %s", self._log_prefix, e.__class__.__name__, e)
             await self.stop()
-            self.client.loop.create_task(self.restart())
+            self._schedule_restart("session start failed")
             return
         except Exception:
             await self.stop()
@@ -288,7 +290,7 @@ class Session:
                 return
 
             if self.stored_msg_ids:
-                self.recent_msg_ids = self.stored_msg_ids[:30]
+                self.recent_msg_ids = set(self.stored_msg_ids[-30:])
 
             await self.stop()
 
@@ -358,6 +360,24 @@ class Session:
             )
         return None
 
+    def _schedule_restart(self, reason: str = "") -> None:
+        """Schedule a restart as a tracked task with error logging."""
+        task = self.client.loop.create_task(self.restart())
+
+        def _on_restart_done(t: asyncio.Task) -> None:
+            if t.cancelled():
+                return
+            exc = t.exception()
+            if exc is not None:
+                log.error(
+                    "[%s] Restart failed (%s): %s - %s",
+                    self._log_prefix, reason, type(exc).__name__, exc
+                )
+
+        task.add_done_callback(_on_restart_done)
+        if reason:
+            log.info("[%s] Restart scheduled: %s", self._log_prefix, reason)
+
     async def _invoke_handler(self, handler: Any) -> None:
         if not callable(handler):
             return
@@ -384,7 +404,7 @@ class Session:
         except (ConnectionError, SecurityCheckMismatch, ValueError) as e:
             log.debug(e)
             log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
-            self.client.loop.create_task(self.restart())
+            self._schedule_restart("security check mismatch")
             return
 
         messages = (
@@ -410,7 +430,7 @@ class Session:
                     del self.stored_msg_ids[:Session.STORED_MSG_IDS_MAX_SIZE // 2]
 
                 if msg.msg_id in self.recent_msg_ids:
-                   self.recent_msg_ids.remove(msg.msg_id)
+                   self.recent_msg_ids.discard(msg.msg_id)
                    raise SecurityCheckMismatch(
                          "The msg_id is belong to most recent closed connection."
                    )
@@ -508,14 +528,29 @@ class Session:
                     ),
                     wait_response=False
                 )
+
+                # Flush pending acks periodically regardless of threshold
+                if self.pending_acks:
+                    try:
+                        await self.send(raw.types.MsgsAck(msg_ids=list(self.pending_acks)), False)
+                        self.pending_acks.clear()
+                    except OSError:
+                        pass
             except (OSError, ConnectionError, TimeoutError) as e:
                 log.info("[%s] PingTask triggering restart: %s - %s", self._log_prefix, e.__class__.__name__, e)
-                self.client.loop.create_task(self.restart())
+                self._schedule_restart("ping failed")
                 break
             except RPCError:
                 pass
 
         log.info("[%s] PingTask stopped", self._log_prefix)
+
+    async def _guarded_handle_packet(self, packet: bytes) -> None:
+        """Handle a packet with semaphore release guaranteed."""
+        try:
+            await self.handle_packet(packet)
+        finally:
+            self._packet_semaphore.release()
 
     async def recv_worker(self) -> None:
         log.info("[%s] NetworkTask started", self._log_prefix)
@@ -526,7 +561,7 @@ class Session:
             except Exception as e:
                 log.info("[%s] NetworkTask recv error: %s - %s", self._log_prefix, e.__class__.__name__, e)
                 if self.is_started.is_set():
-                    self.client.loop.create_task(self.restart())
+                    self._schedule_restart("recv error")
                 break
 
             if packet is None or len(packet) == 4:
@@ -550,12 +585,13 @@ class Session:
 
                 if self.is_started.is_set():
                     reason = "transport error" if packet else "null packet"
-                    log.info("[%s] NetworkTask triggering restart: %s", self._log_prefix, reason)
-                    self.client.loop.create_task(self.restart())
+                    self._schedule_restart(reason)
 
                 break
 
-            self.client.loop.create_task(self.handle_packet(packet))
+            # Bounded concurrency: wait for semaphore before dispatching
+            await self._packet_semaphore.acquire()
+            self.client.loop.create_task(self._guarded_handle_packet(packet))
 
         log.info("[%s] NetworkTask stopped", self._log_prefix)
 

@@ -75,7 +75,7 @@ class TransferChatOwnership:
             raw.functions.messages.EditChatCreator(
                 peer=peer_channel,
                 user_id=peer_user,
-                password=utils.compute_password_check(
+                password=await utils.compute_password_check(
                     await self.invoke(raw.functions.account.GetPassword()), password
                 ),
             )

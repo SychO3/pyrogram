@@ -270,9 +270,9 @@ class Client(Methods):
     WORKDIR = PARENT_DIR
 
     # Interval of seconds in which the updates watchdog will kick in
-    UPDATES_WATCHDOG_INTERVAL = 15 * 60
+    UPDATES_WATCHDOG_INTERVAL = 5 * 60
 
-    MAX_CONCURRENT_TRANSMISSIONS = 1
+    MAX_CONCURRENT_TRANSMISSIONS = 3
     MAX_MESSAGE_CACHE_SIZE = 1000
     MAX_TOPIC_CACHE_SIZE = 1000
 
@@ -407,7 +407,7 @@ class Client(Methods):
 
         self.session: Optional[Session] = None
 
-        self.business_connections = {}
+        self.business_connections = Cache(500)
 
         self.sessions = {}
         self.media_sessions = {}
@@ -813,6 +813,13 @@ class Client(Methods):
         self.last_update_time = datetime.now()
         self._last_update_monotonic = time.monotonic()
 
+        def _enqueue_update(item):
+            try:
+                self.dispatcher.updates_queue.put_nowait(item)
+            except asyncio.QueueFull:
+                log.warning("Update queue full (%d), dropping update",
+                            self.dispatcher.updates_queue.maxsize)
+
         if isinstance(updates, (raw.types.Updates, raw.types.UpdatesCombined)):
             is_min_users = await self.fetch_peers(updates.users)
             is_min_chats = await self.fetch_peers(updates.chats)
@@ -887,7 +894,7 @@ class Client(Methods):
                                 users.update({u.id: u for u in diff.users})
                                 chats.update({c.id: c for c in diff.chats})
 
-                self.dispatcher.updates_queue.put_nowait((update, users, chats))
+                _enqueue_update((update, users, chats))
         elif isinstance(updates, (raw.types.UpdateShortMessage, raw.types.UpdateShortChatMessage)):
             await self.storage.update_state(
                 (
@@ -910,7 +917,7 @@ class Client(Methods):
             if isinstance(diff, (raw.types.updates.DifferenceEmpty, raw.types.updates.DifferenceTooLong)):
                 pass
             elif getattr(diff, "new_messages", None):
-                self.dispatcher.updates_queue.put_nowait((
+                _enqueue_update((
                     raw.types.UpdateNewMessage(
                         message=diff.new_messages[0],
                         pts=updates.pts,
@@ -920,9 +927,9 @@ class Client(Methods):
                     {c.id: c for c in diff.chats}
                 ))
             elif getattr(diff, "other_updates", None):
-                self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
+                _enqueue_update((diff.other_updates[0], {}, {}))
         elif isinstance(updates, raw.types.UpdateShort):
-            self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
+            _enqueue_update((updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
             log.info("UpdatesTooLong: %s", updates)
 
@@ -1125,16 +1132,20 @@ class Client(Methods):
         file_id, directory, file_name, in_memory, file_size, progress, progress_args = packet
 
         file_name = os.path.basename(file_name.replace("\\", "/"))
+        loop = asyncio.get_running_loop()
         if not in_memory:
-            os.makedirs(directory, exist_ok=True)
+            await loop.run_in_executor(None, lambda: os.makedirs(directory, exist_ok=True))
 
         temp_file_path = os.path.abspath(os.path.join(directory, file_name)) + ".temp"
-        file = BytesIO() if in_memory else open(temp_file_path, "wb")
+        file = BytesIO() if in_memory else await loop.run_in_executor(None, lambda: open(temp_file_path, "wb"))
         success = False
 
         try:
             async for chunk in self.get_file(file_id, file_size, 0, 0, progress, progress_args):
-                file.write(chunk)
+                if in_memory:
+                    file.write(chunk)
+                else:
+                    await loop.run_in_executor(None, file.write, chunk)
             success = True
         except (asyncio.CancelledError, FloodWaitX, FloodPremiumWaitX):
             raise
@@ -1143,17 +1154,17 @@ class Client(Methods):
             return None
         finally:
             if not success and not in_memory:
-                file.close()
+                await loop.run_in_executor(None, file.close)
                 with suppress(OSError):
-                    os.remove(temp_file_path)
+                    await loop.run_in_executor(None, os.remove, temp_file_path)
 
         if in_memory:
             file.name = file_name
             return file
 
-        file.close()
+        await loop.run_in_executor(None, file.close)
         file_path = os.path.splitext(temp_file_path)[0]
-        shutil.move(temp_file_path, file_path)
+        await loop.run_in_executor(None, shutil.move, temp_file_path, file_path)
         return file_path
 
     async def get_file(

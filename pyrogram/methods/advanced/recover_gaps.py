@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import asyncio
 import logging
 from typing import Tuple
 
@@ -149,23 +150,29 @@ class RecoverGaps:
 
                 for message in diff.new_messages:
                     message_updates_counter += 1
-                    self.dispatcher.updates_queue.put_nowait(
-                        (
-                            raw.types.UpdateNewMessage(
-                                message=message,
-                                pts=local_pts,
-                                pts_count=-1
-                            ),
-                            users,
-                            chats
+                    try:
+                        self.dispatcher.updates_queue.put_nowait(
+                            (
+                                raw.types.UpdateNewMessage(
+                                    message=message,
+                                    pts=local_pts,
+                                    pts_count=-1
+                                ),
+                                users,
+                                chats
+                            )
                         )
-                    )
+                    except asyncio.QueueFull:
+                        log.warning("Update queue full during gap recovery, dropping update")
 
                 for update in diff.other_updates:
                     other_updates_counter += 1
-                    self.dispatcher.updates_queue.put_nowait(
-                        (update, users, chats)
-                    )
+                    try:
+                        self.dispatcher.updates_queue.put_nowait(
+                            (update, users, chats)
+                        )
+                    except asyncio.QueueFull:
+                        log.warning("Update queue full during gap recovery, dropping update")
 
                 if isinstance(diff, (raw.types.updates.Difference, raw.types.updates.ChannelDifference)):
                     break

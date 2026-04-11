@@ -39,6 +39,26 @@ from pyrogram.types.messages_and_media.message import Str
 
 log = logging.getLogger(__name__)
 
+_uvloop_installed = False
+
+
+def install_uvloop() -> None:
+    """Install uvloop as the default event loop policy if available."""
+    global _uvloop_installed
+    if _uvloop_installed:
+        return
+    try:
+        import uvloop
+        uvloop.install()
+        _uvloop_installed = True
+        log.info("uvloop installed as event loop policy")
+    except ImportError:
+        pass  # Windows or other unsupported platforms
+
+
+# Install uvloop at import time for earliest possible activation
+install_uvloop()
+
 
 async def invoke_callable(func, *args, executor=None, loop=None):
     if inspect.iscoroutinefunction(func) or inspect.iscoroutinefunction(getattr(func, "__call__", None)):
@@ -497,19 +517,27 @@ def xor(a: bytes, b: bytes) -> bytes:
     return bytes(i ^ j for i, j in zip(a, b))
 
 
-def compute_password_hash(
+def _compute_password_hash_sync(
+    salt1: bytes, salt2: bytes, password_bytes: bytes
+) -> bytes:
+    """CPU-intensive password hash computation (runs in executor)."""
+    hash1 = hashlib.sha256(salt1 + password_bytes + salt1).digest()
+    hash2 = hashlib.sha256(salt2 + hash1 + salt2).digest()
+    hash3 = hashlib.pbkdf2_hmac("sha512", hash2, salt1, 100000)
+    return hashlib.sha256(salt2 + hash3 + salt2).digest()
+
+
+async def compute_password_hash(
     algo: raw.types.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow,
     password: str
 ) -> bytes:
-    hash1 = sha256(algo.salt1 + password.encode() + algo.salt1)
-    hash2 = sha256(algo.salt2 + hash1 + algo.salt2)
-    hash3 = hashlib.pbkdf2_hmac("sha512", hash2, algo.salt1, 100000)
-
-    return sha256(algo.salt2 + hash3 + algo.salt2)
+    return await asyncio.get_running_loop().run_in_executor(
+        None, _compute_password_hash_sync, algo.salt1, algo.salt2, password.encode()
+    )
 
 
 # noinspection PyPep8Naming
-def compute_password_check(
+async def compute_password_check(
     r: raw.types.account.Password,
     password: str
 ) -> raw.types.InputCheckPasswordSRP:
@@ -526,7 +554,7 @@ def compute_password_check(
 
     srp_id = r.srp_id
 
-    x_bytes = compute_password_hash(algo, password)
+    x_bytes = await compute_password_hash(algo, password)
     x = btoi(x_bytes)
 
     g_x = pow(g, x, p)

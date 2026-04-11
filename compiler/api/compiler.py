@@ -100,6 +100,17 @@ def sanitize_arg_name(name: str) -> str:
     return name
 
 
+def sanitize_class_name(name: str) -> str:
+    """Sanitize TL class names to valid Python identifiers.
+
+    Append underscore for Python keywords (e.g., 'True' -> 'True_').
+    """
+    if keyword.iskeyword(name):
+        return f"{name}_"
+
+    return name
+
+
 # noinspection PyShadowingBuiltins, PyShadowingNames
 def get_return_type_hint(qualtype: str) -> str:
     """Get return type hint for generic TLObject"""
@@ -107,9 +118,11 @@ def get_return_type_hint(qualtype: str) -> str:
         # Extract inner type from Vector<Type>
         inner = qualtype.split("<")[1][:-1]
         ns, name = inner.split(".") if "." in inner else ("", inner)
+        name = sanitize_class_name(name)
         return f'"List[raw.base.{".".join([ns, name]).strip(".")}]"'
     else:
         ns, name = qualtype.split(".") if "." in qualtype else ("", qualtype)
+        name = sanitize_class_name(name)
         return f'"raw.base.{".".join([ns, name]).strip(".")}"'
 
 
@@ -148,6 +161,7 @@ def get_type_hint(type: str) -> str:
         return f"Optional[{type}] = None" if is_flag else type
     else:
         ns, name = type.split(".") if "." in type else ("", type)
+        name = sanitize_class_name(name)
         type = f'"raw.base.' + ".".join([ns, name]).strip(".") + '"'
 
         return f'{type}{" = None" if is_flag else ""}'
@@ -540,7 +554,7 @@ def start(format: bool = False):
         compiled_combinator = combinator_tmpl.format(
             notice=notice,
             warning=WARNING,
-            name=c.name,
+            name=sanitize_class_name(c.name),
             docstring=docstring,
             slots=slots,
             id=c.id,
@@ -585,7 +599,7 @@ def start(format: bool = False):
                 if module == "Updates":
                     module = "UpdatesT"
 
-                f.write(f"from .{snake(module)} import {t}\n")
+                f.write(f"from .{snake(module)} import {sanitize_class_name(t)}\n")
 
             if not namespace:
                 f.write(f"from . import {', '.join(filter(bool, namespaces_to_types))}")
@@ -601,7 +615,7 @@ def start(format: bool = False):
                 if module == "Updates":
                     module = "UpdatesT"
 
-                f.write(f"from .{snake(module)} import {t}\n")
+                f.write(f"from .{snake(module)} import {sanitize_class_name(t)}\n")
 
             if not namespace:
                 f.write(f"from . import {', '.join(filter(bool, namespaces_to_constructors))}\n")
@@ -617,7 +631,7 @@ def start(format: bool = False):
                 if module == "Updates":
                     module = "UpdatesT"
 
-                f.write(f"from .{snake(module)} import {t}\n")
+                f.write(f"from .{snake(module)} import {sanitize_class_name(t)}\n")
 
             if not namespace:
                 f.write(f"from . import {', '.join(filter(bool, namespaces_to_functions))}")
@@ -625,11 +639,38 @@ def start(format: bool = False):
     with open(DESTINATION_PATH / "all.py", "w", encoding="utf-8") as f:
         f.write(notice + "\n\n")
         f.write(WARNING + "\n\n")
+
+        # _LazyDict: resolves TL object string paths to classes on first access.
+        # Defined here so objects is a _LazyDict from the start, avoiding
+        # __class__ assignment which is unsupported on dict in Python 3.14+.
+        f.write("from importlib import import_module\n\n\n")
+        f.write("class _LazyDict(dict):\n")
+        f.write("    __slots__ = ()\n\n")
+        f.write("    def __getitem__(self, key):\n")
+        f.write("        value = super().__getitem__(key)\n")
+        f.write("        if isinstance(value, str):\n")
+        f.write('            path, name = value.rsplit(".", 1)\n')
+        f.write("            cls = getattr(import_module(path), name)\n")
+        f.write("            super().__setitem__(key, cls)\n")
+        f.write("            return cls\n")
+        f.write("        return value\n\n")
+        f.write("    def get(self, key, default=None):\n")
+        f.write("        try:\n")
+        f.write("            return self[key]\n")
+        f.write("        except KeyError:\n")
+        f.write("            return default\n\n\n")
+
         f.write(f"layer = {layer}\n\n")
-        f.write("objects = {")
+        f.write("objects = _LazyDict({")
 
         for c in combinators:
-            f.write(f'\n    {c.id}: "pyrogram.raw.{c.section}.{c.qualname}",')
+            # Sanitize the class name part of qualname for Python keyword safety
+            parts = c.qualname.rsplit(".", 1)
+            if len(parts) == 2:
+                safe_qualname = f"{parts[0]}.{sanitize_class_name(parts[1])}"
+            else:
+                safe_qualname = sanitize_class_name(parts[0])
+            f.write(f'\n    {c.id}: "pyrogram.raw.{c.section}.{safe_qualname}",')
 
         f.write('\n    0xbc799737: "pyrogram.raw.core.BoolFalse",')
         f.write('\n    0x997275b5: "pyrogram.raw.core.BoolTrue",')
@@ -640,7 +681,7 @@ def start(format: bool = False):
         f.write('\n    0x3072cfa1: "pyrogram.raw.core.GzipPacked",')
         f.write('\n    0x5bb8e511: "pyrogram.raw.core.Message",')
 
-        f.write("\n}\n")
+        f.write("\n})\n")
 
 
 if "__main__" == __name__:

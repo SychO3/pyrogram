@@ -70,7 +70,7 @@ class EnableCloudPassword:
             raise ValueError("There is already a cloud password enabled")
 
         r.new_algo.salt1 += os.urandom(32)
-        new_hash = btoi(compute_password_hash(r.new_algo, password))
+        new_hash = btoi(await compute_password_hash(r.new_algo, password))
         new_hash = itob(pow(r.new_algo.g, new_hash, btoi(r.new_algo.p)))
 
         await self.invoke(

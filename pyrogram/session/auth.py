@@ -127,7 +127,7 @@ class Auth:
                 pq = int.from_bytes(res_pq.pq, "big")
                 log.debug("Start PQ factorization: %s", pq)
                 start = time.time()
-                g = prime.decompose(pq)
+                g = await asyncio.get_running_loop().run_in_executor(None, prime.decompose, pq)
                 p, q = sorted((g, pq // g))  # p < q
                 log.debug("Done PQ factorization (%ss): %s %s", round(time.time() - start, 3), p, q)
 
@@ -218,7 +218,7 @@ class Auth:
 
                 # Step 6 — now safe to compute
                 b = int.from_bytes(urandom(256), "big")
-                g_b = pow(g, b, dh_prime)
+                g_b = await asyncio.get_running_loop().run_in_executor(None, pow, g, b, dh_prime)
 
                 SecurityCheckMismatch.check(1 < g_b < dh_prime - 1, "1 < g_b < dh_prime - 1")
                 SecurityCheckMismatch.check(
@@ -259,7 +259,7 @@ class Auth:
                     raise Exception("DH key generation requires retry (dh_gen_retry)")
 
                 # Step 7; Step 8
-                auth_key = pow(g_a, b, dh_prime).to_bytes(256, "big")
+                auth_key = (await asyncio.get_running_loop().run_in_executor(None, pow, g_a, b, dh_prime)).to_bytes(256, "big")
                 server_nonce = server_nonce.to_bytes(16, "little", signed=True)
 
                 # https://core.telegram.org/mtproto/security_guidelines#checking-nonce-server-nonce-and-new-nonce-fields

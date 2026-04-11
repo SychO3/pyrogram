@@ -117,7 +117,7 @@ class Dispatcher:
         self.handler_worker_tasks = []
         self.locks_list = []
 
-        self.updates_queue = asyncio.Queue()
+        self.updates_queue = asyncio.Queue(maxsize=10000)
         self.groups = OrderedDict()
 
         self.conversation_handler = ConversationHandler()
@@ -389,47 +389,38 @@ class Dispatcher:
             log.info("Stopped %s HandlerTasks", self.client.workers)
 
     def add_handler(self, handler: Handler, group: int):
-        async def fn():
-            for lock in self.locks_list:
-                await lock.acquire()
+        # Copy-on-write: build a new OrderedDict and swap the reference atomically.
+        # Workers read self.groups without locking, so they see either the old or
+        # the new dict — never a partially-mutated one.
+        new_groups = OrderedDict(self.groups)
 
-            try:
-                if group not in self.groups:
-                    self.groups[group] = []
-                    self.groups = OrderedDict(sorted(self.groups.items()))
+        if group not in new_groups:
+            new_groups[group] = []
+            new_groups = OrderedDict(sorted(new_groups.items()))
 
-                self.groups[group].append(handler)
-            except Exception as e:
-                log.exception("Failed to add handler: %s", e)
-            finally:
-                for lock in self.locks_list:
-                    lock.release()
-
-        self.client.loop.create_task(fn())
+        new_groups[group] = list(new_groups[group]) + [handler]
+        self.groups = new_groups
 
     def remove_handler(self, handler: Handler, group: int):
-        async def fn():
-            for lock in self.locks_list:
-                await lock.acquire()
+        if group not in self.groups:
+            log.warning("Group %s does not exist. Handler was not removed.", group)
+            return
 
-            try:
-                if group not in self.groups:
-                    log.warning("Group %s does not exist. Handler was not removed.", group)
-                    return
+        new_groups = OrderedDict(self.groups)
+        handlers = list(new_groups.get(group, []))
 
-                self.groups[group].remove(handler)
+        try:
+            handlers.remove(handler)
+        except ValueError:
+            log.warning("Handler not found in group %s.", group)
+            return
 
-                if not self.groups[group]:
-                    del self.groups[group]
-            except ValueError:
-                log.warning("Handler not found in group %s.", group)
-            except Exception as e:
-                log.exception("Failed to remove handler: %s", e)
-            finally:
-                for lock in self.locks_list:
-                    lock.release()
+        if handlers:
+            new_groups[group] = handlers
+        else:
+            del new_groups[group]
 
-        self.client.loop.create_task(fn())
+        self.groups = new_groups
 
     async def handler_worker(self, lock):
         while True:
@@ -448,8 +439,8 @@ class Dispatcher:
                     else (None, type(None))
                 )
 
-                async with lock:
-                    for group in self.groups.values():
+                # Read groups once — copy-on-write ensures a consistent snapshot
+                for group in self.groups.values():
                         for handler in group:
                             if isinstance(handler, ErrorHandler):
                                 continue

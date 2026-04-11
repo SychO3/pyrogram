@@ -113,7 +113,7 @@ class SaveFile:
             part_size = 512 * 1024
 
             if isinstance(path, (str, PurePath)):
-                fp = open(path, "rb")
+                fp = await asyncio.get_running_loop().run_in_executor(None, lambda: open(path, "rb"))
             elif isinstance(path, io.IOBase):
                 fp = path
             else:
@@ -121,9 +121,10 @@ class SaveFile:
 
             file_name = getattr(fp, "name", "file.jpg")
 
-            fp.seek(0, os.SEEK_END)
-            file_size = fp.tell()
-            fp.seek(0)
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, fp.seek, 0, os.SEEK_END)
+            file_size = await loop.run_in_executor(None, fp.tell)
+            await loop.run_in_executor(None, fp.seek, 0)
 
             if file_size == 0:
                 raise ValueError("File size equals to 0 B")
@@ -138,7 +139,15 @@ class SaveFile:
 
             file_total_parts = int(math.ceil(file_size / part_size))
             is_big = file_size > 10 * 1024 * 1024
-            workers_count = 4 if is_big else 1
+
+            # Adaptive chunk size for large files
+            if file_size > 100 * 1024 * 1024:
+                part_size = 2 * 1024 * 1024
+            elif is_big:
+                part_size = 1024 * 1024
+            file_total_parts = int(math.ceil(file_size / part_size))
+
+            workers_count = 8 if is_big else 2
             is_missing_part = file_id is not None
             file_id = file_id or self.rnd_id()
             md5_sum = md5() if not is_big and not is_missing_part else None
@@ -147,13 +156,13 @@ class SaveFile:
             session = await self.get_session(dc_id, is_media=True)
 
             workers = [self.loop.create_task(worker(session)) for _ in range(workers_count)]
-            queue = asyncio.Queue(1)
+            queue = asyncio.Queue(workers_count * 2)
 
             try:
-                fp.seek(part_size * file_part)
+                await loop.run_in_executor(None, fp.seek, part_size * file_part)
 
                 while True:
-                    chunk = fp.read(part_size)
+                    chunk = await loop.run_in_executor(None, fp.read, part_size)
 
                     if not chunk:
                         if not is_big and not is_missing_part:

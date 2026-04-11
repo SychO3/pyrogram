@@ -45,7 +45,7 @@ class InputCredentialsSaved(InputCredentials):
     async def write(self, client: "pyrogram.Client"):
         r = await client.invoke(
             raw.functions.account.GetTmpPassword(
-                password=utils.compute_password_check(
+                password=await utils.compute_password_check(
                     await client.invoke(raw.functions.account.GetPassword()),
                     self.password
                 ),

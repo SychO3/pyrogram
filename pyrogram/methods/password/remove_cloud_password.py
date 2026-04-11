@@ -52,7 +52,7 @@ class RemoveCloudPassword:
 
         await self.invoke(
             raw.functions.account.UpdatePasswordSettings(
-                password=compute_password_check(r, password),
+                password=await compute_password_check(r, password),
                 new_settings=raw.types.account.PasswordInputSettings(
                     new_algo=raw.types.PasswordKdfAlgoUnknown(),
                     new_password_hash=b"",

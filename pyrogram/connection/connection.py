@@ -19,6 +19,7 @@
 import asyncio
 import logging
 import random
+import time
 from typing import Optional, Type, Union
 
 from pyrogram import utils
@@ -29,9 +30,10 @@ log = logging.getLogger(__name__)
 
 
 class Connection:
-    MAX_CONNECTION_ATTEMPTS = -1
+    MAX_CONNECTION_ATTEMPTS = 10
     INITIAL_BACKOFF = 0.5
-    MAX_BACKOFF = 3
+    MAX_BACKOFF = 30
+    GIVE_UP_AFTER = 120  # total seconds before giving up
 
     def __init__(
         self,
@@ -66,6 +68,7 @@ class Connection:
         attempts = Connection.MAX_CONNECTION_ATTEMPTS
         attempt_index = 0
         backoff = Connection.INITIAL_BACKOFF
+        start_time = time.monotonic()
 
         while True:
             self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers, loop=self.loop)
@@ -77,8 +80,23 @@ class Connection:
                 log.warning("Unable to connect due to network issues: %s", e)
                 await self.protocol.close()
 
+                attempt_index += 1
+
+                elapsed = time.monotonic() - start_time
+                if Connection.GIVE_UP_AFTER > 0 and elapsed >= Connection.GIVE_UP_AFTER:
+                    log.error("Connection failed after %.1fs total elapsed time", elapsed)
+                    raise ConnectionError(
+                        f"Failed to connect after {attempt_index} attempts ({elapsed:.0f}s elapsed)"
+                    )
+
+                if attempts > 0 and attempt_index >= attempts:
+                    log.warning("Connection failed after %d attempts", attempt_index)
+                    raise ConnectionError(
+                        f"Failed to connect after {attempt_index} attempts"
+                    )
+
                 jittered = backoff * (0.5 + random.random())
-                log.info("Retrying connection in %.1fs (attempt #%d)", jittered, attempt_index + 1)
+                log.info("Retrying connection in %.1fs (attempt #%d)", jittered, attempt_index)
                 await asyncio.sleep(jittered)
                 backoff = min(backoff * 2, Connection.MAX_BACKOFF)
             else:
@@ -88,11 +106,6 @@ class Connection:
                          " (media)" if self.media else "",
                          "6" if self.ipv6 else "4")
                 return
-
-            attempt_index += 1
-            if attempts > 0 and attempt_index >= attempts:
-                log.warning("Connection failed after %d attempts", attempt_index)
-                raise ConnectionError
 
     async def close(self) -> None:
         await self.protocol.close()

@@ -85,10 +85,16 @@ class DirectMessagesTopic(Object):
     def _parse(
         client: "pyrogram.Client",
         topic: "raw.types.MonoForumDialog",
-        messages: dict = {},
-        users: Dict[int, "raw.base.User"] = {},
-        chats: Dict[int, "raw.base.Chat"] = {}
+        messages: dict = None,
+        users: Dict[int, "raw.base.User"] = None,
+        chats: Dict[int, "raw.base.Chat"] = None
     ) -> "DirectMessagesTopic":
+        if messages is None:
+            messages = {}
+        if users is None:
+            users = {}
+        if chats is None:
+            chats = {}
         if not topic:
             return None
 
