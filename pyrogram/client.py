@@ -20,6 +20,7 @@ import asyncio
 import logging
 import os
 import platform
+import random
 import re
 import shutil
 import sys
@@ -71,6 +72,24 @@ from .parser import Parser
 from .session.internals import MsgId
 
 log = logging.getLogger(__name__)
+
+# Built-in Telegram API keys from official clients.
+# Some may be expired; if authorization fails, re-run to try another one.
+BUILTIN_API_KEYS = [
+    (4, "014b35b6184100b085b0d0572f9b5103"),        # Telegram Android
+    (6, "eb06d4abfb49dc3eeb1aeb98ae0f581e"),        # Telegram Android
+    (8, "7245de8e747a0d6fbe11f7cc14fcc0bb"),        # Telegram iOS
+    (10840, "33c45224029d59cb3ad0c16134215aeb"),     # Telegram iOS
+    (2834, "68875f756c9b437a8b916ca3de215815"),      # Telegram MacOS
+    (611335, "d524b414d21f4d37f08684c1df41ac9c"),    # Telegram Desktop
+    (2040, "b18441a1ff607e10a989891a5462e627"),      # Telegram Desktop
+    (2521, "64d20abd7ee359213579e9a599fde866"),      # Telegram Android S
+    (5, "1c5c96d5edd401b1ed40db3fb5633e2d"),         # Telegram Android S
+    (21724, "3e0cb5efcd52300aec5994fdfc5bdc16"),     # Telegram Android X
+    (94575, "a3406de8d171bb422bb6ddf3bbd800e2"),     # Telegram Database Library
+    (1025907, "452b0359b988148995f22ff0f4229750"),   # Telegram Web K
+    (2496, "8da85b0d5bfe62527e5b244c209159c3"),      # Telegram Web Z
+]
 
 
 class Client(Methods):
@@ -333,6 +352,19 @@ class Client(Methods):
                 raise ValueError(f"api_id must be numeric, got {api_id!r}") from e
         else:
             self.api_id = None
+
+        if self.api_id is None or api_hash is None:
+            chosen = random.choice(BUILTIN_API_KEYS)
+            if self.api_id is None:
+                self.api_id = chosen[0]
+            if api_hash is None:
+                api_hash = chosen[1]
+            log.info(
+                "No API key provided, using built-in api_id=%s. "
+                "If authorization fails, the key may be expired — please re-run to try another one.",
+                self.api_id
+            )
+
         self.api_hash = api_hash
         self.app_version = app_version
         self.device_model = device_model
