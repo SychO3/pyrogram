@@ -16,7 +16,6 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import asyncio
 import logging
 from struct import pack, unpack
 from typing import Optional, Tuple, Union
@@ -32,9 +31,8 @@ class TCPIntermediate(TCP):
         ipv6: bool,
         proxy: Union[str, ProxyDict, None] = None,
         crypto_executor_workers: int = 1,
-        loop: Optional[asyncio.AbstractEventLoop] = None,
     ) -> None:
-        super().__init__(ipv6, proxy, crypto_executor_workers, loop)
+        super().__init__(ipv6, proxy, crypto_executor_workers)
 
     async def connect(self, address: Tuple[str, int]) -> None:
         self.marker_event.clear()

@@ -105,10 +105,9 @@ class _EndpointSelector:
         port: int,
         ipv6: bool,
         proxy: Optional[dict],
-        loop: asyncio.AbstractEventLoop,
     ) -> Optional[float]:
         start = time.perf_counter()
-        protocol = protocol_factory(ipv6=ipv6, proxy=proxy, crypto_executor_workers=1, loop=loop)
+        protocol = protocol_factory(ipv6=ipv6, proxy=proxy, crypto_executor_workers=1)
         try:
             await asyncio.wait_for(protocol.connect((ip, port)), timeout=self.PROBE_TIMEOUT_S)
         except Exception as e:
@@ -170,7 +169,6 @@ class _EndpointSelector:
                     dc.port,
                     dc.ipv6,
                     getattr(client, "proxy", None),
-                    client.loop,
                 )
             )
             for dc in probe_list

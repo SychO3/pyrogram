@@ -34,7 +34,7 @@ class TextQuote(Object):
 
         entities (List of :obj:`~pyrogram.types.MessageEntity`, *optional*):
             Special entities that appear in the quote.
-            Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are kept in quotes.
+            Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are kept in quotes.
 
         position (``int``):
             Approximate quote position in the original message in UTF-16 code units as specified by the sender.

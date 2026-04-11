@@ -81,6 +81,7 @@ from .media_area import MediaArea
 from .message import Message
 from .message_entity import MessageEntity
 from .message_origin import MessageOrigin
+from .message_replies_info import MessageRepliesInfo
 from .message_origin_channel import MessageOriginChannel
 from .message_origin_chat import MessageOriginChat
 from .message_origin_hidden_user import MessageOriginHiddenUser
@@ -103,6 +104,7 @@ from .payment_result import PaymentResult
 from .photo import Photo
 from .poll_option_added import PollOptionAdded
 from .poll_option_deleted import PollOptionDeleted
+from .poll_answer import PollAnswer
 from .poll import Poll
 from .proximity_alert_triggered import ProximityAlertTriggered
 from .poll_option import PollOption
@@ -147,9 +149,11 @@ from .upgraded_gift_attribute_rarity import UpgradedGiftAttributeRarity, Upgrade
 from .upgraded_gift_original_details import UpgradedGiftOriginalDetails
 from .upgraded_gift_purchase_offer import UpgradedGiftPurchaseOffer, UpgradedGiftPurchaseOfferRejected
 from .upgraded_gift_value_info import UpgradedGiftValueInfo
+from .user_profile_audios import UserProfileAudios
 from .venue import Venue
 from .video import Video
 from .video_note import VideoNote
+from .video_quality import VideoQuality
 from .voice import Voice
 from .web_app_data import WebAppData
 from .web_page import WebPage
@@ -232,6 +236,7 @@ __all__ = [
     "MessageOriginHiddenUser",
     "MessageOriginImport",
     "MessageOriginUser",
+    "MessageRepliesInfo",
     "MessageReactions",
     "MyBoost",
     "PaidMediaInfo",
@@ -249,6 +254,7 @@ __all__ = [
     "Photo",
     "PollOptionAdded",
     "PollOptionDeleted",
+    "PollAnswer",
     "Poll",
     "ProximityAlertTriggered",
     "PollOption",
@@ -301,9 +307,11 @@ __all__ = [
     "UpgradedGiftPurchaseOffer",
     "UpgradedGiftPurchaseOfferRejected",
     "UpgradedGiftValueInfo",
+    "UserProfileAudios",
     "Venue",
     "Video",
     "VideoNote",
+    "VideoQuality",
     "Voice",
     "WebAppData",
     "WebPage",

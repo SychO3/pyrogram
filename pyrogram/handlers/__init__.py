@@ -37,6 +37,7 @@ from .message_handler import MessageHandler
 from .message_reaction_count_handler import MessageReactionCountHandler
 from .message_reaction_handler import MessageReactionHandler
 from .poll_handler import PollHandler
+from .poll_answer_handler import PollAnswerHandler
 from .pre_checkout_query_handler import PreCheckoutQueryHandler
 from .purchased_paid_media_handler import PurchasedPaidMediaHandler
 from .raw_update_handler import RawUpdateHandler

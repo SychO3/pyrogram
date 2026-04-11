@@ -1184,6 +1184,14 @@
       {
         "name": "CHAT_HAS_PROTECTED_CONTENT_DISABLE_REQUESTED",
         "doc": "Chat has protected content disable requested"
+      },
+      {
+        "name": "POLL_OPTION_ADDED",
+        "doc": "Poll option added"
+      },
+      {
+        "name": "POLL_OPTION_DELETED",
+        "doc": "Poll option deleted"
       }
     ]
   },

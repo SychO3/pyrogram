@@ -338,6 +338,9 @@ class Message(Object, Update):
         forwards (``int``, *optional*):
             Channel post forwards.
 
+        replies_info (:obj:`~pyrogram.types.MessageRepliesInfo`, *optional*):
+            Information about message replies (thread).
+
         via_bot (:obj:`~pyrogram.types.User`):
             The information of the bot that generated the message from an inline query of a user.
 
@@ -580,6 +583,21 @@ class Message(Object, Update):
         suggested_post_info (:obj:`~pyrogram.types.SuggestedPostInfo`, *optional*):
             Information about the suggested post.
 
+        is_paid_suggested_post_stars (``bool``, *optional*):
+            True, if this suggested post is paid in Stars.
+
+        is_paid_suggested_post_ton (``bool``, *optional*):
+            True, if this suggested post is paid in TON.
+
+        ttl_period (``int``, *optional*):
+            The message's self-destruct time, in seconds.
+
+        quick_reply_shortcut_id (``int``, *optional*):
+            The quick reply shortcut identifier this message belongs to.
+
+        report_delivery_until_date (:py:obj:`~datetime.datetime`, *optional*):
+            The date until which delivery reporting is available for this message.
+
         channel_post (``bool``, *optional*):
             True, if the message is a channel post.
 
@@ -682,6 +700,7 @@ class Message(Object, Update):
         game_high_score: Optional["types.GameHighScore"] = None,
         views: Optional[int] = None,
         forwards: Optional[int] = None,
+        replies_info: Optional["types.MessageRepliesInfo"] = None,
         via_bot: Optional["types.User"] = None,
         outgoing: Optional[bool] = None,
         matches: Optional[List[Match]] = None,
@@ -756,6 +775,11 @@ class Message(Object, Update):
         restriction_reason: Optional[List["types.RestrictionReason"]] = None,
         fact_check: Optional["types.FactCheck"] = None,
         suggested_post_info: Optional["types.SuggestedPostInfo"] = None,
+        is_paid_suggested_post_stars: Optional[bool] = None,
+        is_paid_suggested_post_ton: Optional[bool] = None,
+        ttl_period: Optional[int] = None,
+        quick_reply_shortcut_id: Optional[int] = None,
+        report_delivery_until_date: Optional[datetime] = None,
         channel_post: Optional[bool] = None,
         repeat_period: Optional[int] = None,
         summary_language_code: Optional[str] = None,
@@ -851,6 +875,7 @@ class Message(Object, Update):
         self.game_high_score = game_high_score
         self.views = views
         self.forwards = forwards
+        self.replies_info = replies_info
         self.via_bot = via_bot
         self.outgoing = outgoing
         self.matches = matches
@@ -918,6 +943,11 @@ class Message(Object, Update):
         self.restriction_reason = restriction_reason
         self.fact_check = fact_check
         self.suggested_post_info = suggested_post_info
+        self.is_paid_suggested_post_stars = is_paid_suggested_post_stars
+        self.is_paid_suggested_post_ton = is_paid_suggested_post_ton
+        self.ttl_period = ttl_period
+        self.quick_reply_shortcut_id = quick_reply_shortcut_id
+        self.report_delivery_until_date = report_delivery_until_date
         self.channel_post = channel_post
         self.repeat_period = repeat_period
         self.summary_language_code = summary_language_code
@@ -1691,6 +1721,7 @@ class Message(Object, Update):
             dice=dice,
             views=message.views,
             forwards=message.forwards,
+            replies_info=types.MessageRepliesInfo._parse(message.replies),
             sender_boost_count=message.from_boosts_applied,
             via_bot=types.User._parse(client, users.get(message.via_bot_id)),
             outgoing=message.out,
@@ -1701,6 +1732,7 @@ class Message(Object, Update):
             send_paid_messages_stars=message.paid_message_stars,
             unread_media=message.media_unread,
             silent=message.silent,
+            legacy=message.legacy,
             pinned=message.pinned,
             restriction_reason=types.List(
                 types.RestrictionReason._parse(reason)
@@ -1708,6 +1740,11 @@ class Message(Object, Update):
             ) or None,
             fact_check=types.FactCheck._parse(client, message.factcheck, users),
             suggested_post_info=types.SuggestedPostInfo._parse(message.suggested_post),
+            is_paid_suggested_post_stars=message.paid_suggested_post_stars or None,
+            is_paid_suggested_post_ton=message.paid_suggested_post_ton or None,
+            ttl_period=message.ttl_period,
+            quick_reply_shortcut_id=message.quick_reply_shortcut_id,
+            report_delivery_until_date=utils.timestamp_to_datetime(message.report_delivery_until_date),
             channel_post=message.post,
             repeat_period=message.schedule_repeat_period,
             summary_language_code=message.summary_from_language,

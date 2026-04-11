@@ -37,7 +37,7 @@ class ChecklistTask(Object):
 
         entities (List of :obj:`~pyrogram.types.MessageEntity`, *optional*):
             Entities in the text of the task.
-            May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Url, EmailAddress, Mention, Hashtag, Cashtag and PhoneNumber entities.
+            May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, DateTime, Url, EmailAddress, Mention, Hashtag, Cashtag and PhoneNumber entities.
 
         completed_by (:obj:`~pyrogram.types.Chat`, *optional*):
             The user or chat that completed the task.

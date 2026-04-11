@@ -230,3 +230,9 @@ class MessageServiceType(AutoName):
 
     CHAT_HAS_PROTECTED_CONTENT_DISABLE_REQUESTED = auto()
     "Chat has protected content disable requested"
+
+    POLL_OPTION_ADDED = auto()
+    "Poll option added"
+
+    POLL_OPTION_DELETED = auto()
+    "Poll option deleted"

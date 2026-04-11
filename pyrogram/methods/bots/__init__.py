@@ -33,6 +33,7 @@ from .get_bot_info_short_description import GetBotInfoShortDescription
 from .get_bot_name import GetBotName
 from .get_managed_bot_token import GetManagedBotToken
 from .replace_managed_bot_token import ReplaceManagedBotToken
+from .save_prepared_keyboard_button import SavePreparedKeyboardButton
 from .get_chat_menu_button import GetChatMenuButton
 from .games.get_game_high_scores import GetGameHighScores
 from .get_inline_bot_results import GetInlineBotResults
@@ -80,6 +81,7 @@ class Bots(
     GetBotName,
     GetManagedBotToken,
     ReplaceManagedBotToken,
+    SavePreparedKeyboardButton,
     SetChatMenuButton,
     GetChatMenuButton,
     AnswerWebAppQuery,

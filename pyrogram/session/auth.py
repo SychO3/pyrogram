@@ -98,7 +98,6 @@ class Auth:
                 proxy=self.proxy,
                 media=False,
                 protocol_factory=self.protocol_factory,
-                loop=self.loop
             )
 
             try:

@@ -16,7 +16,6 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import asyncio
 import logging
 from binascii import crc32
 from struct import pack, unpack
@@ -33,9 +32,8 @@ class TCPFull(TCP):
         ipv6: bool,
         proxy: Union[str, ProxyDict, None] = None,
         crypto_executor_workers: int = 1,
-        loop: Optional[asyncio.AbstractEventLoop] = None,
     ) -> None:
-        super().__init__(ipv6, proxy, crypto_executor_workers, loop)
+        super().__init__(ipv6, proxy, crypto_executor_workers)
 
         self.seq_no: int = 0
 

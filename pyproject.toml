@@ -86,6 +86,10 @@ docs = [
     "sphinx-design"
 ]
 
+ws = [
+    "aiohttp>=3.9",
+]
+
 [tool.hatch.version]
 path = "pyrogram/__init__.py"
 

@@ -36,6 +36,7 @@ from .on_message import OnMessage
 from .on_message_reaction import OnMessageReaction
 from .on_message_reaction_count import OnMessageReactionCount
 from .on_poll import OnPoll
+from .on_poll_answer import OnPollAnswer
 from .on_pre_checkout_query import OnPreCheckoutQuery
 from .on_purchased_paid_media import OnPurchasedPaidMedia
 from .on_raw_update import OnRawUpdate
@@ -67,6 +68,7 @@ class Decorators(
     OnMessageReaction,
     OnMessageReactionCount,
     OnPoll,
+    OnPollAnswer,
     OnPreCheckoutQuery,
     OnPurchasedPaidMedia,
     OnRawUpdate,

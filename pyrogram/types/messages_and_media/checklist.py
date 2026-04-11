@@ -34,7 +34,7 @@ class Checklist(Object):
 
         entities (List of :obj:`~pyrogram.types.MessageEntity`, *optional*):
             Entities in the title of the checklist.
-            May contain only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities.
+            May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities.
 
         tasks (List of :obj:`~pyrogram.types.ChecklistTask`, *optional*):
             List of tasks in the checklist.

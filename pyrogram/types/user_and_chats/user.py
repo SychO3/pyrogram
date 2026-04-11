@@ -288,6 +288,14 @@ class User(Object, Update):
             True, if the gift button should be shown in the message input field for both participants in all chats.
             Returned only in :meth:`~pyrogram.Client.get_me`
 
+        is_noforwards_my_enabled (``bool``, *optional*):
+            True, if you have enabled the "no forwards" setting for this user.
+            Returned only in :meth:`~pyrogram.Client.get_me`
+
+        is_noforwards_peer_enabled (``bool``, *optional*):
+            True, if the other user has enabled the "no forwards" setting for you.
+            Returned only in :meth:`~pyrogram.Client.get_me`
+
         uses_unofficial_app (``bool``, *optional*):
             True, if the user uses an unofficial application that poses a security risk.
 
@@ -353,7 +361,10 @@ class User(Object, Update):
 
         birthday (:obj:`~pyrogram.types.Birthday`, *optional*):
             Information about user birthday.
-            Returned only in :meth:`~pyrogram.Client.get_me`
+
+        registration_month (``str``, *optional*):
+            The month and year when the user registered on Telegram, in "MM.YYYY" format.
+            Returned only in :meth:`~pyrogram.Client.get_full_user`.
 
         personal_channel (:obj:`~pyrogram.types.Chat`, *optional*):
             The personal channel linked to this chat.
@@ -369,6 +380,10 @@ class User(Object, Update):
 
         bot_verification (:obj:`~pyrogram.types.BotVerification`, *optional*):
             Information about bot verification.
+            Returned only in :meth:`~pyrogram.Client.get_me`.
+
+        bot_manager_id (``int``, *optional*):
+            The user ID of the bot's manager.
             Returned only in :meth:`~pyrogram.Client.get_me`.
 
         main_profile_tab (:obj:`~pyrogram.enums.ProfileTab`, *optional*):
@@ -477,6 +492,8 @@ class User(Object, Update):
         can_view_revenue: Optional[bool] = None,
         bot_can_manage_emoji_status: Optional[bool] = None,
         display_gifts_button: Optional[bool] = None,
+        is_noforwards_my_enabled: Optional[bool] = None,
+        is_noforwards_peer_enabled: Optional[bool] = None,
         uses_unofficial_app: Optional[bool] = None,
         bio: Optional[str] = None,
         pinned_message: Optional["types.Message"] = None,
@@ -494,10 +511,12 @@ class User(Object, Update):
         business_location: Optional["types.Location"] = None,
         business_intro: Optional["types.BusinessIntro"] = None,
         birthday: Optional["types.Birthday"] = None,
+        registration_month: Optional[str] = None,
         personal_channel: Optional["types.Chat"] = None,
         personal_channel_message: Optional["types.Message"] = None,
         gift_count: Optional[int] = None,
         bot_verification: Optional["types.BotVerification"] = None,
+        bot_manager_id: Optional[int] = None,
         main_profile_tab: Optional["enums.ProfileTab"] = None,
         first_profile_audio: Optional["types.Audio"] = None,
         rating: Optional["types.UserRating"] = None,
@@ -574,6 +593,8 @@ class User(Object, Update):
         self.can_view_revenue = can_view_revenue
         self.bot_can_manage_emoji_status = bot_can_manage_emoji_status
         self.display_gifts_button = display_gifts_button
+        self.is_noforwards_my_enabled = is_noforwards_my_enabled
+        self.is_noforwards_peer_enabled = is_noforwards_peer_enabled
         self.uses_unofficial_app = uses_unofficial_app
         self.bio = bio
         self.pinned_message = pinned_message
@@ -591,10 +612,12 @@ class User(Object, Update):
         self.business_location = business_location
         self.business_intro = business_intro
         self.birthday = birthday
+        self.registration_month = registration_month
         self.personal_channel = personal_channel
         self.personal_channel_message = personal_channel_message
         self.gift_count = gift_count
         self.bot_verification = bot_verification
+        self.bot_manager_id = bot_manager_id
         self.main_profile_tab = main_profile_tab
         self.first_profile_audio = first_profile_audio
         self.rating = rating
@@ -721,6 +744,8 @@ class User(Object, Update):
         parsed_user.can_view_revenue = user.can_view_revenue
         parsed_user.bot_can_manage_emoji_status = user.bot_can_manage_emoji_status
         parsed_user.display_gifts_button = user.display_gifts_button
+        parsed_user.is_noforwards_my_enabled = user.noforwards_my_enabled
+        parsed_user.is_noforwards_peer_enabled = user.noforwards_peer_enabled
         parsed_user.uses_unofficial_app = user.unofficial_security_risk
         parsed_user.bio = user.about or None
         parsed_user.personal_photo = types.ChatPhoto._parse(client, user.personal_photo, users[user.id].id, users[user.id].access_hash)
@@ -756,6 +781,7 @@ class User(Object, Update):
         parsed_user.business_away_message = types.BusinessMessage._parse(client, user.business_away_message, users)
         parsed_user.business_intro = await types.BusinessIntro._parse(client, user.business_intro)
         parsed_user.birthday = types.Birthday._parse(user.birthday)
+        parsed_user.registration_month = getattr(user.settings, "registration_month", None)
 
         if user.personal_channel_id:
             parsed_user.personal_channel = types.Chat._parse_channel_chat(client, chats[user.personal_channel_id])
@@ -771,6 +797,7 @@ class User(Object, Update):
             user.bot_verification,
             users
         )
+        parsed_user.bot_manager_id = user.bot_manager_id
         parsed_user.main_profile_tab = enums.ProfileTab(type(user.main_tab)) if user.main_tab else None
 
         if user.saved_music:
