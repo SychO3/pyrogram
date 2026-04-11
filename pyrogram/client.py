@@ -320,7 +320,7 @@ class Client(Methods):
         fetch_stickers: Optional[bool] = True,
         init_connection_params: Optional[dict] = None,
         connection_factory: Type[Connection] = Connection,
-        protocol_factory: Type[TCP] = TCPAbridged,
+        protocol_factory: type = TCPAbridged,
         loop: Optional[asyncio.AbstractEventLoop] = None
     ):
         super().__init__()

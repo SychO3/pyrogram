@@ -30,16 +30,15 @@ log = logging.getLogger(__name__)
 
 
 class TCPIntermediateO(TCP):
-    RESERVED = (b"HEAD", b"POST", b"GET ", b"OPTI", b"\xee" * 4)
+    RESERVED = (b"HEAD", b"POST", b"GET ", b"OPTI", b"\xee" * 4, b"\xdd" * 4)
 
     def __init__(
         self,
         ipv6: bool,
         proxy: Union[str, ProxyDict, None] = None,
         crypto_executor_workers: int = 1,
-        loop: Optional[asyncio.AbstractEventLoop] = None,
     ) -> None:
-        super().__init__(ipv6, proxy, crypto_executor_workers, loop)
+        super().__init__(ipv6, proxy, crypto_executor_workers)
 
         self.encrypt = None
         self.decrypt = None
@@ -73,7 +72,7 @@ class TCPIntermediateO(TCP):
         length = len(data)
         if request_ack:
             length |= 0x80000000
-        payload = await self.loop.run_in_executor(
+        payload = await asyncio.get_event_loop().run_in_executor(
             self.crypto_executor, aes.ctr256_encrypt, pack("<I", length) + data, *self.encrypt
         )
         await super().send(payload)
@@ -98,6 +97,6 @@ class TCPIntermediateO(TCP):
             if data is None:
                 return None
 
-            return await self.loop.run_in_executor(
+            return await asyncio.get_event_loop().run_in_executor(
                 self.crypto_executor, aes.ctr256_decrypt, data, *self.decrypt
             )

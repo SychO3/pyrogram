@@ -27,8 +27,6 @@ from urllib.parse import parse_qs
 from python_socks import ProxyType
 from python_socks.async_.asyncio import Proxy
 
-from pyrogram import utils
-
 log = logging.getLogger(__name__)
 
 
@@ -50,7 +48,6 @@ class TCP:
         ipv6: bool = False,
         proxy: Union[str, ProxyDict, None] = None,
         crypto_executor_workers: int = 1,
-        loop: Optional[asyncio.AbstractEventLoop] = None,
     ) -> None:
         self.ipv6 = ipv6
         self.proxy = proxy
@@ -66,11 +63,6 @@ class TCP:
         self.marker_event = asyncio.Event()
         self.lock = asyncio.Lock()
         self.quick_ack_handler = None
-
-        if isinstance(loop, asyncio.AbstractEventLoop):
-            self.loop = loop
-        else:
-            self.loop = utils.get_event_loop()
 
     async def _build_proxy(self) -> Proxy:
         if isinstance(self.proxy, str):

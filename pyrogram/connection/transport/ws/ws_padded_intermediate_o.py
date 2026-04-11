@@ -24,18 +24,18 @@ from typing import Optional, Tuple, Union
 
 from pyrogram.crypto import aes
 
-from .tcp import TCP, ProxyDict
+from .ws import WS
 
 log = logging.getLogger(__name__)
 
 
-class TCPPaddedIntermediateO(TCP):
+class WSPaddedIntermediateO(WS):
     RESERVED = (b"HEAD", b"POST", b"GET ", b"OPTI", b"\xee" * 4, b"\xdd" * 4)
 
     def __init__(
         self,
-        ipv6: bool,
-        proxy: Union[str, ProxyDict, None] = None,
+        ipv6: bool = False,
+        proxy: Union[str, dict, None] = None,
         crypto_executor_workers: int = 1,
     ) -> None:
         super().__init__(ipv6, proxy, crypto_executor_workers)
@@ -81,15 +81,7 @@ class TCPPaddedIntermediateO(TCP):
 
     async def recv(self, length: int = 0) -> Optional[bytes]:
         while True:
-            length = await super().recv(4)
-
-            if length is None:
-                return None
-
-            length = aes.ctr256_decrypt(length, *self.decrypt)
-            tlen = unpack("<I", length)[0]
-
-            data = await super().recv(tlen)
+            data = await super().recv()
 
             if data is None:
                 return None
@@ -98,18 +90,24 @@ class TCPPaddedIntermediateO(TCP):
                 self.crypto_executor, aes.ctr256_decrypt, data, *self.decrypt
             )
 
-            # Quick ACK in padded intermediate: 0xFFFFFFFF(4) + token(4) + padding(0-8)
-            if tlen <= 16 and len(data) >= 8 and data[:4] == b"\xff\xff\xff\xff":
+            if len(data) < 4:
+                return None
+
+            tlen = unpack("<I", data[:4])[0]
+            payload = data[4:]
+
+            # Quick ACK: 0xFFFFFFFF(4) + token(4) + padding(0-8)
+            if tlen <= 16 and len(payload) >= 8 and payload[:4] == b"\xff\xff\xff\xff":
                 if self.quick_ack_handler:
-                    self.quick_ack_handler(bytes(data[4:8]))
+                    self.quick_ack_handler(bytes(payload[4:8]))
                 continue
 
-            # Transport errors / special packets (< minimum MTProto payload of 40 bytes)
+            # Transport errors (< minimum MTProto payload of 24 bytes)
             if tlen < 24:
-                return bytes(data[:4])
+                return bytes(payload[:4])
 
-            # Normal MTProto payload is always ≡ 8 (mod 16): 24 + N*16
-            # Strip the random transport padding added by the sender
+            # Strip random transport padding
+            # Normal MTProto payload is always congruent to 8 mod 16: 24 + N*16
             padding_len = (tlen - 8) % 16
             payload_len = tlen - padding_len
-            return bytes(data[:payload_len])
+            return bytes(payload[:payload_len])

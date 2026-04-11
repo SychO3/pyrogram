@@ -22,8 +22,6 @@ import random
 import time
 from typing import Optional, Type, Union
 
-from pyrogram import utils
-
 from .transport import TCP, TCPAbridged
 
 log = logging.getLogger(__name__)
@@ -43,9 +41,8 @@ class Connection:
         test_mode: bool,
         proxy: Optional[Union[dict, str]] = None,
         media: bool = False,
-        protocol_factory: Type[TCP] = TCPAbridged,
+        protocol_factory: type = TCPAbridged,
         crypto_executor_workers: int = 1,
-        loop: Optional[asyncio.AbstractEventLoop] = None
     ) -> None:
         self.dc_id = dc_id
         self.server_address = server_address
@@ -59,11 +56,6 @@ class Connection:
 
         self.protocol: Optional[TCP] = None
 
-        if isinstance(loop, asyncio.AbstractEventLoop):
-            self.loop = loop
-        else:
-            self.loop = utils.get_event_loop()
-
     async def connect(self) -> None:
         attempts = Connection.MAX_CONNECTION_ATTEMPTS
         attempt_index = 0
@@ -71,7 +63,7 @@ class Connection:
         start_time = time.monotonic()
 
         while True:
-            self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers, loop=self.loop)
+            self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers)
 
             try:
                 log.info("Connecting...")

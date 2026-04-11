@@ -16,5 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .tcp import *
-from .ws import WS, WSAbridgedO, WSIntermediateO, WSPaddedIntermediateO
+from .ws import WS
+from .ws_abridged_o import WSAbridgedO
+from .ws_intermediate_o import WSIntermediateO
+from .ws_padded_intermediate_o import WSPaddedIntermediateO

@@ -72,6 +72,10 @@ class InvalidDC(TransportError):
     pass
 
 
+class TransportForbidden(TransportError):
+    pass
+
+
 class Result:
     __slots__ = ("value", "event")
 
@@ -182,7 +186,6 @@ class Session:
             media=self.is_media,
             protocol_factory=self.client.protocol_factory,
             crypto_executor_workers=self.CRYPTO_EXECUTOR_WORKERS,
-            loop=self.client.loop
         )
 
         try:
@@ -345,7 +348,11 @@ class Session:
 
     @staticmethod
     def _parse_transport_error(error_code: int) -> Optional[TransportError]:
-        if error_code == 404:
+        if error_code == 403:
+            return TransportForbidden(
+                "Transport forbidden (403). The server rejected the request."
+            )
+        elif error_code == 404:
             return AuthKeyNotFound(
                 "Auth key not found in the system. Try again or delete your session file "
                 "and log in again with your phone number or bot token."
@@ -575,7 +582,7 @@ class Session:
                         transport_error or "unknown error"
                     )
 
-                    if isinstance(transport_error, (AuthKeyNotFound, InvalidDC)):
+                    if isinstance(transport_error, (AuthKeyNotFound, InvalidDC, TransportForbidden)):
                         self._set_fatal_error(transport_error)
                         self.client.loop.create_task(self.stop())
                         break
