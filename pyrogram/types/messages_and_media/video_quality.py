@@ -26,8 +26,8 @@ from pyrogram.file_id import FileId, FileType, FileUniqueId, FileUniqueType
 from ..object import Object
 
 
-class Video(Object):
-    """A video file.
+class VideoQuality(Object):
+    """Describes the quality of a video.
 
     Parameters:
         file_id (``str``):
@@ -38,46 +38,40 @@ class Video(Object):
             Can't be used to download or reuse the file.
 
         width (``int``):
-            Video width as defined by sender.
+            Video width.
 
         height (``int``):
-            Video height as defined by sender.
+            Video height.
 
         codec (``str``):
-            Codec used for video file encoding, for example, "h264", "h265", or "av1".
+            Codec used to encode the video (e.g. "h264", "h265", "av1").
 
-        duration (``int``):
-            Duration of the video in seconds as defined by sender.
+        duration (``float``, *optional*):
+            Duration of the video in seconds.
 
         file_name (``str``, *optional*):
             Video file name.
 
         mime_type (``str``, *optional*):
-            Mime type of a file as defined by sender.
+            Mime type of the video file.
 
         file_size (``int``, *optional*):
-            File size.
+            File size in bytes.
 
         supports_streaming (``bool``, *optional*):
-            True, if the video was uploaded with streaming support.
+            True, if the video supports streaming.
 
-        ttl_seconds (``int``. *optional*):
-            Time-to-live seconds, for secret photos.
+        nosound (``bool``, *optional*):
+            True, if the video has no sound.
+
+        preload_prefix_size (``int``, *optional*):
+            Size of the preload prefix in bytes.
 
         date (:py:obj:`~datetime.datetime`, *optional*):
-            Date the video was sent.
+            Date the video was uploaded.
 
         thumbs (List of :obj:`~pyrogram.types.Thumbnail`, *optional*):
             Video thumbnails.
-
-        video_cover (:obj:`~pyrogram.types.Photo`, *optional*):
-            Video cover.
-
-        video_start_timestamp (``int``, *optional*):
-            Video startpoint, in seconds.
-
-        qualities (List of :obj:`~pyrogram.types.VideoQuality`, *optional*):
-            List of available qualities of the video.
     """
     def __init__(
         self,
@@ -88,17 +82,15 @@ class Video(Object):
         width: int,
         height: int,
         codec: str,
-        duration: int,
+        duration: Optional[float] = None,
         file_name: Optional[str] = None,
         mime_type: Optional[str] = None,
         file_size: Optional[int] = None,
         supports_streaming: Optional[bool] = None,
-        ttl_seconds: Optional[int] = None,
+        nosound: Optional[bool] = None,
+        preload_prefix_size: Optional[int] = None,
         date: Optional[datetime] = None,
-        thumbs: Optional[List["types.Thumbnail"]] = None,
-        video_cover: Optional["types.Photo"] = None,
-        video_start_timestamp: Optional[int] = None,
-        qualities: Optional[List["types.VideoQuality"]] = None
+        thumbs: Optional[List["types.Thumbnail"]] = None
     ):
         super().__init__(client)
 
@@ -112,63 +104,41 @@ class Video(Object):
         self.mime_type = mime_type
         self.file_size = file_size
         self.supports_streaming = supports_streaming
-        self.ttl_seconds = ttl_seconds
+        self.nosound = nosound
+        self.preload_prefix_size = preload_prefix_size
         self.date = date
         self.thumbs = thumbs
-        self.video_cover = video_cover
-        self.video_start_timestamp = video_start_timestamp
-        self.qualities = qualities
 
     @staticmethod
     def _parse(
         client,
-        video: "raw.types.Document",
+        doc: "raw.types.Document",
         video_attributes: "raw.types.DocumentAttributeVideo",
-        file_name: str = None,
-        ttl_seconds: int = None,
-        video_cover = None,
-        video_start_timestamp: int = None,
-        alternative_videos: List["raw.types.Document"] = []
-    ) -> "Video":
-        _qualities = types.List()
-
-        for alt_doc in alternative_videos:
-            alt_attrs = {type(i): i for i in alt_doc.attributes}
-            alt_file_name = getattr(
-                alt_attrs.get(raw.types.DocumentAttributeFilename), "file_name", None
-            )
-            alt_video_attr = alt_attrs.get(raw.types.DocumentAttributeVideo)
-
-            if alt_video_attr:
-                _qualities.append(
-                    types.VideoQuality._parse(client, alt_doc, alt_video_attr, alt_file_name)
-                )
-
-        return Video(
+        file_name: str = None
+    ) -> "VideoQuality":
+        return VideoQuality(
             file_id=FileId(
                 file_type=FileType.VIDEO,
-                dc_id=video.dc_id,
-                media_id=video.id,
-                access_hash=video.access_hash,
-                file_reference=video.file_reference
+                dc_id=doc.dc_id,
+                media_id=doc.id,
+                access_hash=doc.access_hash,
+                file_reference=doc.file_reference
             ).encode(),
             file_unique_id=FileUniqueId(
                 file_unique_type=FileUniqueType.DOCUMENT,
-                media_id=video.id
+                media_id=doc.id
             ).encode(),
             width=getattr(video_attributes, "w", None),
             height=getattr(video_attributes, "h", None),
             codec=getattr(video_attributes, "video_codec", None),
             duration=video_attributes.duration,
-            file_name=file_name or f"video_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.mp4",
-            mime_type=video.mime_type,
+            file_name=file_name,
+            mime_type=doc.mime_type,
+            file_size=doc.size,
             supports_streaming=video_attributes.supports_streaming,
-            file_size=video.size,
-            date=utils.timestamp_to_datetime(video.date),
-            ttl_seconds=ttl_seconds,
-            thumbs=types.Thumbnail._parse(client, video),
-            video_cover=types.Photo._parse(client, video_cover),
-            video_start_timestamp=video_start_timestamp,
-            qualities=_qualities or None,
+            nosound=video_attributes.nosound,
+            preload_prefix_size=getattr(video_attributes, "preload_prefix_size", None),
+            date=utils.timestamp_to_datetime(doc.date),
+            thumbs=types.Thumbnail._parse(client, doc),
             client=client
         )

@@ -148,9 +148,11 @@ from .upgraded_gift_attribute_rarity import UpgradedGiftAttributeRarity, Upgrade
 from .upgraded_gift_original_details import UpgradedGiftOriginalDetails
 from .upgraded_gift_purchase_offer import UpgradedGiftPurchaseOffer, UpgradedGiftPurchaseOfferRejected
 from .upgraded_gift_value_info import UpgradedGiftValueInfo
+from .user_profile_audios import UserProfileAudios
 from .venue import Venue
 from .video import Video
 from .video_note import VideoNote
+from .video_quality import VideoQuality
 from .voice import Voice
 from .web_app_data import WebAppData
 from .web_page import WebPage
@@ -303,9 +305,11 @@ __all__ = [
     "UpgradedGiftPurchaseOffer",
     "UpgradedGiftPurchaseOfferRejected",
     "UpgradedGiftValueInfo",
+    "UserProfileAudios",
     "Venue",
     "Video",
     "VideoNote",
+    "VideoQuality",
     "Voice",
     "WebAppData",
     "WebPage",
