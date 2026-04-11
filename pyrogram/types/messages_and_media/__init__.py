@@ -81,6 +81,7 @@ from .media_area import MediaArea
 from .message import Message
 from .message_entity import MessageEntity
 from .message_origin import MessageOrigin
+from .message_replies_info import MessageRepliesInfo
 from .message_origin_channel import MessageOriginChannel
 from .message_origin_chat import MessageOriginChat
 from .message_origin_hidden_user import MessageOriginHiddenUser
@@ -235,6 +236,7 @@ __all__ = [
     "MessageOriginHiddenUser",
     "MessageOriginImport",
     "MessageOriginUser",
+    "MessageRepliesInfo",
     "MessageReactions",
     "MyBoost",
     "PaidMediaInfo",
