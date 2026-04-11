@@ -24,7 +24,7 @@ import inspect
 from enum import Enum, auto
 from hashlib import sha1
 from io import BytesIO
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Union
 
 import pyrogram
 from pyrogram import raw, utils
@@ -96,7 +96,7 @@ class Session:
 
     def __init__(
         self,
-        client: "pyrogram.Client",
+        client: Union["pyrogram.Client", Any],
         dc_id: int,
         server_address: str,
         port: int,
@@ -182,11 +182,16 @@ class Session:
             media=self.is_media,
             protocol_factory=self.client.protocol_factory,
             crypto_executor_workers=self.CRYPTO_EXECUTOR_WORKERS,
-            loop=self.client.loop
+            loop=self.client.loop,
+            crypto_executor=getattr(self.client, 'crypto_executor', None),
         )
 
         try:
             await self.connection.connect()
+
+            # Wire up quick-ack handler
+            if self.connection.protocol is not None:
+                self.connection.protocol.quick_ack_handler = self._on_quick_ack
 
             self.recv_task = self.client.loop.create_task(self.recv_worker())
 
@@ -317,7 +322,7 @@ class Session:
         # updates on the new session.  Only needed for the main session.
         if self.is_started.is_set() and not self.is_cdn and not self.is_media:
             try:
-                await self.client.invoke(raw.functions.updates.GetState())
+                await self.send(raw.functions.updates.GetState())
                 log.info("[%s] Post-restart update state synced", self._log_prefix)
             except Exception as e:
                 log.warning("[%s] Post-restart update sync failed: %s - %s",
@@ -362,6 +367,9 @@ class Session:
 
     def _schedule_restart(self, reason: str = "") -> None:
         """Schedule a restart as a tracked task with error logging."""
+        # Notify BotHandle of connection loss for metrics/coordination
+        self._notify_connection_lost()
+
         task = self.client.loop.create_task(self.restart())
 
         def _on_restart_done(t: asyncio.Task) -> None:
@@ -377,6 +385,16 @@ class Session:
         task.add_done_callback(_on_restart_done)
         if reason:
             log.info("[%s] Restart scheduled: %s", self._log_prefix, reason)
+
+    def _notify_connection_lost(self) -> None:
+        """Notify BotHandle (if applicable) that this connection was lost."""
+        if hasattr(self.client, 'on_connection_lost') and callable(self.client.on_connection_lost):
+            self.client.loop.create_task(
+                self.client.on_connection_lost(self.dc_id)
+            )
+
+    def _on_quick_ack(self, token: bytes) -> None:
+        log.debug("[%s] Quick ACK received: %s", self._log_prefix, token.hex())
 
     async def _invoke_handler(self, handler: Any) -> None:
         if not callable(handler):

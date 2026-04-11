@@ -40,6 +40,7 @@ class Connect:
             raise ConnectionError("Client is already connected")
 
         await self.load_session()
+        await self._update_state.load_from_storage(self.storage)
 
         try:
             self.session = await self.get_session(

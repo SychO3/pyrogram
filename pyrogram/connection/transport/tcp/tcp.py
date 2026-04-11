@@ -20,6 +20,7 @@ import asyncio
 import logging
 import re
 import socket
+import warnings
 from concurrent.futures import ThreadPoolExecutor
 from typing import Optional, Tuple, TypedDict, Union
 from urllib.parse import parse_qs
@@ -51,14 +52,26 @@ class TCP:
         proxy: Union[str, ProxyDict, None] = None,
         crypto_executor_workers: int = 1,
         loop: Optional[asyncio.AbstractEventLoop] = None,
+        crypto_executor: Optional[ThreadPoolExecutor] = None,
     ) -> None:
+        warnings.warn(
+            f"{type(self).__name__} is deprecated, use the Proto-based transport "
+            f"(e.g. ProtoAbridged) instead. TCP transports will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.ipv6 = ipv6
         self.proxy = proxy
 
         self.crypto_executor_workers = crypto_executor_workers
-        self.crypto_executor = ThreadPoolExecutor(
-            max_workers=self.crypto_executor_workers, thread_name_prefix="CryptoWorker"
-        )
+        if crypto_executor is not None:
+            self.crypto_executor = crypto_executor
+            self._owns_crypto_executor = False
+        else:
+            self.crypto_executor = ThreadPoolExecutor(
+                max_workers=self.crypto_executor_workers, thread_name_prefix="CryptoWorker"
+            )
+            self._owns_crypto_executor = True
 
         self.reader: Optional[asyncio.StreamReader] = None
         self.writer: Optional[asyncio.StreamWriter] = None
@@ -211,7 +224,8 @@ class TCP:
             finally:
                 self.writer = None
 
-        self.crypto_executor.shutdown(wait=False)
+        if self._owns_crypto_executor:
+            self.crypto_executor.shutdown(wait=False)
 
     async def send(self, data: bytes, wait_for_marker: bool = True) -> None:
         if wait_for_marker:

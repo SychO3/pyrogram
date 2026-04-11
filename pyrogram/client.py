@@ -24,6 +24,7 @@ import re
 import shutil
 import sys
 import time
+import types
 from collections import OrderedDict
 from concurrent.futures.thread import ThreadPoolExecutor
 from contextlib import suppress
@@ -57,14 +58,17 @@ from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
 from pyrogram.qrlogin import QRLogin
 from pyrogram.session import Auth, Session
-from pyrogram.storage import SQLiteStorage, Storage
+from pyrogram.storage import MultiSQLiteStorage, SQLiteStorage, Storage
+from pyrogram.bot_handle import BotStorageProxy
+from pyrogram.update_dispatcher import UpdateDispatcher
+from pyrogram.update_state import UpdateState
+from pyrogram.connection_manager import ConnectionManager
 from pyrogram.types import LinkPreviewOptions, TermsOfService, User
 from pyrogram.utils import ainput, invoke_callable
 
 from .connection import Connection
-from .connection.transport import TCP, TCPAbridged
+from .connection.transport import TCP, TCPAbridged, ProtoAbridged
 from .connection.endpoint_selector import select_best_dc_option
-from .dispatcher import Dispatcher
 from .file_id import FileId, FileType, ThumbnailSource
 from .mime_types import mime_types
 from .parser import Parser
@@ -320,8 +324,9 @@ class Client(Methods):
         fetch_stickers: Optional[bool] = True,
         init_connection_params: Optional[dict] = None,
         connection_factory: Type[Connection] = Connection,
-        protocol_factory: Type[TCP] = TCPAbridged,
-        loop: Optional[asyncio.AbstractEventLoop] = None
+        protocol_factory = ProtoAbridged,
+        loop: Optional[asyncio.AbstractEventLoop] = None,
+        runtime: Optional["pyrogram.Runtime"] = None,
     ):
         super().__init__()
 
@@ -371,6 +376,9 @@ class Client(Methods):
         self.connection_factory = connection_factory
         self.protocol_factory = protocol_factory
 
+        self._runtime = runtime
+        self._bot_handle = None
+
         if self.workers < 1:
             raise ValueError(f"workers must be >= 1, got {self.workers}")
         if self.max_concurrent_transmissions < 1:
@@ -396,9 +404,24 @@ class Client(Methods):
                 )
             self.storage = storage_engine
         else:
-            self.storage = SQLiteStorage(self.name, workdir=self.workdir)
+            self._multi_storage = MultiSQLiteStorage(
+                os.path.join(self.workdir, f"{self.name}.db")
+            )
+            self.storage = BotStorageProxy(self._multi_storage, bot_id=0, owns_storage=True)
 
-        self.dispatcher: Dispatcher = Dispatcher(self)
+        # Dispatcher (UpdateDispatcher with single-bot context)
+        self._dispatcher_ctx = types.SimpleNamespace(bots={0: self})
+        self.dispatcher = UpdateDispatcher(self._dispatcher_ctx, worker_count=self.workers)
+        self.dispatcher.register_bot(0)
+
+        # Update state tracker
+        self._update_state = UpdateState(bot_id=0)
+
+        # Connection manager
+        self._connection_mgr = ConnectionManager(
+            types.SimpleNamespace(metrics=None),
+            idle_timeout=60.0,
+        )
 
         self.rnd_id = MsgId
         self._server_time_offset = 0.0
@@ -467,6 +490,30 @@ class Client(Methods):
             utils.get_event_loop().run_until_complete(self.stop())
         except ConnectionError:
             pass
+
+    # --- Runtime facade ---
+
+    @property
+    def runtime(self) -> Optional["pyrogram.Runtime"]:
+        return self._runtime
+
+    @property
+    def bot_handle(self) -> Optional["pyrogram.bot_handle.BotHandle"]:
+        return self._bot_handle
+
+    def attach_runtime(self, runtime: "pyrogram.Runtime", bot_handle: "pyrogram.bot_handle.BotHandle") -> None:
+        """Attach this Client as a facade over a Runtime-managed BotHandle.
+
+        When attached, certain operations (handle_updates, executor, crypto)
+        delegate to the shared runtime infrastructure.
+        """
+        self._runtime = runtime
+        self._bot_handle = bot_handle
+
+    def detach_runtime(self) -> None:
+        """Detach from Runtime, reverting to standalone Client mode."""
+        self._runtime = None
+        self._bot_handle = None
 
     async def __aenter__(self):
         return await self.start()
@@ -810,15 +857,15 @@ class Client(Methods):
         return is_min
 
     async def handle_updates(self, updates):
+        # Delegate to Runtime's UpdateDispatcher when attached
+        if self._bot_handle is not None:
+            self.last_update_time = datetime.now()
+            self._last_update_monotonic = time.monotonic()
+            await self._bot_handle.handle_updates(updates)
+            return
+
         self.last_update_time = datetime.now()
         self._last_update_monotonic = time.monotonic()
-
-        def _enqueue_update(item):
-            try:
-                self.dispatcher.updates_queue.put_nowait(item)
-            except asyncio.QueueFull:
-                log.warning("Update queue full (%d), dropping update",
-                            self.dispatcher.updates_queue.maxsize)
 
         if isinstance(updates, (raw.types.Updates, raw.types.UpdatesCombined)):
             is_min_users = await self.fetch_peers(updates.users)
@@ -827,17 +874,8 @@ class Client(Methods):
 
             if isinstance(updates, raw.types.UpdatesCombined):
                 seq_start = getattr(updates, "seq_start", updates.seq)
-                stored_states = await self.storage.update_state()
-                if stored_states:
-                    global_state = next((s for s in stored_states if s[0] == 0), None)
-                    if global_state and global_state[4] is not None:
-                        stored_seq = global_state[4]
-                        if seq_start > stored_seq + 1:
-                            log.warning(
-                                "Seq gap detected: stored=%s, seq_start=%s. Triggering recovery.",
-                                stored_seq, seq_start
-                            )
-                            await self.recover_gaps()
+                if self._update_state.apply_seq(updates.seq, seq_start):
+                    await self.recover_gaps()
 
             users = {u.id: u for u in updates.users}
             chats = {c.id: c for c in updates.chats}
@@ -855,15 +893,13 @@ class Client(Methods):
                 pts_count = getattr(update, "pts_count", None)
 
                 if pts:
-                    await self.storage.update_state(
-                        (
-                            utils.get_channel_id(channel_id) if channel_id else 0,
-                            pts,
-                            None,
-                            updates.date,
-                            updates.seq
-                        )
+                    entity_id = utils.get_channel_id(channel_id) if channel_id else 0
+                    gap = self._update_state.apply_pts(
+                        entity_id, pts, pts_count or 0,
+                        date=updates.date, seq=updates.seq,
                     )
+                    if gap:
+                        await self.recover_gaps()
 
                 if isinstance(update, raw.types.UpdateChannelTooLong):
                     log.info("UpdateChannelTooLong: %s", update)
@@ -894,17 +930,9 @@ class Client(Methods):
                                 users.update({u.id: u for u in diff.users})
                                 chats.update({c.id: c for c in diff.chats})
 
-                _enqueue_update((update, users, chats))
+                await self.dispatcher.dispatch(0, (update, users, chats))
         elif isinstance(updates, (raw.types.UpdateShortMessage, raw.types.UpdateShortChatMessage)):
-            await self.storage.update_state(
-                (
-                    0,
-                    updates.pts,
-                    None,
-                    updates.date,
-                    None
-                )
-            )
+            self._update_state.apply_pts(0, updates.pts, updates.pts_count, date=updates.date)
 
             diff = await self.invoke(
                 raw.functions.updates.GetDifference(
@@ -917,7 +945,7 @@ class Client(Methods):
             if isinstance(diff, (raw.types.updates.DifferenceEmpty, raw.types.updates.DifferenceTooLong)):
                 pass
             elif getattr(diff, "new_messages", None):
-                _enqueue_update((
+                await self.dispatcher.dispatch(0, (
                     raw.types.UpdateNewMessage(
                         message=diff.new_messages[0],
                         pts=updates.pts,
@@ -927,9 +955,9 @@ class Client(Methods):
                     {c.id: c for c in diff.chats}
                 ))
             elif getattr(diff, "other_updates", None):
-                _enqueue_update((diff.other_updates[0], {}, {}))
+                await self.dispatcher.dispatch(0, (diff.other_updates[0], {}, {}))
         elif isinstance(updates, raw.types.UpdateShort):
-            _enqueue_update((updates.update, {}, {}))
+            await self.dispatcher.dispatch(0, (updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
             log.info("UpdatesTooLong: %s", updates)
 

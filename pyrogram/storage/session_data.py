@@ -16,26 +16,19 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-__version__ = "2.2.20"
-__license__ = "GNU Lesser General Public License v3.0 (LGPL-3.0)"
-__copyright__ = "Copyright (C) 2017-present Dan <https://github.com/delivrance>"
+from dataclasses import dataclass, field
+from typing import Optional
 
 
-class StopTransmission(Exception):
-    pass
-
-
-class StopPropagation(StopAsyncIteration):
-    pass
-
-
-class ContinuePropagation(StopAsyncIteration):
-    pass
-
-
-from . import raw, types, filters, handlers, enums
-from .client import Client
-from .bot_handle import BotConfig, BotHandle
-from .runtime import Runtime, RuntimeMetrics
-from .storage import MultiSQLiteStorage, SessionData
-from .sync import idle, compose
+@dataclass
+class SessionData:
+    bot_id: int
+    dc_id: int = 2
+    server_address: str = "149.154.167.51"
+    port: int = 443
+    api_id: Optional[int] = None
+    test_mode: bool = False
+    auth_key: Optional[bytes] = None
+    date: int = 0
+    user_id: Optional[int] = None
+    is_bot: Optional[bool] = None

@@ -22,9 +22,11 @@ import random
 import time
 from typing import Optional, Type, Union
 
+from concurrent.futures import ThreadPoolExecutor
+
 from pyrogram import utils
 
-from .transport import TCP, TCPAbridged
+from .transport import TCP, TCPAbridged, TransportBase, ProtoAbridged
 
 log = logging.getLogger(__name__)
 
@@ -43,9 +45,10 @@ class Connection:
         test_mode: bool,
         proxy: Optional[Union[dict, str]] = None,
         media: bool = False,
-        protocol_factory: Type[TCP] = TCPAbridged,
+        protocol_factory = ProtoAbridged,
         crypto_executor_workers: int = 1,
-        loop: Optional[asyncio.AbstractEventLoop] = None
+        loop: Optional[asyncio.AbstractEventLoop] = None,
+        crypto_executor: Optional[ThreadPoolExecutor] = None,
     ) -> None:
         self.dc_id = dc_id
         self.server_address = server_address
@@ -56,8 +59,9 @@ class Connection:
         self.media = media
         self.protocol_factory = protocol_factory
         self.crypto_executor_workers = crypto_executor_workers
+        self.crypto_executor = crypto_executor
 
-        self.protocol: Optional[TCP] = None
+        self.protocol: Optional[Union[TCP, TransportBase]] = None
 
         if isinstance(loop, asyncio.AbstractEventLoop):
             self.loop = loop
@@ -71,7 +75,7 @@ class Connection:
         start_time = time.monotonic()
 
         while True:
-            self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers, loop=self.loop)
+            self.protocol = self.protocol_factory(ipv6=self.ipv6, proxy=self.proxy, crypto_executor_workers=self.crypto_executor_workers, loop=self.loop, crypto_executor=self.crypto_executor)
 
             try:
                 log.info("Connecting...")

@@ -16,5 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from .multi_sqlite_storage import MultiSQLiteStorage
+from .redis_storage import RedisStorage
+from .session_data import SessionData
 from .sqlite_storage import SQLiteStorage
 from .storage import Storage

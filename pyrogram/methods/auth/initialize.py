@@ -20,6 +20,7 @@ import asyncio
 import logging
 
 import pyrogram
+from pyrogram import utils
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +44,17 @@ class Initialize:
         if self.is_initialized:
             raise ConnectionError("Client is already initialized")
 
-        await self.dispatcher.start()
+        if callable(self.start_handler):
+            try:
+                await utils.invoke_callable(self.start_handler, self)
+            except Exception as e:
+                log.exception("start_handler raised: %s", e)
+
+        if not self.no_updates:
+            await self.dispatcher.start()
+
+            if not self.skip_updates:
+                await self.recover_gaps()
 
         self.updates_watchdog_task = self.loop.create_task(self.updates_watchdog())
 

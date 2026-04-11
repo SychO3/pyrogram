@@ -18,6 +18,7 @@
 
 import asyncio
 import time
+from typing import Callable, Union
 
 import pyrogram
 from pyrogram.raw.core import Message, MsgContainer, TLObject
@@ -26,8 +27,11 @@ from pyrogram.raw.types import HttpWait, MsgsAck
 
 
 class MsgFactory:
-    def __init__(self, client: "pyrogram.Client"):
-        self.client = client
+    def __init__(self, get_server_time: Union[Callable[[], float], "pyrogram.Client"]):
+        if hasattr(get_server_time, "server_time"):
+            self._get_server_time = lambda: get_server_time.server_time
+        else:
+            self._get_server_time = get_server_time
 
         self._last_msg_id = 0
         self._lock = asyncio.Lock()
@@ -35,7 +39,7 @@ class MsgFactory:
 
     async def allocate_message_identity(self) -> int:
         async with self._lock:
-            base_msg_id = int(self.client.server_time * (2**32)) & ~0b11
+            base_msg_id = int(self._get_server_time() * (2**32)) & ~0b11
 
             if base_msg_id <= self._last_msg_id:
                 base_msg_id = self._last_msg_id + 4
@@ -46,7 +50,7 @@ class MsgFactory:
 
     async def create(self, body: TLObject) -> Message:
         async with self._lock:
-            base_msg_id = int(self.client.server_time * (2**32)) & ~0b11
+            base_msg_id = int(self._get_server_time() * (2**32)) & ~0b11
 
             if base_msg_id <= self._last_msg_id:
                 base_msg_id = self._last_msg_id + 4

@@ -82,6 +82,6 @@ class AddHandler:
                 )
             setattr(self, attr, handler.callback)
         else:
-            self.dispatcher.add_handler(handler, group)
+            self.dispatcher.add_handler(0, handler, group)
 
         return handler, group

@@ -19,7 +19,7 @@
 import logging
 
 import pyrogram
-from pyrogram import raw
+from pyrogram import raw, utils
 
 log = logging.getLogger(__name__)
 
@@ -49,8 +49,50 @@ class Terminate:
             await self.invoke(raw.functions.account.FinishTakeoutSession())
             log.info("Takeout session %s finished", self.takeout_id)
 
+        # Cancel conversation waiters and listeners
+        try:
+            conv_handler = self.dispatcher._conversation_handlers.get(0)
+            if conv_handler:
+                waiters = getattr(conv_handler, "waiters", {}) or {}
+                for chat_id, waiter in list(waiters.items()):
+                    future = waiter.get("future")
+                    if future and not future.done():
+                        try:
+                            future.cancel()
+                        except Exception:
+                            pass
+                waiters.clear()
+
+            listeners_map = getattr(self, "listeners", {}) or {}
+            for _lt, lst in list(listeners_map.items()):
+                for listener in list(lst):
+                    try:
+                        self.remove_listener(listener)
+                        if getattr(listener, "future", None) and not listener.future.done():
+                            try:
+                                listener.future.cancel()
+                            except Exception:
+                                pass
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
+        if callable(self.stop_handler):
+            try:
+                await utils.invoke_callable(self.stop_handler, self)
+            except Exception as e:
+                log.exception("stop_handler raised: %s", e)
+
+        # Save update state and storage
+        await self._update_state.save_to_storage(self.storage)
         await self.storage.save()
-        await self.dispatcher.stop(clear_handlers=clear_handlers)
+
+        if not self.no_updates:
+            await self.dispatcher.stop()
+
+            if clear_handlers:
+                self.dispatcher.unregister_bot(0)
 
         for media_session in self.media_sessions.values():
             await media_session.stop()

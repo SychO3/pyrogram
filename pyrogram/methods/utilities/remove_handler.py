@@ -74,4 +74,4 @@ class RemoveHandler:
                 )
             setattr(self, attr, None)
         else:
-            self.dispatcher.remove_handler(handler, group)
+            self.dispatcher.remove_handler(0, handler, group)
