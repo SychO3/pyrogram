@@ -25,12 +25,13 @@ import hashlib
 import os
 import re
 import struct
+import sys
 from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from getpass import getpass
 from io import BytesIO
 from types import SimpleNamespace
-from typing import Dict, List, Optional, Union
+from typing import Callable, Dict, List, Optional, Union
 
 import pyrogram
 from pyrogram import enums, raw, types
@@ -40,20 +41,31 @@ from pyrogram.types.messages_and_media.message import Str
 log = logging.getLogger(__name__)
 
 _uvloop_installed = False
+_uvloop_loop_factory: Optional[Callable[[], asyncio.AbstractEventLoop]] = None
 
 
 def install_uvloop() -> None:
-    """Install uvloop as the default event loop policy if available."""
-    global _uvloop_installed
+    """Install uvloop as the default event loop policy if available.
+
+    uvloop.install() relies on asyncio event loop policies, which are deprecated
+    on Python 3.12+ and emit deprecation warnings at import time.
+    """
+    global _uvloop_installed, _uvloop_loop_factory
     if _uvloop_installed:
         return
     try:
         import uvloop
-        uvloop.install()
-        _uvloop_installed = True
-        log.info("uvloop installed as event loop policy")
     except ImportError:
-        pass  # Windows or other unsupported platforms
+        return  # Windows or other unsupported platforms
+
+    if sys.version_info < (3, 12):
+        uvloop.install()
+        log.info("uvloop installed as event loop policy")
+    else:
+        _uvloop_loop_factory = uvloop.new_event_loop
+        log.info("uvloop event loop factory enabled")
+
+    _uvloop_installed = True
 
 
 # Install uvloop at import time for earliest possible activation
@@ -79,7 +91,7 @@ def get_event_loop() -> asyncio.AbstractEventLoop:
     except RuntimeError:
         pass
 
-    loop = asyncio.new_event_loop()
+    loop = _uvloop_loop_factory() if _uvloop_loop_factory else asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     return loop
 
