@@ -5105,7 +5105,7 @@ class Message(Object, Update):
     async def reply_poll(
         self,
         question: "types.FormattedText",
-        options: List["types.FormattedText"],
+        options: List[Union[str, "types.FormattedText"]],
         message_thread_id: Optional[int] = None,
         business_connection_id: Optional[str] = None,
         is_anonymous: bool = True,
@@ -8819,17 +8819,28 @@ class Message(Object, Update):
                     business_connection_id=business_connection_id
                 )
             elif self.poll:
+                if self.poll.type == enums.PollType.QUIZ and not self.poll.correct_option_ids:
+                    raise ValueError("You can copy quiz polls which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.")
+
                 return await self._client.send_poll(
                     chat_id,
                     question=self.poll.question,
-                    options=[opt.text for opt in self.poll.options],
-                    disable_notification=disable_notification,
+                    options=[types.InputPollOption(text=opt.text) for opt in self.poll.options],
                     message_thread_id=message_thread_id,
+                    business_connection_id=business_connection_id,
+                    is_anonymous=self.poll.is_anonymous,
+                    type=self.poll.type,
+                    allows_multiple_answers=self.poll.allows_multiple_answers,
+                    allows_revoting=self.poll.allows_revoting,
+                    correct_option_ids=self.poll.correct_option_ids,
+                    explanation=self.poll.explanation,
+                    open_period=self.poll.open_period,
+                    description=self.poll.description,
+                    disable_notification=disable_notification,
                     reply_parameters=reply_parameters,
                     schedule_date=schedule_date,
                     allow_paid_broadcast=allow_paid_broadcast,
                     paid_message_star_count=paid_message_star_count,
-                    business_connection_id=business_connection_id
                 )
             elif self.game:
                 return await self._client.send_game(
