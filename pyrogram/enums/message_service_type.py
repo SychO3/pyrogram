@@ -102,6 +102,9 @@ class MessageServiceType(AutoName):
     GIVEAWAY_COMPLETED = auto()
     "Giveaway completed"
 
+    MANAGED_BOT_CREATED = auto()
+    "Managed bot created"
+
     PREMIUM_GIFT_CODE = auto()
     "Gift code"
 

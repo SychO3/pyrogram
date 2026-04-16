@@ -1014,6 +1014,10 @@
         "doc": "Giveaway completed"
       },
       {
+        "name": "MANAGED_BOT_CREATED",
+        "doc": "Managed bot created"
+      },
+      {
         "name": "PREMIUM_GIFT_CODE",
         "doc": "Gift code"
       },
