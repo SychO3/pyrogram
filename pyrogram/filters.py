@@ -553,7 +553,8 @@ media_spoiler = create(media_spoiler_filter)
 
 # region private_filter
 async def private_filter(_, __, m: Message):
-    return bool(m.chat and m.chat.type in {enums.ChatType.PRIVATE, enums.ChatType.BOT})
+    chat = getattr(m, "chat", None)
+    return bool(chat and chat.type in {enums.ChatType.PRIVATE, enums.ChatType.BOT})
 
 
 private = create(private_filter)
