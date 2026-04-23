@@ -85,7 +85,7 @@ BUILTIN_API_KEYS = [
     (2040, "b18441a1ff607e10a989891a5462e627"),      # Telegram Desktop
     (2521, "64d20abd7ee359213579e9a599fde866"),      # Telegram Android S
     (5, "1c5c96d5edd401b1ed40db3fb5633e2d"),         # Telegram Android S
-    (21724, "3e0cb5efcd52300aec5994fdfc5bdc16"),     # Telegram Android X
+    # (21724, "3e0cb5efcd52300aec5994fdfc5bdc16"),     # Telegram Android X
     (94575, "a3406de8d171bb422bb6ddf3bbd800e2"),     # Telegram Database Library
     (1025907, "452b0359b988148995f22ff0f4229750"),   # Telegram Web K
     (2496, "8da85b0d5bfe62527e5b244c209159c3"),      # Telegram Web Z
