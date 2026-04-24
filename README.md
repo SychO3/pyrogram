@@ -49,7 +49,7 @@ identity (bot API alternative) using Python.
 If you'd like to support my fork, you can consider:
 
 - `kurimuzonakuma.ton` - TON
-- `TCbZ7CSpTvTJ6rno2eoWWYBx7hmYF75wk3` - USDT TRC20
+- `TYAY3cVST3NY5mqs1M2qGV6PjXDjLLeC6v` - USDT TRC20
 
 ### Key Features
 
