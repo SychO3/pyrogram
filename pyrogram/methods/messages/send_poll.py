@@ -34,23 +34,26 @@ class SendPoll:
         chat_id: Union[int, str],
         question: Union[str, "types.FormattedText"],
         options: List[Union[str, "types.InputPollOption"]],
+        description: Optional[Union[str, "types.FormattedText"]] = None,
+        description_media: Optional["types.InputPollMedia"] = None,
         message_thread_id: Optional[int] = None,
         business_connection_id: Optional[str] = None,
         is_anonymous: bool = True,
         type: "enums.PollType" = enums.PollType.REGULAR,
         allows_multiple_answers: Optional[bool] = None,
         allows_revoting: Optional[bool] = None,
+        members_only: Optional[bool] = None,
+        country_codes: Optional[List[str]] = None,
         shuffle_options: Optional[bool] = None,
         allow_adding_options: Optional[bool] = None,
         hide_results_until_closes: Optional[bool] = None,
         correct_option_ids: Optional[List[int]] = None,
         explanation: Optional[Union[str, "types.FormattedText"]] = None,
-        explanation_media: Optional[Union[str, BinaryIO]] = None,
+        explanation_media: Optional[Union["types.InputPollMedia", str, BinaryIO]] = None,
         open_period: Optional[int] = None,
         close_date: Optional[datetime] = None,
         is_closed: Optional[bool] = None,
-        description: Optional[Union[str, "types.FormattedText"]] = None,
-        attached_media: Optional[Union[str, BinaryIO]] = None,
+        attached_media: Optional[Union["types.InputPollMedia", str, BinaryIO]] = None,
         disable_notification: Optional[bool] = None,
         protect_content: Optional[bool] = None,
         allow_paid_broadcast: Optional[bool] = None,
@@ -88,7 +91,13 @@ class SendPoll:
                 Only custom emoji entities are allowed to be added and only by Premium users.
 
             options (List of :obj:`~pyrogram.types.InputPollOption`):
-                List of 2-12 answer options.
+                List of 1-12 answer options.
+
+            description (``str`` | :obj:`~pyrogram.types.FormattedText`, *optional*):
+                Description of the poll to be sent, 0-1024 characters after entities parsing.
+
+            description_media (:obj:`~pyrogram.types.InputPollMedia`, *optional*):
+                Media attached to the poll.
 
             message_thread_id (``int``, *optional*):
                 Unique identifier for the target message thread (topic) of the forum.
@@ -113,6 +122,15 @@ class SendPoll:
                 Pass True, if the poll allows to change chosen answer options.
                 Defaults to False for quizzes and to True for regular polls.
 
+            members_only (``bool``, *optional*):
+                Pass True, if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours.
+                For channel chats only.
+
+            country_codes (List of ``str``, *optional*):
+                The list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll.
+                For channel chats only.
+                If omitted or empty, then users from any country can participate in the poll.
+
             shuffle_options (``bool``, *optional*):
                 Pass True, if the poll options must be shown in random order.
 
@@ -128,12 +146,8 @@ class SendPoll:
             explanation (``str`` | :obj:`~pyrogram.types.FormattedText`, *optional*):
                 Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing.
 
-            explanation_media (``str`` | ``BinaryIO``, *optional*):
-                Media attached to the quiz explanation/solution.
-                Pass a file_id as string to send a media that exists on the Telegram servers,
-                pass an HTTP URL as string for Telegram to get a media from the Internet,
-                pass a file path as string to upload a new media from the local machine, or
-                pass a binary file-like object with its attribute ".name" set for in-memory uploads.
+            explanation_media (:obj:`~pyrogram.types.InputPollMedia` | ``str`` | ``BinaryIO``, *optional*):
+                Media attached to the explanation. ``str`` and ``BinaryIO`` values are treated as photo media for backwards compatibility.
 
             open_period (``int``, *optional*):
                 Amount of time in seconds the poll will be active after creation, 5-2628000.
@@ -149,15 +163,9 @@ class SendPoll:
                 This can be useful for poll preview.
                 For bots only.
 
-            description (``str`` | :obj:`~pyrogram.types.FormattedText`, *optional*):
-                Description of the poll to be sent, 0-1024 characters after entities parsing.
+            attached_media (:obj:`~pyrogram.types.InputPollMedia` | ``str`` | ``BinaryIO``, *optional*):
+                Media attached to the poll itself. Alias for ``description_media`` kept for backwards compatibility.
 
-            attached_media (``str`` | ``BinaryIO``, *optional*):
-                Media attached to the poll itself.
-                Pass a file_id as string to send a media that exists on the Telegram servers,
-                pass an HTTP URL as string for Telegram to get a media from the Internet,
-                pass a file path as string to upload a new media from the local machine, or
-                pass a binary file-like object with its attribute ".name" set for in-memory uploads.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
@@ -198,6 +206,7 @@ class SendPoll:
         Example:
             .. code-block:: python
 
+                # Regular poll
                 await app.send_poll(
                     chat_id=chat_id,
                     question="Is this a poll question?",
@@ -205,6 +214,26 @@ class SendPoll:
                         types.InputPollOption(text="Yes"),
                         types.InputPollOption(text="No"),
                         types.InputPollOption(text="Maybe")
+                    ]
+                )
+
+                # Poll with media
+                await app.send_poll(
+                    chat_id=chat_id,
+                    question="Where we are?",
+                    description_media=types.InputMediaPhoto("photo.jpg"),
+                    options=[
+                        types.InputPollOption(
+                            text="Maybe here?",
+                            media=types.InputMediaPhoto("photo1.jpg")
+                        ),
+                        types.InputPollOption(
+                            text="Or here?",
+                            media=types.Location(
+                                latitude=49.807760,
+                                longitude=73.088504
+                            ),
+                        ),
                     ]
                 )
         """
@@ -244,33 +273,23 @@ class SendPoll:
             message = raw_message.text
             entities = raw_message.entities
 
-        raw_attached_media = None
-        if attached_media is not None:
-            if isinstance(attached_media, str):
-                if os.path.isfile(attached_media):
-                    file = await self.save_file(attached_media)
-                    raw_attached_media = raw.types.InputMediaUploadedPhoto(file=file)
-                elif re.match("^https?://", attached_media):
-                    raw_attached_media = raw.types.InputMediaPhotoExternal(url=attached_media)
-                else:
-                    raw_attached_media = utils.get_input_media_from_file_id(attached_media, FileType.PHOTO)
-            else:
-                file = await self.save_file(attached_media)
-                raw_attached_media = raw.types.InputMediaUploadedPhoto(file=file)
+        async def _write_poll_media(media):
+            if media is None:
+                return None
+            if hasattr(media, "write"):
+                return await media.write(client=self)
+            if isinstance(media, str):
+                if os.path.isfile(media):
+                    file = await self.save_file(media)
+                    return raw.types.InputMediaUploadedPhoto(file=file)
+                if re.match("^https?://", media):
+                    return raw.types.InputMediaPhotoExternal(url=media)
+                return utils.get_input_media_from_file_id(media, FileType.PHOTO)
+            file = await self.save_file(media)
+            return raw.types.InputMediaUploadedPhoto(file=file)
 
-        raw_solution_media = None
-        if explanation_media is not None:
-            if isinstance(explanation_media, str):
-                if os.path.isfile(explanation_media):
-                    file = await self.save_file(explanation_media)
-                    raw_solution_media = raw.types.InputMediaUploadedPhoto(file=file)
-                elif re.match("^https?://", explanation_media):
-                    raw_solution_media = raw.types.InputMediaPhotoExternal(url=explanation_media)
-                else:
-                    raw_solution_media = utils.get_input_media_from_file_id(explanation_media, FileType.PHOTO)
-            else:
-                file = await self.save_file(explanation_media)
-                raw_solution_media = raw.types.InputMediaUploadedPhoto(file=file)
+        raw_attached_media = await _write_poll_media(description_media or attached_media)
+        raw_solution_media = await _write_poll_media(explanation_media)
 
         r = await self.invoke(
             raw.functions.messages.SendMedia(
@@ -287,6 +306,8 @@ class SendPoll:
                         quiz=type == enums.PollType.QUIZ or False,
                         open_answers=False if type == enums.PollType.QUIZ and allow_adding_options else allow_adding_options,
                         revoting_disabled=not allows_revoting if allows_revoting is not None else (type == enums.PollType.QUIZ),
+                        subscribers_only=members_only,
+                        countries_iso2=country_codes,
                         shuffle_answers=shuffle_options,
                         hide_results_until_close=hide_results_until_closes,
                         close_period=open_period,

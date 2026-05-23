@@ -18,12 +18,20 @@
 
 import inspect
 import re
-from typing import Callable, Union, List, Pattern, Optional
+from typing import Callable, List, Optional, Pattern, Union
 
 import pyrogram
 from pyrogram import enums
-from pyrogram.types import Message, CallbackQuery, InlineQuery, PreCheckoutQuery, InlineKeyboardMarkup, \
-    ReplyKeyboardMarkup, Update, ChosenInlineResult
+from pyrogram.types import (
+    CallbackQuery,
+    ChosenInlineResult,
+    InlineKeyboardMarkup,
+    InlineQuery,
+    Message,
+    PreCheckoutQuery,
+    ReplyKeyboardMarkup,
+    Update,
+)
 
 
 class Filter:

@@ -22,10 +22,13 @@ import inspect
 import logging
 import functools
 import hashlib
+import io
 import os
+import pathlib
 import re
 import struct
 import sys
+import warnings
 from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from getpass import getpass
@@ -85,7 +88,9 @@ def get_event_loop() -> asyncio.AbstractEventLoop:
         pass
 
     try:
-        loop = asyncio.get_event_loop()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            loop = asyncio.get_event_loop()
         if not loop.is_closed():
             return loop
     except RuntimeError:
@@ -112,6 +117,8 @@ def get_input_media_from_file_id(
     has_spoiler: bool = None,
     video_cover: "raw.types.InputPhoto" = None,
     video_start_timestamp: int = None,
+    live_photo: bool = None,
+    live_photo_video_file_id: str = None
 ) -> Union["raw.types.InputMediaPhoto", "raw.types.InputMediaDocument"]:
     try:
         decoded = FileId.decode(file_id)
@@ -137,7 +144,14 @@ def get_input_media_from_file_id(
                 file_reference=decoded.file_reference
             ),
             spoiler=has_spoiler,
-            ttl_seconds=ttl_seconds
+            ttl_seconds=ttl_seconds,
+            live_photo=live_photo,
+            video=get_input_media_from_file_id(
+                live_photo_video_file_id,
+                expected_file_type=FileType.VIDEO,
+                has_spoiler=has_spoiler,
+                live_photo=live_photo
+            ) if live_photo else None
         )
 
     if file_type in DOCUMENT_TYPES:
@@ -507,6 +521,21 @@ async def get_reply_to(
         )
 
     return None
+
+
+def get_file_name(
+    media: Union[io.BytesIO, str],
+    *,
+    file_name: str = "",
+    fallback: str = ""
+) -> str:
+    if file_name:
+        return file_name
+
+    if isinstance(media, io.BytesIO):
+        return getattr(media, "name", fallback) or fallback
+
+    return pathlib.Path(media).name or fallback
 
 
 def get_channel_id(peer_id: int) -> int:

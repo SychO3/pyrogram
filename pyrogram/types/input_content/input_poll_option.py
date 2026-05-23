@@ -34,19 +34,15 @@ class InputPollOption(Object):
         text (``str`` | :obj:`~pyrogram.enums.FormattedText`, *optional*):
             Option text, 1-100 characters.
 
-        media (``str`` | ``BinaryIO``, *optional*):
-            Media to attach to the option.
-            Pass a file_id as string to send a media that exists on the Telegram servers,
-            pass an HTTP URL as string for Telegram to get a media from the Internet,
-            pass a file path as string to upload a new media from the local machine, or
-            pass a binary file-like object with its attribute ".name" set for in-memory uploads.
+        media (:obj:`~pyrogram.types.InputPollOptionMedia` | ``str`` | ``BinaryIO``, *optional*):
+            Option media. ``str`` and ``BinaryIO`` values are treated as photo media for backwards compatibility.
     """
 
     def __init__(
         self,
         *,
         text: Union[str, "types.FormattedText"],
-        media: Optional[Union[str, BinaryIO]] = None,
+        media: Optional[Union["types.InputPollOptionMedia", str, BinaryIO]] = None,
     ):
         super().__init__()
 
@@ -60,7 +56,9 @@ class InputPollOption(Object):
         input_media = None
 
         if self.media is not None:
-            if isinstance(self.media, str):
+            if hasattr(self.media, "write"):
+                input_media = await self.media.write(client=client)
+            elif isinstance(self.media, str):
                 if os.path.isfile(self.media):
                     file = await client.save_file(self.media)
                     input_media = raw.types.InputMediaUploadedPhoto(file=file)
@@ -74,5 +72,5 @@ class InputPollOption(Object):
 
         return raw.types.InputPollAnswer(
             text=await self.text.write(client),
-            media=input_media
+            media=input_media,
         )

@@ -16,13 +16,15 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-from typing import List, Optional
-
-import pyrogram
-from pyrogram import raw, types
+from typing import TYPE_CHECKING, List, Optional
 
 from ..object import Object
+
+if TYPE_CHECKING:
+    import datetime
+
+    import pyrogram
+    from pyrogram import types
 
 
 class PollOption(Object):
@@ -35,8 +37,9 @@ class PollOption(Object):
         text (:obj:`~pyrogram.types.FormattedText`, *optional*):
             Option text, 1-100 characters.
 
-        media (:obj:`~pyrogram.types.Photo`, *optional*):
-            Media attached to the option.
+        media (:obj:`~pyrogram.types.MessageContent`, *optional*):
+            Option media.
+            Currently, can be only of the types Animation, Location, Photo, Sticker, Venue, or Video without caption.
 
         voter_count (``int``, *optional*):
             Number of users that voted for this option.
@@ -67,7 +70,7 @@ class PollOption(Object):
         client: "pyrogram.Client" = None,
         persistent_id: str,
         text: Optional["types.FormattedText"] = None,
-        media: Optional["types.Photo"] = None,
+        media: Optional["types.MessageContent"] = None,
         voter_count: Optional[int] = None,
         vote_percentage: Optional[int] = None,
         recent_voters: Optional[List["types.Chat"]] = None,

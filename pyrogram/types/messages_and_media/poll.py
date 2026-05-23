@@ -21,7 +21,6 @@ from typing import Dict, List, Optional, Union
 
 import pyrogram
 from pyrogram import enums, raw, types, utils
-from pyrogram.types.messages_and_media.message import Str
 
 from ..object import Object
 from ..update import Update
@@ -70,6 +69,13 @@ class Poll(Object, Update):
         is_creator (``bool``, *optional*):
             True, if the current user is the poll creator.
 
+        members_only (``bool``, *optional*):
+            True, if only the users that are members of the chat for more than a day will be able to vote.
+
+        country_codes (List of ``str``, *optional*):
+            The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be able to vote.
+            If None, then all users can participate in the poll.
+
         chosen_option_ids (List of ``int``, *optional*):
             Array of 0-based index of the chosen option), None in case of no vote yet.
 
@@ -81,8 +87,9 @@ class Poll(Object, Update):
             Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll,
             0-200 characters.
 
-        explanation_media (:obj:`~pyrogram.types.Photo`, *optional*):
-            Media attached to the quiz explanation/solution.
+        explanation_media (:obj:`~pyrogram.types.MessageContent`, *optional*):
+            Media that is shown when the user chooses an incorrect answer or taps on the lamp icon.
+            May be None if none or the poll is unanswered yet.
 
         open_period (``int``, *optional*):
             Amount of time in seconds the poll will be active after creation.
@@ -96,6 +103,14 @@ class Poll(Object, Update):
         description (:obj:`~pyrogram.types.FormattedText`, *optional*):
             Description of the poll.
             Only for polls inside the :obj:`~pyrogram.types.Message` object.
+
+
+        description_media (:obj:`~pyrogram.types.MessageContent`, *optional*):
+            Media attached to the poll.
+            Only for polls inside the :obj:`~pyrogram.types.Message` object.
+
+        voter (:obj:`~pyrogram.types.User`, *optional*):
+            The user that voted in the poll.
     """
 
     def __init__(
@@ -115,14 +130,18 @@ class Poll(Object, Update):
         shuffle_options: Optional[bool] = None,
         hide_results_until_closes: Optional[bool] = None,
         is_creator: Optional[bool] = None,
+        members_only: Optional[bool] = None,
+        country_codes: Optional[List[str]] = None,
         chosen_option_ids: Optional[List[int]] = None,
         correct_option_ids: Optional[List[int]] = None,
         explanation: Optional["types.FormattedText"] = None,
-        explanation_media: Optional["types.Photo"] = None,
+        explanation_media: Optional["types.MessageContent"] = None,
         open_period: Optional[int] = None,
         close_date: Optional[datetime] = None,
         attached_media: Optional["types.Photo"] = None,
         description: Optional["types.FormattedText"] = None,
+        description_media: Optional["types.MessageContent"] = None,
+        voter: Optional["types.User"] = None,
     ):
         super().__init__(client)
 
@@ -139,6 +158,8 @@ class Poll(Object, Update):
         self.shuffle_options = shuffle_options
         self.hide_results_until_closes = hide_results_until_closes
         self.is_creator = is_creator
+        self.members_only = members_only
+        self.country_codes = country_codes
         self.chosen_option_ids = chosen_option_ids
         self.correct_option_ids = correct_option_ids
         self.explanation = explanation
@@ -147,9 +168,11 @@ class Poll(Object, Update):
         self.close_date = close_date
         self.attached_media = attached_media
         self.description = description
+        self.description_media = description_media
+        self.voter = voter
 
     @staticmethod
-    def _parse(
+    async def _parse(
         client,
         media_poll: Union["raw.types.MessageMediaPoll", "raw.types.UpdateMessagePoll"],
         description: Optional["types.FormattedText"] = None,
@@ -188,9 +211,9 @@ class Poll(Object, Update):
                 types.PollOption(
                     persistent_id=answer.option.decode(),
                     text=types.FormattedText._parse(client, answer.text),
-                    media=types.Photo._parse(client, answer.media.photo)
-                    if isinstance(getattr(answer, "media", None), raw.types.MessageMediaPhoto)
-                    else None,
+                    media=await types.MessageContent._parse(
+                        client, answer.media, users=users, chats=chats
+                    ) if getattr(answer, "media", None) else None,
                     voter_count=voter_count,
                     vote_percentage=vote_percentages[i],
                     recent_voters=types.List(
@@ -232,6 +255,8 @@ class Poll(Object, Update):
             shuffle_options=poll.shuffle_answers,
             hide_results_until_closes=poll.hide_results_until_close,
             is_creator=poll.creator,
+            members_only=poll.subscribers_only,
+            country_codes=poll.countries_iso2 or None,
             chosen_option_ids=chosen_option_ids or None,
             correct_option_ids=correct_option_ids or None,
             explanation=types.FormattedText._parse(
@@ -243,8 +268,13 @@ class Poll(Object, Update):
             )
             if poll_results.solution
             else None,
-            explanation_media=types.Photo._parse(client, poll_results.solution_media.photo)
-            if isinstance(getattr(poll_results, "solution_media", None), raw.types.MessageMediaPhoto)
+            explanation_media=await types.MessageContent._parse(
+                client,
+                poll_results.solution_media,
+                users=users,
+                chats=chats,
+            )
+            if getattr(poll_results, "solution_media", None)
             else None,
             open_period=poll.close_period,
             close_date=utils.timestamp_to_datetime(poll.close_date),
@@ -252,11 +282,17 @@ class Poll(Object, Update):
             if isinstance(getattr(media_poll, "attached_media", None), raw.types.MessageMediaPhoto)
             else None,
             description=description,
+            description_media=await types.MessageContent._parse(
+                client,
+                media_poll.attached_media,
+                users=users,
+                chats=chats,
+            ) if getattr(media_poll, "attached_media", None) else None,
             client=client,
         )
 
     @staticmethod
-    def _parse_update(
+    async def _parse_update(
         client,
         update: Union["raw.types.UpdateMessagePoll", "raw.types.UpdateMessagePollVote"],
         users: Dict[int, "raw.types.User"] = {},
@@ -264,7 +300,7 @@ class Poll(Object, Update):
     ) -> "Poll":
         if isinstance(update, raw.types.UpdateMessagePoll):
             if update.poll is not None:
-                return Poll._parse(client, update)
+                return await Poll._parse(client, update, users=users, chats=chats)
 
             results = update.results.results
             chosen_option_ids = []

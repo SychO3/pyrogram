@@ -56,6 +56,7 @@ from .sticker_type import StickerType
 from .stories_privacy_rules import StoriesPrivacyRules
 from .suggested_post_refund_reason import SuggestedPostRefundReason
 from .suggested_post_state import SuggestedPostState
+from .top_chat_category import TopChatCategory
 from .upgraded_gift_origin import UpgradedGiftOrigin
 from .user_status import UserStatus
 
@@ -100,6 +101,7 @@ __all__ = [
     'StoriesPrivacyRules',
     'SuggestedPostRefundReason',
     'SuggestedPostState',
+    'TopChatCategory',
     'UpgradedGiftOrigin',
     'UserStatus',
 ]

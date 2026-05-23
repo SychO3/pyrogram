@@ -68,6 +68,7 @@ from .gift_upgrade_variants import GiftUpgradeVariants
 from .invoice import Invoice
 from .order_info import OrderInfo
 from .link_preview_options import LinkPreviewOptions
+from .live_photo import LivePhoto
 from .giveaway import Giveaway
 from .input_checklist_task import InputChecklistTask
 from .giveaway_completed import GiveawayCompleted
@@ -78,6 +79,7 @@ from .location import Location
 from .managed_bot_created import ManagedBotCreated
 from .mask_position import MaskPosition
 from .media_area import MediaArea
+from .message_content import MessageContent
 from .message import Message
 from .message_entity import MessageEntity
 from .message_origin import MessageOrigin
@@ -220,6 +222,7 @@ __all__ = [
     "Invoice",
     "OrderInfo",
     "LinkPreviewOptions",
+    "LivePhoto",
     "GiveawayCompleted",
     "GiveawayCreated",
     "GiveawayPrizeStars",
@@ -228,6 +231,7 @@ __all__ = [
     "ManagedBotCreated",
     "MaskPosition",
     "MediaArea",
+    "MessageContent",
     "Message",
     "MessageEntity",
     "MessageOrigin",

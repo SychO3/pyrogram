@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from .bot_access_settings import BotAccessSettings
 from .bot_command import BotCommand
 from .bot_command_scope import BotCommandScope
 from .bot_command_scope_all_chat_administrators import BotCommandScopeAllChatAdministrators
@@ -47,6 +48,7 @@ from .pre_checkout_query import PreCheckoutQuery
 from .purchased_paid_media import PurchasedPaidMedia
 from .reply_keyboard_markup import ReplyKeyboardMarkup
 from .reply_keyboard_remove import ReplyKeyboardRemove
+from .sent_guest_message import SentGuestMessage
 from .keyboard_button_request_chat import KeyboardButtonRequestChat
 from .keyboard_button_request_managed_bot import KeyboardButtonRequestManagedBot
 from .prepared_keyboard_button import PreparedKeyboardButton
@@ -61,6 +63,7 @@ from .shipping_address import ShippingAddress
 from .web_app_info import WebAppInfo
 
 __all__ = [
+    "BotAccessSettings",
     "CallbackGame",
     "CallbackQuery",
     "ChatBoostUpdated",
@@ -71,6 +74,7 @@ __all__ = [
     "KeyboardButton",
     "ReplyKeyboardMarkup",
     "ReplyKeyboardRemove",
+    "SentGuestMessage",
     "KeyboardButtonRequestChat",
     "KeyboardButtonRequestManagedBot",
     "PreparedKeyboardButton",
